@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import AppNavigator from "./src/navigation/AppNavigator";
 import MettingScheduleScreen from "./src/screens/mettingScheduleScreen/MettingScheduleScreen";
 import ListDaiBieuScreen from "./src/screens/listDaiBieu/ListDaiBieuScreen";
+import HomeScreen from "./src/screens/home/HomeScreen";
 
 const App = () => {
 
@@ -13,7 +14,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <ListDaiBieuScreen />
+          <HomeScreen />
         </NavigationContainer>
       </PersistGate>
     </Provider>
