@@ -1,22 +1,20 @@
 import * as React from "react"
-import Svg, {  Path } from "react-native-svg"
+import Svg, { SvgProps, Path } from "react-native-svg"
 
-const IconFlag = () => (
+const IconArrowDown = (props) => (
   <Svg
-    width={15}
-    height={16}
-    fill="none"
+    width={30}
+    height={30}
+    viewBox="0 -4.5 20 20"
     xmlns="http://www.w3.org/2000/svg"
 
   >
     <Path
-      d="M2.5 9.875S3.125 9.25 5 9.25s3.125 1.25 5 1.25 2.5-.625 2.5-.625v-7.5S11.875 3 10 3 6.875 1.75 5 1.75s-2.5.625-2.5.625v7.5ZM2.5 14.25V9.875"
-      stroke="#292A2D"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M.292.366c-.39.405-.39 1.06 0 1.464l8.264 8.563c.78.81 2.047.81 2.827 0l8.325-8.625c.385-.4.39-1.048.01-1.454a.976.976 0 0 0-1.425-.011l-7.617 7.893a.975.975 0 0 1-1.414 0L1.705.366a.974.974 0 0 0-1.413 0"
+      fill="#000"
+      fillRule="evenodd"
     />
   </Svg>
 )
 
-export default IconFlag
+export default IconArrowDown

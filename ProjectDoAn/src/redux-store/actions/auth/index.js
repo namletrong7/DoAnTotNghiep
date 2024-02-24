@@ -47,9 +47,17 @@ export function actionLogout(baseURL,body) {
         }))
     };
 }
-
+export function actionAddComment(comment) {
+    return async (dispatch, getState) => {
+     await   dispatch({
+            type: "ADD_COMMENT",
+            comment: comment,
+        });
+    };
+}
 export default {
     getTemPlate,
     actionLogin,
     actionLogout,
+    actionAddComment
 };

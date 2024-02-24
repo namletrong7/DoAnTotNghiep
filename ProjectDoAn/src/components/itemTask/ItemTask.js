@@ -47,7 +47,8 @@ const ItemTask = (props) => {
           source={{
             uri: props.item.avatarAssignUser
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.stretch}
+
         />
         <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:12,}}>{props.item.assignFullName}</Text>
       </View>
