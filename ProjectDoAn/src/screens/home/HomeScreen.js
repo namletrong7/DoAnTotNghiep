@@ -124,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={{backgroundColor:"#F0F0F0"}}>
             <FlatList
               data={fakeDataListTask}
-              renderItem={({item}) => <ItemTask item={item} />}
+              renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}
               keyExtractor={item => item.taskId}
             />
         </View>

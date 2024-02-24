@@ -20,6 +20,7 @@ import AppNavigator from "../../navigation/AppNavigator";
 import IconFlag from "../../assets/icons/IconArrowDown";
 import FastImage from 'react-native-fast-image'
 import { getColorBackgroundPriority, getColorPriority, getValuePriority } from "../../utils/GetPriority";
+import IconCalendar from "../../assets/icons/IconCalendar";
 
 
 const ItemTask = (props) => {
@@ -32,11 +33,14 @@ const ItemTask = (props) => {
               </View>
         )
   };
+  function gotoDetailScreen (){
+    props.navigation.navigate('DetailTaskScreen');
+  }
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen()}}>
       <View style={{flexDirection:'row'}}>
          <View style={styles.containerEndDay}>
-             <IconFlag/>
+             <IconCalendar/>
              <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.endDay}</Text>
          </View>
         {RenderPriority()}
@@ -65,7 +69,7 @@ const ItemTask = (props) => {
           <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:4,marginLeft:10}} numberOfLines={2}>{props.item.progress+"%"}</Text>
       </View>
 
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

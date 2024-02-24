@@ -21,7 +21,7 @@ import IconPhone from "../../assets/icons/IconPhone";
 import IconMail from "../../assets/icons/IconMail";
 import Toast from "react-native-toast-message";
 
-const ProFileUser = ({ navigation }) => {
+const ProFileUserScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const widthScreen = Dimensions.get('window').width
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ProFileUser;
+export default ProFileUserScreen;

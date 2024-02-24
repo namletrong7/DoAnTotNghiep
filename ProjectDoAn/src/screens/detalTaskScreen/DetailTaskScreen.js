@@ -2,7 +2,7 @@
  * Màn hình chi tiết công việc
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -29,11 +29,13 @@ const DetailTaskScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const listComment = useSelector(state => state.auth.listComment);
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
-
-
+  const [edtComment, setEdtComment] = useState(""); // nội dung bình luận của bạn
   // Lấy thông tin kích thước của màn hình
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
+  useEffect(() => {
+    console.log("màn hình chi tiết công viecj bị render lại");
+  }, []);
   var dataDetailTask = {
     "taskId":1,
     "status":1,
@@ -120,6 +122,25 @@ const DetailTaskScreen = ({ navigation }) => {
 
     ],
   }
+ const sentComment = async () => {
+    try {
+      const comment = {
+        commentId: Math.random().toString(36).substr(2, 9),
+        userId: "1",
+        avatarUser: "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg",
+        fullName: "Vũ đình tuán anh",
+        content: edtComment,
+        createdDate: "10/1/2023"
+      };
+
+      // Dispatch the actionAddComment action
+      await dispatch(actionAddComment(comment))
+      // Reset the edtComment state
+     setEdtComment('')
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  };
   var mang =[]
   return (
     <View>
@@ -208,7 +229,30 @@ const DetailTaskScreen = ({ navigation }) => {
         </View>
 
       </ScrollView>
+      <View style={{
+        marginTop: 100,
+        flexDirection: "row",
+        borderRadius: 15,
+        backgroundColor: "#DDDDDD",
+        position:"absolute",
+        flex: 1,
+        bottom: 0,
+        left: 0,/* hoặc có thể sử dụng right: 0 để nằm ở góc phải */
+        paddingVertical: 5
+      }}>
 
+        <View style={{ flexDirection: "row", borderRadius: 15, flex: 0.97 }}>
+          <TextInput
+            style={{ color: 'black', fontSize: 17, fontFamily: "OpenSans-Regular", flex: 1 }}
+            placeholder="Nhập bình luận của bạn"
+            value={edtComment}
+            onChangeText={(text) => {setEdtComment(text)}}
+          />
+        </View>
+        <TouchableOpacity onPress={()=>{sentComment()}}>
+          <IconSend />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

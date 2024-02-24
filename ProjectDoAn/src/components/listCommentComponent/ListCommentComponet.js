@@ -30,11 +30,12 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
         seeAll:true , // biến xác định có nen xem toàn bọ comment hay ko
       };
     }
+  componentDidMount() {// hàm thực hiện sau mỗi lần render
+      console.log("Đã render lại componet listComment")
+  }
 
 
-
-
-  // hành dộng nhấn vào nút để gửi comment
+    // hành dộng nhấn vào nút để gửi comment
 
     sentComment = async () => {
       try {
@@ -75,6 +76,14 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
             <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-SemiBold"}}>{props.item.createdDate}</Text>
           </View>
           <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.content}</Text>
+          <FastImage
+            style={{ width: 70, height: 100,borderRadius: 15 ,overflow: "hidden"}}
+            source={{
+              uri: props.item.avatarUser
+            }}
+            resizeMode={FastImage.resizeMode.stretch}
+
+          />
         </View>
 
       </View>
@@ -98,29 +107,7 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
                  numberOfLines={10}>{"Không có bình luận nào cho công việc này"}</Text>
          :null}
-         <View style={{
-           marginTop: 20,
-           flexDirection: "row",
-           borderRadius: 15,
-           backgroundColor: "#DDDDDD",
-           flex: 1,
-           paddingVertical: 5
-         }}>
 
-           <View style={{ flexDirection: "row", borderRadius: 15, flex: 0.97 }}>
-             <TextInput
-               style={{ color: 'black', fontSize: 17, fontFamily: "OpenSans-Regular", flex: 1 }}
-               placeholder="Nhập bình luận của bạn"
-               onChangeText={(value) =>  this.setState({edtComment:value})}
-               value={this.state.edtComment}
-             />
-           </View>
-           <TouchableOpacity onPress={() => {
-             this.sentComment()
-           }}>
-             <IconSend />
-           </TouchableOpacity>
-         </View>
 
        </View>
      )
@@ -130,6 +117,7 @@ const styles = StyleSheet.create({
   container: {
     display:"flex",
     marginTop: 20,
+    marginBottom:100
   },
 
 });
