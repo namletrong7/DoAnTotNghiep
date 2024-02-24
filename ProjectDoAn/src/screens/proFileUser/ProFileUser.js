@@ -54,7 +54,7 @@ const ProFileUser = ({ navigation }) => {
   const RenderContactIcon = () =>{
     return(
       <View style={{flexDirection:"row",marginTop:20,marginBottom:40,alignSelf:"center",justifyContent:"space-around"}}>
-        <TouchableOpacity style={{marginRight:40, backgroundColor:"red"}}>
+        <TouchableOpacity style={{marginRight:40}}>
           <IconMessage/>
         </TouchableOpacity>
         <View style={{marginRight:40}}>
