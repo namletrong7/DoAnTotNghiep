@@ -20,6 +20,7 @@ import AppNavigator from "../../navigation/AppNavigator";
 import IconFlag from "../../assets/icons/IconArrowDown";
 import FastImage from 'react-native-fast-image'
 import { getColorBackgroundPriority, getColorPriority, getValuePriority } from "../../utils/GetPriority";
+import IconCalendar from "../../assets/icons/IconCalendar";
 
 
 const ItemTask = (props) => {
@@ -32,22 +33,26 @@ const ItemTask = (props) => {
               </View>
         )
   };
+  function gotoDetailScreen (){
+    props.navigation.navigate('Detail');
+  }
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen()}}>
       <View style={{flexDirection:'row'}}>
          <View style={styles.containerEndDay}>
-             <IconFlag/>
+             <IconCalendar/>
              <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.endDay}</Text>
          </View>
         {RenderPriority()}
       </View>
-      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,maxWidth:"50%"}}>
+      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,width:"60%"}}>
         <FastImage
           style={{ width: 24, height: 24,borderRadius: 24/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
           source={{
             uri: props.item.avatarAssignUser
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.stretch}
+
         />
         <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:12,}}>{props.item.assignFullName}</Text>
       </View>
@@ -64,7 +69,7 @@ const ItemTask = (props) => {
           <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:4,marginLeft:10}} numberOfLines={2}>{props.item.progress+"%"}</Text>
       </View>
 
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

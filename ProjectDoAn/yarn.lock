@@ -1732,6 +1732,11 @@
   resolved "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-11.3.0.tgz"
   integrity sha512-mR9iqUi0GzuC8ut+goI/lLkgG+a2OViI1mjSdXHKZnkfdJVjHblyWX3xoA8GE4GH8X4r0X/PNM3Vvyf2FH9mVg==
 
+"@react-native-masked-view/masked-view@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/@react-native-masked-view/masked-view/-/masked-view-0.3.1.tgz"
+  integrity sha512-uVm8U6nwFIlUd1iDIB5cS+lDadApKR+l8k4k84d9hn+GN4lzAIJhUZ9syYX7c022MxNgAlbxoFLt0pqKoyaAGg==
+
 "@react-native/assets-registry@0.73.1":
   version "0.73.1"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.73.1.tgz"
@@ -6319,6 +6324,13 @@ react-native-circular-progress-indicator@^4.4.2:
   dependencies:
     react-native-redash "*"
 
+react-native-document-picker@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.npmjs.org/react-native-document-picker/-/react-native-document-picker-9.1.1.tgz"
+  integrity sha512-BW+7DbsILuFThlBm7NUFVUmKKf6Awkcf9R0q8wiCU2DlGGtAKQTt2iHpO5+Dn/7WMPB+rqNv3X1HsmJQ0t5R3g==
+  dependencies:
+    invariant "^2.2.4"
+
 react-native-dropdown-picker@^5.4.6:
   version "5.4.6"
   resolved "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.6.tgz"
@@ -6353,6 +6365,11 @@ react-native-gesture-handler@*, react-native-gesture-handler@^2.14.0, "react-nat
     invariant "^2.2.4"
     lodash "^4.17.21"
     prop-types "^15.7.2"
+
+react-native-linear-gradient@^2.8.3:
+  version "2.8.3"
+  resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz"
+  integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
 
 react-native-modal@^13.0.1:
   version "13.0.1"
@@ -6437,6 +6454,11 @@ react-native-svg@^14.1.0, react-native-svg@>=12.1.1:
     css-select "^5.1.0"
     css-tree "^1.1.3"
 
+react-native-toast-message@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/react-native-toast-message/-/react-native-toast-message-2.2.0.tgz"
+  integrity sha512-AFti8VzUk6JvyGAlLm9/BknTNDXrrhqnUk7ak/pM7uCTxDPveAu2ekszU0on6vnUPFnG04H/QfYE2IlETqeaWw==
+
 react-native-vector-icons@^10.0.3, react-native-vector-icons@>7.0.0:
   version "10.0.3"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.0.3.tgz"
@@ -6450,7 +6472,7 @@ react-native-virtualized-view@^1.0.0:
   resolved "https://registry.npmjs.org/react-native-virtualized-view/-/react-native-virtualized-view-1.0.0.tgz"
   integrity sha512-7YyFMMkNzJ787/giGkKcm0JEx0IcLEE/XHREGz2I4K1RISQGFjEDe6iWsapOnHSR/e1vhebZJ8VmqhSpg5YPzg==
 
-react-native@*, react-native@^*, "react-native@^0.0.0-0 || >=0.60 <1.0", react-native@>=0.50.0, react-native@>=0.59, react-native@>=0.59.0, react-native@>=0.60.0, react-native@>=0.64, react-native@>=0.65.0, react-native@>=0.69, react-native@0.73.4:
+react-native@*, react-native@^*, "react-native@^0.0.0-0 || >=0.60 <1.0", react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59, react-native@>=0.59.0, react-native@>=0.60.0, react-native@>=0.64, react-native@>=0.65.0, react-native@>=0.69, react-native@0.73.4:
   version "0.73.4"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.73.4.tgz"
   integrity sha512-VtS+Yr6OOTIuJGDECIYWzNU8QpJjASQYvMtfa/Hvm/2/h5GdB6W9H9TOmh13x07Lj4AOhNMx3XSsz6TdrO4jIg==
@@ -6532,7 +6554,7 @@ react-test-renderer@18.2.0:
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
 
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", react@^18.0, react@^18.0.0, react@^18.2.0, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@>=18.0, react@18.2.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", react@^18.0, react@^18.0.0, react@^18.2.0, react@>=16, react@>=16.8, react@>=16.8.0, react@>=17.0.0, react@>=18.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

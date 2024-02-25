@@ -47,9 +47,34 @@ export function actionLogout(baseURL,body) {
         }))
     };
 }
-
+export function actionAddComment(comment) {
+    return async (dispatch, getState) => {
+     await   dispatch({
+            type: "ADD_COMMENT",
+            comment: comment,
+        });
+    };
+}
+export function actionLoadMoreComment() {
+    const comment = {
+        commentId: Math.random().toString(36).substr(2, 9),
+        userId: "1",
+        avatarUser: "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg",
+        fullName: "Vũ đình tuán anh",
+        content: "jregjbvvvv",
+        createdDate: "10/1/2023"
+    };
+    return async (dispatch, getState) => {
+        await   dispatch({
+            type: "LOAD_COMMENT",
+            comment: comment,
+        });
+    };
+}
 export default {
     getTemPlate,
     actionLogin,
     actionLogout,
+    actionAddComment,
+    actionLoadMoreComment
 };

@@ -3,10 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from 'react-redux';
 import { store, persistor } from "./src/redux-store/reducers";
 import { PersistGate } from "redux-persist/integration/react";
-import AppNavigator from "./src/navigation/AppNavigator";
-import MettingScheduleScreen from "./src/screens/mettingScheduleScreen/MettingScheduleScreen";
-import ListDaiBieuScreen from "./src/screens/listDaiBieu/ListDaiBieuScreen";
-import HomeScreen from "./src/screens/home/HomeScreen";
+import HomeNavigator from "./src/navigation/HomeNavigator";
+
+
 
 const App = () => {
 
@@ -14,7 +13,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <HomeScreen />
+          <HomeNavigator />
         </NavigationContainer>
       </PersistGate>
     </Provider>

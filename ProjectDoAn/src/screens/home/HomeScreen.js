@@ -11,7 +11,6 @@ import {
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
-import TabBarScreen from "../tabbar/TabBarScreen";
 import { ScrollView } from "react-native-virtualized-view";
 
 import ItemTask from "../../components/itemTask/ItemTask";
@@ -125,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={{backgroundColor:"#F0F0F0"}}>
             <FlatList
               data={fakeDataListTask}
-              renderItem={({item}) => <ItemTask item={item} />}
+              renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}
               keyExtractor={item => item.taskId}
             />
         </View>
