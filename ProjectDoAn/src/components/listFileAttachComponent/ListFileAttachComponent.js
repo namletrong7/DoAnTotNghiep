@@ -30,6 +30,7 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
  export  const ListFileAttachComponent =React.memo((props) => {
   const [seeAll, setSeeAll] = useState(true); // xem có nên xem hết file hay không
   console.log("redner lại list file ");
+  console.log(props);
   useEffect(() => {
     console.log("did mout lại list file");
   }, []);

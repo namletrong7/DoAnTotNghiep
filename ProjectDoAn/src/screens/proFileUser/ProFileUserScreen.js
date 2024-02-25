@@ -20,6 +20,7 @@ import IconMessage from "../../assets/icons/IconMessage";
 import IconPhone from "../../assets/icons/IconPhone";
 import IconMail from "../../assets/icons/IconMail";
 import Toast from "react-native-toast-message";
+import FlashMessage from "react-native-flash-message";
 
 const ProFileUserScreen = ({ navigation }) => {
 
@@ -47,7 +48,7 @@ const ProFileUserScreen = ({ navigation }) => {
       <View style={{flexDirection:"row",alignItems:"center",marginTop:10,flex:1}}>
           <View style={{width:14, height:14, borderRadius:14/2, backgroundColor:"#3366CC",marginLeft:10}}/>
           <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10,flex:0.4}}>{props?.title || "số điện thoại"}</Text>
-          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:40,flex:0.6}}>{props?.content ||"0337356550"}</Text>
+          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:4,flex:0.6}}>{props?.content ||"0337356550"}</Text>
       </View>
     )
    }
@@ -69,6 +70,7 @@ const ProFileUserScreen = ({ navigation }) => {
 
   return (
     <View style={{backgroundColor:"#F0F0F0",flex:1}}>
+      <FlashMessage position={"top"}  />
       <ScrollView contentContainerStyle={{marginHorizontal:20,marginTop:20}}>
         <View >
 
