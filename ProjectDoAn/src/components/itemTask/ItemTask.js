@@ -34,7 +34,7 @@ const ItemTask = (props) => {
         )
   };
   function gotoDetailScreen (){
-    props.navigation.navigate('DetailTaskScreen');
+    props.navigation.navigate('Detail');
   }
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen()}}>
@@ -45,7 +45,7 @@ const ItemTask = (props) => {
          </View>
         {RenderPriority()}
       </View>
-      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,maxWidth:"50%"}}>
+      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,width:"60%"}}>
         <FastImage
           style={{ width: 24, height: 24,borderRadius: 24/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
           source={{

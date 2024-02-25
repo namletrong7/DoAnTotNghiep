@@ -2,7 +2,7 @@
  * Componet hiển thị danh sách file đính kèm của 1 công việc nhiệm vụ được giao
  */
 
-import React, {useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -27,8 +27,12 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 
 
-const ListFileAttachComponent = (props) => {
+ export  const ListFileAttachComponent =React.memo((props) => {
   const [seeAll, setSeeAll] = useState(true); // xem có nên xem hết file hay không
+  console.log("redner lại list file ");
+  useEffect(() => {
+    console.log("did mout lại list file");
+  }, []);
   const RenderIcon = (props) => {
     var Extension =  props.extension.toLowerCase()
     if(Extension==='pdf'){
@@ -86,7 +90,8 @@ const ListFileAttachComponent = (props) => {
 
     </View>
   );
-};
+}
+)
 const styles = StyleSheet.create({
   container: {
     display:"flex",
@@ -95,4 +100,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ListFileAttachComponent;
+// export default React.memo(ListFileAttachComponent);

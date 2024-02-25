@@ -11,9 +11,9 @@ const HomeNavigator = () => {
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="DetailTaskScreen" component={DetailTaskScreen} />
-      <Stack.Screen name="ProFileUserScreen" component={ProFileUserScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Detail" component={DetailTaskScreen} />
+      <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
     </Stack.Navigator>
   )
 }

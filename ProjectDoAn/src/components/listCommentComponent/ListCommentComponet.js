@@ -18,7 +18,7 @@ import {
 import FastImage from 'react-native-fast-image'
 import IconSend from "../../assets/icons/IconSend";
 
-import { actionAddComment } from "../../redux-store/actions/auth";
+import { actionAddComment, actionLoadMoreComment } from "../../redux-store/actions/auth";
 import { connect, useDispatch } from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
@@ -26,37 +26,27 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
     constructor(props) {
       super(props);
       this.state = {
+        see:true,
         edtComment:"", // nội dung của ô nhập comment
-        seeAll:true , // biến xác định có nen xem toàn bọ comment hay ko
       };
     }
   componentDidMount() {// hàm thực hiện sau mỗi lần render
-      console.log("Đã render lại componet listComment")
+      console.log("did moutn lại list comment")
   }
 
+    // hành động khi lướt xuống dưới cung list thì load thêm comment
+    loadMoreComment = async () => {
 
-    // hành dộng nhấn vào nút để gửi comment
-
-    sentComment = async () => {
       try {
-        const comment = {
-          commentId: Math.random().toString(36).substr(2, 9),
-          userId: "1",
-          avatarUser: "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg",
-          fullName: "Vũ đình tuán anh",
-          content: this.state.edtComment,
-          createdDate: "10/1/2023"
-        };
 
         // Dispatch the actionAddComment action
-        await this.props.actionAddComment(comment);
-
-        // Reset the edtComment state
-        this.setState({ edtComment: '' });
+        await this.props.actionLoadMoreComment();
       } catch (error) {
         console.error('Error adding comment:', error);
       }
-    };
+    }
+
+
     RenderItemComment = (props) => {
     return(
       <View style={{marginTop: 20,flexDirection:"row",flex:1,}}>
@@ -92,23 +82,23 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
    render() {
      return (
        <View style={styles.container}>
-         <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {this.setState({seeAll:!this.state.seeAll})} }>
+         <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {this.setState({see:!this.state.see})} }>
            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Bình luận"}</Text>
            <View>
-             {this.state.seeAll? <IconArrowDown/>:<IconArrowUp/>}
+             {this.state.see? <IconArrowDown/>:<IconArrowUp/>}
            </View>
          </TouchableOpacity>
-         {this.state.seeAll?
-         this.props?.data?.length > 0 ? <FlatList
-             data={this.props.data}
+         {this.state.see?
+         this.props?.listComment?.length > 0 ? <FlatList
+             data={this.props.listComment}
+             ref={this.flatListRef}
              renderItem={this.RenderItemComment}
              keyExtractor={item => item.commentId}
+             onEndReached={this.loadMoreComment}
            /> :
            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
                  numberOfLines={10}>{"Không có bình luận nào cho công việc này"}</Text>
          :null}
-
-
        </View>
      )
    }
@@ -117,18 +107,21 @@ const styles = StyleSheet.create({
   container: {
     display:"flex",
     marginTop: 20,
-    marginBottom:100
+    marginBottom:100,
   },
 
 });
 function mapStateToProps(state) {
   return {
+    listComment: state.auth.listComment,
+
   };
 }
 // Connect your component to Redux and provide actionAddComment
 const mapDispatchToProps = (dispatch) => {
   return {
-    actionAddComment: (comment) => dispatch(actionAddComment(comment))
+    actionAddComment: (comment) => dispatch(actionAddComment(comment)),
+    actionLoadMoreComment: () => dispatch(actionLoadMoreComment())
   };
 };
 export default connect(
