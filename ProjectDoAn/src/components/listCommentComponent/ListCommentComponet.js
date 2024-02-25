@@ -22,6 +22,8 @@ import { actionAddComment, actionLoadMoreComment } from "../../redux-store/actio
 import { connect, useDispatch } from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
+import { ShimmerEffectCommentComponent } from "../shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
+import FlashMessage from "react-native-flash-message";
   class ListCommentComponent extends Component {
     constructor(props) {
       super(props);
@@ -30,8 +32,9 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
         edtComment:"", // nội dung của ô nhập comment
       };
     }
+
   componentDidMount() {// hàm thực hiện sau mỗi lần render
-      console.log("did moutn lại list comment")
+      console.log("render lại list comment")
   }
 
     // hành động khi lướt xuống dưới cung list thì load thêm comment
@@ -94,11 +97,13 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
              ref={this.flatListRef}
              renderItem={this.RenderItemComment}
              keyExtractor={item => item.commentId}
-             onEndReached={this.loadMoreComment}
+        //    onEndReached={this.loadMoreComment}
            /> :
            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
                  numberOfLines={10}>{"Không có bình luận nào cho công việc này"}</Text>
          :null}
+         <ShimmerEffectCommentComponent/>
+
        </View>
      )
    }

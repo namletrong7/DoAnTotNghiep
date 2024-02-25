@@ -1,5 +1,6 @@
 import Api from "../../../api/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { showMessage } from "react-native-flash-message";
 
 /**
  * Created by NamLTC on 29/01/2024
@@ -48,6 +49,12 @@ export function actionLogout(baseURL,body) {
     };
 }
 export function actionAddComment(comment) {
+    showMessage({
+        message: "Thêm comment thành công",
+        type: "success",
+        duration: 1000,
+        icon: { icon: "success", position: 'left' }
+    });
     return async (dispatch, getState) => {
      await   dispatch({
             type: "ADD_COMMENT",

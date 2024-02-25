@@ -2,7 +2,7 @@
  * Màn hình chi tiết công việc
  */
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -18,17 +18,21 @@ import HeaderComponent from "../../components/header/HeaderComponent";
 import { ScrollView } from "react-native-virtualized-view";
 import { getColorBackgroundPriority, getColorPriority, getValuePriority } from "../../utils/GetPriority";
 import ListCommentComponet from "../../components/listCommentComponent/ListCommentComponet";
-import IconSend from "../../assets/icons/IconSend";
 import FastImage from "react-native-fast-image";
 import IconCalendar from "../../assets/icons/IconCalendar";
 import SendCommentComponent from "../../components/sendComentComponet/SendCommentComponent";
 import { ListFileAttachComponent } from "../../components/listFileAttachComponent/ListFileAttachComponent";
+import FlashMessage, { showMessage } from "react-native-flash-message"
+import ModalComponent from "../../components/changeConentComponent/ModalChangeContent";
 
 
-const DetailTaskScreen = ({ navigation }) => {
+
+
+export const DetailTaskScreen = React.memo(({navigation})=>{
 
   const dispatch = useDispatch();
   // const listComment = useSelector(state => state.auth.listComment);
+  const [visible, setVisible] = useState(true);
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
   const [edtComment, setEdtComment] = useState(""); // nội dung bình luận của bạn
   // Lấy thông tin kích thước của màn hình
@@ -36,6 +40,15 @@ const DetailTaskScreen = ({ navigation }) => {
   var toan =1 ;
 
     console.log("render lại màn hình detail task");
+
+    const toastMessage= () =>{
+    showMessage({
+      message: "Bạn đã nhập đúng thông tin",
+      type: "success",
+      duration: 1000,
+      icon: { icon: "warning", position: 'left' }
+    });
+  }
   const dataDetailTask = useMemo(()=>{
     return{
       "taskId":1,
@@ -126,6 +139,7 @@ const DetailTaskScreen = ({ navigation }) => {
   },[])
   return (
     <View>
+      <FlashMessage position={"top"}  />
       <ScrollView contentContainerStyle={{ backgroundColor: "#F0F0F0"}}>
         <View style={{marginHorizontal:15,flex:1}}>
 
@@ -212,9 +226,10 @@ const DetailTaskScreen = ({ navigation }) => {
 
       </ScrollView>
         <SendCommentComponent/>
+      <ModalComponent visible={visible}  />
     </View>
   );
-};
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -222,4 +237,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailTaskScreen;
+// export default React.memo(DetailTaskScreen);
