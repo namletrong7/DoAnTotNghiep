@@ -41,7 +41,7 @@ const ItemTask = (props) => {
       <View style={{flexDirection:'row'}}>
          <View style={styles.containerEndDay}>
              <IconCalendar/>
-             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.endDay}</Text>
+             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props.item.endDay}</Text>
          </View>
         {RenderPriority()}
       </View>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
       backgroundColor:"#F0F0F0",
       borderRadius:15,
       padding: 8,
-      width:"35%",
+      width:"40%",
       justifyContent:"space-around",
       alignItems:"center"
   },
