@@ -19,7 +19,7 @@ import FastImage from 'react-native-fast-image'
 import IconSend from "../../assets/icons/IconSend";
 
 import { actionAddComment, actionLoadMoreComment } from "../../redux-store/actions/auth";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import { ShimmerEffectCommentComponent } from "../shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
@@ -92,8 +92,8 @@ import FlashMessage from "react-native-flash-message";
            </View>
          </TouchableOpacity>
          {this.state.see?
-         this.props?.listComment?.length > 0 ? <FlatList
-             data={this.props.listComment}
+         this.props?.listCommentTask?.length > 0 ? <FlatList
+             data={this.props.listCommentTask}
              ref={this.flatListRef}
              renderItem={this.RenderItemComment}
              keyExtractor={item => item.commentId}
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     listComment: state.auth.listComment,
+    listCommentTask: state.auth.dataDetailTask?.commentTask||[],
 
   };
 }

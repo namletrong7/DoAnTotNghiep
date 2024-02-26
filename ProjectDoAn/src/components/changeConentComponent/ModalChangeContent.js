@@ -5,8 +5,9 @@ import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
-const ModalChaneConent = ({ visible, onClose }) => {
+const ModalChaneConent = ({ visible, onClose,onEdit }) => {
   const  [content , setContent] = useState('');
+  console.log("render lại modal")
   return (
     <Modal
       animationType="slide"
@@ -33,7 +34,7 @@ const ModalChaneConent = ({ visible, onClose }) => {
                   <Text style={{fontSize:16, color:"white",fontFamily:"OpenSans-SemiBold"}}>{"Hủy"}</Text>
                 </TouchableOpacity>
             <View style={{height:50,width:1, backgroundColor:"#0033FF"}}/>
-            <TouchableOpacity style={{flex:0.5,alignItems:"center",backgroundColor:"#99FFFF",height:'100%',justifyContent:"center",borderBottomRightRadius:10}}>
+            <TouchableOpacity onPress={()=>{onEdit(content)} } style={{flex:0.5,alignItems:"center",backgroundColor:"#99FFFF",height:'100%',justifyContent:"center",borderBottomRightRadius:10}}>
               <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-SemiBold"}}>{"Chỉnh sửa"}</Text>
             </TouchableOpacity>
           </View>
