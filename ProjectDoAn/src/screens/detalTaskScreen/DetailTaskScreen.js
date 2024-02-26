@@ -10,12 +10,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, TextInput,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, TextInput, ScrollView, KeyboardAvoidingView,
 } from "react-native";
 import { actionAddComment, actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
-import { ScrollView } from "react-native-virtualized-view";
 import { getColorBackgroundPriority, getColorPriority, getValuePriority } from "../../utils/GetPriority";
 import ListCommentComponet from "../../components/listCommentComponent/ListCommentComponet";
 import FastImage from "react-native-fast-image";
@@ -24,7 +23,9 @@ import SendCommentComponent from "../../components/sendComentComponet/SendCommen
 import { ListFileAttachComponent } from "../../components/listFileAttachComponent/ListFileAttachComponent";
 import FlashMessage, { showMessage } from "react-native-flash-message"
 import ModalComponent from "../../components/changeConentComponent/ModalChangeContent";
-
+import ModalChaneConent from "../../components/changeConentComponent/ModalChangeContent";
+import IconEdit from "../../assets/icons/IconEdit";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 
@@ -32,11 +33,11 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
 
   const dispatch = useDispatch();
   // const listComment = useSelector(state => state.auth.listComment);
-  const [visible, setVisible] = useState(true);
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
   const [edtComment, setEdtComment] = useState(""); // nội dung bình luận của bạn
   // Lấy thông tin kích thước của màn hình
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+  const [isShowChangeConent, setIsShowChangeConent] = useState(true); // hiển thị dialog chỉnh sửa thông tin
   var toan =1 ;
 
     console.log("render lại màn hình detail task");
@@ -57,7 +58,7 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
       "assignUser":1,
       "targetUser":1,
       "priority":2,
-      "progress":80,
+      "progress":30,
       "title":"Nội dung của tiêu đè nhiệm vụ",
       "content":"Theo đó, loạt biện pháp được đưa ra ngày 23/2 sẽ nhắm vào những cá nhân có liên quan đến việc bắt Navalny tại Nga cũng như lĩnh vực tài chính, cơ sở công nghiệp quốc phòng, mạng lưới mua sắm Nga và những thực thể trốn tránh lệnh trừng phạt trên nhiều châu lục.\n" +
         "\n" +
@@ -140,8 +141,11 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
   return (
     <View>
       <FlashMessage position={"top"}  />
-      <ScrollView contentContainerStyle={{ backgroundColor: "#F0F0F0"}}>
-        <View style={{marginHorizontal:15,flex:1}}>
+      <KeyboardAwareScrollView
+        extraScrollHeight={100}
+        style={{paddingHorizontal:15}}
+        keyboardShouldPersistTaps="handled"
+        keyboardVerticalOffset={100}>
 
           <View style={{marginTop:15}}>
             <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{dataDetailTask.title}</Text>
@@ -161,7 +165,10 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
             </View>
 
             <View style={{flexDirection:"column", justifyContent:"flex-start"}}>
-              <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular"}}>{"Ngày kết thúc"}</Text>
+              <TouchableOpacity style={{flexDirection:"row", justifyContent:"center"}}>
+                <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày kết thúc"}</Text>
+                <IconEdit/>
+              </TouchableOpacity>
               <View style={{flexDirection:"row",alignItems:"center",marginTop:10}}>
                 <IconCalendar/>
                 <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{dataDetailTask.endDay}</Text>
@@ -174,7 +181,10 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
           <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:10,flex:1}}>
 
             <View style={{flexDirection:"column", justifyContent:"flex-start",flex:0.5}}>
+              <TouchableOpacity style={{flexDirection:"row", justifyContent:"center"}}>
               <Text style={{fontSize:15, color:"#3366FF",fontFamily:"OpenSans-Regular"}}>{"Người giao việc:"}</Text>
+                <IconEdit/>
+              </TouchableOpacity>
               <View style={{flexDirection:"row",alignItems:"center",marginTop:10}}>
                 <FastImage
                   style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
@@ -189,7 +199,10 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
             </View>
 
             <View style={{flexDirection:"column", justifyContent:"flex-start",flex:0.5}}>
-              <Text style={{fontSize:15, color:"#00EE00",fontFamily:"OpenSans-Regular"}}>{"Người xử lý:"}</Text>
+              <TouchableOpacity style={{flexDirection:"row", justifyContent:"center"}}>
+                <Text style={{fontSize:15, color:"#00FF00",fontFamily:"OpenSans-Regular"}}>{"Người xử lý:"}</Text>
+                <IconEdit/>
+              </TouchableOpacity>
               <View style={{flexDirection:"row",alignItems:"center",marginTop:10}}>
                 <FastImage
                   style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
@@ -204,29 +217,32 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
             </View>
           </View>
 
+          <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
+            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
+            <IconEdit/>
+          </TouchableOpacity>
 
-          <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginTop:15}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
           <View style={{flexDirection:"row",marginTop:0,alignSelf:"center",justifyContent:"center"}}>
             <View style={{marginTop:20,backgroundColor:"#CCCCCC",height:10, borderRadius:50,width:screenWidth * 0.8}}>
-              <View style={{flex:1,backgroundColor:"#4577ef",borderRadius:50,width:"50%"}}></View>
+              <View style={{flex:1,backgroundColor:"#4577ef",borderRadius:50,width:dataDetailTask.progress+"%"}}></View>
             </View>
             <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:9,marginLeft:10,alignSelf:"center"}} numberOfLines={2}>{dataDetailTask.progress+"%"}</Text>
           </View>
-          <View style={{marginTop:20}}>
+          <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
+            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
+            <IconEdit/>
+          </TouchableOpacity>
+          <View style={{marginTop:10}}>
           <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-Regular"}} numberOfLines={redMoreContent?null:6}>{dataDetailTask.content}</Text>
         </View>
-
           <TouchableOpacity style={{marginTop:2}} onPress={() =>{setRedMoreContent(!redMoreContent)}}>
             <Text style={{fontSize:13, color:"#33CCFF",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{redMoreContent?"Rút gọn..":"Đọc thêm..."}</Text>
          </TouchableOpacity>
           <ListFileAttachComponent data = {dataDetailTask.fileAttach}/>
           <ListCommentComponet/>
-
-        </View>
-
-      </ScrollView>
+      </KeyboardAwareScrollView>
         <SendCommentComponent/>
-      <ModalComponent visible={visible}  />
+        <ModalChaneConent visible={false} onClose = {()=>{setIsShowChangeConent(false)}}  />
     </View>
   );
 })
@@ -237,4 +253,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default React.memo(DetailTaskScreen);
+

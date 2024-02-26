@@ -6,12 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList,ScrollView
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
-import { ScrollView } from "react-native-virtualized-view";
 
 import ItemTask from "../../components/itemTask/ItemTask";
 import FastImage from "react-native-fast-image";

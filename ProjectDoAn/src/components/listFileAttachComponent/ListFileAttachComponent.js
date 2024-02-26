@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
-  SafeAreaView,
+  SafeAreaView, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -25,6 +25,7 @@ import IconFile from "../../assets/icons/IconFile";
 import IconDownLoad from "../../assets/icons/IconDownLoad";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
+import { ShimmerEffectCommentComponent } from "../shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
 
 
  export  const ListFileAttachComponent =React.memo((props) => {
@@ -83,6 +84,7 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
       {seeAll?(
         props?.data?.length>0?  <FlatList
             data={props.data}
+            scrollEnabled={false}
             renderItem={({item}) => <RenderItemFile item={item} />}
             keyExtractor={item => item.fileId}
           />:

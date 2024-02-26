@@ -97,6 +97,7 @@ import FlashMessage from "react-native-flash-message";
              ref={this.flatListRef}
              renderItem={this.RenderItemComment}
              keyExtractor={item => item.commentId}
+             scrollEnabled={false}
         //    onEndReached={this.loadMoreComment}
            /> :
            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
