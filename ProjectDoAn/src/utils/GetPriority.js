@@ -12,3 +12,8 @@ export  function getColorPriority(Priority){
 export  function getColorBackgroundPriority(Priority){
   return Priority?colorBackgroundPriority[Priority]:"#d4eacc";
 }
+// render ra state cua nhiệm vụ bao
+var stateList = ["Cần làm","Đang làm","Hoàn thành"]
+export  function getState(state){
+  return state?stateList[state]:"Cần làm";
+}

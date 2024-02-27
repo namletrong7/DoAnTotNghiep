@@ -57,15 +57,15 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
       icon: { icon: "warning", position: 'left' }
     });
   }
-  useEffect(()=>{
-    setIsLoading(true);
-
-    // Thực hiện công việc cần thiết (ví dụ: gọi API, xử lý dữ liệu, ...)
-    // Sau khi công việc hoàn thành, ẩn ActivityIndicator
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // Giả sử công việc mất 2 giây
-  },[])
+  // useEffect(()=>{
+  //   setIsLoading(true);
+  //
+  //   // Thực hiện công việc cần thiết (ví dụ: gọi API, xử lý dữ liệu, ...)
+  //   // Sau khi công việc hoàn thành, ẩn ActivityIndicator
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000); // Giả sử công việc mất 2 giây
+  // },[])
   // ham thực hiện action thêm dataFake vào trong reducer
   async function addDataFake() {
     await dispatch(actionAddDataFake())
@@ -168,7 +168,7 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
             <View style={{marginTop:20,backgroundColor:"#CCCCCC",height:10, borderRadius:50,width:screenWidth * 0.8}}>
               <View style={{flex:1,backgroundColor:"#4577ef",borderRadius:50,width:dataDetailTask?.progress||0+"%"}}></View>
             </View>
-            <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:9,marginLeft:10,alignSelf:"center"}} numberOfLines={2}>{dataDetailTask?.progress||0+"%"}</Text>
+            <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:9,marginLeft:10,alignSelf:"center"}} numberOfLines={2}>{(dataDetailTask?.progress||0)+"%"}</Text>
           </View>
           <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
             <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
@@ -181,7 +181,7 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
             <Text style={{fontSize:13, color:"#33CCFF",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{redMoreContent?"Rút gọn..":"Đọc thêm..."}</Text>
          </TouchableOpacity>
           <ListFileAttachComponent/>
-          <ListCommentComponet/>
+          <ListCommentComponet navigation ={navigation}/>
         </View>}
       </KeyboardAwareScrollView>
       {isLoading?null:<SendCommentComponent/>}

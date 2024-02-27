@@ -53,14 +53,17 @@ import FlashMessage from "react-native-flash-message";
     RenderItemComment = (props) => {
     return(
       <View style={{marginTop: 20,flexDirection:"row",flex:1,}}>
-        <FastImage
-          style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
-          source={{
-            uri: props.item.avatarUser
-          }}
-          resizeMode={FastImage.resizeMode.stretch}
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("ProfileUser")}}>
+          <FastImage
+            style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
+            source={{
+              uri: props.item.avatarUser
+            }}
+            resizeMode={FastImage.resizeMode.stretch}
 
-        />
+          />
+        </TouchableOpacity>
+
         <View style={{marginLeft:10,flex:0.8}}>
 
           <View style={{flexDirection:"row",}}>
