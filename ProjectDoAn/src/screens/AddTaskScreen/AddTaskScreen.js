@@ -103,7 +103,10 @@ export const AddTaskScreen = React.memo(({navigation})=>{
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        timeout: 180000, // Timeout là 10 giây
       });
+      console.log("response:")
+      console.log(response)
       showMessage({
         message: response.data.message,
         type: "success",
