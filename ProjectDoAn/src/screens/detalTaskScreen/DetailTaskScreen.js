@@ -71,32 +71,41 @@ export const DetailTaskScreen = React.memo(({navigation})=>{
     await dispatch(actionAddDataFake())
   }
    const changTitleTask=async (newTitle) => {
+     showMessage({
+       message: "Chỉnh sửa tiêu đề thành công",
+       type: "success",
+       duration: 1000,
+       icon: { icon: "success", position: 'left' }
+     });
      await dispatch(actionChangeTitleTask(newTitle))
      setIsShowChangeConent(false)
    }
   return (
     <View>
-      <FlashMessage position={"top"}  />
       <KeyboardAwareScrollView
-        style={{paddingHorizontal:15}}
+        style={{paddingHorizontal:15,backgroundColor:"#EEEEEE"}}
         keyboardShouldPersistTaps="handled">
+        <FlashMessage position={"top"}  />
         {isLoading?<ActivityIndicator size="large" color="#0000ff" />:
         <View>
-
-
         <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{flexDirection:"row", justifyContent:"center",marginTop:15}}>
           <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailTask?.title|| ''}</Text>
           <IconEdit/>
         </TouchableOpacity>
 
 
-          <TouchableOpacity onPress={()=>{changTitleTask()}} style={{padding:8, borderRadius:16, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0),width:  screenWidth * 0.25 ,alignItems:"center",marginTop:10}}>
+          <TouchableOpacity onPress={()=>{addDataFake()}} style={{padding:8, borderRadius:16, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0),width:  screenWidth * 0.25 ,alignItems:"center",marginTop:10}}>
             <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
           </TouchableOpacity>
 
           <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:10}}>
             <View style={{flexDirection:"column", justifyContent:"flex-start"}}>
-              <TouchableOpacity style={{flexDirection:"row", justifyContent:"center"}}>
+              <TouchableOpacity onPress={()=>{
+                showMessage({
+                  message: "Simple message",
+                  type: "info",
+                })
+              }} style={{flexDirection:"row", justifyContent:"center"}}>
                 <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu"}</Text>
                 <IconEdit/>
               </TouchableOpacity>
