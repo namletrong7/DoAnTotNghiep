@@ -6,12 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList,ScrollView
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
-import { ScrollView } from "react-native-virtualized-view";
+
 
 import ItemTask from "../../components/itemTask/ItemTask";
 
@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
       "assignUser": 0,
       "avatarAssignUser":"https://www.vietnamworks.com/hrinsider/wp-content/uploads/2023/12/anh-den-ngau-003.jpg",
       "priority":2,
-      "progress":100,"assignFullName":"lê trọng nam",
+      "progress":10,"assignFullName":"lê trọng nam",
       "title":"xin chào djkvbjbvv",
       "content":"Khu vực cháy có nhiều kho chứa hàng rộng hàng nghìn m2, thuộc quản lý của Ban Chỉ huy quân sự quận Hồng Bàng. Kho hàng cháy rộng 700 m2, kết cấu khung thép, mái tôn, chứa nhiều đồ nhựa và các vật dụng dễ cháy khác. Hiện toàn bộ nhà kho đã đổ sập.",
       "startDay":"10/10/2023",
@@ -67,7 +67,7 @@ const HomeScreen = ({ navigation }) => {
       "assignUser": 0,
       "avatarAssignUser":"https://i0.wp.com/top10dienbien.com/wp-content/uploads/2022/10/avatar-cute-11.jpg?w=960&ssl=1",
       "priority":3,"assignFullName":"lê trọng nam",
-      "progress":100,
+      "progress":30,
       "title":"xin chào djkvbjbvv",
       "content":"shjdvbhv",
       "startDay":"10/10/2023",
@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
       "assignUser": 3,
       "avatarAssignUser":"https://images.baodantoc.vn/uploads/2022/Th%C3%A1ng%208/Ng%C3%A0y_13/Nga/038FF792-D136-480D-8EEE-5D3E90A16085.jpg",
       "priority":1,
-      "progress":100,"assignFullName":"lê trọng nam",
+      "progress":90,"assignFullName":"lê trọng nam",
       "title":"xin chào djkvbjbvv",
       "content":"Nhà kho 700 m2 trên đất quốc phòng ở xã An Hồng, huyện An Dương đang cháy dữ dội, lực lượng chức năng huy động nhiều xe và robot chữa cháy đến hiện trường.",
       "startDay":"10/10/2023",
@@ -125,6 +125,7 @@ const HomeScreen = ({ navigation }) => {
             <FlatList
               data={fakeDataListTask}
               renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}
+              scrollEnabled={false}
               keyExtractor={item => item.taskId}
             />
         </View>

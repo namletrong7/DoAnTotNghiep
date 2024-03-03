@@ -19,7 +19,7 @@ import {
 import AppNavigator from "../../navigation/AppNavigator";
 import IconFlag from "../../assets/icons/IconArrowDown";
 import FastImage from 'react-native-fast-image'
-import { getColorBackgroundPriority, getColorPriority, getValuePriority } from "../../utils/GetPriority";
+import { getColorBackgroundPriority, getColorPriority, getState, getValuePriority } from "../../utils/GetPriority";
 import IconCalendar from "../../assets/icons/IconCalendar";
 
 
@@ -44,6 +44,7 @@ const ItemTask = (props) => {
              <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props.item.endDay}</Text>
          </View>
         {RenderPriority()}
+        <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,alignSelf:"center"}}>{getState(props.item.state)}</Text>
       </View>
       <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,width:"60%"}}>
         <FastImage

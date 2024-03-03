@@ -19,7 +19,7 @@ import FastImage from 'react-native-fast-image'
 import IconSend from "../../assets/icons/IconSend";
 
 import { actionAddComment, actionLoadMoreComment } from "../../redux-store/actions/auth";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import { ShimmerEffectCommentComponent } from "../shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
@@ -53,14 +53,17 @@ import FlashMessage from "react-native-flash-message";
     RenderItemComment = (props) => {
     return(
       <View style={{marginTop: 20,flexDirection:"row",flex:1,}}>
-        <FastImage
-          style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
-          source={{
-            uri: props.item.avatarUser
-          }}
-          resizeMode={FastImage.resizeMode.stretch}
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("ProfileUser")}}>
+          <FastImage
+            style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
+            source={{
+              uri: props.item.avatarUser
+            }}
+            resizeMode={FastImage.resizeMode.stretch}
 
-        />
+          />
+        </TouchableOpacity>
+
         <View style={{marginLeft:10,flex:0.8}}>
 
           <View style={{flexDirection:"row",}}>
@@ -92,11 +95,12 @@ import FlashMessage from "react-native-flash-message";
            </View>
          </TouchableOpacity>
          {this.state.see?
-         this.props?.listComment?.length > 0 ? <FlatList
-             data={this.props.listComment}
+         this.props?.listCommentTask?.length > 0 ? <FlatList
+             data={this.props.listCommentTask}
              ref={this.flatListRef}
              renderItem={this.RenderItemComment}
              keyExtractor={item => item.commentId}
+             scrollEnabled={false}
         //    onEndReached={this.loadMoreComment}
            /> :
            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
@@ -119,6 +123,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     listComment: state.auth.listComment,
+    listCommentTask: state.auth.dataDetailTask?.commentTask||[],
 
   };
 }

@@ -22,6 +22,7 @@ import { actionAddComment } from "../../redux-store/actions/auth";
 import { connect, useDispatch } from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
+import { showMessage } from "react-native-flash-message";
 class SendCommentComponent extends Component {
   constructor(props) {
     super(props);
@@ -37,23 +38,34 @@ class SendCommentComponent extends Component {
   // hành dộng nhấn vào nút để gửi comment
 
   sentComment = async () => {
-    try {
-      const comment = {
-        commentId: Math.random().toString(36).substr(2, 9),
-        userId: "1",
-        avatarUser: "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg",
-        fullName: "Vũ đình tuán anh",
-        content: this.state.edtComment,
-        createdDate: "10/1/2023"
-      };
+    if(this.state.edtComment.trim().length<5){
+      showMessage({
+        message: "Nội dung comment quá ngắn",
+        type: "warning",
+        duration: 1000,
+        icon: { icon: "warning", position: 'left' }
+      });
+      return;
+    }else {
 
-      // Dispatch the actionAddComment action
-      await this.props.actionAddComment(comment);
+      try {
+        const comment = {
+          commentId: Math.random().toString(36).substr(2, 9),
+          userId: "1",
+          avatarUser: "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg",
+          fullName: "Vũ đình tuán anh",
+          content: this.state.edtComment.trim(),
+          createdDate: "10/1/2023"
+        };
 
-      // Reset the edtComment state
-      this.setState({ edtComment: '' });
-    } catch (error) {
-      console.error('Error adding comment:', error);
+        // Dispatch the actionAddComment action
+        await this.props.actionAddComment(comment);
+
+        // Reset the edtComment state
+        this.setState({ edtComment: '' });
+      } catch (error) {
+        console.error('Error adding comment:', error);
+      }
     }
   };
 

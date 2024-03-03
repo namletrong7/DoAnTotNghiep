@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
-  SafeAreaView,
+  SafeAreaView, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -25,12 +25,14 @@ import IconFile from "../../assets/icons/IconFile";
 import IconDownLoad from "../../assets/icons/IconDownLoad";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
+import { ShimmerEffectCommentComponent } from "../shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
+import { useSelector } from "react-redux";
 
 
  export  const ListFileAttachComponent =React.memo((props) => {
   const [seeAll, setSeeAll] = useState(true); // xem có nên xem hết file hay không
+     const dataListFileTask = useSelector(state => state.auth.dataDetailTask?.fileAttach||[]);
   console.log("redner lại list file ");
-  console.log(props);
   useEffect(() => {
     console.log("did mout lại list file");
   }, []);
@@ -81,8 +83,9 @@ import IconArrowUp from "../../assets/icons/IconArrowLeft";
          </View>
       </TouchableOpacity>
       {seeAll?(
-        props?.data?.length>0?  <FlatList
-            data={props.data}
+        dataListFileTask?.length>0?  <FlatList
+            data={dataListFileTask}
+            scrollEnabled={false}
             renderItem={({item}) => <RenderItemFile item={item} />}
             keyExtractor={item => item.fileId}
           />:
