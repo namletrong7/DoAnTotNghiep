@@ -15,8 +15,29 @@ export function updateData(data) {
 }
 export function getTemPlate() {
     return async (dispatch, getState) => {
-        const response = await Api("https://egovbeta.tayninh.gov.vn").getTemplateComment();
+        const response = await Api().getTemplateComment();
         console.log("RESPONSE: ", response.data);
+    };
+}
+export function actionGetComentTask(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api().getCommentTask(body);
+            // Xử lý dữ liệu response ở đây nếu cần
+
+            // Ví dụ: In kết quả ra console
+            console.log(response.data);
+        } catch (error) {
+            // Xử lý lỗi ở đây
+          //  console.log(error);
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
     };
 }
 // api login
@@ -186,6 +207,11 @@ export function actionAddDataFake() {
         });
     };
 }
+
+//--------------------------------------nghiêm túc
+
+
+
 export default {
     getTemPlate,
     actionLogin,
@@ -194,4 +220,6 @@ export default {
     actionLoadMoreComment,
     actionAddDataFake,
     actionChangeTitleTask,
+    actionGetComentTask,
+
 };

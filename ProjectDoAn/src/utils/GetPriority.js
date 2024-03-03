@@ -1,4 +1,15 @@
 
+export  const dataPriority=[
+  { label: 'Thấp', value: 0 },
+  { label: 'Bình thường', value: 1 },
+  { label: 'Cao', value: 2 },
+  { label: 'Cấp bách', value: 3 },
+  // Thêm các mục khác nếu cần
+];
+
+
+
+
 var priority = ["Low","Medium","Hight","Urgent"]
 var colorPriority = ["#289601","#df8412","#ff1f3a","#2f3033"]
 var colorBackgroundPriority = ["#d4eacc","#f9e6d0","#ffccd2","#d4d4d5"]
@@ -17,3 +28,5 @@ var stateList = ["Cần làm","Đang làm","Hoàn thành"]
 export  function getState(state){
   return state?stateList[state]:"Cần làm";
 }
+
+

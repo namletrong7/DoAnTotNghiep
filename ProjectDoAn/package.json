@@ -9,10 +9,12 @@
     "start": "react-native start",
     "test": "jest",
     "clean:android": "cd android && ./gradlew clean && cd ../",
-    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force"
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force",
+    "release": "npx jetify && cd android && ./gradlew app:assembleRelease && cd ../"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-community/datetimepicker": "^7.6.2",
     "@react-native-community/netinfo": "^11.2.1",
     "@react-native-masked-view/masked-view": "^0.3.1",
     "@react-navigation/bottom-tabs": "^6.5.14",
@@ -27,6 +29,7 @@
     "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-document-picker": "^9.1.1",
     "react-native-dropdown-picker": "^5.4.6",
+    "react-native-element-dropdown": "^2.10.1",
     "react-native-elements": "^3.4.3",
     "react-native-fast-image": "^8.6.3",
     "react-native-flash-message": "^0.4.2",
@@ -34,6 +37,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-modal": "^13.0.1",
+    "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-modals": "^0.22.3",
     "react-native-pager-view": "^6.2.3",
     "react-native-permissions": "^4.1.4",

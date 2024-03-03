@@ -1,38 +1,53 @@
-import React, { useEffect, useState } from "react";
-import DropDownPicker from "react-native-dropdown-picker";
-import { Platform } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useEffect } from "react";
+import { Dropdown } from "react-native-element-dropdown";
 
-function DropDownMenu(props) {
-
-  const [value, setValue] = useState('');
-
-  const handleItemChange = (newValue) => {
-    setValue(newValue);
-  };
-
-  useEffect(() => {
-    setValue(props.options[0].value)
-  }, [])
-
+export const DropDownMenu =React.memo((props)=> {
+  console.log("render dropw down")
   return (
-    <DropDownPicker
-      open={props.isOpen}
-      setOpen={props.setOpen}
-      setValue={setValue}
-      items={props.options.map(option => ({ label: option.label, value: option.value }))}
-      value={value}
-      onChangeItem={item => handleItemChange(item.value)}
-      maxHeight={Platform.OS == 'android' ? 225 : 300}
-      listMode="SCROLLVIEW"
-      scrollViewProps={{ nestedScrollEnabled: true }}
-      style={{
-        zIndex: props.zIndex,
-        zIndexInverse: props.zIndexInverse,
-      }}
-      selectedItemLabelStyle={{ color: 'red' }}
-      dropDownContainerStyle={{ backgroundColor: '#ffffff', }}
-    />
-  )
-}
+    <View style={{marginTop:10}}>
+      <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold" }}>{props.title}</Text>
 
-export default DropDownMenu;
+
+
+      <Dropdown
+        style={{
+          height: 50,
+          borderColor: '#4577ef',
+          borderWidth: 0.5,
+          borderRadius: 8,
+          paddingHorizontal: 8,
+          marginTop:10
+        }}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={[styles.selectedTextStyle,{fontSize:14, color:"black", fontFamily:"OpenSans-SemiBold"}]}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        placeholder={props.label}
+        itemTextStyle={{fontSize:14, color:"black", fontFamily:"OpenSans-SemiBold"}}
+        data={props?.data||[]}
+        search
+        maxHeight={200}
+        labelField="label"
+        valueField="value"
+        searchPlaceholder="Tim kiếm.."
+        value={props?.value}
+        onChange={props.onSelectItem}
+      />
+    </View>
+
+  )
+})
+const styles = StyleSheet.create({
+  container: {
+    display:"flex",
+    backgroundColor:"#EEEEEE"
+  },
+  dropdown: {
+    height: 50,
+    borderColor: '#4577ef',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+});
