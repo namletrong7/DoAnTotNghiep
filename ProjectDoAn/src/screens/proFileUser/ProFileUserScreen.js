@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList,ScrollView
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
 
 import ItemTask from "../../components/itemTask/ItemTask";
@@ -20,28 +20,32 @@ import IconPhone from "../../assets/icons/IconPhone";
 import IconMail from "../../assets/icons/IconMail";
 import Toast from "react-native-toast-message";
 import FlashMessage from "react-native-flash-message";
+import { actionGetProfileUser } from "../../redux-store/actions/user";
+import { ShimmerProfileUser } from "./shimmerProfileUser/ShimerProfileUser";
+import {
+  ShimmerEffectCommentComponent
+} from "../../components/shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 
-const ProFileUserScreen = ({ navigation }) => {
+
+const ProFileUserScreen = ({ navigation ,route }) => {
 
   const dispatch = useDispatch();
   const widthScreen = Dimensions.get('window').width
-  const heightScreen = Dimensions.get('window').width
-
-  var dataUser = {
-    "userId": "dfkblnb", // id của user
-    "fullName": "Test 3", // full tên
-    "email": "namletrong7@gmail.com", // email của người dùng
-    "phoneNumber": "0337356550",
-    "avatarUser": "https://mixhotel.vn/uploads/images/624418a1d6a5eb1d066980ed/tao-dang-chup-anh-voi-nguoi-yeu__5_.webp",
-    "assignFullName": "Hoàng ngọc đặng kim khánh",
-    "positionLevel": 2, //0- Tổng giám đốc, 1-Giám đốc, 2- truong phòng , 3-Nhân viên
-    "departmentId":1 , // id phòng ban
-    "departmentName":"Phòng tài chính kế toán", // tên phòng ban
-    "jobtitlenName":'Chuyên viên chăm sóc khách hàng'
+  const heightScreen = Dimensions.get('window').height
+  const [refreshing, setRefreshing] = useState(false);
+  const isGetProfileUser = useSelector(state => state.user.isGetProfileUser);
+  const dataUser = useSelector(state => state.user.dataProfileUser);
+  console.log(dataUser)
+  useEffect(()=>{
+    console.log(route?.params?.userId)
+    dispatch(actionGetProfileUser(route?.params?.userId))
+  },[])
+  const handleGetProfileUser=()=> {
+    setRefreshing(true);
+    dispatch(actionGetProfileUser(route?.params?.userId))
+    setRefreshing(false);
   }
-  // in ra toast
-
-// render ra 1 số  thông tin của người dùng
    const RenderContent = (props) =>{
     return(
       <View style={{flexDirection:"row",alignItems:"center",marginTop:10,flex:1}}>
@@ -70,25 +74,45 @@ const ProFileUserScreen = ({ navigation }) => {
   return (
     <View style={{backgroundColor:"#F0F0F0",flex:1}}>
       <FlashMessage position={"top"}  />
-      <ScrollView contentContainerStyle={{marginHorizontal:20,marginTop:20}}>
-        <View >
+      <ScrollView contentContainerStyle={{marginHorizontal:20,marginTop:20}}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={handleGetProfileUser}
+                    />
+                  }>
+        <View>
+          {isGetProfileUser?(<ShimmerProfileUser/>):
 
-          <FastImage
-            style={{ width: 100, height: 100,borderRadius: 100/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",alignSelf:"center"}}
-            source={{
-              uri: dataUser.avatarUser
-            }}
-            resizeMode={FastImage.resizeMode.stretch}/>
-          <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:20,alignSelf:"center"}}>{dataUser.assignFullName}</Text>
-          <RenderContactIcon/>
-          <RenderContent title={"Số điện thoại:"} content={dataUser.phoneNumber}/>
-          <RenderContent title={"Email:"} content={dataUser.email}/>
-          <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:30}}>{"Chức vụ, phòng ban"}</Text>
-          <RenderContent title={"Chức vụ: "} content={getValuePositionLevel(dataUser.positionLevel)}/>
-          <RenderContent title={"Phòng ban: "} content={dataUser.departmentName}/>
-          <RenderContent title={"Chuyên môn: "} content={dataUser.jobtitlenName}/>
+              <View>
+                <FastImage
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 100 / 2,
+                    overflow: "hidden",
+                    borderWidth: 1,
+                    borderColor: "#99CCFF",
+                    alignSelf: "center",
+                  }}
+                  source={{
+                    uri: baseUrlAvatarUser+dataUser.avatarUser
+                  }}
+                  resizeMode={FastImage.resizeMode.stretch}
+                />
+                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:20,alignSelf:"center"}}>{dataUser.fullName}</Text>
+                <RenderContactIcon/>
+                <RenderContent title={"Số điện thoại:"} content={dataUser.phoneNumber}/>
+                <RenderContent title={"Email:"} content={dataUser.email}/>
+                <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:30}}>{"Chức vụ, phòng ban"}</Text>
+                <RenderContent title={"Chức vụ: "} content={getValuePositionLevel(dataUser.positionLevel)}/>
+                <RenderContent title={"Phòng ban: "} content={dataUser.departmentName}/>
+                <RenderContent title={"Chuyên môn: "} content={dataUser.jobtitleName}/>
+              </View>}
+
+
+
         </View>
-
 
       </ScrollView>
     </View>
@@ -102,4 +126,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ProFileUserScreen;
+export default React.memo(ProFileUserScreen);

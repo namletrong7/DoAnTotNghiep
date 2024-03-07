@@ -33,11 +33,11 @@ const ItemTask = (props) => {
               </View>
         )
   };
-  function gotoDetailScreen (){
-    props.navigation.navigate('Detail');
+  function gotoDetailScreen (taskId){
+    props.navigation.navigate('Detail',{taskId:taskId});
   }
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen()}}>
+    <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen(props.item.taskId)}}>
       <View style={{flexDirection:'row'}}>
          <View style={styles.containerEndDay}>
              <IconCalendar/>

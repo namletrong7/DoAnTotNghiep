@@ -323,7 +323,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
         scrollEnabled={true}
         keyboardShouldPersistTaps="handled">
 
-         <SafeAreaView style={{marginHorizontal:15,paddingBottom:'50%'}}>
+         <View style={{marginHorizontal:15,paddingBottom:'50%'}}>
           <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={50}/>
            <DropDownMenu data={data} value={valueProjectId} title={"Chọn project của bạn"} onSelectItem = {onSelectProjectId} label={"Nhấn để chọn project"}/>
            <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên của công việc"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
@@ -366,7 +366,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
              }}>{"Tạo công việc mới"}</Text>
            </TouchableOpacity>
            <ModalLoading/>
-         </SafeAreaView>
+         </View>
       </KeyboardAwareScrollView>
     </View>
   );

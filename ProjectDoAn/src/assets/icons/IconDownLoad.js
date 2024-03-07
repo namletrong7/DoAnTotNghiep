@@ -3,8 +3,8 @@ import Svg, { SvgProps, Path } from "react-native-svg"
 
 const IconDownLoad = (props) => (
   <Svg
-    width={40}
-    height={40}
+    width={25}
+    height={25}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

@@ -8,6 +8,7 @@ import { DetailTaskScreen } from "./src/screens/detalTaskScreen/DetailTaskScreen
 import { AddTaskScreen } from "./src/screens/AddTaskScreen/AddTaskScreen";
 import LoginScreen from "./src/screens/login/LoginScreen";
 import { requestStoragePermission } from "./src/utils/getPermisson";
+import ProFileUserScreen from "./src/screens/proFileUser/ProFileUserScreen";
 
 
 
@@ -20,7 +21,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <AddTaskScreen />
+          <HomeNavigator />
         </NavigationContainer>
       </PersistGate>
     </Provider>

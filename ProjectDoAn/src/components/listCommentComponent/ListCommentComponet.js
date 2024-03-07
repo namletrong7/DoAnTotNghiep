@@ -2,7 +2,7 @@
  * Componet hiển thị danh sách bình luận
  */
 
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -24,40 +24,38 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import { ShimmerEffectCommentComponent } from "../shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
 import FlashMessage from "react-native-flash-message";
-  class ListCommentComponent extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        see:true,
-        edtComment:"", // nội dung của ô nhập comment
-      };
+import { actionGetCommentTask, actionGetMoreCommentTask } from "../../redux-store/actions/task";
+import axios from "axios";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
+import { useNavigation } from "@react-navigation/native";
+  const ListCommentComponent  =(props)=> {
+    const dispatch = useDispatch();
+    const navi = useNavigation();
+    const [see, setSee] = useState(true);// mảng chứa các file dc chọn
+    const isGetComment = useSelector(state => state.task.isGetComment);
+    const dataCommentTask = useSelector(state => state.task.dataCommentTask);
+
+    const isGetMoreComment = useSelector(state => state.task.isGetMoreComment);
+
+
+     useEffect(()=> {// hàm thực hiện sau mỗi lần render
+       console.log("taskId o comment: "+props.taskId)
+     dispatch(actionGetCommentTask(props.taskId,0))
+
+    },[])
+   const loadMoreComment=()=>{
+     dispatch(actionGetMoreCommentTask(props.taskId,dataCommentTask.length))
     }
 
-  componentDidMount() {// hàm thực hiện sau mỗi lần render
-      console.log("render lại list comment")
-  }
-
-    // hành động khi lướt xuống dưới cung list thì load thêm comment
-    loadMoreComment = async () => {
-
-      try {
-
-        // Dispatch the actionAddComment action
-        await this.props.actionLoadMoreComment();
-      } catch (error) {
-        console.error('Error adding comment:', error);
-      }
-    }
-
-
-    RenderItemComment = (props) => {
+  const  RenderItemComment = (props) => {
     return(
       <View style={{marginTop: 20,flexDirection:"row",flex:1,}}>
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("ProfileUser")}}>
+        <TouchableOpacity onPress={()=>{navi.navigate("ProfileUser",{userId:props.item.createUser})}}>
           <FastImage
             style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
             source={{
-              uri: props.item.avatarUser
+              uri:  (baseUrlAvatarUser+props.item?.avatarUser)||''
+
             }}
             resizeMode={FastImage.resizeMode.stretch}
 
@@ -72,71 +70,44 @@ import FlashMessage from "react-native-flash-message";
             <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-SemiBold"}}>{props.item.createdDate}</Text>
           </View>
           <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.content}</Text>
-          <FastImage
-            style={{ width: 70, height: 100,borderRadius: 15 ,overflow: "hidden"}}
-            source={{
-              uri: props.item.avatarUser
-            }}
-            resizeMode={FastImage.resizeMode.stretch}
-
-          />
         </View>
 
       </View>
     )
   };
-   render() {
+
      return (
        <View style={styles.container}>
-         <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {this.setState({see:!this.state.see})} }>
+         <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSee(!see)} }>
            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Bình luận"}</Text>
            <View>
-             {this.state.see? <IconArrowDown/>:<IconArrowUp/>}
+             {see? <IconArrowDown/>:<IconArrowUp/>}
            </View>
          </TouchableOpacity>
-         {this.state.see?
-         this.props?.listCommentTask?.length > 0 ? <FlatList
-             data={this.props.listCommentTask}
-             ref={this.flatListRef}
-             renderItem={this.RenderItemComment}
-             keyExtractor={item => item.commentId}
-             scrollEnabled={false}
-        //    onEndReached={this.loadMoreComment}
-           /> :
-           <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
-                 numberOfLines={10}>{"Không có bình luận nào cho công việc này"}</Text>
-         :null}
-         <ShimmerEffectCommentComponent/>
-
+         {isGetComment?(<ShimmerEffectCommentComponent/>):
+           <FlatList
+              data={dataCommentTask}
+              renderItem={RenderItemComment}
+              keyExtractor={(item, index) => index.toString()}
+              scrollEnabled={false}
+            />
+         }
+         {isGetMoreComment&&(<ShimmerEffectCommentComponent/>)}
+         <TouchableOpacity style={{alignItems:"center",marginTop:20}} onPress={()=>{loadMoreComment()}}>
+           <Text style={{fontSize:15, color:"#4577ef",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nhấn để xem thêm bình luận..."}</Text>
+         </TouchableOpacity>
        </View>
+
      )
-   }
+
 };
 const styles = StyleSheet.create({
   container: {
     display:"flex",
     marginTop: 20,
-    marginBottom:100,
+    marginBottom:500,
   },
 
 });
-function mapStateToProps(state) {
-  return {
-    listComment: state.auth.listComment,
-    listCommentTask: state.auth.dataDetailTask?.commentTask||[],
-
-  };
-}
-// Connect your component to Redux and provide actionAddComment
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actionAddComment: (comment) => dispatch(actionAddComment(comment)),
-    actionLoadMoreComment: () => dispatch(actionLoadMoreComment())
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-
-)(ListCommentComponent);
+ export default React.memo(ListCommentComponent)
 
