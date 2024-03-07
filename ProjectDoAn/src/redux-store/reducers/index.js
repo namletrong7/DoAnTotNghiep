@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import reducerTask from "./task";
+import reducerUser from "./user";
 
 
 //NạmLTc: cấu hình các reducer tại đây
@@ -19,11 +20,12 @@ const Reducer = combineReducers({
 const persistConfig = {
    key: 'root', // tên của kho lưu trữ, có thể là bất kỳ chuỗi nào
    storage: AsyncStorage, // sử dụng AsyncStorage cho lưu trữ local
-   whitelist: ['auth','task'], // reducer mà bạn muốn lưu trữ
+   whitelist: ['auth','task','user'], // reducer mà bạn muốn lưu trữ
 };
 const persistedReducer = persistReducer(persistConfig, combineReducers({
    auth: reducerAuth,
    task: reducerTask,
+   user: reducerUser,
    // Thêm các reducers khác nếu cần
 }));
 

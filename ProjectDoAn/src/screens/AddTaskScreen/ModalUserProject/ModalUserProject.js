@@ -4,6 +4,7 @@
 import React, { useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import FastImage from "react-native-fast-image";
+import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
 
 const ModalUserProject = ({ visible, onClose ,data,handleItem}) => {
   console.log("render lại modal");
@@ -14,7 +15,7 @@ const ModalUserProject = ({ visible, onClose ,data,handleItem}) => {
       <FastImage
         style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
         source={{
-          uri: "http://192.168.1.109:8080/DOAN/avatarUser/"+props?.item.avatarUser
+          uri: baseUrlAvatarUser+props?.item.avatarUser
         }}
         resizeMode={FastImage.resizeMode.stretch}
 

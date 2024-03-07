@@ -16,45 +16,35 @@ import ShimmerPlaceholder, { createShimmerPlaceholder } from "react-native-shimm
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from "react-native-fast-image";
 
-export  const ShimmerEffectCommentComponent =React.memo((props) => {
-  console.log("render lai shimmerComponent")
+export  const ShimmerProfileUser =React.memo((props) => {
   const [isVisible, setIsVisible] = useState(false);
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
     return (
       <View>
-        <View style={{flexDirection:"row",marginTop:10}}>
-          <ShimmerPlaceholder visible={isVisible} style={{borderRadius:25}}
-                              width={50}
-                              height={50}
+        <View style={{flexDirection:"column",marginTop:10, alignItems:"center", justifyContent:'center'}}>
+          <ShimmerPlaceholder visible={isVisible} style={{borderRadius:50}}
+                              width={100}
+                              height={100}
                               LinearGradient={LinearGradient}>
           </ShimmerPlaceholder>
-          <View style={{marginLeft:10}}>
+          <View style={{marginTop:30}}>
             <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,backgroudColor:"red"}}
-                                width={250}
+                                width={screenWidth*0.7}
                                 height={20}
                                 LinearGradient={LinearGradient}>
             </ShimmerPlaceholder>
-            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,marginTop:10}}
-                                width={100}
+            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,marginTop:30}}
+                                width={screenWidth*0.7}
                                 height={20}
                                 LinearGradient={LinearGradient}>
             </ShimmerPlaceholder>
-          </View>
-        </View>
-        <View style={{flexDirection:"row",marginTop:10}}>
-          <ShimmerPlaceholder visible={isVisible} style={{borderRadius:25}}
-                              width={50}
-                              height={50}
-                              LinearGradient={LinearGradient}>
-          </ShimmerPlaceholder>
-          <View style={{marginLeft:10}}>
-            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,backgroudColor:"red"}}
-                                width={250}
+            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,marginTop:30}}
+                                width={screenWidth*0.7}
                                 height={20}
                                 LinearGradient={LinearGradient}>
             </ShimmerPlaceholder>
-            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,marginTop:10}}
-                                width={100}
+            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,marginTop:30}}
+                                width={screenWidth*0.7}
                                 height={20}
                                 LinearGradient={LinearGradient}>
             </ShimmerPlaceholder>
