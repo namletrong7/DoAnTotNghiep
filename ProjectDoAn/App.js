@@ -3,12 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from 'react-redux';
 import { store, persistor } from "./src/redux-store/reducers";
 import { PersistGate } from "redux-persist/integration/react";
-import HomeNavigator from "./src/navigation/HomeNavigator";
 import { DetailTaskScreen } from "./src/screens/detalTaskScreen/DetailTaskScreen";
 import { AddTaskScreen } from "./src/screens/AddTaskScreen/AddTaskScreen";
 import LoginScreen from "./src/screens/login/LoginScreen";
 import { requestStoragePermission } from "./src/utils/getPermisson";
 import ProFileUserScreen from "./src/screens/proFileUser/ProFileUserScreen";
+import { BottomHomeNavigation, HomeNavigator, StackNavigate } from "./src/navigation/HomeNavigator";
 
 
 

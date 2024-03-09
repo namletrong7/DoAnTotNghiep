@@ -50,7 +50,7 @@ import { ListReportTask } from "./taskReport/ListReportTask";
 
 export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
-  const { taskId } = route?.params;
+  const { taskId } = route?.params||"T001";
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   // láy data detail task từ  reducer có dược

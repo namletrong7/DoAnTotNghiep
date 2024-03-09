@@ -19,7 +19,7 @@ import IconMessage from "../../assets/icons/IconMessage";
 import IconPhone from "../../assets/icons/IconPhone";
 import IconMail from "../../assets/icons/IconMail";
 import Toast from "react-native-toast-message";
-import FlashMessage from "react-native-flash-message";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 import { actionGetProfileUser } from "../../redux-store/actions/user";
 import { ShimmerProfileUser } from "./shimmerProfileUser/ShimerProfileUser";
 import {
@@ -40,7 +40,7 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   useEffect(()=>{
     console.log(route?.params?.userId)
     dispatch(actionGetProfileUser(route?.params?.userId))
-  },[])
+  },[route?.params?.userId])
   const handleGetProfileUser=()=> {
     setRefreshing(true);
     dispatch(actionGetProfileUser(route?.params?.userId))
@@ -58,7 +58,14 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   const RenderContactIcon = () =>{
     return(
       <View style={{flexDirection:"row",marginTop:20,marginBottom:40,alignSelf:"center",justifyContent:"space-around"}}>
-        <TouchableOpacity style={{marginRight:40}}>
+        <TouchableOpacity onPress={()=>{
+          showMessage({
+            message: "thanhf cong",
+            type: "success",
+            duration: 1000,
+            icon: { icon: "success", position: 'left' }
+          });
+        }} style={{marginRight:40}}>
           <IconMessage/>
         </TouchableOpacity>
         <View style={{marginRight:40}}>
@@ -72,7 +79,7 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   }
 
   return (
-    <View style={{backgroundColor:"#F0F0F0",flex:1}}>
+    <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <FlashMessage position={"top"}  />
       <ScrollView contentContainerStyle={{marginHorizontal:20,marginTop:20}}
                   refreshControl={
@@ -96,18 +103,18 @@ const ProFileUserScreen = ({ navigation ,route }) => {
                     alignSelf: "center",
                   }}
                   source={{
-                    uri: baseUrlAvatarUser+dataUser.avatarUser
+                    uri: (baseUrlAvatarUser+dataUser?.avatarUser||'')
                   }}
                   resizeMode={FastImage.resizeMode.stretch}
                 />
-                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:20,alignSelf:"center"}}>{dataUser.fullName}</Text>
+                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:20,alignSelf:"center"}}>{dataUser?.fullName||''}</Text>
                 <RenderContactIcon/>
-                <RenderContent title={"Số điện thoại:"} content={dataUser.phoneNumber}/>
-                <RenderContent title={"Email:"} content={dataUser.email}/>
+                <RenderContent title={"Số điện thoại:"} content={dataUser?.phoneNumber||''}/>
+                <RenderContent title={"Email:"} content={dataUser?.email||''}/>
                 <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:30}}>{"Chức vụ, phòng ban"}</Text>
-                <RenderContent title={"Chức vụ: "} content={getValuePositionLevel(dataUser.positionLevel)}/>
-                <RenderContent title={"Phòng ban: "} content={dataUser.departmentName}/>
-                <RenderContent title={"Chuyên môn: "} content={dataUser.jobtitleName}/>
+                <RenderContent title={"Chức vụ: "} content={getValuePositionLevel(dataUser?.positionLevel||0)}/>
+                <RenderContent title={"Phòng ban: "} content={dataUser?.departmentName||''}/>
+                <RenderContent title={"Chuyên môn: "} content={dataUser?.jobtitleName||''}/>
               </View>}
 
 

@@ -3,8 +3,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProFileUserScreen from "../screens/proFileUser/ProFileUserScreen";
 import HomeScreen from "../screens/home/HomeScreen";
 import { DetailTaskScreen } from "../screens/detalTaskScreen/DetailTaskScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import IconHomeFocus from "../assets/icons/IconHomeFocus";
+import IconHomeUnFocus from "../assets/icons/IconHomeUnFocus";
+import IconTaskFocus from "../assets/icons/IconTaskFocus";
+import IconTaskUnFocus from "../assets/icons/IconTaskUnFocus";
+import IconUserFocus from "../assets/icons/IconUserFocus";
+import IconUserUnFocus from "../assets/icons/IconUserUnFocus";
+import IconNotifiFocus from "../assets/icons/IconNotifiFocus";
+import IconNotifiUnFocus from "../assets/icons/IconNotifiUnFocus";
 
-const HomeNavigator = () => {
+export  const HomeNavigator = React.memo(() => {
   const Stack = createNativeStackNavigator();
 
   return (
@@ -16,6 +26,47 @@ const HomeNavigator = () => {
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
     </Stack.Navigator>
   )
-}
+})
 
-export default HomeNavigator;
+export  const BottomHomeNavigation = React.memo(() => {
+  const Tab = createBottomTabNavigator();
+
+  return (
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused }) => {
+              let iconName;
+              if (route.name === "Home") {
+                iconName = focused ? <IconHomeFocus/> : <IconHomeUnFocus/>;
+              } else if (route.name === "Detail1") {
+                iconName = focused ? <IconNotifiFocus/> : <IconNotifiUnFocus/>
+              } else if (route.name === "ProfileUser1") {
+                iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
+              }
+              return  iconName
+            },
+            tabBarLabel: () => null,
+            tabBarStyle:{position:"absolute",borderRadius:16}
+          })}
+
+        >
+          <Tab.Screen name="Home" component={HomeScreen}   options={{ headerShown: false }}/>
+          <Tab.Screen name="Detail1" component={DetailTaskScreen} options={{ headerShown: false }}/>
+          <Tab.Screen name="ProfileUser1" component={ProFileUserScreen} options={{ headerShown: false }} />
+        </Tab.Navigator>
+
+  )
+})
+export  const StackNavigate = React.memo(() => {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Home" component={BottomHomeNavigation} />
+      <Stack.Screen name="Detail2" component={DetailTaskScreen} />
+      <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
+    </Stack.Navigator>
+  )
+})
