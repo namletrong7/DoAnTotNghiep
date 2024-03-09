@@ -1,23 +1,18 @@
-const reducerAuth = (state = {
-    token: null,
-    getTokenLoading: null,
-    listComment :[],
-    dataDetailTask:{},
-}, action) => {
+
+const initialState = {
+  token:null,
+    isLoginSuccess: false,
+    dataCurrentUser:{}
+};
+const reducerAuth = (state = initialState, action) => {
     let newState = { ...state };
     switch (action.type) {
+        case "RESET_AUTH": {
+            return initialState;
+        }
         case 'AUTH_UPDATE_DATA': {
             let data = action.data || {};
             return { ...newState, ...data };
-        }
-        case 'CHANGE_TITLE_TASK': {
-            return {
-                ...state,
-                dataDetailTask: {
-                    ...state.dataDetailTask,
-                    title: action.data  // Thay đổi giá trị title thành giá trị mới
-                }
-            }
         }
         // case 'ADD_COMMENT': {
         //    // lấy ra danh sách ban đầu

@@ -1,10 +1,14 @@
-const reducerUser = (state = {
-    isGetProfileUser: false ,
-    dataProfileUser:{},
+const initialState ={
+  isGetProfileUser: false ,
+  dataProfileUser:{},
 
 
-}, action) => {
+}
+const reducerUser = (state = initialState, action) => {
     switch (action.type) {
+        case "RESET_USER":{
+            return  initialState;
+        }
         case 'START_GET_PROFILE_USER': {
             return { ...state,
                 isGetProfileUser: true

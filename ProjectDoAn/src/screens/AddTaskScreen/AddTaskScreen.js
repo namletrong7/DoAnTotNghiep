@@ -43,6 +43,7 @@ import { actionAddTask } from "../../redux-store/actions/task";
 import axios from "axios";
 import ModalLoading from "./ModalLoading/ModalLoading";
 import { dataPriority } from "../../utils/GetPriority";
+import HeaderComponent from "../../components/header/HeaderComponent";
 const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
 export const AddTaskScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch();
@@ -312,12 +313,8 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
   return (
     <View>
-
-
-     <View style={{backgroundColor:"white",height:50, alignItems:"center",width:"100%"}}>
-       <Text style={{fontSize:24, color:"#99CCFF",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Tạo công việc mới "}</Text>
-     </View>
-      <FlashMessage position={"top"}  />
+      <HeaderComponent title={"Thêm công việc mới"} navigation={navigation} back/>
+      <FlashMessage position={"top"} style={{height:100, alignItems:"flex-end"}}  />
       <KeyboardAwareScrollView
         style={styles.container}
         scrollEnabled={true}

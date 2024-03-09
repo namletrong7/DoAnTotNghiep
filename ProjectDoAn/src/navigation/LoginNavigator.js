@@ -9,7 +9,7 @@ const LoginNavigator = () => {
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-      <Stack.Screen name="HomeScreen" component={LoginScreen} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
     </Stack.Navigator>
   )
 }

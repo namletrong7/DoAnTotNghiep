@@ -6,14 +6,17 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  TouchableWithoutFeedback,
+  TouchableWithoutFeedback, ScrollView, SafeAreaView,
 } from "react-native";
+import LottieView from 'lottie-react-native';
 import IconEye from "../../assets/icons/IconEye";
 import IconEyeSlash from "../../assets/icons/IconEyeSlash";
 import IconCheckBox from "../../assets/icons/IconCheckBox";
 import IconChecked from "../../assets/icons/IconChecked";
 import { useDispatch } from "react-redux";
 import { actionLogin } from "../../redux-store/actions/auth";
+import FlashMessage, { showMessage } from "react-native-flash-message";
+import ModalLoadingSuccess from "./loadingSuccess/ModalLoadingSuccess";
 
 const LoginScreen = ({ navigation }) => {
 
@@ -28,13 +31,16 @@ const LoginScreen = ({ navigation }) => {
   const [isForgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
 
   const handleLogin = async () => {
-    setIsOnPressFrist(true);
-    //call API Login
-    if(addServer && username && password) {
-      dispatch(actionLogin(addServer,{
-        "username": username,
-        "password": password
-      }));
+    console.log(username, password)
+    if( username && password) {
+      dispatch(actionLogin(username, password))
+    }else {
+      showMessage({
+        message: "Vui lòng nhập đầy đủ thông tin ",
+        type: "warning",
+        duration: 2000,
+        icon: { icon: "warning", position: 'left' }
+      });
     }
   };
 
@@ -70,14 +76,25 @@ const LoginScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={{height:"100%", flex:1,backgroundColor:"white"}}>
+      <FlashMessage position={"top"} style={{borderBottomRightRadius:16,borderBottomLeftRadius:16, alignItems:"center"}}  />
+    <ScrollView contentContainerStyle={{backgroundColor:"white"}}>
+      <View style={styles.container}>
+      <LottieView style={{width:'80%', height:200,marginTop:40}} source={require('../../assets/animation/work_space.json')} autoPlay loop />
+        <View style={{flexDirection:"row",alignSelf:'center',marginTop:-40}}>
+          <Image
+            source={require('../../assets/images/logo.png')}
+            style={styles.logo}
+          />
+          <View style={{height:40, width:1,backgroundColor:"#178cf9",alignSelf:"center"}}/>
+          <View style={{justifyContent:"center",alignSelf:"center",marginLeft:10}}>
+            <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"Project Manager"}</Text>
+            <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"KMA"}</Text>
+          </View>
+        </View>
 
-      <Image
-        source={require('../../assets/images/ImgLogoLogin.png')}
-        style={styles.logo}
-      />
 
-      <View>
+      <SafeAreaView>
         {renderInput('Địa chỉ Server', addServer, setAddServer, 'user')}
         {renderInput('Tên đăng nhập', username, setUsername, 'user')}
         {renderInput('Mật khẩu', password, setPassword, 'lock', true)}
@@ -86,15 +103,15 @@ const LoginScreen = ({ navigation }) => {
           {rememberPassword ? (<IconCheckBox />) : (<IconChecked />)}
           <Text style={{ marginLeft: 5, color: 'black', fontStyle: 'italic', }}>Ghi nhớ mật khẩu</Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
 
       <View style={styles.checkBoxContainer} >
         {(addServer && username && password) ? null : (isOnPressFrist && (<Text style={{ color: "red", fontStyle: "italic" }}>
-          {`${addServer ? ((username && password) ? null : "Tên đăng nhập hoặc mật khẩu không được để trống") : `Đại biểu cần nhậpđịa chỉ server`}`}
+          {`${addServer ? ((username && password) ? null : "Tên đăng nhập hoặc mật khẩu không được để trống") : `Bạn cần nhập địa chỉ server`}`}
         </Text>))}
       </View>
       <TouchableOpacity style={styles.btlLogin} onPress={handleLogin} >
-        <Text style={{ color: "#ffffff", width: '100%', textAlign: 'center' }} >Đăng nhập</Text>
+        <Text style={{ color: "white", width: '100%', textAlign: 'center' }} >Đăng nhập</Text>
       </TouchableOpacity>
 
       <Text style={styles.textQMK} onPress={toggleForgotPasswordModal} >Quên mật khẩu</Text>
@@ -104,7 +121,7 @@ const LoginScreen = ({ navigation }) => {
           <TouchableWithoutFeedback >
             <View  style={styles.modalContainer} >
               <Text style={styles.modalText}>
-                Quý đại biểu vui lòng liên hệ cán bộ phụ trách để được hỗ trợ
+                Hãy liên hệ bộ phận kỹ thuật để được cấp lại mật khẩu
               </Text>
               <TouchableOpacity onPress={toggleForgotPasswordModal} style={{ width: '50%', borderWidth: 2, borderColor: 'red', borderRadius: 20, padding: 5, alignItems: 'center'}}>
                 <Text style={styles.closeModalText}>Đóng</Text>
@@ -113,6 +130,10 @@ const LoginScreen = ({ navigation }) => {
           </TouchableWithoutFeedback>
         </TouchableOpacity>
       )}
+      </View>
+      <LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/tree_2.json')} autoPlay loop />
+    </ScrollView>
+      <ModalLoadingSuccess/>
     </View>
   );
 }
@@ -120,21 +141,21 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems:"center",
+    height:"100%",
+    backgroundColor:"white"
   },
   logo: {
-    width: 100,
+    width: 200,
     height: 100,
-    marginBottom: '10%',
-    marginTop: '25%',
-    borderRadius: 20,
+    alignSelf:"flex-start"
   },
   inputContainer: {
     paddingHorizontal: 10,
     width: '80%',
-    height: 40,
+    height: 50,
     borderWidth: 1,
-    borderColor: '#929292',
+    borderColor: '#178cf9',
     borderRadius: 5,
     marginVertical: 10,
     flexDirection: 'row',
@@ -154,25 +175,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     marginBottom: '10%',
-    backgroundColor: 'red',
-    color: '#ffffff',
+    backgroundColor: '#178cf9',
+    color: '#c7e4ff',
     borderRadius: 20,
     width: '50%',
   },
   modalForgotPassword: {
     flex: 1,
-    backgroundColor: 'rgba(38,38,38,0.7)',
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
     top: 0,
     left: 0,
+    height:"100%",
     right: 0,
     bottom: 0
   },
   modalContainer: {
     backgroundColor: '#ffffff',
     padding: 30,
+    borderColor:"#111111",
+    borderWidth:1,
     width: '80%',
     justifyContent: 'center',
     alignItems: 'center',
