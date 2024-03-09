@@ -18,16 +18,13 @@ const Api = (isFormData) => {
             timeout: 180000, // Timeout là 10 giây
         });
     }
-
     // Api test
-    const getTemplateComment=()=> {
+    const login=(userName,password)=> {
         const apiInstance = apiConfig();
-        return apiInstance.get("/Document/GetTemplateComments");
-    }
-    // Api test
-    const login=(body)=> {
-        const apiInstance = apiConfig();
-        return apiInstance.post("/auth/login",body);
+        return apiInstance.post("login.php",{
+           userName:userName,
+           passWord:password
+        });
     }//-----------------------------------------------------
     // thêm api add task
     const addTask=(body)=> {
@@ -71,14 +68,13 @@ const Api = (isFormData) => {
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
-        getTemplateComment,
         login,
         getCommentTask,
         addTask,
         getDetailTask,
         getFileAttach,
         addCommentTask,
-      getProfileUser
+        getProfileUser
 
     };
 };

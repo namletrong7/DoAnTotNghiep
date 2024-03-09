@@ -12,6 +12,7 @@ import {
 import React from "react";
 import IconMenu from "../../assets/icons/IconMenu";
 import IconArrowLeft from "../../assets/icons/IconArrowLeft";
+import IconBack from "../../assets/icons/IconBack";
 
 function HeaderComponent (props) {
 
@@ -28,7 +29,7 @@ function HeaderComponent (props) {
       </View>
 
       <Text style={{ fontWeight: 'bold', fontSize: 16, color: '#ffffff', position: 'absolute', bottom: 10, }}>
-        TỈNH BẮC KẠN
+        Màn Hình Chính
       </Text>
     </>
   )
@@ -36,16 +37,16 @@ function HeaderComponent (props) {
   const rendeHeaderLeft = () => (
     <>
       <View
-        style={[styles.backgroundImage, { backgroundColor: '#fa9e00' }]}
+        style={[styles.backgroundImage, { backgroundColor: '#6699FF' }]}
       />
       <TouchableOpacity
         style={{ fontWeight: 'bold', color: '#ffffff', position: 'absolute', bottom: 0, left: 2, padding: 10, }}
         onPress={() => props.navigation.goBack()}
       >
-        <IconArrowLeft />
+        <IconBack />
       </TouchableOpacity>
 
-      <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'red', position: 'absolute', bottom: 10, }}>
+      <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', position: 'absolute', bottom: 10, }}>
         {props.title}
       </Text>
     </>

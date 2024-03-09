@@ -42,7 +42,7 @@ import { useNavigation } from "@react-navigation/native";
        console.log("taskId o comment: "+props.taskId)
      dispatch(actionGetCommentTask(props.taskId,0))
 
-    },[])
+    },[props.taskId])
    const loadMoreComment=()=>{
      dispatch(actionGetMoreCommentTask(props.taskId,dataCommentTask.length))
     }

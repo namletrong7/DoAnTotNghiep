@@ -44,9 +44,8 @@ const ItemTask = (props) => {
              <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props.item.endDay}</Text>
          </View>
         {RenderPriority()}
-        <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,alignSelf:"center"}}>{getState(props.item.state)}</Text>
       </View>
-      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,width:"60%"}}>
+      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,width:"50%"}}>
         <FastImage
           style={{ width: 24, height: 24,borderRadius: 24/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
           source={{
@@ -55,7 +54,7 @@ const ItemTask = (props) => {
           resizeMode={FastImage.resizeMode.stretch}
 
         />
-        <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:12,}}>{props.item.assignFullName}</Text>
+        <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:12,flex:0.9}}>{props.item.assignFullName}</Text>
       </View>
       <View style={{marginTop:15}}>
         <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.title}</Text>

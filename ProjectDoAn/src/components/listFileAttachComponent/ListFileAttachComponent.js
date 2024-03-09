@@ -39,7 +39,7 @@ export const ListFileAttachComponent = React.memo((props) => {
 
     useEffect(() => {
       dispatch(actionGetFileAttach(props.taskId))
-    }, []);
+    }, [props.taskId]);
 
     const RenderIcon = (props) => {
       var Extension = props.extension.toLowerCase();

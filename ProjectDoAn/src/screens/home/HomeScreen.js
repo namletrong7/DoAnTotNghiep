@@ -6,19 +6,23 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList,ScrollView
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
 
 
 import ItemTask from "../../components/itemTask/ItemTask";
+import FastImage from "react-native-fast-image";
+import LottieView from "lottie-react-native";
+import IconPlus from "../../assets/icons/IconPlus";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 
 const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
-
+  const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   var fakeDataListTask = [
     {
       "taskId": "T001",
@@ -119,9 +123,34 @@ const HomeScreen = ({ navigation }) => {
 
 
   return (
-    <View>
+    <View style={{backgroundColor:"#F0F0F0", marginTop:StatusBar.currentHeight}}>
       <ScrollView contentContainerStyle={{ backgroundColor: "white"}}>
         <View style={{backgroundColor:"#F0F0F0"}}>
+          <View style={{marginVertical:10,marginHorizontal:10}}>
+            <View style={{flexDirection:"row",justifyContent:"space-between",}}>
+              <Image
+                source={require('../../assets/images/logo.png')}
+                style={{  width: 200,
+                  height: 60,
+                  alignSelf:"flex-start" }}
+              />
+              <FastImage
+                style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
+                source={{
+                  uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
+                }}
+                resizeMode={FastImage.resizeMode.stretch}/>
+
+            </View>
+             <View style={{flexDirection:"row", }}>
+               <View>
+                 <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Hello,"}</Text>
+                 <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{(dataCurrentUser?.fullName)||''}</Text>
+               </View>
+               <LottieView style={{width:90, height:90, alignSelf:"center",marginLeft:-80,marginTop:-20}} source={require('../../assets/animation/cat.json')} autoPlay loop />
+             </View>
+
+          </View>
             <FlatList
               data={fakeDataListTask}
               renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}
@@ -130,6 +159,9 @@ const HomeScreen = ({ navigation }) => {
             />
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:40, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+         <IconPlus/>
+      </TouchableOpacity>
     </View>
   );
 };

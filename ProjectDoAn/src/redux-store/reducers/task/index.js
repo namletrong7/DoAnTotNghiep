@@ -1,4 +1,4 @@
-const reducerTask = (state = {
+const initialState = {
     isLoadingAddTask: false ,
     isGetDetailTask:false,
     detailTask :{},
@@ -7,8 +7,12 @@ const reducerTask = (state = {
     isGetComment: false ,
     dataCommentTask: [],
     isGetMoreComment: false ,
-}, action) => {
+}
+const reducerTask = (state =initialState , action) => {
     switch (action.type) {
+        case "RESET_TASK":{
+            return initialState;
+        }
         // khi bắt đầu thêm task mới thì sẽ loading
         case 'START_ADD_TASK': {
             return { ...state,

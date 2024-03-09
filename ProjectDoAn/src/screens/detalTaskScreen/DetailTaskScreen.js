@@ -70,7 +70,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     console.log("MOUT LẠI màn hình chi tiết");
      dispatch(actionGetDetailTask(taskId))
 
-  },[])
+  },[taskId])
   const onRefresh = () => {
     // Đặt refreshing thành true để thể hiện quá trình load lại
     setRefreshing(true);
@@ -95,9 +95,11 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
      setIsShowChangeConent(false)
    }
   return (
-    <View style={{height:"100%",padding:15 ,backgroundColor:"#EEEEEE"}}>
-      <FlashMessage position={"top"}  />
+    <View style={{height:"100%" ,backgroundColor:"#EEEEEE"}}>
+      <FlashMessage position={"top"} style={{height:100, alignItems:"flex-end"}}  />
+      <HeaderComponent title={"Chi tiết công việc"} navigation={navigation} back/>
       <ScrollView
+        contentContainerStyle={{padding:15}}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

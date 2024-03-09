@@ -9,6 +9,8 @@ import LoginScreen from "./src/screens/login/LoginScreen";
 import { requestStoragePermission } from "./src/utils/getPermisson";
 import ProFileUserScreen from "./src/screens/proFileUser/ProFileUserScreen";
 import { BottomHomeNavigation, HomeNavigator, StackNavigate } from "./src/navigation/HomeNavigator";
+import AppNavigator from "./src/navigation/AppNavigator";
+import { PersonalScreen } from "./src/screens/Personal/PersonalScreen";
 
 
 
@@ -21,7 +23,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <HomeNavigator />
+          <AppNavigator />
         </NavigationContainer>
       </PersistGate>
     </Provider>
