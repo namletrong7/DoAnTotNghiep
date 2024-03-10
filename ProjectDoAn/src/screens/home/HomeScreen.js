@@ -159,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
             />
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:40, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:60, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
          <IconPlus/>
       </TouchableOpacity>
     </View>

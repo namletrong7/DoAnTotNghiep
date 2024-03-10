@@ -2,7 +2,7 @@
 *  Đây là modal hiển thị danh sách user của project sử dụng ở màn hình add Task
 * */
 import React, { useState } from "react";
-import { View, Text, Modal, TouchableOpacity, StyleSheet, FlatList } from "react-native";
+import { View, Text, Modal, TouchableOpacity, StyleSheet, FlatList, Image } from "react-native";
 import FastImage from "react-native-fast-image";
 import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
 

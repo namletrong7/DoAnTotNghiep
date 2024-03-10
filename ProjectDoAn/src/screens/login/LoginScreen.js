@@ -77,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={{height:"100%", flex:1,backgroundColor:"white"}}>
-      <FlashMessage position={"top"} style={{borderBottomRightRadius:16,borderBottomLeftRadius:16, alignItems:"center"}}  />
+
     <ScrollView contentContainerStyle={{backgroundColor:"white"}}>
       <View style={styles.container}>
       <LottieView style={{width:'80%', height:200,marginTop:40}} source={require('../../assets/animation/work_space.json')} autoPlay loop />

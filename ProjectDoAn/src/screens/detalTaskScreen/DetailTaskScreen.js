@@ -96,7 +96,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
    }
   return (
     <View style={{height:"100%" ,backgroundColor:"#EEEEEE"}}>
-      <FlashMessage position={"top"} style={{height:100, alignItems:"flex-end"}}  />
+
       <HeaderComponent title={"Chi tiết công việc"} navigation={navigation} back/>
       <ScrollView
         contentContainerStyle={{padding:15}}

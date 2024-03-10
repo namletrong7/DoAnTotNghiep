@@ -29,12 +29,8 @@ const SendCommentComponent = (props)=> {
   const [content, setContent] = useState("");
 
     const sendComment=()=>{
-      if(content.trim().length<=5){
-          return ;
-      }else {
-        dispatch(actionAddCommentTask(props.taskId,content,1))
-        setContent('')
-      }
+      dispatch(actionAddCommentTask(props.taskId,content,1))
+      setContent('')
 
     }
 

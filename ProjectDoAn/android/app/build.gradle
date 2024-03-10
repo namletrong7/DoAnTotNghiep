@@ -90,6 +90,14 @@ android {
             keyPassword 'android'
         }
     }
+     signingConfigs {
+        release {
+          storeFile file('debug.keystore')
+          storePassword 'Letrongnam1'
+          keyAlias 'lenam'
+          keyPassword 'Letrongnam1'
+        }
+      }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug

@@ -39,11 +39,9 @@ export  const BottomHomeNavigation = React.memo(() => {
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused }) => {
               let iconName;
-              if (route.name === "Home") {
+              if (route.name === "HomeScreen") {
                 iconName = focused ? <IconHomeFocus/> : <IconHomeUnFocus/>;
-              } else if (route.name === "Detail") {
-                iconName = focused ? <IconNotifiFocus/> : <IconNotifiUnFocus/>
-              } else if (route.name === "ProfileUser") {
+              } else if (route.name === "PersonalScreen") {
                 iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
               }
               return  iconName
@@ -53,9 +51,8 @@ export  const BottomHomeNavigation = React.memo(() => {
           })}
 
         >
-          <Tab.Screen name="Home" component={HomeScreen}   options={{ headerShown: false }}/>
-          <Tab.Screen name="Detail" component={DetailTaskScreen} options={{ headerShown: false }}/>
-          <Tab.Screen name="ProfileUser" component={PersonalScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="HomeScreen" component={HomeScreen}   options={{ headerShown: false }}/>
+          <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false }} />
         </Tab.Navigator>
 
   )
@@ -67,9 +64,10 @@ export  const StackNavigate = React.memo(() => {
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-      <Stack.Screen name="Home" component={BottomHomeNavigation} />
-      <Stack.Screen name="Detail2" component={DetailTaskScreen} />
+      <Stack.Screen name="BottomHomeNavigation" component={BottomHomeNavigation} />
+      <Stack.Screen name="Detail" component={DetailTaskScreen} />
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
+      <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
     </Stack.Navigator>
   )
 })
