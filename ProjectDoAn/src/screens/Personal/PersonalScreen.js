@@ -68,7 +68,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
     });
   }
   return (
-    <View style={{backgroundColor:"#EEEEEE",marginTop:StatusBar.currentHeight}}>
+    <View style={{backgroundColor:"#EEEEEE",height:"100%",marginTop:StatusBar.currentHeight}}>
 
       <ScrollView
         contentContainerStyle={{padding:15, }}
