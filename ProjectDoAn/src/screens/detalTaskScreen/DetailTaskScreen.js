@@ -51,6 +51,7 @@ import { ListReportTask } from "./taskReport/ListReportTask";
 export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const { taskId } = route?.params||"T001";
+  console.log(taskId)
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   // láy data detail task từ  reducer có dược
@@ -171,7 +172,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                   resizeMode={FastImage.resizeMode.stretch}
 
                 />
-                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.assignFullName||''}</Text>
+                <Text style={{flexWrap:"wrap",fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.assignFullName||''}</Text>
               </View>
             </View>
 
@@ -189,7 +190,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                   resizeMode={FastImage.resizeMode.stretch}
 
                 />
-                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.targetFullName||""}</Text>
+                <Text style={{flexWrap:"wrap",fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.targetFullName||""}</Text>
               </View>
             </View>
           </View>
@@ -218,11 +219,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
           <TouchableOpacity style={{marginTop:2}} onPress={() =>{setRedMoreContent(!redMoreContent)}}>
             <Text style={{fontSize:13, color:"#33CCFF",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{redMoreContent?"Rút gọn..":"Đọc thêm..."}</Text>
          </TouchableOpacity>
+          <ListFileAttachComponent taskId={taskId}/>
+          <ListCommentComponet navigation ={navigation} taskId={taskId}/>
+          <SendCommentComponent taskId={taskId}/>
         </View>}
-        <ListFileAttachComponent taskId={taskId}/>
-        <ListCommentComponet navigation ={navigation} taskId={taskId}/>
 
-        <SendCommentComponent taskId={taskId}/>
+
       </ScrollView>
 
       </KeyboardAvoidingView>

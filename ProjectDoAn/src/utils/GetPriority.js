@@ -30,3 +30,9 @@ export  function getState(state){
 }
 
 
+var listTypeNotifi = ["Đã tạo công việc mới","Đã yêu cầu báo cáo tiến độ trong ",
+  "Đã báo cáo tiến độ trong","Đã bình luận vào bài viết","Đã chỉnh sửa thông tin công việc: ","Đã thêm bạn vào công việc: ",
+"Đã hoàn thành công việc"]
+export  function getTypeNotifi(type){
+  return listTypeNotifi?listTypeNotifi[type]:"Thông báo";
+}

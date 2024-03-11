@@ -15,6 +15,7 @@ import IconNotifiFocus from "../assets/icons/IconNotifiFocus";
 import IconNotifiUnFocus from "../assets/icons/IconNotifiUnFocus";
 import { AddTaskScreen } from "../screens/AddTaskScreen/AddTaskScreen";
 import { PersonalScreen } from "../screens/Personal/PersonalScreen";
+import NotifiScreen from "../screens/Notifi/NotifiScreen";
 
 export  const HomeNavigator = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -30,6 +31,20 @@ export  const HomeNavigator = React.memo(() => {
     </Stack.Navigator>
   )
 })
+// stack này bao gồm màn hình thông báo -> màn hình chi tiết công việc
+export  const NotifiStack = React.memo(() => {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="NotifiScreen" component={NotifiScreen} />
+      <Stack.Screen name="DetailTask_Notifi" component={DetailTaskScreen} />
+
+    </Stack.Navigator>
+  )
+})
 
 export  const BottomHomeNavigation = React.memo(() => {
   const Tab = createBottomTabNavigator();
@@ -41,7 +56,11 @@ export  const BottomHomeNavigation = React.memo(() => {
               let iconName;
               if (route.name === "HomeScreen") {
                 iconName = focused ? <IconHomeFocus/> : <IconHomeUnFocus/>;
-              } else if (route.name === "PersonalScreen") {
+              }
+              else if (route.name === "NotifiStack") {
+                iconName = focused ? <IconNotifiFocus/> : <IconNotifiUnFocus/>;
+              }
+              else if (route.name === "PersonalScreen") {
                 iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
               }
               return  iconName
@@ -52,6 +71,7 @@ export  const BottomHomeNavigation = React.memo(() => {
 
         >
           <Tab.Screen name="HomeScreen" component={HomeScreen}   options={{ headerShown: false }}/>
+          <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false }} />
           <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false }} />
         </Tab.Navigator>
 
