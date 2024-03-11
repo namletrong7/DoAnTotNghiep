@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import FastImage from "react-native-fast-image";
 import { useSelector } from "react-redux";
+import LottieView from "lottie-react-native";
 
 const ModalLoading = () => {
 
@@ -19,14 +20,7 @@ const ModalLoading = () => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <FastImage
-            style={{ width: "100%", height: 300 ,overflow: "hidden", borderRadius: 16}}
-            source={{
-              uri: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTkxZjl5dWNuemM0cnJuejRieTNudHgycHR3aHdpdmZkNzRzbGs0NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gJ3mEToTDJn3LT6kCT/giphy.gif"
-            }}
-            resizeMode={FastImage.resizeMode.stretch}
-
-          />
+          <LottieView style={{ height:100,marginTop:10,width:100}} source={require('../../../assets/animation/loading.json')} autoPlay loop />
           <Text style={{
             fontSize: 17,
             color: "#4577ef",
@@ -50,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.3)",
   },
   modalContent: {
-    marginTop: "40%",
+    marginTop: "60%",
     backgroundColor: "white",
     borderRadius: 10,
     elevation: 5,

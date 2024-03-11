@@ -314,7 +314,6 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   return (
     <View>
       <HeaderComponent title={"Thêm công việc mới"} navigation={navigation} back/>
-      <FlashMessage position={"top"} style={{height:100, alignItems:"flex-end"}}  />
       <KeyboardAwareScrollView
         style={styles.container}
         scrollEnabled={true}
