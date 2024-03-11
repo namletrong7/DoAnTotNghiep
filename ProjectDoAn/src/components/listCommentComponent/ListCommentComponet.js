@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
   container: {
     display:"flex",
     marginTop: 20,
-    marginBottom:500,
   },
 
 });

@@ -21,7 +21,7 @@ export function actionLogin(userName, passWord) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).login(userName, passWord);
-            console.log(response.data)
+            console.log("fff:"+response.data)
             if (response.data.status==200 && response.data.data == 1){
                 dispatch(updateData({
                     isLoginSuccess: true,
@@ -36,6 +36,10 @@ export function actionLogin(userName, passWord) {
             }, 3000);
         }
             else{
+                dispatch(updateData({
+                    token: null,
+                    isLoginSuccess: false,
+                }))
                 showMessage({
                     message: "Đăng nhập thất bại vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu ",
                     type: "danger",
@@ -46,6 +50,10 @@ export function actionLogin(userName, passWord) {
         } catch (error) {
             // Xử lý lỗi ở đây
             console.log(error);
+            dispatch(updateData({
+                token: null,
+                isLoginSuccess: false,
+            }))
             showMessage({
                 message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
                 type: "warning",
