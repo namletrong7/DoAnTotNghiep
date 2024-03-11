@@ -11,6 +11,6 @@ const TabNavigator = (props) => (
     <Tab.Screen name="Screen1" component={MyScreen1} initialParams={{ navigation: props?.navigation }}/>
     <Tab.Screen name="Screen2" component={DetailTaskScreen} initialParams={{ navigation: props?.navigation }} />
   </Tab.Navigator>
-);
+)
 
 export default TabNavigator;
