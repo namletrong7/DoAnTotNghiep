@@ -123,7 +123,7 @@ const HomeScreen = ({ navigation }) => {
 
 
   return (
-    <View style={{backgroundColor:"#F0F0F0", marginTop:StatusBar.currentHeight}}>
+    <View style={{backgroundColor:"#F0F0F0",marginTop:StatusBar.currentHeight}}>
       <ScrollView contentContainerStyle={{ backgroundColor: "white"}}>
         <View style={{backgroundColor:"#F0F0F0"}}>
           <View style={{marginVertical:10,marginHorizontal:10}}>

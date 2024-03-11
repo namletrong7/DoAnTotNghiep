@@ -11,6 +11,7 @@ import ProFileUserScreen from "./src/screens/proFileUser/ProFileUserScreen";
 import { BottomHomeNavigation, HomeNavigator, StackNavigate } from "./src/navigation/HomeNavigator";
 import AppNavigator from "./src/navigation/AppNavigator";
 import { PersonalScreen } from "./src/screens/Personal/PersonalScreen";
+import NotifiScreen from "./src/screens/Notifi/NotifiScreen";
 
 
 

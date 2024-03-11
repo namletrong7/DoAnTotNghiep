@@ -18,18 +18,11 @@ function HeaderComponent (props) {
 
   const renderHeaderHome = () => (
     <>
-      <Image
-        source={require('../../assets/images/banner_header.png')}
-        style={styles.backgroundImage}
+      <View
+        style={[styles.backgroundImage, { backgroundColor: '#6699FF' }]}
       />
-      <View style={{ fontWeight: 'bold', color: '#212121', position: 'absolute', bottom: 0, left: 2, padding: 10, }} >
-        <TouchableOpacity onPress={props.toggleShowTabBar} >
-          <IconMenu />
-        </TouchableOpacity>
-      </View>
-
       <Text style={{ fontWeight: 'bold', fontSize: 16, color: '#ffffff', position: 'absolute', bottom: 10, }}>
-        Màn Hình Chính
+        {props.title}
       </Text>
     </>
   )
@@ -79,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HeaderComponent;
+export default React.memo(HeaderComponent);

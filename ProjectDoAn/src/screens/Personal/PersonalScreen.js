@@ -38,6 +38,7 @@ import IconLanguage from "../../assets/icons/IconLanguage";
 import IconComputer from "../../assets/icons/IconComputer";
 import IconInfo from "../../assets/icons/IconInfo";
 import { useFocusEffect } from "@react-navigation/native";
+import IconKey from "../../assets/icons/IconKey";
 
 
 
@@ -62,6 +63,14 @@ export const PersonalScreen = React.memo(({navigation})=>{
   const show=()=>{
     showMessage({
       message: "Tính năng đang được phát triển",
+      type: "warning",
+      duration: 3000,
+      icon: { icon: "warning", position: 'left' }
+    });
+  }
+  const showInfo=()=>{
+    showMessage({
+      message: "Phiên bản 1.0.0",
       type: "warning",
       duration: 3000,
       icon: { icon: "warning", position: 'left' }
@@ -113,6 +122,10 @@ export const PersonalScreen = React.memo(({navigation})=>{
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Quản lý phiên đăng nhập"}</Text>
                </TouchableOpacity>
                <TouchableOpacity  onPress={()=>{show()}} style={{marginTop:25,flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
+                 <IconKey/>
+                 <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đổi mật khẩu"}</Text>
+               </TouchableOpacity>
+               <TouchableOpacity  onPress={()=>{showInfo()}} style={{marginTop:25,flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
                  <IconInfo/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Phiên bản 1.0.0 "}</Text>
                </TouchableOpacity>
