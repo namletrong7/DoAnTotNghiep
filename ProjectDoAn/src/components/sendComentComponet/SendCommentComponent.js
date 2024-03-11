@@ -5,7 +5,7 @@
 import React, { Component, useState } from "react";
 import {
   Dimensions,
-  FlatList,
+  FlatList, KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
   Text, TextInput,
@@ -59,15 +59,14 @@ const SendCommentComponent = (props)=> {
 const styles = StyleSheet.create({
   container: {
     flexDirection:"row",
-    position: "absolute",
-    width:"100%",
-    bottom: 0,
-    marginHorizontal: 8, /* hoặc có thể sử dụng right: 0 để nằm ở góc phải */
-    flex:1, /* Đảm bảo chiều ngang bằng với màn hình */
+    height:60,
     alignItems:"center",
+    justifyContent:"center",
     backgroundColor:"#DDDDDD",
     paddingVertical:6,
     borderRadius:15,
+    marginBottom:50,
+    marginTop:100
   },
 
 });

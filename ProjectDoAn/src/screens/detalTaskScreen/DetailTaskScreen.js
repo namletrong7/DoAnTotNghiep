@@ -19,7 +19,7 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
-  RefreshControl,
+  RefreshControl, Platform,
 } from "react-native";
 import {
   actionAddComment,
@@ -96,10 +96,15 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
    }
   return (
     <View style={{height:"100%" ,backgroundColor:"#EEEEEE"}}>
-
       <HeaderComponent title={"Chi tiết công việc"} navigation={navigation} back/>
+     <SafeAreaView>
+      <KeyboardAvoidingView
+          behavior="padding"
+          keyboardVerticalOffset={50}
+      >
       <ScrollView
-        contentContainerStyle={{padding:15}}
+          automaticallyAdjustKeyboardInsets={true}
+        contentContainerStyle={{paddingHorizontal:15}}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -216,8 +221,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         </View>}
         <ListFileAttachComponent taskId={taskId}/>
         <ListCommentComponet navigation ={navigation} taskId={taskId}/>
+
+        <SendCommentComponent taskId={taskId}/>
       </ScrollView>
-     <SendCommentComponent taskId={taskId}/>
+
+      </KeyboardAvoidingView>
+     </SafeAreaView>
         <ModalChaneConent visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
     </View>
   );

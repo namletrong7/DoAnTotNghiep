@@ -127,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={{ backgroundColor: "white"}}>
         <View style={{backgroundColor:"#F0F0F0"}}>
           <View style={{marginVertical:10,marginHorizontal:10}}>
-            <View style={{flexDirection:"row",justifyContent:"space-between",}}>
+            <SafeAreaView style={{flexDirection:"row",justifyContent:"space-between",}}>
               <Image
                 source={require('../../assets/images/logo.png')}
                 style={{  width: 200,
@@ -141,7 +141,7 @@ const HomeScreen = ({ navigation }) => {
                 }}
                 resizeMode={FastImage.resizeMode.stretch}/>
 
-            </View>
+            </SafeAreaView>
              <View style={{flexDirection:"row", }}>
                <View>
                  <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Hello,"}</Text>
@@ -159,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
             />
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:60, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:80, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
          <IconPlus/>
       </TouchableOpacity>
     </View>

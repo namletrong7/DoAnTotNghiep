@@ -74,7 +74,9 @@ export const PersonalScreen = React.memo(({navigation})=>{
         contentContainerStyle={{padding:15, }}
         showsVerticalScrollIndicator={false}>
            <View>
-            <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"Cá nhân bạn"}</Text>
+               <SafeAreaView>
+                   <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"Cá nhân bạn"}</Text>
+               </SafeAreaView>
              <TouchableOpacity style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
                <FastImage
                  style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
