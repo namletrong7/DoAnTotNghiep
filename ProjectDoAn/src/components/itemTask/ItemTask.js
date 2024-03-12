@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ItemTask;
+export default React.memo(ItemTask);

@@ -18,11 +18,45 @@ import FastImage from "react-native-fast-image";
 import LottieView from "lottie-react-native";
 import IconPlus from "../../assets/icons/IconPlus";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
+import ItemProject from "../../components/itemProject/ItemProject";
+import IconArrowRight from "../../assets/icons/IconArrowRigth";
+import IconArrowDown from "../../assets/icons/IconArrowDown";
+import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
 
 const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
+  var fakeDataListProject=[
+    {
+      "projectId": "P001",
+      "nameProject": "Du an thien nguyen ca nhan cua phong hanh chinh va ke hoach tong hop",
+      "startDay": "10/08/2001",
+      "endDay":"10/08/2001",
+      "createUser": 1,
+      "state":1
+
+    },
+    {
+      "projectId": "P002",
+      "nameProject": "Du an nhan ai cong dien len ban",
+      "startDay": "10/08/2001",
+      "endDay":"10/08/2001",
+      "createUser": 1,
+      "state":1
+
+    },
+    {
+      "projectId": "P003",
+      "nameProject": "Test 3",
+      "startDay": "10/08/2001",
+      "endDay":"10/08/2001",
+      "createUser": 1,
+      "state":1
+
+    }
+  ]
+
   var fakeDataListTask = [
     {
       "taskId": "T001",
@@ -138,7 +172,7 @@ const HomeScreen = ({ navigation }) => {
                 style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
                 source={{
                   uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
-                }}
+              }}
                 resizeMode={FastImage.resizeMode.stretch}/>
 
             </SafeAreaView>
@@ -151,17 +185,33 @@ const HomeScreen = ({ navigation }) => {
              </View>
 
           </View>
-            <FlatList
-              data={fakeDataListTask}
-              renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}
-              scrollEnabled={false}
-              keyExtractor={item => item.taskId}
-            />
+            {/*<FlatList*/}
+            {/*  data={fakeDataListTask}*/}
+            {/*  renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}*/}
+            {/*  scrollEnabled={false}*/}
+            {/*  keyExtractor={item => item.taskId}*/}
+            {/*/>*/}
+            <View style={{backgroundColor:"#DDDDDD",marginHorizontal:20, paddingVertical:20, borderRadius:10, marginBottom:20}}>
+              <FlatList
+                data={fakeDataListProject}
+                renderItem={({item}) => <ItemProject item={item} navigation = {navigation} />}
+                scrollEnabled={false}
+                keyExtractor={item => item.projectId}
+              />
+
+            </View>
+          <View style={{backgroundColor:"white",marginHorizontal:100, alignItems:'center', paddingVertical:3, borderRadius:40,marginTop:-26}}>
+            <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",fontWeight:"bold"}}>{"Xem thêm"}</Text>
+            <IconArrowDownDouble/>
+          </View>
+
+
+
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:80, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
-         <IconPlus/>
-      </TouchableOpacity>
+      {/*<TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:0, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>*/}
+      {/*   <IconPlus/>*/}
+      {/*</TouchableOpacity>*/}
     </View>
   );
 };
