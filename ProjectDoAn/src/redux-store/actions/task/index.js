@@ -19,7 +19,7 @@ export function actionAddTask(body) {
       // in ra response trả về
             console.log(response?.data);
 
-            await   dispatch({
+               dispatch({
                 type: "END_ADD_TASK",
             });
 
@@ -51,7 +51,7 @@ export function actionAddTask(body) {
 // action call api lấy chi tết task
 export function actionGetDetailTask(taskId) {
     return async (dispatch, getState) => {
-        await   dispatch({  // bắt đầu
+           dispatch({  // bắt đầu
             type: "START_GET_DETAIL_TASK",
         });
         try {
