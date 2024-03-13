@@ -33,20 +33,10 @@ const HomeScreen = ({ navigation }) => {
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
 
 
-  const snapPoints = useMemo(() => ['50%', "60%", '80%'], []);
-  const bottomSheetRef = useRef(null);
-  const renderBackdrop = useCallback(
-      (props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />,
-      []
-  );
-  function handelOpenModal (){
-    bottomSheetRef.current?.present();
-  }
-
   var fakeDataListProject=[
     {
       "projectId": "P001",
-      "nameProject": "Du an thien nguyen ca nhan cua phong hanh chinh va ke hoach tong hop",
+      "nameProject": "Nâng cấp phiên bản cho phần mềm diệt virus",
       "startDay": "10/08/2001",
       "endDay":"10/08/2001",
       "createUser": 1,
@@ -55,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
     },
     {
       "projectId": "P002",
-      "nameProject": "Du an nhan ai cong dien len ban",
+      "nameProject": "Dự án nhân ái cõng điện lên bản",
       "startDay": "10/08/2001",
       "endDay":"10/08/2001",
       "createUser": 1,
@@ -70,6 +60,15 @@ const HomeScreen = ({ navigation }) => {
       "createUser": 1,
       "state":1
 
+    },
+    {
+      "projectId": "P004",
+      "nameProject": "Triển khi hệ thống quản lý học sinh, sinh viên khi vực phía nam và khu vực phái tây nam bộ",
+      "startDay": "10/08/2001",
+      "endDay":"10/08/2001",
+      "createUser": 1,
+      "state":1
+
     }
   ]
 
@@ -77,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",marginTop:StatusBar.currentHeight, flex:1}}>
+    <SafeAreaView style={{backgroundColor:"#F0F0F0",paddingTop:StatusBar.currentHeight, flex:1}}>
       <ScrollView>
         <View style={{paddingHorizontal:10}}>
           <View style={{marginVertical:10,}}>
@@ -121,7 +120,7 @@ const HomeScreen = ({ navigation }) => {
               />
 
             </View>
-          <TouchableOpacity onPress={()=>{handelOpenModal()}} style={{backgroundColor:"white",marginHorizontal:100, alignItems:'center', paddingVertical:3, borderRadius:40,marginTop:-26}}>
+          <TouchableOpacity  style={{backgroundColor:"white",marginHorizontal:100, alignItems:'center', paddingVertical:3, borderRadius:40,marginTop:-26}}>
             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",fontWeight:"bold"}}>{"Xem thêm"}</Text>
             <IconArrowDownDouble/>
           </TouchableOpacity>
@@ -132,20 +131,7 @@ const HomeScreen = ({ navigation }) => {
       {/*   <IconPlus/>*/}
       {/*</TouchableOpacity>*/}
 
-      <GestureHandlerRootView  style={{ borderRadius:16,flex:1 , backgroundColor:"green"}}>
-        <BottomSheetModalProvider>
-          <BottomSheetModal
-              ref={bottomSheetRef}
-              index={1}
-              enablePanDownToClose={true}
-              backdropComponent={renderBackdrop}
-              snapPoints={snapPoints}>
-            <View style={{backgroundColor:"red", height: '100%'}}>
-              <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",fontWeight:"bold"}}>{"Botom sheet"}</Text>
-            </View>
-          </BottomSheetModal>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
+
     </SafeAreaView>
   );
 };

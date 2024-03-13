@@ -36,3 +36,40 @@ var listTypeNotifi = ["Đã tạo công việc mới","Đã yêu cầu báo cáo
 export  function getTypeNotifi(type){
   return listTypeNotifi?listTypeNotifi[type]:"Thông báo";
 }
+
+
+
+
+
+
+
+
+
+// láy mã màu bát kỳ
+// Hàm để tạo mã màu ngẫu nhiên
+ export function getRandomColor() {
+  // Chuỗi chứa tất cả các ký tự và số có thể tạo thành mã màu hex
+  const characters = '0123456789ABCDEF';
+
+  // Mã màu hex bắt đầu bằng ký tự '#' và sau đó là 6 ký tự ngẫu nhiên
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += characters[Math.floor(Math.random() * 16)];
+  }
+
+  return color;
+}
+//áy 2 chữ cái đầu tiên của chuỗi
+ export function getFirstAndLastCharacters(inputString) {
+   const words = inputString.split(' ');
+
+   if (words.length >= 2) {
+     const firstWord = words[0];
+     const secondWord = words[1];
+
+     return (firstWord.charAt(0) + secondWord.charAt(0)).toUpperCase();
+   }
+
+   return null;
+
+}

@@ -13,6 +13,7 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import { PersonalScreen } from "./src/screens/Personal/PersonalScreen";
 import NotifiScreen from "./src/screens/Notifi/NotifiScreen";
 import HomeScreen from "./src/screens/home/HomeScreen";
+import DetailProjectScreen from "./src/screens/DetailProject/DetailProjectScreen";
 
 
 
@@ -25,7 +26,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <HomeScreen
+          <AppNavigator
           />
         </NavigationContainer>
       </PersistGate>
