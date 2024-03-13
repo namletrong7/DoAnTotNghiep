@@ -19,7 +19,13 @@ import {
 import AppNavigator from "../../navigation/AppNavigator";
 import IconFlag from "../../assets/icons/IconArrowDown";
 import FastImage from 'react-native-fast-image'
-import { getColorBackgroundPriority, getColorPriority, getState, getValuePriority } from "../../utils/GetPriority";
+import {
+  getColorBackgroundPriority,
+  getColorPriority, getFirstAndLastCharacters,
+  getRandomColor,
+  getState,
+  getValuePriority,
+} from "../../utils/GetPriority";
 import IconCalendar from "../../assets/icons/IconCalendar";
 import IconProject from "../../assets/icons/IconProject";
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
@@ -28,15 +34,17 @@ import IconArrowRight from "../../assets/icons/IconArrowRigth";
 const ItemProject = (props) => {
 
 
-  function gotoDetailProjectScreen (taskId){
-    props.navigation.navigate('Detail',{taskId:taskId});
+  function gotoDetailProjectScreen (item){
+    props.navigation.navigate('DetailProjectScreen',{itemProject:item});
   }
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item.taskId)}}>
-            <IconProject/>
-      <View style={{marginHorizontal:10}}>
-        <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',maxWidth:"98%"}}>{props.item.nameProject}</Text>
-        <View style={{marginTop:10, flexDirection:"row", alignItems:"center"}}>
+    <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item)}}>
+      <View style={{height:40, width:40, borderRadius:20, backgroundColor:getRandomColor(), alignItems:'center', justifyContent:"center"}}>
+        <Text style={{fontSize:13, color:"white",fontFamily:"OpenSans-Regular",fontWeight:'700'}}>{getFirstAndLastCharacters(props.item.nameProject)}</Text>
+      </View>
+      <View style={{marginHorizontal:10,flex:1}}>
+        <Text numberOfLines={2} style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.nameProject}</Text>
+        <View style={{marginTop:3, flexDirection:"row", alignItems:"center"}}>
           <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.startDay}</Text>
           <View style={{marginHorizontal:10}}>
             <IconArrowRight/>
