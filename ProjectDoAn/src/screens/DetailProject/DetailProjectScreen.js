@@ -38,9 +38,9 @@ import IconArrowLeft from "../../assets/icons/IconArrowLeft";
 import IconBack from "../../assets/icons/IconBack";
 import IconEdit from "../../assets/icons/IconEdit";
 import { showMessage } from "react-native-flash-message";
-import { getState } from "../../utils/GetPriority";
-import { TopTabTask, TopTabTask1 } from "./toptab/TopTabTask";
-import TabNavigator from "../../navigation/TopTabTask";
+import {  TopTabTask1 } from "./toptab/TopTabTask";
+
+
 
 
 const DetailProjectScreen = ({ navigation ,route}) => {
@@ -186,8 +186,8 @@ const ItemUserMemer=(props)=>{
 
 
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0", flex:1}}>
-     <View style={{flexDirection:"row",paddingTop:StatusBar.currentHeight, backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
+    <View style={{backgroundColor:"#F0F0F0", height:"100%"}}>
+     <View style={{flexDirection:"row",paddingTop:StatusBar.currentHeight+50, backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
          <TouchableOpacity onPress={()=>{navigation.goBack()}}>
            <IconBack/>
          </TouchableOpacity>
@@ -247,7 +247,7 @@ const ItemUserMemer=(props)=>{
       </GestureHandlerRootView>
 
 
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -34,7 +34,7 @@ const ItemTask = (props) => {
         )
   };
   function gotoDetailScreen (taskId){
-    props.navigation.navigate('Detail',{taskId:taskId});
+    props.navigation.navigate('DetailTaskScreen',{taskId:taskId});
   }
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen(props.item.taskId)}}>
