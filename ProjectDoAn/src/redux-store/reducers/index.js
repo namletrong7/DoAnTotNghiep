@@ -6,6 +6,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
 import reducerTask from "./task";
 import reducerUser from "./user";
+import reducerProject from "./project";
 
 
 //NạmLTc: cấu hình các reducer tại đây
@@ -20,12 +21,13 @@ const Reducer = combineReducers({
 const persistConfig = {
    key: 'root', // tên của kho lưu trữ, có thể là bất kỳ chuỗi nào
    storage: AsyncStorage, // sử dụng AsyncStorage cho lưu trữ local
-   whitelist: ['auth','task','user'], // reducer mà bạn muốn lưu trữ
+   whitelist: ['auth','task','user','project'], // reducer mà bạn muốn lưu trữ
 };
 const persistedReducer = persistReducer(persistConfig, combineReducers({
    auth: reducerAuth,
    task: reducerTask,
    user: reducerUser,
+   project:reducerProject,
    // Thêm các reducers khác nếu cần
 }));
 
