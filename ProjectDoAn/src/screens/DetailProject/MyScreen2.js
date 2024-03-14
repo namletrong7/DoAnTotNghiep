@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from "react";
 import { View, Text, FlatList } from "react-native";
 import ItemTask from "../../components/itemTask/ItemTask";
 
-const MyScreen2 = () => {
+const MyScreen2 = ({navigation}) => {
   console.log("Render lại screen2")
   useEffect(()=>{
     console.log("did mout screen2a ")
@@ -119,7 +119,7 @@ const MyScreen2 = () => {
     <View style={{flex:1}}>
       <FlatList
         data={fakeDataListTask}
-        renderItem={({item}) => <ItemTask item={item}  />}
+        renderItem={({item}) => <ItemTask item={item} navigation={navigation}  />}
         scrollEnabled={true}
         keyExtractor={item => item.taskId}
       />
