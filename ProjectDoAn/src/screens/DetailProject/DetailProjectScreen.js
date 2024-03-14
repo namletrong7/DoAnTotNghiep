@@ -39,6 +39,7 @@ import IconBack from "../../assets/icons/IconBack";
 import IconEdit from "../../assets/icons/IconEdit";
 import { showMessage } from "react-native-flash-message";
 import {  TopTabTask1 } from "./toptab/TopTabTask";
+import { dataPriority } from "../../utils/GetPriority";
 
 
 
@@ -68,6 +69,8 @@ const DetailProjectScreen = ({ navigation ,route}) => {
       "startDay": "10/08/2001",
       "endDay":"10/08/2001",
       "createUser": 1,
+      "createAvatar":"avatar.jpg",
+      "createFullName":"Trần Nguyên Minh Thư",
       "state":1,
       "dataMember":[
         {
@@ -187,7 +190,7 @@ const ItemUserMemer=(props)=>{
 
   return (
     <View style={{backgroundColor:"#F0F0F0", height:"100%"}}>
-     <View style={{flexDirection:"row",paddingTop:StatusBar.currentHeight+50, backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
+     <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight), backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
          <TouchableOpacity onPress={()=>{navigation.goBack()}}>
            <IconBack/>
          </TouchableOpacity>
@@ -231,7 +234,8 @@ const ItemUserMemer=(props)=>{
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày kết thúc dự án: "}</Text>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{detailProject.endDay}</Text>
                 </TouchableOpacity>
-                <Text style={{fontSize:20, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:20}}>{"Thành viên tham gia dự án"}</Text>
+                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Người tạo dự án: "}  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{detailProject.createFullName}</Text></Text>
+                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Thành viên tham gia dự án"}</Text>
                 <FlatList
                   data={detailProject.dataMember}
                   renderItem={({item}) => <ItemUserMemer item={item}  />}
@@ -245,8 +249,6 @@ const ItemUserMemer=(props)=>{
           </BottomSheetModal>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
-
-
     </View>
   );
 };

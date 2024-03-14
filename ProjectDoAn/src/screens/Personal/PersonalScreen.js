@@ -39,26 +39,32 @@ import IconComputer from "../../assets/icons/IconComputer";
 import IconInfo from "../../assets/icons/IconInfo";
 import { useFocusEffect } from "@react-navigation/native";
 import IconKey from "../../assets/icons/IconKey";
+import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
 
 
 
 export const PersonalScreen = React.memo(({navigation})=>{
 
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
-  const [isShow, SetIsShow] = useState(true);
+  const [isShow, SetIsShow] = useState(true); // show các chức năng khác
+  const [isShowLogOut, SetIsShowLogOut] = useState(false); // show dialog đăng xuát
   const dispatch = useDispatch();
-  useFocusEffect(
-    React.useCallback(() => {
-      console.log("dc tập trung ")
-
-      return () => {
-        console.log("bỏ tập trung ")
-      };
-    }, [])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     console.log("dc tập trung ")
+  //
+  //     return () => {
+  //       console.log("bỏ tập trung ")
+  //     };
+  //   }, [])
+  // );
   const handleLogout=()=>{
-  dispatch(actionLogout("dvvv","123"))
+    console.log("logout")
+   dispatch(actionLogout())
 
+  }
+  const handleCloseLogout=()=>{
+    SetIsShowLogOut(false)
   }
   const show=()=>{
     showMessage({
@@ -121,7 +127,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
                  <IconComputer/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Quản lý phiên đăng nhập"}</Text>
                </TouchableOpacity>
-               <TouchableOpacity  onPress={()=>{show()}} style={{marginTop:25,flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
+               <TouchableOpacity  onPress={show} style={{marginTop:25,flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
                  <IconKey/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đổi mật khẩu"}</Text>
                </TouchableOpacity>
@@ -133,13 +139,14 @@ export const PersonalScreen = React.memo(({navigation})=>{
 
 
 
-             <TouchableOpacity onPress={()=>{handleLogout()}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <TouchableOpacity onPress={()=>{SetIsShowLogOut(true)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
                  <IconLogOut/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đăng xuất"}</Text>
              </TouchableOpacity>
 
            </View>
       </ScrollView>
+      <DialogConfirmComponent visible={isShowLogOut} onConfirm={handleLogout} onClose={handleCloseLogout} content={"Bạn có chắc chắn đăng xuất khỏi ứng dụng ? Nhấn 'Đồng ý' để thực hiện đăng xuất "}   />
     </SafeAreaView>
   );
 })

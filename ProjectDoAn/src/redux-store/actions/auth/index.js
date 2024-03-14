@@ -66,7 +66,7 @@ export function actionLogin(userName, passWord) {
     };
 }
 // api login
-export function actionLogout(userName, passWord) {
+export function actionLogout() {
     return async (dispatch, getState) => {
         await   dispatch({
             type: "RESET_AUTH",

@@ -116,10 +116,13 @@ const NotifiScreen = ({ navigation }) => {
     },
 
   ];
+  const handleItemNotifi=(item)=>{
+    navigation.navigate('DetailTask_Notifi',{taskId:item.taskId})
+  }
   const ItemNotfi = (props)=>{
     const {item, navigation} = props
     return(
-      <TouchableOpacity onPress={()=>{navigation.navigate('DetailTask_Notifi',{taskId:item.taskId});}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
+      <TouchableOpacity onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
         paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"#F0F0F0"}}>
         <FastImage
           style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
