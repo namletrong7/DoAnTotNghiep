@@ -26,17 +26,15 @@ const TaskProjectDone = ({navigation,route}) => {
 
   },[])
   return (
-    <ScrollView contentContainerStyle={{flex:1, paddingBottom:120,height:"100%"}}>
-      <View>
-        {dataListTaskProjectDone.length>0?
-          (<FlatList
-            data={dataListTaskProjectDone}
-            renderItem={({item}) => <ItemTask item={item} navigation={navigation}  />}
-            scrollEnabled={false}
-            keyExtractor={item => item.taskId}
-          />):(    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',alignSelf:"center"}}>{"Không có công việc nào"}</Text>)}
-      </View>
-    </ScrollView>
+    <View style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
+      {dataListTaskProjectDone.length>0?
+        (<FlatList
+          data={dataListTaskProjectDone}
+          renderItem={({item}) => <ItemTask item={item} navigation={navigation}  />}
+          scrollEnabled={true}
+          keyExtractor={item => item.taskId}
+        />):(    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',alignSelf:"center"}}>{"Không có công việc nào"}</Text>)}
+    </View>
   );
 };
 

@@ -41,10 +41,10 @@ const ItemComment = ({item,navigation}) => {
         />
       </TouchableOpacity>
 
-      <View style={{ marginLeft: 10, flex: 0.8 }}>
+      <View style={{ marginLeft: 10, flex: 0.95 }}>
 
         <TouchableOpacity style={{ flexDirection: "row", }} onPress={() => {
-          navi.navigate("ProfileUser", { userId: item?.createUser })
+          navigation.navigate("ProfileUser", { userId: item?.createUser })
         }}>
           <Text numberOfLines={1}
                 style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.fullName}</Text>
@@ -63,7 +63,7 @@ const ItemComment = ({item,navigation}) => {
           color: "black",
           fontFamily: "OpenSans-Regular",
           backgroundColor: "#DDDDDD",
-          alignSelf: "flex-start",
+          alignSelf:"flex-start",
           paddingHorizontal: 10,
           paddingVertical: 5,
           borderRadius: 16,
