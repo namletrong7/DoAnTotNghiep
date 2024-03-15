@@ -26,12 +26,6 @@ export function actionGetProfileUser(userId) {
           data: response.data
         });
 
-        showMessage({
-          message: response.data.message,
-          type: "success",
-          duration: 1000,
-          icon: { icon: "success", position: 'left' }
-        });
       }
       await   dispatch({
         type: "END_GET_PROFILE_USER",

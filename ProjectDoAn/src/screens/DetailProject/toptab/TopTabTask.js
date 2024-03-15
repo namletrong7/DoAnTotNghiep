@@ -1,13 +1,16 @@
-import MyScreen1 from "../MyScreen1";
-import MyScreen2 from "../MyScreen2";
+
 import React, { useEffect, useMemo } from "react";
 import {
   StyleSheet,
 } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import TaskProjectToDo from "../TaskProjectToDo";
+import TaskProjectDoing from "../TaskProjectDoing";
+import TaskProjectDone from "../TaskProjectDone";
 
 const TopNavigator = createMaterialTopTabNavigator();
 export const TopTabTask1=React.memo((props)=> {
+  const {projectId}= props
   return (
     <TopNavigator.Navigator
       screenOptions={{
@@ -28,9 +31,14 @@ export const TopTabTask1=React.memo((props)=> {
           ],
         }}
         name="Cần làm"
-        component={MyScreen2}
+        component={TaskProjectToDo}
+        initialParams={{ projectId:projectId }} // Truyền biến vào đây
       />
-      <TopNavigator.Screen name="Đang làm" component={MyScreen2} />
+
+      <TopNavigator.Screen name="Đang làm" component={TaskProjectDoing}
+                           initialParams={{ projectId:projectId }}
+      />
+
       <TopNavigator.Screen
         options={{
           tabBarIndicatorStyle: [
@@ -42,7 +50,8 @@ export const TopTabTask1=React.memo((props)=> {
           ],
         }}
         name="Hoàn thành"
-        component={MyScreen2}
+        component={TaskProjectDone}
+        initialParams={{ projectId:projectId }}
       />
     </TopNavigator.Navigator>
   );

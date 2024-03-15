@@ -7,9 +7,19 @@ const initialState = {
     isGetComment: false ,
     dataCommentTask: [],
     isGetMoreComment: false ,
+    isGetTaskProjectTodo :false ,
+    dataListTaskProjectTodo:[],
+    isGetTaskProjectDoing :false ,
+    dataListTaskProjectDoing:[],
+    isGetTaskProjectDone :true,
+    dataListTaskProjectDone:[]
 }
 const reducerTask = (state =initialState , action) => {
     switch (action.type) {
+        case 'AUTH_UPDATE_TASK': {
+            let data = action.data || {};
+            return { ...state, ...data };
+        }
         case "RESET_TASK":{
             return initialState;
         }
@@ -105,6 +115,25 @@ const reducerTask = (state =initialState , action) => {
             const updatedComments = [action.data, ...state.dataCommentTask];
             return { ...state,
                 dataCommentTask:  updatedComments
+            };
+        }
+      // bắt đầu lấy todo task project
+        case 'START_GET_TASK_PROJECT_TODO': {
+            return { ...state,
+                isGetTaskProjectTodo: true
+            };
+        }
+      //  lấy  dc todo task project
+        case 'GET_TASK_PROJECT_TODO': {
+            return { ...state,
+                dataListTaskProjectTodo: action.data,
+                isGetTaskProjectTodo: false
+            };
+        }
+      // ket thuc lấy todo task project
+        case 'END_GET_TASK_PROJECT_TODO': {
+            return { ...state,
+                isGetTaskProjectTodo: false
             };
         }
         default:

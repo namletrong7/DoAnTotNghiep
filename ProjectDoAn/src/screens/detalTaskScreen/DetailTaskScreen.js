@@ -105,6 +105,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       >
       <ScrollView
           automaticallyAdjustKeyboardInsets={true}
+          keyboardShouldPersistTaps={'always'}
         contentContainerStyle={{paddingHorizontal:15}}
         refreshControl={
           <RefreshControl

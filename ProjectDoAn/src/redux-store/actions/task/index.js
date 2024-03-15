@@ -9,6 +9,12 @@ import { getNewDate } from "../../../utils/ConverPickerDate";
  * khai báo các action thực hiện liên quan đến task
  */
 // action call api addTask
+export function updateData(data) {
+    return {
+        type: 'AUTH_UPDATE_TASK',
+        data
+    }
+}
 export function actionAddTask(body) {
     return async (dispatch, getState) => {
         await   dispatch({
@@ -215,13 +221,12 @@ export function actionGetMoreCommentTask(taskId,offset) {
 
     };
 }
-export function actionAddCommentTask(taskId,content,createUser) {
+export function actionAddCommentTask(taskId,content) {
     return async (dispatch, getState) => {
-        await   dispatch({  // bắt đầu
-            type: "START_GET_FILE_ATTACH",
-        });
+        let userId= getState().auth.dataCurrentUser.userId
+        let avatar=getState().auth.dataCurrentUser.avatarUser
         try {
-            const response = await Api(false).addCommentTask(taskId,content,createUser);
+            const response = await Api(false).addCommentTask(taskId,content,userId);
             console.log(response?.data);
 
             if(response.data && response.data.status==200){
@@ -229,11 +234,11 @@ export function actionAddCommentTask(taskId,content,createUser) {
                     type: "ADD_COMMENT_TASK",
                     data:{
                         "commentId": randomKeyComment(),
-                        "createUser":createUser,
+                        "createUser":userId,
                         "taskId": taskId,
                         "content": content,
                         "createdDate":getNewDate(),
-                        "avatarUser": "avatar.jpg",
+                        "avatarUser": avatar,
                         "fullName": "John Doe"
                     }
                 });
@@ -257,6 +262,111 @@ export function actionAddCommentTask(taskId,content,createUser) {
 
     };
 }
+//láy toàn bộ danh sách công việc của PROJECT ở trạng thái todo
+export function actionGetTaskToDoProject(projectId) {
+    return async (dispatch, getState) => {
+        await   dispatch({  // bắt đầu
+            type: "START_GET_TASK_PROJECT_TODO",
+        });
+        try {
+            const response = await Api(false).getListTaskProject(projectId,0);
+            console.log(response?.data);
+
+            if(response.data && response.data.status==200){
+                await   dispatch({
+                    type: "GET_TASK_PROJECT_TODO",
+                    data:response.data.dataListTask
+                });
+            }
+            await   dispatch({  // bắt đầu
+                type: "END_GET_TASK_PROJECT_TODO",
+            });
+        } catch (error) {
+            // Xử lý lỗi ở đây
+            console.log(error);
+            await   dispatch({  // bắt đầu
+                type: "END_GET_TASK_PROJECT_TODO",
+            });
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionGetTaskDoingProject(projectId) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetTaskProjectDoing :true
+        }))
+        try {
+            const response = await Api(false).getListTaskProject(projectId,1);
+            console.log(response?.data);
+
+            if(response.data && response.data.status==200){
+                dispatch(updateData({
+                    dataListTaskProjectDoing: response.data.dataListTask
+                }))
+            }
+            dispatch(updateData({
+                isGetTaskProjectDoing :false
+
+            }))
+        } catch (error) {
+            // Xử lý lỗi ở đây
+            console.log(error);
+            dispatch(updateData({
+                isGetTaskProjectDoing :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionGetTaskDoneProject(projectId) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetTaskProjectDone :true
+        }))
+        try {
+            const response = await Api(false).getListTaskProject(projectId,2);
+            console.log(response?.data);
+
+            if(response.data && response.data.status==200){
+                dispatch(updateData({
+                    dataListTaskProjectDone: response.data.dataListTask
+                }))
+            }
+            dispatch(updateData({
+                isGetTaskProjectDone :false
+
+            }))
+        } catch (error) {
+            // Xử lý lỗi ở đây
+            console.log(error);
+            dispatch(updateData({
+                isGetTaskProjectDone :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 //--------------------------------------nghiêm túc
 
 
@@ -266,5 +376,8 @@ export default {
     actionGetDetailTask,
     actionGetFileAttach,
     actionGetCommentTask,
-    actionAddCommentTask
+    actionAddCommentTask,
+    actionGetTaskToDoProject,
+    actionGetTaskDoingProject,
+    actionGetTaskDoneProject
 };

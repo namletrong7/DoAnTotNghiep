@@ -71,6 +71,9 @@ const Api = (isFormData) => {
     const apiInstance = apiConfig();
     return apiInstance.get(`getDetailProject.php?projectId=${projectId}`);
   }
+  const getListTaskProject=(projectId,state)=>{
+    return apiConfig().get(`getListTaskProject.php?projectId=${projectId}&state=${state}`);
+  }
 
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
@@ -83,7 +86,8 @@ const Api = (isFormData) => {
         addCommentTask,
         getProfileUser,
         getAllProject,
-      getDetailProject
+      getDetailProject,
+      getListTaskProject
 
     };
 };

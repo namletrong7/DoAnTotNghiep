@@ -25,7 +25,7 @@ const DialogConfirmComponent = ({ visible,content, onClose,onConfirm }) => {
                   <Text style={{fontSize:16, color:"#0663b0",fontFamily:"OpenSans-SemiBold"}}>{"Hủy bỏ"}</Text>
                 </TouchableOpacity>
             <View style={{width:15}}/>
-            <TouchableOpacity onPress={()=>{onConfirm()}} style={{flex:0.5,alignItems:"center",backgroundColor:"#028cae",height:'100%',justifyContent:"center",borderRadius:14}}>
+            <TouchableOpacity onPress={()=>{onConfirm()}} style={{flex:0.5,alignItems:"center",backgroundColor:"#009eac",height:'100%',justifyContent:"center",borderRadius:14}}>
               <Text style={{fontSize:16, color:"white",fontFamily:"OpenSans-SemiBold"}}>{"Đồng ý"}</Text>
             </TouchableOpacity>
           </View>

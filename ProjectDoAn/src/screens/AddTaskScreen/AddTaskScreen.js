@@ -112,7 +112,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
     console.log(valuePriority)
   }
   const data = [
-    { label: 'Dự án nhân ái', value: 'P0011' },
+    { label: 'Dự án nhân ái', value: 'P001' },
     { label: 'Dự án thiện nguyện', value: 'P001' },
     { label: 'hntk 3', value: 'P002' },
     { label: 'fjbgg 1', value: 'P003' },
@@ -284,7 +284,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
     // chèn các đối số vào  formData
     formData.append('status', 0);
-    formData.append('state', 0);
+    formData.append('state', 2);
     formData.append('assignUser', 0);
 
     formData.append('targetUser', targetUser.userId);

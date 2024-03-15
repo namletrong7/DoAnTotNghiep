@@ -29,7 +29,7 @@ const SendCommentComponent = (props)=> {
   const [content, setContent] = useState("");
 
     const sendComment=()=>{
-      dispatch(actionAddCommentTask(props.taskId,content,1))
+      dispatch(actionAddCommentTask(props.taskId,content))
       setContent('')
 
     }

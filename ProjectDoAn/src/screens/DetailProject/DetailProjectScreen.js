@@ -76,11 +76,11 @@ const ItemUserMemer=(props)=>{
   return (
     <View style={{flexDirection:"row", borderRadius:14, backgroundColor:"#DDDDDD", flex:0.5, marginHorizontal:10,marginVertical:5,paddingVertical:5, alignItems:'center'}}>
       <FastImage
-        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",marginLeft:3}}
+        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:3}}
         source={{
           uri: (baseUrlAvatarUser+item?.avatarUser)||''
         }}
-        resizeMode={FastImage.resizeMode.priority}
+        resizeMode={FastImage.resizeMode.preload}
 
       />
       <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{item.fullName}</Text>
@@ -115,7 +115,7 @@ const ItemUserMemer=(props)=>{
 
       <GestureHandlerRootView  style={{ borderRadius:16,  display:"flex"}}>
           <View style={{height:"100%"}}>
-               <TopTabTask1/>
+               <TopTabTask1 projectId={itemProject?.projectId}/>
           </View>
         <BottomSheetModalProvider>
           <BottomSheetModal
