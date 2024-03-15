@@ -106,7 +106,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       <ScrollView
           automaticallyAdjustKeyboardInsets={true}
           keyboardShouldPersistTaps={'always'}
-        contentContainerStyle={{paddingHorizontal:15}}
+        contentContainerStyle={{paddingHorizontal:15,paddingBottom:200}}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -222,14 +222,19 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
          </TouchableOpacity>
           <ListFileAttachComponent taskId={taskId}/>
           <ListCommentComponet navigation ={navigation} taskId={taskId}/>
-          <SendCommentComponent taskId={taskId}/>
         </View>}
 
 
       </ScrollView>
+      </KeyboardAvoidingView>
+
+     </SafeAreaView>
+      <KeyboardAvoidingView style={{position: 'absolute', left: 0, right: 0, bottom: 0}}>
+        <View style={styles.inputContainer}>
+          <SendCommentComponent taskId={taskId}/>
+        </View>
 
       </KeyboardAvoidingView>
-     </SafeAreaView>
         <ModalChaneConent visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
     </View>
   );
