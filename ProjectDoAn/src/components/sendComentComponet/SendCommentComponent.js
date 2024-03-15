@@ -29,7 +29,7 @@ const SendCommentComponent = (props)=> {
   const [content, setContent] = useState("");
 
     const sendComment=()=>{
-      dispatch(actionAddCommentTask(props.taskId,content,1))
+      dispatch(actionAddCommentTask(props.taskId,content))
       setContent('')
 
     }
@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor:"#DDDDDD",
     paddingVertical:6,
     borderRadius:15,
-    marginBottom:150,
-    marginTop:100
+
   },
 
 });

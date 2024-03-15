@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -26,51 +26,18 @@ import BottomSheet, {BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProv
 import {useRef} from "react/index";
 import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
 import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
+import { actionGetAllProject } from "../../redux-store/actions/project";
 
 const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
+  const dataAllProject = useSelector(state => state.project.dataAllProject);
+  useEffect(()=>{
+      dispatch(actionGetAllProject())
+  },[])
 
 
-  var fakeDataListProject=[
-    {
-      "projectId": "P001",
-      "nameProject": "Nâng cấp phiên bản cho phần mềm diệt virus",
-      "startDay": "10/08/2001",
-      "endDay":"10/08/2001",
-      "createUser": 1,
-      "state":1
-
-    },
-    {
-      "projectId": "P002",
-      "nameProject": "Dự án nhân ái cõng điện lên bản",
-      "startDay": "10/08/2001",
-      "endDay":"10/08/2001",
-      "createUser": 1,
-      "state":1
-
-    },
-    {
-      "projectId": "P003",
-      "nameProject": "Test 3",
-      "startDay": "10/08/2001",
-      "endDay":"10/08/2001",
-      "createUser": 1,
-      "state":1
-
-    },
-    {
-      "projectId": "P004",
-      "nameProject": "Triển khi hệ thống quản lý học sinh, sinh viên khi vực phía nam và khu vực phái tây nam bộ",
-      "startDay": "10/08/2001",
-      "endDay":"10/08/2001",
-      "createUser": 1,
-      "state":1
-
-    }
-  ]
 
 
 
@@ -113,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
             {/*/>*/}
             <View style={{backgroundColor:"#DDDDDD", paddingVertical:20, borderRadius:10, marginBottom:20}}>
               <FlatList
-                data={fakeDataListProject}
+                data={dataAllProject}
                 renderItem={({item}) => <ItemProject item={item} navigation = {navigation} />}
                 scrollEnabled={false}
                 keyExtractor={item => item.projectId}
@@ -127,9 +94,9 @@ const HomeScreen = ({ navigation }) => {
 
         </View>
       </ScrollView>
-      {/*<TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:0, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>*/}
-      {/*   <IconPlus/>*/}
-      {/*</TouchableOpacity>*/}
+      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:50, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+         <IconPlus/>
+      </TouchableOpacity>
 
 
     </SafeAreaView>

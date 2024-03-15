@@ -2,9 +2,9 @@
 
  export  function createListProjectDropDown(data){
 
-  return  data.map(comment => ({
-    value: comment.commentId,  // Giá trị bạn muốn chọn
-    label: comment.fullName,   // Nhãn hiển thị trong DropDown
+  return  data.map(item => ({
+    value: item.projectId,  // Giá trị bạn muốn chọn
+    label: item.nameProject,   // Nhãn hiển thị trong DropDown
   }))
 
 }

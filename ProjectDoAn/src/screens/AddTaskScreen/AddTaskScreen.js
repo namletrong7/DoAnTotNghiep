@@ -38,15 +38,17 @@ import { ListFileAttach } from "./ListIFileAttach/ListFileAttach";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import ModalUserProject from "./ModalUserProject/ModalUserProject";
 import FastImage from "react-native-fast-image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionAddTask } from "../../redux-store/actions/task";
 import axios from "axios";
 import ModalLoading from "./ModalLoading/ModalLoading";
 import { dataPriority } from "../../utils/GetPriority";
 import HeaderComponent from "../../components/header/HeaderComponent";
+import { createListProjectDropDown } from "../../utils/CreateListDropDown";
 const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
 export const AddTaskScreen = React.memo(({navigation})=>{
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const dataAllProject = useSelector(state => state.project.dataAllProject);
   const [title, setTitle]=useState('');// tieeu de của công việc
   const [content, setContent]=useState('');// nội dung của công viec
 
@@ -112,7 +114,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
     console.log(valuePriority)
   }
   const data = [
-    { label: 'Dự án nhân ái', value: 'P0011' },
+    { label: 'Dự án nhân ái', value: 'P001' },
     { label: 'Dự án thiện nguyện', value: 'P001' },
     { label: 'hntk 3', value: 'P002' },
     { label: 'fjbgg 1', value: 'P003' },
@@ -284,7 +286,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
     // chèn các đối số vào  formData
     formData.append('status', 0);
-    formData.append('state', 0);
+    formData.append('state', 2);
     formData.append('assignUser', 0);
 
     formData.append('targetUser', targetUser.userId);
@@ -321,7 +323,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
          <View style={{marginHorizontal:15,paddingBottom:'50%'}}>
           <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={50}/>
-           <DropDownMenu data={data} value={valueProjectId} title={"Chọn project của bạn"} onSelectItem = {onSelectProjectId} label={"Nhấn để chọn project"}/>
+           <DropDownMenu data={createListProjectDropDown(dataAllProject)} value={valueProjectId} title={"Chọn project của bạn"} onSelectItem = {onSelectProjectId} label={"Nhấn để chọn project"}/>
            <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên của công việc"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
            <View  style={{marginTop:15,marginBottom:15}}>
              <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold" }}>{"Người xử lý chính *"}</Text>

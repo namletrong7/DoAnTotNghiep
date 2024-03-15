@@ -81,7 +81,7 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   return (
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <FlashMessage position={"top"}  />
-      <HeaderComponent title={"Thông tin thành viên"} navigation={navigation} back/>
+      <HeaderComponent title={"Thông tin nhân viên"} navigation={navigation} back/>
       <ScrollView contentContainerStyle={{marginHorizontal:20,marginTop:20}}
                   refreshControl={
                     <RefreshControl

@@ -21,6 +21,7 @@ import IconFlag from "../../assets/icons/IconArrowDown";
 import FastImage from 'react-native-fast-image'
 import { getColorBackgroundPriority, getColorPriority, getState, getValuePriority } from "../../utils/GetPriority";
 import IconCalendar from "../../assets/icons/IconCalendar";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 
 
 const ItemTask = (props) => {
@@ -45,16 +46,16 @@ const ItemTask = (props) => {
          </View>
         {RenderPriority()}
       </View>
-      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,width:"50%"}}>
+      <View style={{  flexDirection:"row",backgroundColor:"#F0F0F0",borderRadius:15,padding: 8,alignItems:"center",marginTop:10,alignSelf:"flex-start"}}>
         <FastImage
           style={{ width: 24, height: 24,borderRadius: 24/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
           source={{
-            uri: props.item.avatarAssignUser
+            uri: baseUrlAvatarUser+props.item?.avatarAssignUser
           }}
           resizeMode={FastImage.resizeMode.stretch}
 
         />
-        <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:12,flex:0.9}}>{props.item.assignFullName}</Text>
+        <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:12}}>{props.item.assignFullName}</Text>
       </View>
       <View style={{marginTop:15}}>
         <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.title}</Text>
