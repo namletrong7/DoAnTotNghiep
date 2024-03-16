@@ -16,8 +16,7 @@ export function actionGetProfileUser(userId) {
     });
     try {
       const response = await Api(true).getProfileUser(userId);
-      // in ra response trả về
-      console.log(response?.data);
+
 
 
       if(response.data && response.data.status==200){
@@ -32,8 +31,7 @@ export function actionGetProfileUser(userId) {
       });
 
     } catch (error) {
-      // Xử lý lỗi ở đây
-      console.log(error);
+
       await   dispatch({
         type: "END_GET_PROFILE_USER",
       });

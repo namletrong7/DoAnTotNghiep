@@ -21,7 +21,6 @@ export function actionLogin(userName, passWord) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).login(userName, passWord);
-            console.log("fff:"+response.data)
             if (response.data.status==200 && response.data.data == 1){
                 dispatch(updateData({
                     isLoginSuccess: true,
@@ -48,8 +47,6 @@ export function actionLogin(userName, passWord) {
                 });
             }
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
             dispatch(updateData({
                 token: null,
                 isLoginSuccess: false,

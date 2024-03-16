@@ -51,7 +51,7 @@ import { ListReportTask } from "./taskReport/ListReportTask";
 export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const { taskId } = route?.params||"T001";
-  console.log(taskId)
+
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   // láy data detail task từ  reducer có dược
@@ -66,9 +66,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const [isShowChangeConent, setIsShowChangeConent] = useState(false); // hiển thị dialog chỉnh sửa thông tin
   var toan =1 ;
 
-    console.log("render lại màn hình detail task: "+taskId);
+
   useEffect( () => {
-    console.log("MOUT LẠI màn hình chi tiết");
+
      dispatch(actionGetDetailTask(taskId))
 
   },[taskId])

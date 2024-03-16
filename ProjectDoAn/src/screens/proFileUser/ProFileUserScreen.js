@@ -36,9 +36,9 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   const [refreshing, setRefreshing] = useState(false);
   const isGetProfileUser = useSelector(state => state.user.isGetProfileUser);
   const dataUser = useSelector(state => state.user.dataProfileUser);
-  console.log(dataUser)
+
   useEffect(()=>{
-    console.log(route?.params?.userId)
+
     dispatch(actionGetProfileUser(route?.params?.userId))
   },[route?.params?.userId])
   const handleGetProfileUser=()=> {

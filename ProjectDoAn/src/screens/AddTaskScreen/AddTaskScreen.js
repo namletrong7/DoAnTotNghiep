@@ -66,16 +66,16 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
   const [isShowModalUser, setIsShowModalUser] = useState(false);// mảng chứa các file dc chọn
   const [targetUser, setTargetUser] = useState({}) // user dc chọn làm xử lý chính
-   console.log("render lại test screen");
+   console.log("render lại test screen")
 
    // hàm mở lại picker chon ngày bắt đầu
   const  showStartDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowStartDay(true)
   }
   // hàm tắt picker chọn ngày bắt đầu
   const  hideStartDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowStartDay(false)
   }
 
@@ -87,18 +87,18 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
   // hàm mở lại picker chon ngày key thuc
   const  showEndDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowEndDay(true)
   }
   // hàm tắt picker chọn ngày key thuc
   const  hideEndDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowEndDay(false)
   }
 
   // hàm nhán vào nút ok của pker ngày key thuc
   const onConfirmEndDay = (date)=>{
-    console.log(date)
+
     setEndDay(converPickerDate(date));
     setngayKetThuc(date);
     hideEndDayPicker();
@@ -107,11 +107,11 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   // hàm chọn value cho project Id dc chọn
   const onSelectProjectId=item=>{
          setValueProjectId(item.value)
-    console.log(valueProjectId)
+
   }
   const onSelectPriority=item=>{
     setValuePriority(item.value)
-    console.log(valuePriority)
+
   }
   const data = [
     { label: 'Dự án nhân ái', value: 'P001' },
@@ -232,8 +232,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
          const result = await DocumentPicker.pick({
            type: [DocumentPicker.types.allFiles], // Chọn tất cả các loại file
          });
-         console.log(result[0])
-  //       setPickedFile((prevFiles) => [...prevFiles, ...result]);
+
          if (result[0].size >= MaxFileSize) {
            showMessage({
              message: "Vui lòng chọn file có kích thước nhỏ hơn 10MB ",
@@ -251,13 +250,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
 
        } catch (err) {
-         if (DocumentPicker.isCancel(err)) {
-           // Người dùng đã hủy chọn file
-           console.log('Canceled');
-         } else {
-           // Xử lý lỗi khác
-           console.error('Error', err);
-         }
+          return
        }
      }
   };
@@ -310,7 +303,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
         name: file.name,
       });
     });
-    console.log(formData)
+
      await dispatch(actionAddTask(formData))
   }
   return (

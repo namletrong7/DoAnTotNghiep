@@ -7,7 +7,7 @@ import FastImage from "react-native-fast-image";
 import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
 
 const ModalUserProject = ({ visible, onClose ,data,handleItem}) => {
-  console.log("render lại modal");
+
 
   const RenderItemUser = (props) => {
     return(

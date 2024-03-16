@@ -38,7 +38,7 @@ export const ListFileAttachComponent = React.memo((props) => {
       const dispatch = useDispatch();
     const [seeAll, setSeeAll] = useState(true); // xem có nên xem hết file hay không
     const dataListFileTask = useSelector(state => state.task.dataFileAttach || []);
-    console.log("redner lại list file ");
+
 
     useEffect(() => {
       dispatch(actionGetFileAttach(props.taskId))

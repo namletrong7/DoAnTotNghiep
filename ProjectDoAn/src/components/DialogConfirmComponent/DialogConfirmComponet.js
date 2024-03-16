@@ -6,7 +6,6 @@ import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "reac
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
 const DialogConfirmComponent = ({ visible,content, onClose,onConfirm }) => {
-  console.log("render lại modal")
   return (
     <Modal
       animationType="slide"
