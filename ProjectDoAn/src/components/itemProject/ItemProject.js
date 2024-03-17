@@ -29,6 +29,10 @@ import {
 import IconCalendar from "../../assets/icons/IconCalendar";
 import IconProject from "../../assets/icons/IconProject";
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
+import IconLich from "../../assets/icons/IconLich";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
+import ItemTask from "../itemTask/ItemTask";
+import IconCheck from "../../assets/icons/IconCheck";
 
 
 const ItemProject = (props) => {
@@ -37,21 +41,45 @@ const ItemProject = (props) => {
   function gotoDetailProjectScreen (item){
     props.navigation.navigate('DetailProjectScreen',{itemProject:item});
   }
+  const ItemUser=({item,index})=>{
+    return (
+      <FastImage
+        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:index==0?0:-10}}
+        source={{
+          uri: (baseUrlAvatarUser+item?.avatarUser)||''
+        }}
+        resizeMode={FastImage.resizeMode.stretch}
+
+      />
+    )
+  }
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item)}}>
-      <View style={{height:40, width:40, borderRadius:20, backgroundColor:getRandomColor(), alignItems:'center', justifyContent:"center"}}>
-        <Text style={{fontSize:13, color:"white",fontFamily:"OpenSans-Regular",fontWeight:'700'}}>{getFirstAndLastCharacters(props.item.nameProject)}</Text>
-      </View>
-      <View style={{marginHorizontal:10,flex:1}}>
-        <Text numberOfLines={2} style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.nameProject}</Text>
-        <View style={{marginTop:3, flexDirection:"row", alignItems:"center"}}>
-          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.startDay}</Text>
-          <View style={{marginHorizontal:10}}>
-            <IconArrowRight/>
-          </View>
-          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props.item.endDay}</Text>
-        </View>
-      </View>
+
+         <Text numberOfLines={2} style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.nameProject}</Text>
+         <View style={{marginVertical:10, flexDirection:"row", alignItems:"center",}}>
+           <FlatList
+             data={props?.item?.dataListUser}
+             renderItem={({item,index}) => <ItemUser item={item} index={index} />}
+             horizontal={true}
+             keyExtractor={item => item.userId}
+           />
+         </View>
+         <View style={{flexDirection:"row", justifyContent:"space-between",}}>
+           <View style={{flexDirection:"row",justifyContent:'center'}}>
+             <IconLich/>
+             <Text style={{fontSize:15, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props?.item?.endDay}</Text>
+           </View>
+
+           <View style={{flexDirection:"row"}}>
+               <IconCheck/>
+             <Text style={{fontSize:15, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{(props?.item?.totalTask)+" Công việc"}</Text>
+           </View>
+
+         </View>
+
+
+
     </TouchableOpacity>
   );
 };
@@ -62,10 +90,8 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     borderRadius:7,
     paddingVertical:5,
-    paddingHorizontal:5,
+    paddingHorizontal:15,
     marginBottom:10,
-    flexDirection:"row",
-    alignItems:"center"
   },
   containerEndDay: {
       flexDirection:"row",
