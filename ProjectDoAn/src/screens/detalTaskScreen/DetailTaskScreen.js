@@ -217,7 +217,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
             <IconEdit/>
           </TouchableOpacity>
-          <View style={{marginTop:10}}>
+          <View style={{marginTop:10,backgroundColor:"#DDDDDD", padding:15,borderRadius:15}}>
           <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-Regular"}} numberOfLines={redMoreContent?null:6}>{dataDetailTask?.content||''}</Text>
         </View>
           <TouchableOpacity style={{marginTop:2}} onPress={() =>{setRedMoreContent(!redMoreContent)}}>

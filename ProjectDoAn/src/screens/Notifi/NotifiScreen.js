@@ -132,7 +132,7 @@ const NotifiScreen = ({ navigation }) => {
           }}
           resizeMode={FastImage.resizeMode.stretch}
         />
-        <View style={{alignSelf:"flex-end",marginLeft:-20}}>
+        <View style={{alignSelf:"flex-end",marginLeft:-20,backgroundColor:"#FFCC00", borderRadius:16,padding:3}}>
            <IconBell/>
         </View>
         <View style={{marginLeft:10,flex:0.98}}>

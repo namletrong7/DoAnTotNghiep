@@ -3,8 +3,8 @@ import Svg, { SvgProps, Path } from "react-native-svg"
 
 const IconTaskFocus = (props) => (
   <Svg
-    width={33}
-    height={33}
+    width={35}
+    height={35}
     viewBox="-0.5 0 21 21"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

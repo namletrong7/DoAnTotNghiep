@@ -77,14 +77,18 @@ export  const BottomHomeNavigation = React.memo(() => {
               else if (route.name === "PersonalScreen") {
                 iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
               }
+              else if (route.name === "ProFileUserScreen") {
+                iconName = focused ? <IconTaskFocus/> : <IconTaskUnFocus/>;
+              }
               return  iconName
             },
             tabBarLabel: () => null,
-            tabBarStyle:{position:"absolute",borderRadius:16}
+            tabBarStyle:{position:"absolute",borderRadius:16, bottom:20,marginHorizontal:50}
           })}
 
         >
           <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false }}/>
+          <Tab.Screen name="ProFileUserScreen" component={ProFileUserScreen} options={{ headerShown: false }} />
           <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false }} />
           <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false }} />
         </Tab.Navigator>
