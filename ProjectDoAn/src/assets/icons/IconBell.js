@@ -3,8 +3,8 @@ import Svg, { SvgProps, Path, Defs, RadialGradient, Stop } from "react-native-sv
 
 const IconBell = (props) => (
   <Svg
-    width={20}
-    height={20}
+    width={14}
+    height={14}
     viewBox="-2 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +12,7 @@ const IconBell = (props) => (
   >
     <Path
       d="M13.647 32a4.571 4.571 0 1 0 0-9.143 4.571 4.571 0 0 0 0 9.143Z"
-      fill="#F70"
+      fill="white"
     />
     <Path
       fillRule="evenodd"
@@ -29,9 +29,9 @@ const IconBell = (props) => (
         gradientUnits="userSpaceOnUse"
         gradientTransform="matrix(12.58806 17.14284 -16.88644 12.39979 9.13 7.542)"
       >
-        <Stop stopColor="#FADF73" />
-        <Stop offset={0.457} stopColor="#FFD500" />
-        <Stop offset={1} stopColor="#FC9900" />
+        <Stop stopColor="white" />
+        <Stop offset={0.457} stopColor="white" />
+        <Stop offset={1} stopColor="white" />
       </RadialGradient>
     </Defs>
   </Svg>
