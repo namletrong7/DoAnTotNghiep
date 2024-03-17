@@ -99,9 +99,7 @@ export const ListReportTask = React.memo((props) => {
           paddingBottom:20,
           paddingHorizontal: 10,
           borderRadius: 10,
-          borderColor:"#6666FF",
-          borderWidth:1,
-          backgroundColor: "white",
+          backgroundColor: "#DDDDDD",
           justifyContent: "flex-start",
 
         }}>

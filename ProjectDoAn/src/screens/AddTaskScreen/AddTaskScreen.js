@@ -2,7 +2,13 @@
  * Màn hình thêm task mới
  */
 
-import React, { memo, useEffect, useMemo, useState } from "react"
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import {
+  actions,
+  RichEditor,
+  RichToolbar,
+} from "react-native-pell-rich-editor";
+
 import moment from 'moment';
 import {
   View,
@@ -66,6 +72,15 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   const [targetUser, setTargetUser] = useState({}) // user dc chọn làm xử lý chính
 
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
+  const richText = useRef();
+  const [descHTML, setDescHTML] = useState("");
+  const richTextHandle = (descriptionText) => {
+    if (descriptionText) {
+      setDescHTML(descriptionText);
+    } else {
+      setDescHTML("");
+    }
+  };
    // hàm mở lại picker chon ngày bắt đầu
   const  showStartDayPicker= ()=>{
 
@@ -270,7 +285,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
     formData.append('priority', valuePriority);
     formData.append('title', title);
 
-    formData.append('content', content);
+    formData.append('content', descHTML);
     formData.append('startDay', ngayBatDau);
     formData.append('endDay', ngayKetThuc);
 
@@ -330,8 +345,39 @@ export const AddTaskScreen = React.memo(({navigation})=>{
               <IconUpload/>
              <Text style={{fontSize:15, color:"#4577ef",fontFamily:"OpenSans-SemiBold",marginRight:10}}>{"Nhấn để chọn file"}</Text>
            </TouchableOpacity>
+           <View style={styles.richTextContainer}>
+             <RichEditor
+               ref={richText}
+               onChange={richTextHandle}
+                styleWithCSS={true}
+               placeholder="Nhập nội dung công việc tại đây :)"
+               androidHardwareAccelerationDisabled={true}
+               style={styles.richTextEditorStyle}
+               initialHeight={250}
+               editorStyle={{color:"black", }}
+             />
+             <RichToolbar
+               editor={richText}
+               selectedIconTint="#000000"
+               iconTint="green"
+               actions={[
+                 actions.fontSize,
+                 actions.undo,
+                 actions.redo,
+                 actions.content,
+                 actions.setBold,
+                 actions.setItalic,
+                 actions.insertBulletsList,
+                 actions.insertOrderedList,
+                 actions.insertLink,
+                 actions.setStrikethrough,
+                 actions.setUnderline,
 
-           <TextInputComponent textInput={content} setTextInput={setContent} title={"Nội dung công việc *"} placeHolder={"Nhập nội dung công việc "} height={150}/>
+               ]}
+               style={styles.richTextToolbarStyle}
+             />
+           </View>
+           {/*<TextInputComponent textInput={content} setTextInput={setContent} title={"Nội dung công việc *"} placeHolder={"Nhập nội dung công việc "} height={150}/>*/}
            <ModalUserProject visible={isShowModalUser} data={UserProject} onClose={onCloseUser} handleItem={handelItemUser}/>
            <TouchableOpacity onPress={()=>{addTask()}} style={{height:60, borderRadius:17, backgroundColor:"#4577ef", marginTop:30,alignItems:'center', justifyContent:'center'}}>
              <Text style={{
@@ -359,6 +405,38 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
   },
+  richTextContainer: {
+    display: "flex",
+    flexDirection: "column-reverse",
+    width: "100%",
+    marginTop:20,
+    marginBottom: 10,
+  },
+
+  richTextEditorStyle: {
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderWidth: 1,
+    borderColor: "#2596be",
+    shadowColor: "#2596be",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+    fontSize: 20,
+  },
+
+  richTextToolbarStyle: {
+    backgroundColor: "white",
+    borderColor: "#000000",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderWidth: 1,
+  },
+
 });
 
 

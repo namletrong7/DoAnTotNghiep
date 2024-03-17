@@ -3,6 +3,7 @@
  */
 
 import React, { memo, useEffect, useMemo, useState } from "react";
+import HTMLView from 'react-native-htmlview';
 import {
   View,
   Text,
@@ -45,6 +46,7 @@ import { actionGetDetailTask } from "../../redux-store/actions/task";
 import { useRoute } from "@react-navigation/native";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import { ListReportTask } from "./taskReport/ListReportTask";
+import WebView from "react-native-webview";
 
 
 
@@ -217,12 +219,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
             <IconEdit/>
           </TouchableOpacity>
-          <View style={{marginTop:10}}>
-          <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-Regular"}} numberOfLines={redMoreContent?null:6}>{dataDetailTask?.content||''}</Text>
+          <View style={{marginTop:10,backgroundColor:"#DDDDDD", padding:15,borderRadius:15}}>
+            <HTMLView
+              value={dataDetailTask?.content.toString()||''}
+            />
+
         </View>
-          <TouchableOpacity style={{marginTop:2}} onPress={() =>{setRedMoreContent(!redMoreContent)}}>
-            <Text style={{fontSize:13, color:"#33CCFF",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{redMoreContent?"Rút gọn..":"Đọc thêm..."}</Text>
-         </TouchableOpacity>
           <ListFileAttachComponent taskId={taskId}/>
           <ListCommentComponet navigation ={navigation} taskId={taskId}/>
         </View>}
