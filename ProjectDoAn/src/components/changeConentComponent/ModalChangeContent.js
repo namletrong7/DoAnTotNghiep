@@ -7,7 +7,7 @@ import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Co
 
 const ModalChaneConent = ({ visible, onClose,onEdit }) => {
   const  [content , setContent] = useState('');
-  console.log("render lại modal")
+
   return (
     <Modal
       animationType="slide"

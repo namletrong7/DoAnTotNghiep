@@ -51,7 +51,7 @@ import { ListReportTask } from "./taskReport/ListReportTask";
 export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const { taskId } = route?.params||"T001";
-  console.log(taskId)
+
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   // láy data detail task từ  reducer có dược
@@ -66,9 +66,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const [isShowChangeConent, setIsShowChangeConent] = useState(false); // hiển thị dialog chỉnh sửa thông tin
   var toan =1 ;
 
-    console.log("render lại màn hình detail task: "+taskId);
+
   useEffect( () => {
-    console.log("MOUT LẠI màn hình chi tiết");
+
      dispatch(actionGetDetailTask(taskId))
 
   },[taskId])
@@ -122,7 +122,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         </TouchableOpacity>
 
 
-          <TouchableOpacity onPress={()=>{addDataFake()}} style={{padding:8, borderRadius:16, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0),width:  screenWidth * 0.3 ,alignItems:"center",marginTop:10}}>
+          <TouchableOpacity style={{padding:8, borderRadius:16, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0),width:  screenWidth * 0.3 ,alignItems:"center",marginTop:10}}>
             <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
           </TouchableOpacity>
 
@@ -157,7 +157,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
 
 
-          <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:10,flex:1}}>
+          <View style={{flexDirection:"row", justifyContent:"space-around",marginTop:10,flex:1}}>
 
             <View style={{flexDirection:"column", justifyContent:"flex-start",flex:0.5}}>
               <TouchableOpacity style={{flexDirection:"row", justifyContent:"center"}}>
@@ -178,10 +178,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </View>
 
             <View style={{flexDirection:"column", justifyContent:"flex-start",flex:0.5}}>
+
               <TouchableOpacity style={{flexDirection:"row", justifyContent:"center"}}>
                 <Text style={{fontSize:15, color:"#00FF00",fontFamily:"OpenSans-Regular"}}>{"Người xử lý:"}</Text>
                 <IconEdit/>
               </TouchableOpacity>
+
               <View style={{flexDirection:"row",alignItems:"center",marginTop:10}}>
                 <FastImage
                   style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
@@ -193,6 +195,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 />
                 <Text style={{flexWrap:"wrap",fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.targetFullName||""}</Text>
               </View>
+
             </View>
           </View>
 

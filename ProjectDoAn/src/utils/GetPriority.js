@@ -11,8 +11,8 @@ export  const dataPriority=[
 
 
 var priority = ["Thấp","Bình thường","Cao","Cấp bách"]
-var colorPriority = ["#289601","#df8412","#ff1f3a","#2f3033"]
-var colorBackgroundPriority = ["#d4eacc","#f9e6d0","#ffccd2","#d4d4d5"]
+var colorPriority = ["#289601","#df8412","#ff1f3a","#1062dc"]
+var colorBackgroundPriority = ["#d4eacc","#f9e6d0","#ffccd2","#e7effb"]
 //ham hỗ trợ nhận vào tham số priorty và đưa ra chuỗi
 export  function getValuePriority(Priority){
   return Priority?priority[Priority]:"Low";

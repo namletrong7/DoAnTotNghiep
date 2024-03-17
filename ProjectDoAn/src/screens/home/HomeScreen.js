@@ -72,25 +72,12 @@ const HomeScreen = ({ navigation }) => {
 
           </View>
           <Text style={{fontSize:20, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>
-            {/*<FlatList*/}
-            {/*  data={fakeDataListTask}*/}
-            {/*  renderItem={({item}) => <ItemTask item={item} navigation = {navigation} />}*/}
-            {/*  scrollEnabled={false}*/}
-            {/*  keyExtractor={item => item.taskId}*/}
-            {/*/>*/}
-            <View style={{backgroundColor:"#DDDDDD", paddingVertical:20, borderRadius:10, marginBottom:20}}>
               <FlatList
                 data={dataAllProject}
                 renderItem={({item}) => <ItemProject item={item} navigation = {navigation} />}
                 scrollEnabled={false}
                 keyExtractor={item => item.projectId}
               />
-
-            </View>
-          <TouchableOpacity  style={{backgroundColor:"white",marginHorizontal:100, alignItems:'center', paddingVertical:3, borderRadius:40,marginTop:-26}}>
-            <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",fontWeight:"bold"}}>{"Xem thêm"}</Text>
-            <IconArrowDownDouble/>
-          </TouchableOpacity>
 
         </View>
       </ScrollView>

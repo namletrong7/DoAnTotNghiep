@@ -13,12 +13,12 @@ export async function requestStoragePermission() {
                 granted['android.permission.READ_EXTERNAL_STORAGE'] === PermissionsAndroid.RESULTS.GRANTED &&
                 granted['android.permission.WRITE_EXTERNAL_STORAGE'] === PermissionsAndroid.RESULTS.GRANTED
             ) {
-                console.log('Storage permissions granted');
+              return ;
             } else {
-                console.log('Storage permissions denied');
+                return ;
             }
         } catch (err) {
-            console.warn(err);
+            return ;
         }
 
     }

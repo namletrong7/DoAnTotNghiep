@@ -59,7 +59,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
   //   }, [])
   // );
   const handleLogout=()=>{
-    console.log("logout")
+
    dispatch(actionLogout())
 
   }

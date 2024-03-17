@@ -43,7 +43,6 @@ const Api = (isFormData) => {
     }
     // api láy file đính kèm của task
     const getCommentTask=(taskId, offset)=>{
-        console.log("gọi api get comment:"+taskId+" , "+ offset)
         const apiInstance = apiConfig();
         return apiInstance.post('getAllCommentTask.php',{
             taskId:taskId,

@@ -17,14 +17,12 @@ export function updateData(data) {
 export function actionGetAllProject() {
     return async (dispatch, getState) => {
         let userId=getState().auth.dataCurrentUser.userId
-        console.log("user id: "+userId)
+        console.log(userId)
         await   dispatch({
             type: "START_GET_PROJECT",
         });
         try {
             const response = await Api(false).getAllProject(userId);
-      // in ra response trả về
-            console.log(response?.data);
 
 
 
@@ -45,8 +43,7 @@ export function actionGetAllProject() {
             });
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-              console.log(error);
+
             await   dispatch({
                 type: "END_GET_PROJECT",
             });
@@ -68,7 +65,7 @@ export function actionGetDetailProject(projectId) {
         }))
         try {
             const response = await Api(false).getDetailProject(projectId);
-            console.log(response?.data);
+
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataDetailProject:response.data.dataDetailProject
@@ -81,8 +78,7 @@ export function actionGetDetailProject(projectId) {
             }))
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             dispatch(updateData({
                 isGetDetailProject:false
 

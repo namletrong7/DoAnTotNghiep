@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 
 export const DropDownMenu =React.memo((props)=> {
-  console.log("render dropw down")
+
   return (
     <View style={{marginTop:10}}>
       <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold" }}>{props.title}</Text>

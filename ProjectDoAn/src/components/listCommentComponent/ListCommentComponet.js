@@ -41,7 +41,6 @@ import ItemTask from "../itemTask/ItemTask";
 
 
      useEffect(()=> {// hàm thực hiện sau mỗi lần render
-       console.log("taskId o comment: "+props.taskId)
      dispatch(actionGetCommentTask(props.taskId,0))
 
     },[props.taskId])

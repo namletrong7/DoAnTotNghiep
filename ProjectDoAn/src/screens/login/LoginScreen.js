@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
   const [isForgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
 
   const handleLogin = async () => {
-    console.log(username, password)
+
     if( username && password) {
       dispatch(actionLogin(username, password))
     }else {

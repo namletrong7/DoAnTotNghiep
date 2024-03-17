@@ -2,7 +2,8 @@
  * Màn hình thêm task mới
  */
 
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react"
+import moment from 'moment';
 import {
   View,
   Text,
@@ -24,12 +25,10 @@ import {
 } from "react-native";
 
 
-import FlashMessage, { showMessage } from "react-native-flash-message"
-import IconDate from "../../assets/icons/IconDate";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import  { showMessage } from "react-native-flash-message"
 import {TextInputComponent} from "../../components/InputComponent/TextInputComponent"
 import {DatePickerComponent} from "../../components/InputComponent/DatePickerComponet"
-import { converPickerDate, converPickerDateToDatetime } from "../../utils/ConverPickerDate";
+import { converPickerDate } from "../../utils/ConverPickerDate";
 import { Dropdown } from 'react-native-element-dropdown';
 import { DropDownMenu } from "../../components/DropDownMenu/DropDownMenu";
 import IconUpload from "../../assets/icons/IconUpload";
@@ -40,7 +39,6 @@ import ModalUserProject from "./ModalUserProject/ModalUserProject";
 import FastImage from "react-native-fast-image";
 import { useDispatch, useSelector } from "react-redux";
 import { actionAddTask } from "../../redux-store/actions/task";
-import axios from "axios";
 import ModalLoading from "./ModalLoading/ModalLoading";
 import { dataPriority } from "../../utils/GetPriority";
 import HeaderComponent from "../../components/header/HeaderComponent";
@@ -66,66 +64,52 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
   const [isShowModalUser, setIsShowModalUser] = useState(false);// mảng chứa các file dc chọn
   const [targetUser, setTargetUser] = useState({}) // user dc chọn làm xử lý chính
-   console.log("render lại test screen");
 
+  const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
    // hàm mở lại picker chon ngày bắt đầu
   const  showStartDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowStartDay(true)
   }
   // hàm tắt picker chọn ngày bắt đầu
   const  hideStartDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowStartDay(false)
   }
 
   // hàm nhán vào nút ok của pker chọn ngày bắt đầu
   const onConfirmStartDay = (date)=>{
        setStartDay(converPickerDate(date));
-       setNgayBatDau(date)
+       setNgayBatDau(moment(date).format('YYYY-MM-DD'))
        hideStartDayPicker();
   }
   // hàm mở lại picker chon ngày key thuc
   const  showEndDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowEndDay(true)
   }
   // hàm tắt picker chọn ngày key thuc
   const  hideEndDayPicker= ()=>{
-    console.log("đang mở modal")
+
     SetIsShowEndDay(false)
   }
 
   // hàm nhán vào nút ok của pker ngày key thuc
   const onConfirmEndDay = (date)=>{
-    console.log(date)
     setEndDay(converPickerDate(date));
-    setngayKetThuc(date);
+    setngayKetThuc(moment(date).format('YYYY-MM-DD'));
     hideEndDayPicker();
   }
 
   // hàm chọn value cho project Id dc chọn
   const onSelectProjectId=item=>{
          setValueProjectId(item.value)
-    console.log(valueProjectId)
+
   }
   const onSelectPriority=item=>{
     setValuePriority(item.value)
-    console.log(valuePriority)
+
   }
-  const data = [
-    { label: 'Dự án nhân ái', value: 'P001' },
-    { label: 'Dự án thiện nguyện', value: 'P001' },
-    { label: 'hntk 3', value: 'P002' },
-    { label: 'fjbgg 1', value: 'P003' },
-    { label: 'Optdskjvbjkvbdikjvbivbion 2', value: 'P004' },
-    { label: 'Option 3', value: 'P005' },
-    { label: 'Option 1', value: 'P006' },
-    { label: 'Option 2', value: 'P007' },
-    { label: 'Option 3', value: 'P008' },
-    { label: 'Option 1', value: 'P009' },
-    // Thêm các mục khác nếu cần
-  ];
 
   const UserProject=useMemo(()=>{
     return [
@@ -232,8 +216,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
          const result = await DocumentPicker.pick({
            type: [DocumentPicker.types.allFiles], // Chọn tất cả các loại file
          });
-         console.log(result[0])
-  //       setPickedFile((prevFiles) => [...prevFiles, ...result]);
+
          if (result[0].size >= MaxFileSize) {
            showMessage({
              message: "Vui lòng chọn file có kích thước nhỏ hơn 10MB ",
@@ -251,13 +234,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
 
        } catch (err) {
-         if (DocumentPicker.isCancel(err)) {
-           // Người dùng đã hủy chọn file
-           console.log('Canceled');
-         } else {
-           // Xử lý lỗi khác
-           console.error('Error', err);
-         }
+          return
        }
      }
   };
@@ -286,18 +263,18 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
     // chèn các đối số vào  formData
     formData.append('status', 0);
-    formData.append('state', 2);
-    formData.append('assignUser', 0);
+    formData.append('state', 0);
+    formData.append('assignUser', dataCurrentUser.userId);
 
     formData.append('targetUser', targetUser.userId);
     formData.append('priority', valuePriority);
     formData.append('title', title);
 
     formData.append('content', content);
-    formData.append('startDay', converPickerDateToDatetime(ngayBatDau));
-    formData.append('endDay', converPickerDateToDatetime(ngayKetThuc));
+    formData.append('startDay', ngayBatDau);
+    formData.append('endDay', ngayKetThuc);
 
-    formData.append('createdDate', converPickerDateToDatetime(new Date()));
+    formData.append('createdDate', moment(new Date()).format('YYYY-MM-DD'));
     formData.append('progress', 0);
     formData.append('projectId', valueProjectId);
 
@@ -310,7 +287,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
         name: file.name,
       });
     });
-    console.log(formData)
+
      await dispatch(actionAddTask(formData))
   }
   return (

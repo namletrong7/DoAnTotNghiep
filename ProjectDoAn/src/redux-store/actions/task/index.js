@@ -22,8 +22,7 @@ export function actionAddTask(body) {
         });
         try {
             const response = await Api(true).addTask(body);
-      // in ra response trả về
-            console.log(response?.data);
+
 
                dispatch({
                 type: "END_ADD_TASK",
@@ -39,8 +38,7 @@ export function actionAddTask(body) {
             }
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-              console.log(error);
+
             await   dispatch({
                 type: "END_ADD_TASK",
             });
@@ -62,8 +60,7 @@ export function actionGetDetailTask(taskId) {
         });
         try {
             const response = await Api(false).getDetailTask(taskId);
-            // in ra response trả về
-            console.log(response?.data);
+
 
 
 
@@ -78,8 +75,7 @@ export function actionGetDetailTask(taskId) {
             });
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             await   dispatch({
                 type: "END_GET_DETAIL_TASK",
             });
@@ -100,8 +96,6 @@ export function actionGetFileAttach(taskId) {
         });
         try {
             const response = await Api(false).getFileAttach(taskId);
-            // in ra response trả về
-            console.log(response?.data);
 
 
 
@@ -116,8 +110,7 @@ export function actionGetFileAttach(taskId) {
             });
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             await   dispatch({
                 type: "END_GET_FILE_ATTACH",
             });
@@ -140,10 +133,10 @@ export function actionGetCommentTask(taskId,offset) {
             type: "START_GET_FILE_ATTACH",
         });
         try {
-            console.log("TaskId: "+ taskId);
+
             const response = await Api(false).getCommentTask(taskId,offset);
             // in ra response trả về
-            console.log(response?.data);
+
 
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -156,8 +149,7 @@ export function actionGetCommentTask(taskId,offset) {
             });
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             await   dispatch({
                 type: "END_GET_COMMENT",
             });
@@ -180,10 +172,9 @@ export function actionGetMoreCommentTask(taskId,offset) {
             type: "START_GET_FILE_ATTACH",
         });
         try {
-            console.log("TaskId: "+ taskId);
+
             const response = await Api(false).getCommentTask(taskId,offset);
-            // in ra response trả về
-            console.log(response?.data);
+
 
             if(response.data && response.data.status==200){
                 if(response.data.commentTask.length==0){
@@ -207,7 +198,7 @@ export function actionGetMoreCommentTask(taskId,offset) {
 
         } catch (error) {
             // Xử lý lỗi ở đây
-            console.log(error);
+            console.log(error)
             await   dispatch({
                 type: "END_GET_MORE_COMMENT",
             });
@@ -227,7 +218,7 @@ export function actionAddCommentTask(taskId,content) {
         let avatar=getState().auth.dataCurrentUser.avatarUser
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
-            console.log(response?.data);
+            console.log(response?.data)
 
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -250,8 +241,7 @@ export function actionAddCommentTask(taskId,content) {
                 });
             }
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
@@ -270,7 +260,7 @@ export function actionGetTaskToDoProject(projectId) {
         });
         try {
             const response = await Api(false).getListTaskProject(projectId,0);
-            console.log(response?.data);
+
 
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -283,7 +273,7 @@ export function actionGetTaskToDoProject(projectId) {
             });
         } catch (error) {
             // Xử lý lỗi ở đây
-            console.log(error);
+
             await   dispatch({  // bắt đầu
                 type: "END_GET_TASK_PROJECT_TODO",
             });
@@ -304,7 +294,6 @@ export function actionGetTaskDoingProject(projectId) {
         }))
         try {
             const response = await Api(false).getListTaskProject(projectId,1);
-            console.log(response?.data);
 
             if(response.data && response.data.status==200){
                 dispatch(updateData({
@@ -316,8 +305,7 @@ export function actionGetTaskDoingProject(projectId) {
 
             }))
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             dispatch(updateData({
                 isGetTaskProjectDoing :false
 
@@ -339,7 +327,7 @@ export function actionGetTaskDoneProject(projectId) {
         }))
         try {
             const response = await Api(false).getListTaskProject(projectId,2);
-            console.log(response?.data);
+
 
             if(response.data && response.data.status==200){
                 dispatch(updateData({
@@ -351,8 +339,7 @@ export function actionGetTaskDoneProject(projectId) {
 
             }))
         } catch (error) {
-            // Xử lý lỗi ở đây
-            console.log(error);
+
             dispatch(updateData({
                 isGetTaskProjectDone :false
 
