@@ -83,7 +83,7 @@ export  const BottomHomeNavigation = React.memo(() => {
               return  iconName
             },
             tabBarLabel: () => null,
-            tabBarStyle:{position:"absolute",borderRadius:16, bottom:20,marginHorizontal:50}
+            tabBarStyle:{position:"absolute",borderRadius:16, marginBottom:20,marginHorizontal:50,backgroundColor:'white',justifyContent:"center"},
           })}
 
         >

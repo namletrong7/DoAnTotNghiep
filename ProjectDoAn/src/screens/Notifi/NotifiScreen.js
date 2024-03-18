@@ -117,7 +117,7 @@ const NotifiScreen = ({ navigation }) => {
 
   ];
   const handleItemNotifi=(item)=>{
-    navigation.navigate('DetailTask_Notifi',{taskId:item.taskId})
+    navigation.navigate('DetailTask_Notifi',{taskId:item?.taskId})
   }
   const ItemNotfi = (props)=>{
     const {item, navigation} = props

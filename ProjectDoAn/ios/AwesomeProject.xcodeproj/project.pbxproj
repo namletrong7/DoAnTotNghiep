@@ -30,6 +30,7 @@
 		A378D71271984C39BBB0C769 /* Roboto-CondensedItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A9D27E09BD74807B35547FE /* Roboto-CondensedItalic.ttf */; };
 		A435AA3807A94A44B8AA2739 /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDE999CE9B7F4728A1380CA0 /* Roboto-Condensed.ttf */; };
 		B59E2379CA98448FA2E1B72E /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38B3710858F4402888B43107 /* Roboto-Bold.ttf */; };
+		CA5487582BA7CF5C002241B2 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = CA5487572BA7CF5C002241B2 /* main.jsbundle */; };
 		D1DE56DE50464D2FAB19965D /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83A26B239189470A92808B46 /* Roboto-LightItalic.ttf */; };
 		E999E26517054959868C5750 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 20A8FFCD48C849D297732452 /* Roboto-MediumItalic.ttf */; };
 		F6A1F48E061F461B8395A0F6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 958A2EC0D2B44ABBA310ABDE /* Roboto-Light.ttf */; };
@@ -76,6 +77,7 @@
 		958A2EC0D2B44ABBA310ABDE /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		9A9D27E09BD74807B35547FE /* Roboto-CondensedItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-CondensedItalic.ttf"; path = "../src/assets/fonts/Roboto-CondensedItalic.ttf"; sourceTree = "<group>"; };
 		B02938944D7D2D3447A38A0F /* Pods_AwesomeProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AwesomeProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA5487572BA7CF5C002241B2 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		DCBEFCD0F2284938B01B1F40 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../src/assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		DDE999CE9B7F4728A1380CA0 /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Condensed.ttf"; path = "../src/assets/fonts/Roboto-Condensed.ttf"; sourceTree = "<group>"; };
 		E1A2EBB0D00A4E70A573B0E9 /* entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = entypo.ttf; path = ../src/assets/fonts/entypo.ttf; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		13B07FAE1A68108700A75B9A /* AwesomeProject */ = {
 			isa = PBXGroup;
 			children = (
+				CA5487572BA7CF5C002241B2 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -311,6 +314,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				CA5487582BA7CF5C002241B2 /* main.jsbundle in Resources */,
 				34E279A5843441A6A27B2D72 /* entypo.ttf in Resources */,
 				43D239EEFE334C27BA9A6664 /* OpenSans-Regular.ttf in Resources */,
 				67C2962FCD644A72B563F256 /* OpenSans-SemiBold.ttf in Resources */,
@@ -689,10 +693,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -771,10 +772,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
