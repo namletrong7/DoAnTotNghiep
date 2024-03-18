@@ -95,7 +95,7 @@ const LoginScreen = ({ navigation }) => {
 
 
       <SafeAreaView>
-        {renderInput('Địa chỉ Server', addServer, setAddServer, 'user')}
+        {/*{renderInput('Địa chỉ Server', addServer, setAddServer, 'user')}*/}
         {renderInput('Tên đăng nhập', username, setUsername, 'user')}
         {renderInput('Mật khẩu', password, setPassword, 'lock', true)}
 

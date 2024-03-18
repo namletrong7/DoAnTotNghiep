@@ -4,6 +4,7 @@
 
 import React, { memo, useEffect, useMemo, useState } from "react";
 import HTMLView from 'react-native-htmlview';
+import RenderHtml from 'react-native-render-html';
 import {
   View,
   Text,
@@ -46,6 +47,7 @@ import { actionGetDetailTask } from "../../redux-store/actions/task";
 import { useRoute } from "@react-navigation/native";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import { ListReportTask } from "./taskReport/ListReportTask";
+import { useWindowDimensions } from 'react-native';
 import WebView from "react-native-webview";
 
 
@@ -59,7 +61,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   // láy data detail task từ  reducer có dược
   const dataDetailTask = useSelector(state => state.task.detailTask);
   const isGetDetailTask = useSelector(state => state.task.isGetDetailTask);
-
+  const { width } = useWindowDimensions();
 
   // const listComment = useSelector(state => state.auth.listComment);
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
@@ -219,11 +221,18 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
             <IconEdit/>
           </TouchableOpacity>
-          <View style={{marginTop:10,backgroundColor:"#DDDDDD", padding:15,borderRadius:15}}>
-            <HTMLView
-              value={dataDetailTask?.content||''}
+          <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:15}}>
+            {/*<HTMLView*/}
+            {/*  value={dataDetailTask?.content||''}*/}
+            {/*/>*/}
+            <RenderHtml
+              contentWidth={width}
+              source={{html:dataDetailTask?.content}}
             />
-
+            {/*<WebView*/}
+            {/*  originWhitelist={['*']}*/}
+            {/*  source={{ html: dataDetailTask?.content }}*/}
+            {/*/>*/}
         </View>
           <ListFileAttachComponent taskId={taskId}/>
           <ListCommentComponet navigation ={navigation} taskId={taskId}/>
