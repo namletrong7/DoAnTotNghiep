@@ -23,11 +23,6 @@ export function actionAddTask(body) {
         try {
             const response = await Api(true).addTask(body);
 
-
-               dispatch({
-                type: "END_ADD_TASK",
-            });
-
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -36,6 +31,10 @@ export function actionAddTask(body) {
                     icon: { icon: "success", position: 'left' }
                 });
             }
+                dispatch({
+                    type: "END_ADD_TASK",
+                });
+
 
         } catch (error) {
 

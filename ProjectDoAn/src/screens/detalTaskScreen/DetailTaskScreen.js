@@ -221,7 +221,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
           </TouchableOpacity>
           <View style={{marginTop:10,backgroundColor:"#DDDDDD", padding:15,borderRadius:15}}>
             <HTMLView
-              value={dataDetailTask?.content.toString()||''}
+              value={dataDetailTask?.content||''}
             />
 
         </View>
