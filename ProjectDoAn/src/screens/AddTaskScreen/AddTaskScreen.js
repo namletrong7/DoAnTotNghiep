@@ -369,6 +369,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
                  actions.insertBulletsList,
                  actions.insertOrderedList,
                  actions.insertLink,
+                 actions.code,
                  actions.setStrikethrough,
                  actions.setUnderline,
 

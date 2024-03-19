@@ -5,14 +5,14 @@
 import React, { Component, useState } from "react";
 import ImagePicker from 'react-native-image-crop-picker';
 import {
-    Dimensions,
-    FlatList, Image, KeyboardAvoidingView,
-    SafeAreaView,
-    StyleSheet,
-    Text, TextInput,
-    TouchableOpacity,
-    useWindowDimensions,
-    View,
+  Dimensions,
+  FlatList, Image, KeyboardAvoidingView, Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text, TextInput,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
 } from "react-native";
 
 
@@ -35,14 +35,15 @@ const SendCommentComponent = (props)=> {
     const sendComment=()=>{
       dispatch(actionAddCommentTask(props.taskId,content))
       setContent('')
+      setImageUri(null)
 
     }
    function  chooseImage(){
        ImagePicker.openPicker({
-           width: 300,
-           height: 400,
-           cropping: true
+         mediaType: 'photo', // Chỉ chọn ảnh
+         compressImageQuality: 0.4,
        }).then(image => {
+         console.log(image)
            setImageUri(image.path);
        });
    }
@@ -60,7 +61,7 @@ const SendCommentComponent = (props)=> {
                     <IconCam
                     />
                 </TouchableOpacity>
-                <View style={{ flexDirection: "row", borderRadius: 15, flex: 0.93 ,  backgroundColor:"#FFFFFF",paddingHorizontal:10, paddingVertical:5,marginLeft:5}}>
+                <View style={{ flexDirection: "row", borderRadius: 15, flex: 0.93 ,  backgroundColor:"#FFFFFF",paddingHorizontal:10, paddingVertical:Platform.OS==='ios'?5:0,marginLeft:5}}>
                     <TextInput
                         multiline={true}
                         style={{ color: 'black', fontSize: 15, fontFamily: "OpenSans-Regular", flex: 1 }}
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     marginHorizontal:6,
-    paddingVertical:6,
+    paddingVertical:5,
     borderRadius:15,
 
   },

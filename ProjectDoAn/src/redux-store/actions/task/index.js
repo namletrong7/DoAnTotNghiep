@@ -197,7 +197,7 @@ export function actionGetMoreCommentTask(taskId,offset) {
 
         } catch (error) {
             // Xử lý lỗi ở đây
-            console.log(error)
+            //console.log(error)
             await   dispatch({
                 type: "END_GET_MORE_COMMENT",
             });
@@ -217,7 +217,7 @@ export function actionAddCommentTask(taskId,content) {
         let avatar=getState().auth.dataCurrentUser.avatarUser
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
-            console.log(response?.data)
+            //console.log(response?.data)
 
             if(response.data && response.data.status==200){
                 await   dispatch({

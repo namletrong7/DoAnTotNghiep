@@ -24,6 +24,7 @@ export const ListReportTask = React.memo((props) => {
 
     const dispatch = useDispatch();
     const {assignUser,targetUser,currenUser}= props
+  const dataReport = useSelector(state => state.task.detailTask.dataReport);
   //  console.log(currenUser === targetUser && assignUser==1)
     const [seeAll, setSeeAll] = useState(true); // xem có nên xem hết file hay không
     const dataListBaoCao = [
@@ -153,8 +154,8 @@ export const ListReportTask = React.memo((props) => {
           </View>
         </TouchableOpacity>
         {seeAll ? (
-          dataListBaoCao?.length > 0 ? <FlatList
-              data={dataListBaoCao}
+          dataReport?.length > 0 ? <FlatList
+              data={dataReport}
               scrollEnabled={false}
               renderItem={({ item }) => <RenderItemReport item={item} />}
               keyExtractor={(item, index) => index.toString()}
