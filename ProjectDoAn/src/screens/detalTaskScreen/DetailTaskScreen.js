@@ -63,27 +63,31 @@ import {
 } from "@gorhom/bottom-sheet";
 import {useRef} from "react/index";
 import {BottomChangePriority} from "./bottomChangePriority/BottomChangePriority";
+import DialogReport from "./dialogReport/DialogReport";
+import DialogProgress from "./DialogProgress/DialogProgress";
+import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
 
 
 
 export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const { taskId } = route?.params||"T001";
-
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   // láy data detail task từ  reducer có dược
   const dataDetailTask = useSelector(state => state.task.detailTask);
   const isGetDetailTask = useSelector(state => state.task.isGetDetailTask);
-  const { width } = useWindowDimensions();
-
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
   // Lấy thông tin kích thước của màn hình
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
   const [isShowChangeConent, setIsShowChangeConent] = useState(false); // hiển thị dialog chỉnh sửa thông tin
+  const refChangePriority = useRef(null); // ref cho bottm sheet chinh sau priority
+
+  const [isVisibleReport, setIsVisibleReport] = useState(false);
+  const [isVisibleProgress, setIsVisibleProgress] = useState(false);
+  const [isVisibleDone, setIsVisibleDone] = useState(false);
 
 
-    const refChangePriority = useRef(null); // ref cho bottm sheet chinh sau priority
     function handelOpenChangePriority (){// hàm mở ra bottom sheet thay doi proority
         refChangePriority.current?.present();
     }
@@ -103,37 +107,47 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     // Sau khi hoàn thành, đặt refreshing về false để kết thúc quá trình load lại
     setRefreshing(false);
   };
+
+    const closeDialogReport=()=>{
+      setIsVisibleReport(false)
+    }
+  const closeDialogProgress=()=>{
+    setIsVisibleProgress(false)
+  }
+  const closeDialogDone=()=>{
+    setIsVisibleDone(false)
+  }
   const RenderActionTask=()=>{
       return(
           <View style={{marginTop:10}}>
-              <View style={{flexDirection:"row", justifyContent:"space-between", flexWrap:"wrap"}}>
-                  <View style={{flexDirection:"row"}}>
+              <View style={{flexDirection:"row", justifyContent:"space-around", flexWrap:"wrap"}}>
+                  <TouchableOpacity onPress={()=>{setIsVisibleReport(true)}} style={{flexDirection:"row"}}>
                        <IconReport/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Bao cao"}</Text>
-                  </View>
-                  <View style={{flexDirection:"row"}}>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Báo cáo"}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={()=>{setIsVisibleProgress(true)}} style={{flexDirection:"row"}}>
                       <IconPin/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Tien do"}</Text>
-                  </View>
-                  <View style={{flexDirection:"row"}}>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Tiến độ"}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={()=>{setIsVisibleDone(true)}} style={{flexDirection:"row"}}>
                       <IconDone/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hoan thanh"}</Text>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hoàn thành"}</Text>
+                  </TouchableOpacity>
+                  <View style={{flexDirection:"row",marginTop:10}}>
+                      <IconChangehuman/>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay đổi người giao"}</Text>
                   </View>
                   <View style={{flexDirection:"row",marginTop:10}}>
                       <IconChangehuman/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay doi nguoi giao"}</Text>
-                  </View>
-                  <View style={{flexDirection:"row",marginTop:10}}>
-                      <IconChangehuman/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay doi nguoi xu ly"}</Text>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay đổi người xử lý"}</Text>
                   </View>
                   <View style={{flexDirection:"row",marginTop:10}}>
                       <IconReport/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,}}>{"Y/C Bao cao"}</Text>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5,}}>{"Y/C Báo cáo"}</Text>
                   </View>
                   <View style={{flexDirection:"row",marginTop:10}}>
                       <IconCalendar/>
-                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Gia han"}</Text>
+                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Gia hạn"}</Text>
                   </View>
               </View>
 
@@ -212,7 +226,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                       resizeMode={FastImage.resizeMode.stretch}
 
                     />
-                    <Text style={{flexWrap:"wrap",fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.assignFullName||''}</Text>
+                    <Text style={{flexWrap:"wrap",flex:1,fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.assignFullName||''}</Text>
                   </View>
                 </View>
 
@@ -229,7 +243,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                       resizeMode={FastImage.resizeMode.stretch}
 
                     />
-                    <Text style={{flexWrap:"wrap",fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.targetFullName||""}</Text>
+                    <Text style={{flexWrap:"wrap",flex:1,fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{dataDetailTask?.targetFullName||""}</Text>
                   </View>
 
                 </View>
@@ -256,7 +270,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:15}}>
 
             <RenderHtml
-                  contentWidth={width}
+                  contentWidth={screenWidth}
                   source={{html:dataDetailTask?.content}}
                 />
 
@@ -268,10 +282,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
             <BottomChangePriority   bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
 
-
-
         </GestureHandlerRootView>
-
+       <DialogReport visible={isVisibleReport} type={1}  title={"Yêu cầu báo cáo"} onClose={closeDialogReport}/>
+       <DialogProgress visible={isVisibleProgress} onClose={closeDialogProgress} />
+        <DialogConfirmComponent visible={isVisibleDone} onClose={closeDialogDone} content={"Bạn có chắc là đã làm xong công việc này chứ? Nhấn đồng ý để hoàn thành công việc này"}/>
       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{ left: 0, right: 0, bottom:0,position:"absolute",backgroundColor:"#EEEEEE"}}>
           <SendCommentComponent taskId={taskId}/>
       </KeyboardAvoidingView>

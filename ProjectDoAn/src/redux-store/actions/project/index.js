@@ -17,7 +17,7 @@ export function updateData(data) {
 export function actionGetAllProject() {
     return async (dispatch, getState) => {
         let userId=getState().auth.dataCurrentUser.userId
-        console.log(userId)
+        //console.log(userId)
         await   dispatch({
             type: "START_GET_PROJECT",
         });
