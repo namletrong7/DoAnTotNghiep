@@ -26,7 +26,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <AppNavigator
+          <DetailTaskScreen
           />
         </NavigationContainer>
       </PersistGate>

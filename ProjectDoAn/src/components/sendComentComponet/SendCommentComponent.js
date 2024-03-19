@@ -3,15 +3,16 @@
  */
 
 import React, { Component, useState } from "react";
+import ImagePicker from 'react-native-image-crop-picker';
 import {
-  Dimensions,
-  FlatList, KeyboardAvoidingView,
-  SafeAreaView,
-  StyleSheet,
-  Text, TextInput,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
+    Dimensions,
+    FlatList, Image, KeyboardAvoidingView,
+    SafeAreaView,
+    StyleSheet,
+    Text, TextInput,
+    TouchableOpacity,
+    useWindowDimensions,
+    View,
 } from "react-native";
 
 
@@ -24,8 +25,11 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import { showMessage } from "react-native-flash-message";
 import { actionAddCommentTask } from "../../redux-store/actions/task";
+import IconCam from "../../assets/icons/IconCam";
+import IconClose from "../../assets/icons/IconClose";
 const SendCommentComponent = (props)=> {
   const dispatch = useDispatch();
+    const [imageUri, setImageUri] = useState(null);
   const [content, setContent] = useState("");
 
     const sendComment=()=>{
@@ -33,25 +37,46 @@ const SendCommentComponent = (props)=> {
       setContent('')
 
     }
-
+   function  chooseImage(){
+       ImagePicker.openPicker({
+           width: 300,
+           height: 400,
+           cropping: true
+       }).then(image => {
+           setImageUri(image.path);
+       });
+   }
 
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={{ flexDirection: "row", borderRadius: 15, flex: 0.97 }}>
-          <TextInput
-            multiline={true}
-            style={{ color: 'black', fontSize: 17, fontFamily: "OpenSans-Regular", flex: 1 }}
-            placeholder="Nhập bình luận của bạn"
-            onChangeText={(value)=>{setContent(value)}}
-            value={content}
-          />
-        </View>
-        <TouchableOpacity onPress={() => {
-           sendComment()
-        }}>
-          <IconSend />
-        </TouchableOpacity>
-      </SafeAreaView>
+        <SafeAreaView>
+            <TouchableOpacity onPress={()=>{setImageUri(null)}} style={{flexDirection:"row",marginLeft:10}}>
+                {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+                {imageUri &&<IconClose height={20} width={20}/>}
+            </TouchableOpacity>
+            <View style={styles.container}>
+                <TouchableOpacity onPress={() => {
+                    chooseImage()
+                }}>
+                    <IconCam
+                    />
+                </TouchableOpacity>
+                <View style={{ flexDirection: "row", borderRadius: 15, flex: 0.93 ,  backgroundColor:"#FFFFFF",paddingHorizontal:10, paddingVertical:5,marginLeft:5}}>
+                    <TextInput
+                        multiline={true}
+                        style={{ color: 'black', fontSize: 15, fontFamily: "OpenSans-Regular", flex: 1 }}
+                        placeholder="Nhập bình luận của bạn"
+                        onChangeText={(value)=>{setContent(value)}}
+                        value={content}
+                    />
+                </View>
+                <TouchableOpacity onPress={() => {
+                    sendComment()
+                }}>
+                    <IconSend />
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+
 
     )
   }
@@ -59,15 +84,19 @@ const SendCommentComponent = (props)=> {
 const styles = StyleSheet.create({
   container: {
     flexDirection:"row",
-    height:60,
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:"#DDDDDD",
+    marginHorizontal:6,
     paddingVertical:6,
     borderRadius:15,
 
   },
-
+    image: {
+        width: 50,
+        height: 70,
+        borderRadius: 16,
+        marginBottom: 5,
+    },
 });
 
 export default React.memo(SendCommentComponent)
