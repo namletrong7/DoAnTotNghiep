@@ -17,6 +17,9 @@ import { AddTaskScreen } from "../screens/AddTaskScreen/AddTaskScreen";
 import { PersonalScreen } from "../screens/Personal/PersonalScreen";
 import NotifiScreen from "../screens/Notifi/NotifiScreen";
 import DetailProjectScreen from "../screens/DetailProject/DetailProjectScreen";
+import {Platform, StyleSheet} from "react-native";
+import IconThongKefocus from "../assets/icons/IconThongKefocus";
+import IconThongKeUnfocus from "../assets/icons/IconThongKeUnfocus";
 
 // export  const HomeNavigator = React.memo(() => {
 //   const Stack = createNativeStackNavigator();
@@ -80,17 +83,33 @@ export  const BottomHomeNavigation = React.memo(() => {
               else if (route.name === "ProFileUserScreen") {
                 iconName = focused ? <IconTaskFocus/> : <IconTaskUnFocus/>;
               }
+              else if (route.name === "ThongKe") {
+                  iconName = focused ? <IconThongKefocus/> : <IconThongKeUnfocus/>;
+              }
               return  iconName
             },
-            tabBarLabel: () => null,
-            tabBarStyle:{position:"absolute",borderRadius:16, marginBottom:20,marginHorizontal:50,backgroundColor:'white',justifyContent:"center"},
+            tabBarStyle:  [
+            styles.tabContainer,
+            Platform.OS === 'ios' && {
+            shadowOffset: { height: -2, width: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 15,
+          },
+            ],
+            tabBarItemStyle: {
+              marginBottom: 7,
+            },
           })}
+          safeAreaInsets={{
+            bottom: 0,
+          }}
 
         >
-          <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false }}/>
-          <Tab.Screen name="ProFileUserScreen" component={ProFileUserScreen} options={{ headerShown: false }} />
-          <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false }} />
-          <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home"}}   />
+          <Tab.Screen name="ProFileUserScreen" component={ProFileUserScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
+            <Tab.Screen name="ThongKe" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thống kê" }}   />
+          <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo" }}   />
+          <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />
         </Tab.Navigator>
 
   )
@@ -109,3 +128,18 @@ export  const StackNavigate = React.memo(() => {
     </Stack.Navigator>
   )
 })
+const styles = StyleSheet.create({
+  tabContainer: {
+    position: 'absolute',
+    width: '90%',
+    borderRadius: 12,
+    left: '5%',
+    bottom: 20,
+    backgroundColor: 'white',
+    height: 60,
+  },
+  label: {
+    textTransform: 'capitalize',
+    fontSize: 12,
+  },
+});
