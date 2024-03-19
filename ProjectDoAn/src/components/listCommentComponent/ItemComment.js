@@ -58,17 +58,18 @@ const ItemComment = ({item,navigation}) => {
           }} />
           <Text style={{ fontSize: 14, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.createdDate}</Text>
         </TouchableOpacity>
-        <Text style={{
-          fontSize: 15,
-          color: "black",
-          fontFamily: "OpenSans-Regular",
-          backgroundColor: "#DDDDDD",
-          alignSelf:"flex-start",
-          paddingHorizontal: 10,
-          paddingVertical: 5,
-          borderRadius: 16,
-          borderBottomRightRadius: 0
-        }}>{item?.content}</Text>
+        <View style={{ backgroundColor: "#DDDDDD",borderRadius: 16,
+          borderBottomRightRadius: 0,
+          alignSelf:"flex-start",}}>
+          <Text style={{
+            fontSize: 15,
+            color: "black",
+            fontFamily: "OpenSans-Regular",
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+          }}>{item?.content}</Text>
+        </View>
+
       </View>
 
     </View>
