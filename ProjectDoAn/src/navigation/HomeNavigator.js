@@ -14,12 +14,13 @@ import IconUserUnFocus from "../assets/icons/IconUserUnFocus";
 import IconNotifiFocus from "../assets/icons/IconNotifiFocus";
 import IconNotifiUnFocus from "../assets/icons/IconNotifiUnFocus";
 import { AddTaskScreen } from "../screens/AddTaskScreen/AddTaskScreen";
-import { PersonalScreen } from "../screens/Personal/PersonalScreen";
+import { PersonalScreen } from "../screens/PersonalStack/PersonalScreen";
 import NotifiScreen from "../screens/Notifi/NotifiScreen";
 import DetailProjectScreen from "../screens/DetailProject/DetailProjectScreen";
 import {Platform, StyleSheet} from "react-native";
 import IconThongKefocus from "../assets/icons/IconThongKefocus";
 import IconThongKeUnfocus from "../assets/icons/IconThongKeUnfocus";
+import TaskPersonalScreen from "../screens/taskStack/TaskPersonalScreen";
 
 // export  const HomeNavigator = React.memo(() => {
 //   const Stack = createNativeStackNavigator();
@@ -80,7 +81,7 @@ export  const BottomHomeNavigation = React.memo(() => {
               else if (route.name === "PersonalScreen") {
                 iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
               }
-              else if (route.name === "ProFileUserScreen") {
+              else if (route.name === "TaskPersonalScreen") {
                 iconName = focused ? <IconTaskFocus/> : <IconTaskUnFocus/>;
               }
               else if (route.name === "ThongKe") {
@@ -106,7 +107,7 @@ export  const BottomHomeNavigation = React.memo(() => {
 
         >
           <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home"}}   />
-          <Tab.Screen name="ProFileUserScreen" component={ProFileUserScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
+          <Tab.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
             <Tab.Screen name="ThongKe" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thống kê" }}   />
           <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo" }}   />
           <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />
