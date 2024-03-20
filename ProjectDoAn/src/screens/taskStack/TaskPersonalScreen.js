@@ -331,7 +331,7 @@ const TaskPersonalScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{backgroundColor:"white",paddingTop:StatusBar.currentHeight,height:'100%'}}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      <View style={{zIndex:10,position:'absolute',width:'100%',top:50}}>
+      <View style={{zIndex:10,position:'absolute',width:'100%',top:10}}>
         <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
           <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
@@ -356,7 +356,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
           </View>}
       </View>
-        <ScrollView style={{marginTop:50,marginBottom:"24%"}}>
+        <ScrollView style={{marginTop:20,marginBottom:"24%"}}>
           <View style={{height:1.5, backgroundColor:"white",marginVertical:10}}/>
           <View style={{paddingHorizontal:10}}>
            <FlatList

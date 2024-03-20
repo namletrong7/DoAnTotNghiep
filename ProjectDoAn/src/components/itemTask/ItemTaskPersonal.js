@@ -31,8 +31,8 @@ import IconMuiTenXuong from "../../assets/icons/IconMuiTenXuong";
 export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
 
   return(
-    <TouchableOpacity onPress={()=>{gotoDetail(item.taskId)}} style={{paddingVertical:3}}>
-      <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+    <TouchableOpacity onPress={()=>{gotoDetail(item.taskId)}} style={{paddingVertical:3,}}>
+      <View style={{flexDirection:"row", justifyContent:"space-between",paddingHorizontal:15}}>
         <View style={{flex:1}}>
           <Text style={{flexWrap:"wrap", flex:1}}>
             <Text style={{
@@ -45,22 +45,19 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
             </Text>
             <Text style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{"   "+item.title}</Text>
           </Text>
-          <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"Roboto-MediumItalic",marginVertical:10}}>{"Hạn: "+item.endDay}</Text>
+          <Text style={{fontSize:15, flexWrap: "wrap", color:"#99CCFF",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+item.endDay}</Text>
         </View>
 
-        <View style={{alignItems:'center'}}>
+        <View style={{flexDirection:"row"}}>
           <FastImage
-            style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
+            style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden"}}
             source={{
               uri: baseUrlAvatarUser+item?.avatarAssignUser
             }}
             resizeMode={FastImage.resizeMode.cover}
           />
-          <IconMuiTenXuong/>
-
-
           <FastImage
-            style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
+            style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden",marginLeft:-10}}
             source={{
               uri: baseUrlAvatarUser+item?.avatarTargetUser
             }}
