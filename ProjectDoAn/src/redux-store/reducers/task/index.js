@@ -12,7 +12,12 @@ const initialState = {
     isGetTaskProjectDoing :false ,
     dataListTaskProjectDoing:[],
     isGetTaskProjectDone :true,
-    dataListTaskProjectDone:[]
+    dataListTaskProjectDone:[],
+    isGetAllTask:false,
+    dataAllTask:[],
+    isGetMoreAllTask:false,
+
+
 }
 const reducerTask = (state =initialState , action) => {
     switch (action.type) {
@@ -134,6 +139,12 @@ const reducerTask = (state =initialState , action) => {
         case 'END_GET_TASK_PROJECT_TODO': {
             return { ...state,
                 isGetTaskProjectTodo: false
+            };
+        }
+        case 'GET_MORE_ALL_TASK': {
+            return { ...state,
+                dataAllTask:  [...state.dataAllTask, ...action.data],
+                isGetMoreAllTask:false
             };
         }
         default:

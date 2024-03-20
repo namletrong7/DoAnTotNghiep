@@ -353,6 +353,74 @@ export function actionGetTaskDoneProject(projectId) {
 
     };
 }
+export function actionGetAllTask(offset) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetAllTask :true
+        }))
+        try {
+            const response = await Api(false).getAllTask(offset);
+
+            if(response.data && response.data.status==200){
+                dispatch(updateData({
+                    dataAllTask: response.data.dataListTask
+                }))
+            }
+            dispatch(updateData({
+                isGetAllTask :false
+
+            }))
+        } catch (error) {
+
+            dispatch(updateData({
+                isGetAllTask :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionGetMoreAllTask() {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetMoreAllTask :true
+        }))
+        try {
+            const response = await Api(false).getAllTask(getState().task.dataAllTask.length)
+
+            if(response.data && response.data.status==200){
+                await   dispatch({
+                    type: "GET_MORE_ALL_TASK",
+                    data:response.data.dataListTask
+                });
+
+            }
+            dispatch(updateData({
+                isGetMoreAllTask :false
+
+            }))
+        } catch (error) {
+
+            dispatch(updateData({
+                isGetMoreAllTask :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 //--------------------------------------nghiêm túc
 
 
@@ -365,5 +433,6 @@ export default {
     actionAddCommentTask,
     actionGetTaskToDoProject,
     actionGetTaskDoingProject,
-    actionGetTaskDoneProject
+    actionGetTaskDoneProject,
+    actionGetAllTask
 };

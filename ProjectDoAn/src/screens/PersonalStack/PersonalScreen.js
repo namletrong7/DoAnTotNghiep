@@ -49,15 +49,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
   const [isShow, SetIsShow] = useState(true); // show các chức năng khác
   const [isShowLogOut, SetIsShowLogOut] = useState(false); // show dialog đăng xuát
   const dispatch = useDispatch();
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     console.log("dc tập trung ")
-  //
-  //     return () => {
-  //       console.log("bỏ tập trung ")
-  //     };
-  //   }, [])
-  // );
+
   const handleLogout=()=>{
 
    dispatch(actionLogout())
@@ -83,7 +75,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
     });
   }
   return (
-    <SafeAreaView style={{backgroundColor:"#EEEEEE",height:"100%",marginTop:StatusBar.currentHeight}}>
+    <SafeAreaView style={{backgroundColor:"#F0F0F0",paddingTop:StatusBar.currentHeight,height:'100%'}}>
 
       <ScrollView
         contentContainerStyle={{padding:15, }}
