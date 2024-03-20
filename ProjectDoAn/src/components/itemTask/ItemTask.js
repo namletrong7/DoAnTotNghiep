@@ -28,7 +28,7 @@ import IconComment from "../../assets/icons/IconComment";
 
 
 const ItemTask = (props) => {
-
+  console.log(props.item.taskId)
   // render ra priority của  task
   const RenderPriority = () => {
         return(
