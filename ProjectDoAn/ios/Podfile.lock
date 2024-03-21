@@ -1107,6 +1107,8 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
+  - RNFileViewer (2.1.5):
+    - React-Core
   - RNGestureHandler (2.15.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1212,6 +1214,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
+  - RNFileViewer (from `../node_modules/react-native-file-viewer`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -1356,6 +1359,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
+  RNFileViewer:
+    :path: "../node_modules/react-native-file-viewer"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
@@ -1439,6 +1444,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 090213d32d8b3bb83a4dcb7d12c18f0152591906
   RNDateTimePicker: fc2e4f2795877d45e84d85659bebe627eba5c931
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
+  RNFileViewer: ce7ca3ac370e18554d35d6355cffd7c30437c592
   RNGestureHandler: 7feb85c5a30ebbcd4d5c7a851ba9e7eafb9860cb
   RNImageCropPicker: e7ab6fb43d2fc3e84651e786ef4a080d63b0ed3d
   RNPermissions: e8d5f054c1d7e704220028b2b2b13b64b1bc28c9

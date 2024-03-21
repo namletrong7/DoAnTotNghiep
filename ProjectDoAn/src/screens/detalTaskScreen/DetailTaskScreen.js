@@ -254,7 +254,6 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
               <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
                 <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
-                <IconEdit/>
               </TouchableOpacity>
 
               <View style={{flexDirection:"row",marginTop:0,alignSelf:"center",justifyContent:"center"}}>
@@ -265,7 +264,6 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               </View>
               <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
                 <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
-                <IconEdit/>
               </TouchableOpacity>
               <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:15}}>
 

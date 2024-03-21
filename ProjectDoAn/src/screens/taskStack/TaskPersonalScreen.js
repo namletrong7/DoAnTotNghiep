@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, ActivityIndicator,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, ActivityIndicator, Platform,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +51,7 @@ const TaskPersonalScreen = ({ navigation }) => {
      dispatch(actionGetAllTask(0))
 
   },[])
-  console.log(dataAllTask.length)
+//  console.log(dataAllTask.length)
   var fakeDataListTask =  [
     {
       "taskId": "0jxabz1",
@@ -329,9 +329,12 @@ const TaskPersonalScreen = ({ navigation }) => {
     }
   }
   return (
-    <SafeAreaView style={{backgroundColor:"white",paddingTop:StatusBar.currentHeight,height:'100%'}}>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
-      <View style={{zIndex:10,position:'absolute',width:'100%',top:10}}>
+    <SafeAreaView style={{backgroundColor:"white",marginTop:StatusBar.currentHeight,height:'100%'}}>
+      <StatusBar
+          translucent
+          backgroundColor={'transparent'}
+      />
+      <View style={{zIndex:10,position:'absolute',width:'100%',top:50}}>
         <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
           <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
@@ -356,7 +359,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
           </View>}
       </View>
-        <ScrollView style={{marginTop:20,marginBottom:"24%"}}>
+        <ScrollView style={{marginTop:20,marginBottom:Platform.OS==='ios'?"15%":"24%"}}>
           <View style={{height:1.5, backgroundColor:"white",marginVertical:10}}/>
           <View style={{paddingHorizontal:10}}>
            <FlatList

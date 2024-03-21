@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import RNFetchBlob from 'rn-fetch-blob';
 import {
   Dimensions,
-  FlatList,
+  FlatList, Platform,
   SafeAreaView, ScrollView,
   StyleSheet,
   Text,
@@ -43,41 +43,80 @@ export const ListFileAttachComponent = React.memo((props) => {
     useEffect(() => {
       dispatch(actionGetFileAttach(props.taskId))
     }, [props.taskId]);
-  const downloadFile = (fileUrl, fileName) => {
-    const { config, fs } = RNFetchBlob;
-    const { DownloadDir } = fs.dirs;
 
-    const pathToFile = `${DownloadDir+"/"+'PMKMA'}/${fileName}`;
+  const download = async (url,fileName) => {
+    // Get the app's cache directory
+    const {config, fs} = RNFetchBlob;
+    const cacheDir = fs.dirs.DownloadDir;
 
-    return config({
-      fileCache: true,
-      addAndroidDownloads: {
-        useDownloadManager: true,
-        notification: true,
-        path: pathToFile,
-      },
-    })
-      .fetch('GET', fileUrl)
-      .then(res => {
-        // Tải tập tin thành công
-        showMessage({
-          message: "Tải thành công file: "+fileName,
-          type: "success",
-          duration: 1000,
-          icon: { icon: "success", position: 'left' }
-        });
-        return res.path();
-      })
-      .catch(error => {
-        // Xử lý lỗi khi tải tập tin
-        showMessage({
-          message: "Lỗi khi tải file: "+fileName,
-          type: "danger",
-          duration: 1000,
-          icon: { icon: "danger", position: 'left' }
-        });
+    const imagePath = `${cacheDir}/${fileName}`;
+
+    try {
+      // Download the file and save it to the cache directory
+      const configOptions = Platform.select({
+        ios: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: fileName.split('.').pop(),
+        },
+        android: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: fileName.split('.').pop(),
+          addAndroidDownloads: {
+            // Related to the Android only
+            useDownloadManager: true,
+            notification: true,
+            path: imagePath,
+            description: 'File',
+          },
+        },
       });
+
+      const response = await RNFetchBlob.config(configOptions).fetch('GET', url);
+
+      // Return the path to the downloaded file
+      return response;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   };
+  // const downloadFile = (fileUrl, fileName) => {
+  //   const { config, fs } = RNFetchBlob;
+  //   const { DownloadDir } = fs.dirs;
+  //
+  //   const pathToFile = `${DownloadDir+"/"+'PMKMA'}/${fileName}`;
+  //
+  //   return config({
+  //     fileCache: true,
+  //     addAndroidDownloads: {
+  //       useDownloadManager: true,
+  //       notification: true,
+  //       path: pathToFile,
+  //     },
+  //   })
+  //     .fetch('GET', fileUrl)
+  //     .then(res => {
+  //       // Tải tập tin thành công
+  //       showMessage({
+  //         message: "Tải thành công file: "+fileName,
+  //         type: "success",
+  //         duration: 1000,
+  //         icon: { icon: "success", position: 'left' }
+  //       });
+  //       return res.path();
+  //     })
+  //     .catch(error => {
+  //       // Xử lý lỗi khi tải tập tin
+  //       showMessage({
+  //         message: "Lỗi khi tải file: "+fileName,
+  //         type: "danger",
+  //         duration: 1000,
+  //         icon: { icon: "danger", position: 'left' }
+  //       });
+  //     });
+  // };
     const RenderIcon = (props) => {
       var Extension = props.extension.toLowerCase();
       if (Extension === "pdf") {
@@ -109,8 +148,16 @@ export const ListFileAttachComponent = React.memo((props) => {
           justifyContent: "flex-start",
           flex: 1,
         }}
-                          onPress={()=>{downloadFile(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName)}}
-        >
+                          onPress={() => {
+                            if (Platform.OS === 'android') {
+                              download(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName);
+                            } else {
+                              download(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName).then(res => {
+                                RNFetchBlob.ios.previewDocument(res.path());
+                              });
+                            }
+                          }}>
+
           <View style={{
             flex: 0.88, flexDirection: "row", alignItems: "center", borderRadius: 16,
             backgroundColor: "#DDDDDD", paddingVertical: 5,
