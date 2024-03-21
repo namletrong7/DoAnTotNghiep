@@ -1,32 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import HomeNavigator from "./HomeNavigator";
+
+
 import { useSelector } from "react-redux";
 import LoginNavigator from "./LoginNavigator";
+import { BottomHomeNavigation, HomeNavigator, StackNavigate } from "./HomeNavigator";
+import FlashMessage from "react-native-flash-message";
+import { Platform, StatusBar } from "react-native";
 
 const AppNavigator = () => {
-
-  const [accessToken, setAccessToken] = useState(null);
-  const {getItem, setItem} = useAsyncStorage('assetToken');
-  const authData = useSelector(state => state.auth);
-
-  const checkLogin = async () => {
-    const token = await getItem();
-    if (authData.token || token) {
-      setAccessToken(token || authData.token);
-    } else {
-      setAccessToken(null);
-    }
-  }
-
-  useEffect(() => {
-    checkLogin();
-  }, [authData.token]);
-
+  const token = useSelector(state => state.auth.token);
   return (
     <>
-      {accessToken ? (<HomeNavigator />) : (<LoginNavigator />)}
+      {token ? (<StackNavigate />) : (<LoginNavigator />)}
+      <FlashMessage position="top" style={{height:Platform.OS==='ios'?100:90, borderBottomLeftRadius:10, borderBottomRightRadius:10, alignItems:"flex-end"}} />
     </>
   )
 }

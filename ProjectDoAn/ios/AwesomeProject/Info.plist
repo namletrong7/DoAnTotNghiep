@@ -31,22 +31,18 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Sử dụng camera để scan tài liệu bản giấy, gửi hình ảnh khi chat, cập nhật avatar, ...</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Chúng tôi cần truy cập tệp để có quyền tải file và đọc file từ thiết bị của bạn</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<string>Sử dụng vị trí để xác minh thông tin</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Sử dụng Microphone để gửi âm thanh khi chat, ...</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sử dụng Photo Library để gửi hình ảnh khi chat, cập nhật avatar, ...</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+    <string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>entypo.ttf</string>
@@ -69,5 +65,19 @@
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

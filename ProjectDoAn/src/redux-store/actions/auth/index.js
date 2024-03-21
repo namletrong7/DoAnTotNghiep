@@ -1,5 +1,8 @@
 import Api from "../../../api/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { showMessage } from "react-native-flash-message";
+import { randomKeyComment } from "../../../utils/RandomKeyComment";
+import { getNewDate } from "../../../utils/ConverPickerDate";
 
 /**
  * Created by NamLTC on 29/01/2024
@@ -12,44 +15,71 @@ export function updateData(data) {
         data
     }
 }
-export function getTemPlate() {
+
+// api login
+export function actionLogin(userName, passWord) {
     return async (dispatch, getState) => {
-        const response = await Api("https://egovbeta.tayninh.gov.vn").getTemplateComment();
-        console.log("RESPONSE: ", response.data);
+        try {
+            const response = await Api(false).login(userName, passWord);
+            if (response.data.status==200 && response.data.data == 1){
+                dispatch(updateData({
+                    isLoginSuccess: true,
+                    dataCurrentUser:response.data.dataCurrentUser
+                }))
+            setTimeout(() => {
+                dispatch(updateData({
+                    token: 'asdasdasdasdasdasd',
+                    isLoginSuccess: false,
+
+                }))
+            }, 3000);
+        }
+            else{
+                dispatch(updateData({
+                    token: null,
+                    isLoginSuccess: false,
+                }))
+                showMessage({
+                    message: "Đăng nhập thất bại vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu ",
+                    type: "danger",
+                    duration: 3000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+        } catch (error) {
+            dispatch(updateData({
+                token: null,
+                isLoginSuccess: false,
+            }))
+            showMessage({
+                message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
+                type: "warning",
+                duration: 3000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
     };
 }
 // api login
-export function actionLogin(baseURL,body) {
+export function actionLogout() {
     return async (dispatch, getState) => {
-        await AsyncStorage.setItem('assetToken', 'asdasdasdasdasdasd');
-        dispatch(updateData({
-            getTokenLoading: false,
-            token: 'asdasdasdasdasdasd',
-        }))
-        // const response = await Api(baseURL).login(body);
-        // console.log("RESPONSE: ", response.data);
-        // if(response.data.status===200){
-        //     await AsyncStorage.setItem('assetToken', response.data.data.token);
-        //     dispatch(updateData({
-        //         getTokenLoading: false ,
-        //         token: response.data.data.token
-        //     }))
-        // }
+        await   dispatch({
+            type: "RESET_AUTH",
+        });
+        await   dispatch({
+            type: "RESET_TASK",
+        });
+        await   dispatch({
+            type: "RESET_USER",
+        });
+
     };
 }
-
-export function actionLogout(baseURL,body) {
-    return async (dispatch, getState) => {
-        await AsyncStorage.clear();
-        dispatch(updateData({
-            getTokenLoading: false,
-            token: null,
-        }))
-    };
-}
-
 export default {
-    getTemPlate,
     actionLogin,
-    actionLogout,
+    actionLogout
+
+
 };
