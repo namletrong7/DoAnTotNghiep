@@ -66,6 +66,7 @@ import {BottomChangePriority} from "./bottomChangePriority/BottomChangePriority"
 import DialogReport from "./dialogReport/DialogReport";
 import DialogProgress from "./DialogProgress/DialogProgress";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
+import {RenderActionTask} from "./ActionTab/RenderActionTab";
 
 
 
@@ -77,6 +78,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   // láy data detail task từ  reducer có dược
   const dataDetailTask = useSelector(state => state.task.detailTask);
   const isGetDetailTask = useSelector(state => state.task.isGetDetailTask);
+    const currentUser = useSelector(state => state.auth.dataCurrentUser.userId);
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
   // Lấy thông tin kích thước của màn hình
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -117,47 +119,16 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const closeDialogDone=()=>{
     setIsVisibleDone(false)
   }
-  const RenderActionTask=()=>{
-      return(
-          <View style={{marginTop:10}}>
-              <View style={{flexDirection:"row", justifyContent:"space-around", flexWrap:"wrap"}}>
-                  <TouchableOpacity onPress={()=>{setIsVisibleReport(true)}} style={{flexDirection:"row"}}>
-                       <IconReport/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Báo cáo"}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={()=>{setIsVisibleProgress(true)}} style={{flexDirection:"row"}}>
-                      <IconPin/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Tiến độ"}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={()=>{setIsVisibleDone(true)}} style={{flexDirection:"row"}}>
-                      <IconDone/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hoàn thành"}</Text>
-                  </TouchableOpacity>
-                  <View style={{flexDirection:"row",marginTop:10}}>
-                      <IconChangehuman/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay đổi người giao"}</Text>
-                  </View>
-                  <View style={{flexDirection:"row",marginTop:10}}>
-                      <IconChangehuman/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay đổi người xử lý"}</Text>
-                  </View>
-                  <View style={{flexDirection:"row",marginTop:10}}>
-                      <IconReport/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5,}}>{"Y/C Báo cáo"}</Text>
-                  </View>
-                  <View style={{flexDirection:"row",marginTop:10}}>
-                      <IconCalendar/>
-                      <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Gia hạn"}</Text>
-                  </View>
-              </View>
-
-
-
-          </View>
-
-
-      )
+  const openDialogReport=()=>{
+        setIsVisibleReport(true)
   }
+    const openDialogProgress=()=>{
+        setIsVisibleProgress(true)
+    }
+    const opengDialogDone=()=>{
+        setIsVisibleDone(true)
+    }
+
    const changTitleTask=async (newTitle) => {
      showMessage({
        message: "Chỉnh sửa tiêu đề thành công",
@@ -192,7 +163,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:16, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",marginTop:10,alignSelf:"flex-start"}}>
                 <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
               </TouchableOpacity>
-              <RenderActionTask/>
+                {(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser)&&
+              <RenderActionTask openDialogReport={openDialogReport} openDialogProgress={openDialogProgress}  openDialogDone={opengDialogDone} assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />}
               <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:10}}>
                 <View style={{flexDirection:"column", justifyContent:"flex-start"}}>
                     <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu"}</Text>
@@ -254,7 +226,6 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
               <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
                 <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
-                <IconEdit/>
               </TouchableOpacity>
 
               <View style={{flexDirection:"row",marginTop:0,alignSelf:"center",justifyContent:"center"}}>
@@ -265,7 +236,6 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               </View>
               <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
                 <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
-                <IconEdit/>
               </TouchableOpacity>
               <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:15}}>
 

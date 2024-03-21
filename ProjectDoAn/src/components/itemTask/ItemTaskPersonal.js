@@ -43,21 +43,22 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
               backgroundColor: getColorBackgroundPriority(item.priority)
             }}>{getValuePriority(item.priority)}
             </Text>
-            <Text style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{"   "+item.title}</Text>
+            <Text>{'    '}</Text>
+            <Text style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{item.title}</Text>
           </Text>
-          <Text style={{fontSize:15, flexWrap: "wrap", color:"#99CCFF",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+item.endDay}</Text>
+          <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+item.endDay}</Text>
         </View>
 
         <View style={{flexDirection:"row"}}>
           <FastImage
-            style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden"}}
+            style={{ width: 20, height: 20,borderRadius: 20/2 ,overflow: "hidden"}}
             source={{
               uri: baseUrlAvatarUser+item?.avatarAssignUser
             }}
             resizeMode={FastImage.resizeMode.cover}
           />
           <FastImage
-            style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden",marginLeft:-10}}
+            style={{ width: 20, height: 20,borderRadius: 20/2 ,overflow: "hidden",marginLeft:-7}}
             source={{
               uri: baseUrlAvatarUser+item?.avatarTargetUser
             }}
