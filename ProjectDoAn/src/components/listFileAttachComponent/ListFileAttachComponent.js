@@ -31,6 +31,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionGetFileAttach } from "../../redux-store/actions/task";
 import { baseUrlLinkFile } from "../../api/ConstBaseUrl";
 import { showMessage } from "react-native-flash-message";
+import {downloadFile} from "../../utils/downLoadFile";
+import {RenderItemFile} from "./RenderItemFile";
 
 
 export const ListFileAttachComponent = React.memo((props) => {
@@ -44,44 +46,7 @@ export const ListFileAttachComponent = React.memo((props) => {
       dispatch(actionGetFileAttach(props.taskId))
     }, [props.taskId]);
 
-  const download = async (url,fileName) => {
-    // Get the app's cache directory
-    const {config, fs} = RNFetchBlob;
-    const cacheDir = fs.dirs.DownloadDir;
 
-    const imagePath = `${cacheDir}/${fileName}`;
-
-    try {
-      // Download the file and save it to the cache directory
-      const configOptions = Platform.select({
-        ios: {
-          fileCache: true,
-          path: imagePath,
-          appendExt: fileName.split('.').pop(),
-        },
-        android: {
-          fileCache: true,
-          path: imagePath,
-          appendExt: fileName.split('.').pop(),
-          addAndroidDownloads: {
-            // Related to the Android only
-            useDownloadManager: true,
-            notification: true,
-            path: imagePath,
-            description: 'File',
-          },
-        },
-      });
-
-      const response = await RNFetchBlob.config(configOptions).fetch('GET', url);
-
-      // Return the path to the downloaded file
-      return response;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
   // const downloadFile = (fileUrl, fileName) => {
   //   const { config, fs } = RNFetchBlob;
   //   const { DownloadDir } = fs.dirs;
@@ -117,69 +82,8 @@ export const ListFileAttachComponent = React.memo((props) => {
   //       });
   //     });
   // };
-    const RenderIcon = (props) => {
-      var Extension = props.extension.toLowerCase();
-      if (Extension === "pdf") {
-        return (
-          <IconPdf />
-        );
-      } else if (Extension === "doc" || Extension === "docx") {
-        return (
-          <IconDoc />
-        );
-      } else if (Extension === "xls" || Extension === "xlsx") {
-        return (
-          <IconXLS />
-        );
-      } else {
-        return (
-          <IconFile />
-        );
-      }
 
-    };
 
-    const RenderItemFile = (props) => {
-      return (
-        <TouchableOpacity style={{
-          marginTop: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          flex: 1,
-        }}
-                          onPress={() => {
-                            if (Platform.OS === 'android') {
-                              download(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName);
-                            } else {
-                              download(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName).then(res => {
-                                RNFetchBlob.ios.previewDocument(res.path());
-                              });
-                            }
-                          }}>
-
-          <View style={{
-            flex: 0.88, flexDirection: "row", alignItems: "center", borderRadius: 16,
-            backgroundColor: "#DDDDDD", paddingVertical: 5,
-            paddingHorizontal: 5,
-          }}>
-            <View style={{ paddingHorizontal:6 }}>
-              <RenderIcon extension={props.item.extension} />
-            </View>
-            <Text numberOfLines={2} style={{
-              fontSize: 15,
-              color: "black",
-              fontFamily: "OpenSans-Regular",
-              textAlign: "left",
-              flex:0.88
-            }}>{props.item.fileName}</Text>
-          </View>
-          <View style={{ flex: 0.12, alignItems:'center' }}>
-            <IconDownLoad />
-          </View>
-        </TouchableOpacity>
-      );
-    };
     return (
       <View style={styles.container}>
 

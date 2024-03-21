@@ -16,7 +16,13 @@ const initialState = {
     isGetAllTask:false,
     dataAllTask:[],
     isGetMoreAllTask:false,
-
+    isGetAssignTask:false,
+    dataAssignTask:[],
+    isGetTargetTask:false,
+    dataTargetTask:[],
+    isGetTaskDone:false,
+    dataTaskDone:[],
+    isGetMoreAssignTask:false
 
 }
 const reducerTask = (state =initialState , action) => {
@@ -145,6 +151,33 @@ const reducerTask = (state =initialState , action) => {
             return { ...state,
                 dataAllTask:  [...state.dataAllTask, ...action.data],
                 isGetMoreAllTask:false
+            };
+        }
+        // laasy danh sach task mik giao
+        case 'GET_ASSIGN_TASK': {
+            return { ...state,
+                dataAssignTask: action.data,
+                isGetAssignTask: false
+            };
+        }
+        //lasy danh sahsc task mik xu ly
+        case 'GET_TARGET_TASK': {
+            return { ...state,
+                dataTargetTask: action.data,
+                isGetTargetTask: false
+            };
+        }
+        //Lay ds cv da hoan thanh
+        case 'GET_TASK_DONE': {
+            return { ...state,
+                dataTaskDone: action.data,
+                isGetTaskDone: false
+            };
+        }
+        case 'GET_MORE_ASSIGN_TASK': {
+            return { ...state,
+                dataAssignTask: [...state.dataAssignTask, ...action.data],
+                isGetMoreAssignTask: false
             };
         }
         default:

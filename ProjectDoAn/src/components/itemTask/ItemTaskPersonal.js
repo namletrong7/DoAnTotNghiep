@@ -43,7 +43,8 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
               backgroundColor: getColorBackgroundPriority(item.priority)
             }}>{getValuePriority(item.priority)}
             </Text>
-            <Text style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{"   "+item.title}</Text>
+            <Text>{'    '}</Text>
+            <Text style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{item.title}</Text>
           </Text>
           <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+item.endDay}</Text>
         </View>

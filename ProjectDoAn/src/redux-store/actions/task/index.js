@@ -421,6 +421,146 @@ export function actionGetMoreAllTask() {
 
     };
 }
+export function actionGetAssignTask() {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetAssignTask :true
+        }))
+        try {
+            const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId,0)
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                await   dispatch({
+                    type: "GET_ASSIGN_TASK",
+                    data:response.data.dataListTask
+                });
+
+            }
+            dispatch(updateData({
+                isGetAssignTask :false
+
+            }))
+        } catch (error) {
+
+            dispatch(updateData({
+                isGetAssignTask :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetMoreAssignTask :true
+        }))
+        try {
+            const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId,offset)
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                await   dispatch({
+                    type: "GET_MORE_ASSIGN_TASK",
+                    data:response.data.dataListTask
+                });
+
+            }
+            dispatch(updateData({
+                isGetMoreAssignTask :false
+
+            }))
+        } catch (error) {
+
+            dispatch(updateData({
+                isGetMoreAssignTask :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionGetTargetTask() {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetTargetTask :true
+        }))
+        try {
+            const response = await Api(false).getTargetTask(getState().auth.dataCurrentUser.userId,0)
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                await   dispatch({
+                    type: "GET_TARGET_TASK",
+                    data:response.data.dataListTask
+                });
+
+            }
+            dispatch(updateData({
+                isGetTargetTask :false
+
+            }))
+        } catch (error) {
+
+            dispatch(updateData({
+                isGetTargetTask :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionGetTaskDone() {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetTaskDone :true
+        }))
+        try {
+            const response = await Api(false).getTaskDone(getState().auth.dataCurrentUser.userId,0)
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                await   dispatch({
+                    type: "GET_TASK_DONE",
+                    data:response.data.dataListTask
+                });
+
+            }
+            dispatch(updateData({
+                isGetTaskDone :false
+
+            }))
+        } catch (error) {
+
+            dispatch(updateData({
+                isGetTaskDone :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 //--------------------------------------nghiêm túc
 
 

@@ -31,24 +31,33 @@ import {getColorBackgroundPriority, getColorPriority, getValuePriority} from "..
 import IconBox from "../../assets/icons/IconBox";
 import IconDown from "../../assets/icons/IconDown";
 import IconMuiTenXuong from "../../assets/icons/IconMuiTenXuong";
-import { actionGetAllTask, actionGetDetailTask, actionGetMoreAllTask } from "../../redux-store/actions/task";
+import {
+  actionGetAllTask,
+  actionGetAssignTask,
+  actionGetDetailTask,
+  actionGetMoreAllTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
+} from "../../redux-store/actions/task";
 import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
+import {FooterTask, FooterTaskk} from "./footerTask/FooterTask";
 
 const TaskPersonalScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const [isShowMore, SetIsShowMore] = useState(false); // show các chức năng khác
-  const [typeTask, setTypeTask] = useState(3); // lua chon các task khac nhau
-  const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
-  const dataAllTask = useSelector(state => state.task.dataAllTask);
-  const isGetAllTask = useSelector(state => state.task.isGetMoreAllTask);
-  const isGetMoreAllTask = useSelector(state => state.task.isGetMoreAllTask);
+  const [typeTask, setTypeTask] = useState(1); // lua chon các task khac nhau
+  const [lableTypeTask, setLableTypeTask] = useState("");
+
+  const dataAssignTask = useSelector(state => state.task.dataAssignTask);
+  const dataTargetTask = useSelector(state => state.task.dataTargetTask);
+  const dataTaskDone = useSelector(state => state.task.dataTaskDone);
+
 
 
 
   useEffect( () => {
 
-     dispatch(actionGetAllTask(0))
+     dispatch(actionGetAssignTask())
+     setLableTypeTask("Công việc tôi giao")
 
   },[])
 //  console.log(dataAllTask.length)
@@ -282,50 +291,64 @@ const TaskPersonalScreen = ({ navigation }) => {
 
 
   const loadMore=()=>{
-    if(!isGetAllTask && !isGetMoreAllTask){
-      dispatch(actionGetMoreAllTask())
-    }else {
-      return;
-    }
-    console.log(dataAllTask.length)
-  }
-  const getTypeTask=()=>{
     switch (typeTask) {
       case 1:
-       return "Việc tôi giao"
-        break;
-      case 2:
-        return "Việc tôi cần xử lý"
-        break;
-      case 3:
-        return "Tất cả công việc của tôi"
-        break;
-      case 4:
-        return "Việc đã hoàn thành "
+        dispatch(actionGetMoreAssignTask(dataAssignTask.length))
         break;
       default:
-        return "Tất cả công việc của tôi"
+        dispatch(actionGetMoreAssignTask(dataAssignTask.length))
         break;
     }
   }
-  const filterTask=()=>{
+  const filterTask=async (typeTask) => {
 
-      switch (typeTask) {
-        case 1:
-          return dataAllTask.filter(item => item.assignUser == dataCurrentUser.userId);
-          break;
-        case 2:
-          return dataAllTask.filter(item => item.targetUser == dataCurrentUser.userId);
-          break;
-        case 3:
-          return  dataAllTask
-          break;
-        case 4:
-          return  dataAllTask.filter(item => item.state == 2);
-          break;
-        default:
-          return dataAllTask
-          break;
+    switch (typeTask) {
+      case 1:
+        setTypeTask(1)
+         dispatch(actionGetAssignTask())
+          setLableTypeTask("Việc tôi giao")
+        break;
+      case 2:
+        setTypeTask(2)
+         dispatch(actionGetTargetTask())
+        setLableTypeTask("Việc tôi cần xử lý")
+        break;
+      case 3:
+        setTypeTask(1)
+        setLableTypeTask("Tất cả công việc của tôi")
+
+        break;
+      case 4:
+        setTypeTask(4)
+        setLableTypeTask("Tất cả công việc của tôi")
+        dispatch(actionGetTaskDone())
+
+        break;
+      default:
+        setTypeTask(1)
+        dispatch(actionGetAssignTask())
+        setLableTypeTask("Việc của tôi xử lý đã hoàn ")
+        break;
+    }
+  }
+  const taskList= () => {
+    switch (typeTask) {
+      case 1:
+        return dataAssignTask
+        break;
+      case 2:
+        return dataTargetTask
+        break;
+      case 3:
+        return  dataTargetTask
+        break;
+      case 4:
+       return  dataTaskDone
+
+        break;
+      default:
+         return  dataAssignTask
+        break;
     }
   }
   return (
@@ -338,23 +361,31 @@ const TaskPersonalScreen = ({ navigation }) => {
         <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
           <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
-            <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{getTypeTask()}</Text>
+            <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
           </View>
           <IconDown/>
         </TouchableOpacity>
         {isShowMore&&
           <View style={{backgroundColor:"white",paddingHorizontal:20,paddingBottom:10,}}>
-            <TouchableOpacity onPress={()=>{setTypeTask(1),SetIsShowMore(false)}}>
+            <TouchableOpacity onPress={()=>{
+                SetIsShowMore(false)
+                filterTask(1)}}>
               <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc tôi giao"}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{setTypeTask(2),SetIsShowMore(false)}}>
+            <TouchableOpacity onPress={()=>{
+              SetIsShowMore(false)
+              filterTask(2)}}>
               <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc tôi cần xử lý"}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{setTypeTask(3),SetIsShowMore(false)}}>
+            <TouchableOpacity onPress={()=>{
+              SetIsShowMore(false)
+              filterTask(3)}}>
               <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Tất cả công việc của tôi"}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{setTypeTask(4),SetIsShowMore(false)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc của tôi đã hoàn thành"}</Text>
+            <TouchableOpacity onPress={()=>{
+              SetIsShowMore(false)
+              filterTask(4)}}>
+              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
             </TouchableOpacity>
 
           </View>}
@@ -363,17 +394,15 @@ const TaskPersonalScreen = ({ navigation }) => {
           <View style={{height:1.5, backgroundColor:"white",marginVertical:10}}/>
           <View style={{paddingHorizontal:10}}>
            <FlatList
-               data={filterTask()}
+               data={taskList()}
                renderItem={({item}) => <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} />}
-               keyExtractor={(item,index) => index.toString()}
+               keyExtractor={item => item.taskId}
                onEndReachedThreshold={0.04}
                scrollEnabled={false}
+               onEndReached={loadMore}
                showsVerticalScrollIndicator={false}
                ListFooterComponent={
-
-                 <View style={{ alignItems: "center", marginVertical: 10 }}>
-                   {isGetMoreAllTask&& <ActivityIndicator size="large" color="#4577ef" />}
-                 </View>
+                 <FooterTask/>
                }
            />
             <TouchableOpacity onPress={()=>{loadMore()}}>
