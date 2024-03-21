@@ -60,230 +60,8 @@ const TaskPersonalScreen = ({ navigation }) => {
      setLableTypeTask("Công việc tôi giao")
 
   },[])
-//  console.log(dataAllTask.length)
-  var fakeDataListTask =  [
-    {
-      "taskId": "0jxabz1",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "2",
-      "priority": "1",
-      "progress": "0",
-      "title": "Jfjfjjf",
-      "content": " Djfjfjf",
-      "startDay": "0000-00-00",
-      "endDay": "0000-00-00",
-      "createdDate": "0000-00-00",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "1",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "2cw76es",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "2jb3w86",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "2",
-      "priority": "0",
-      "progress": "0",
-      "title": "Test nhiệm vụ 1",
-      "content": " Jfjfjfjjffjjfjfj",
-      "startDay": "0000-00-00",
-      "endDay": "0000-00-00",
-      "createdDate": "0000-00-00",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "45mawp0",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "2",
-      "priority": "0",
-      "progress": "0",
-      "title": "Hello",
-      "content": " Jfjfjfjjffjjfjfj",
-      "startDay": "0000-00-00",
-      "endDay": "0000-00-00",
-      "createdDate": "0000-00-00",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "a3gezjo",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "0",
-      "priority": "1",
-      "progress": "1",
-      "title": "dsjklvnblvd",
-      "content": " dsflkjvbndljnbv",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "gtajl1x",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "lsnu3eg",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "n02xy61",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "rz82x3p",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "x26j7dw",
-      "status": "1",
-      "state": "2",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "xn0hdlb",
-      "status": "1",
-      "state": "2",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "y0vp2nu",
-      "status": "1",
-      "state": "2",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    }
-  ];
+
+
 
   const goToDetailTask=(taskId)=>{
     navigation.navigate('DetailTaskScreen',{taskId:taskId});
@@ -320,14 +98,14 @@ const TaskPersonalScreen = ({ navigation }) => {
         break;
       case 4:
         setTypeTask(4)
-        setLableTypeTask("Tất cả công việc của tôi")
+        setLableTypeTask("Việc của tôi xử lý đã hoàn thành")
         dispatch(actionGetTaskDone())
 
         break;
       default:
         setTypeTask(1)
         dispatch(actionGetAssignTask())
-        setLableTypeTask("Việc của tôi xử lý đã hoàn ")
+        setLableTypeTask("Việc tôi giao")
         break;
     }
   }
@@ -357,7 +135,7 @@ const TaskPersonalScreen = ({ navigation }) => {
           translucent
           backgroundColor={'transparent'}
       />
-      <View style={{zIndex:10,position:'absolute',width:'100%',top:50}}>
+      <View style={{zIndex:10,position:'absolute',width:'100%',top:20}}>
         <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
           <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
@@ -390,7 +168,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
           </View>}
       </View>
-        <ScrollView style={{marginTop:20,marginBottom:Platform.OS==='ios'?"15%":"24%"}}>
+        <ScrollView style={{marginTop:50,marginBottom:Platform.OS==='ios'?"15%":"24%"}}>
           <View style={{height:1.5, backgroundColor:"white",marginVertical:10}}/>
           <View style={{paddingHorizontal:10}}>
            <FlatList
