@@ -75,8 +75,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
     });
   }
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",paddingTop:StatusBar.currentHeight,height:'100%'}}>
-
+    <SafeAreaView style={{backgroundColor:"#F0F0F0",height:'100%',marginTop:StatusBar.currentHeight}}>
       <ScrollView
         contentContainerStyle={{padding:15, }}
         showsVerticalScrollIndicator={false}>
@@ -91,18 +90,18 @@ export const PersonalScreen = React.memo(({navigation})=>{
                    uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
                  }}
                  resizeMode={FastImage.resizeMode.stretch}/>
-               <View>
+               <View style={{flex:1}}>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{dataCurrentUser?.fullName||'Họ và tên'}</Text>
                  <Text style={{ fontSize: 14, color: "#999999",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Xem thông tin chi tiết của bạn"}</Text>
                </View>
 
              </TouchableOpacity>
-             <TouchableOpacity onPress={()=>{SetIsShow(!isShow)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
-               <IconSetting/>
-               <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Cài đặt & Quyền riêng tư "}</Text>
-               <View style={{marginLeft:'15%'}}>
-                 <IconArrowDown/>
+             <TouchableOpacity onPress={()=>{SetIsShow(!isShow)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16,justifyContent:'space-between'}}>
+               <View style={{flexDirection:"row"}}>
+                 <IconSetting/>
+                 <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Cài đặt & Quyền riêng tư "}</Text>
                </View>
+               <IconArrowDown/>
              </TouchableOpacity>
 
              {isShow?(

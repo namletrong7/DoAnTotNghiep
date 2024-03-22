@@ -458,35 +458,42 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
 }
 export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
-        dispatch(updateData({
-            isGetMoreAssignTask :true
-        }))
-        try {
-            const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId,offset)
-            console.log(response.data)
-            if(response.data && response.data.status==200){
-                await   dispatch({
-                    type: "GET_MORE_ASSIGN_TASK",
-                    data:response.data.dataListTask
+        if(!getState().task.isGetMoreAssignTask) {
+            console.log("gọi api")
+            dispatch(updateData({
+                isGetMoreAssignTask: true,
+
+            }))
+            try {
+                const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
+                console.log(response.data)
+                if (response.data && response.data.status == 200) {
+                    await dispatch({
+                        type: "GET_MORE_ASSIGN_TASK",
+                        data: response.data.dataListTask
+                    });
+
+                }
+                dispatch(updateData({
+                    isGetMoreAssignTask: false
+
+                }))
+            } catch (error) {
+
+                dispatch(updateData({
+                    isGetMoreAssignTask: false
+
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: {icon: "danger", position: 'left'}
                 });
-
             }
-            dispatch(updateData({
-                isGetMoreAssignTask :false
-
-            }))
-        } catch (error) {
-
-            dispatch(updateData({
-                isGetMoreAssignTask :false
-
-            }))
-            showMessage({
-                message: "Lỗi mạng",
-                type: "danger",
-                duration: 1000,
-                icon: { icon: "danger", position: 'left' }
-            });
+        }else{
+            console.log("đang có quá trình gọi api trước đó rồi")
+            return;
         }
 
     };

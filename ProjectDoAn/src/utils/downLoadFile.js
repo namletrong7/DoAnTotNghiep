@@ -1,5 +1,6 @@
 import RNFetchBlob from "rn-fetch-blob";
 import {Platform} from "react-native";
+import {showMessage} from "react-native-flash-message";
 
 /**
  * Created by TuanTQd on 21/03/2024
@@ -34,11 +35,16 @@ import {Platform} from "react-native";
         });
 
         const response = await RNFetchBlob.config(configOptions).fetch('GET', url);
-
         // Return the path to the downloaded file
         return response;
     } catch (error) {
-        console.error(error);
+              showMessage({
+                message: "Lỗi khi tải file: "+fileName,
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+              });
+
         return null;
     }
 };
