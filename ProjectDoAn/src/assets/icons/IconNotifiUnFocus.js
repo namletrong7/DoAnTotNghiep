@@ -16,7 +16,7 @@ const IconNotifiUnFocus = (props) => (
       strokeWidth={1.5}
     />
     <Path
-      opacity={0.5}
+      opacity={1}
       d="M7.5 19c.655 1.748 2.422 3 4.5 3s3.845-1.252 4.5-3"
       stroke="#1C274C"
       strokeWidth={1.5}

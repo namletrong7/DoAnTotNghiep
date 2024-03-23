@@ -30,10 +30,15 @@ export function actionAddTask(body) {
                     duration: 1000,
                     icon: { icon: "success", position: 'left' }
                 });
-            }
                 dispatch({
                     type: "END_ADD_TASK",
                 });
+            }else{
+                dispatch({
+                    type: "END_ADD_TASK",
+                });
+            }
+
 
 
         } catch (error) {
@@ -69,9 +74,12 @@ export function actionGetDetailTask(taskId) {
                     data:response.data
                 });
             }
-            await   dispatch({ // kết thúc sự kiện load detail task
-                type: "END_GET_DETAIL_TASK",
-            });
+            else{
+                await   dispatch({ // kết thúc sự kiện load detail task
+                    type: "END_GET_DETAIL_TASK",
+                });
+            }
+
 
         } catch (error) {
 
@@ -104,9 +112,12 @@ export function actionGetFileAttach(taskId) {
                     data:response.data
                 });
             }
-            await   dispatch({ // kết thúc sự kiện load detail task
-                type: "END_GET_FILE_ATTACH",
-            });
+            else{
+                await   dispatch({ // kết thúc sự kiện load detail task
+                    type: "END_GET_FILE_ATTACH",
+                });
+
+            }
 
         } catch (error) {
 
@@ -164,11 +175,9 @@ export function actionGetCommentTask(taskId,offset) {
 }
 export function actionGetMoreCommentTask(taskId,offset) {
     return async (dispatch, getState) => {
+        if (!getState().task.isGetMoreComment) {
         await   dispatch({  // bắt đầu
             type: "START_GET_MORE_COMMENT",
-        });
-        await   dispatch({  // bắt đầu
-            type: "START_GET_FILE_ATTACH",
         });
         try {
 
@@ -183,6 +192,9 @@ export function actionGetMoreCommentTask(taskId,offset) {
                         duration: 3000,
                         icon: { icon: "warning", position: 'left' }
                     });
+                    await   dispatch({ // kết thúc sự kiện load detail task
+                        type: "END_GET_MORE_COMMENT",
+                    });
                 }else{
                     await   dispatch({
                         type: "GET_MORE_COMMENT",
@@ -190,14 +202,15 @@ export function actionGetMoreCommentTask(taskId,offset) {
                     });
                 }
 
+
+            }else {
+                await   dispatch({ // kết thúc sự kiện load detail task
+                    type: "END_GET_MORE_COMMENT",
+                });
             }
-            await   dispatch({ // kết thúc sự kiện load detail task
-                type: "END_GET_MORE_COMMENT",
-            });
+
 
         } catch (error) {
-            // Xử lý lỗi ở đây
-            //console.log(error)
             await   dispatch({
                 type: "END_GET_MORE_COMMENT",
             });
@@ -209,7 +222,11 @@ export function actionGetMoreCommentTask(taskId,offset) {
             });
         }
 
-    };
+    }else{
+            console.log("dang thuc hien load them comment roi")
+            return ;
+        }
+    }
 }
 export function actionAddCommentTask(taskId,content) {
     return async (dispatch, getState) => {
@@ -360,7 +377,6 @@ export function actionGetAllTask(offset) {
         }))
         try {
             const response = await Api(false).getAllTask(offset);
-
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataAllTask: response.data.dataListTask
@@ -371,7 +387,6 @@ export function actionGetAllTask(offset) {
 
             }))
         } catch (error) {
-
             dispatch(updateData({
                 isGetAllTask :false
 
@@ -435,11 +450,12 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
                     data:response.data.dataListTask
                 });
 
-            }
-            dispatch(updateData({
-                isGetAssignTask :false
+            }else {
+                dispatch(updateData({
+                    isGetAssignTask: false
 
-            }))
+                }))
+            }
         } catch (error) {
 
             dispatch(updateData({
@@ -459,25 +475,27 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
 export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
         if(!getState().task.isGetMoreAssignTask) {
-            console.log("gọi api")
+            console.log("bat dau goi api")
             dispatch(updateData({
                 isGetMoreAssignTask: true,
 
             }))
             try {
                 const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
-                console.log(response.data)
-                if (response.data && response.data.status == 200) {
+                if (response.data && response.data.status == 200 && response.data?.dataListTask?.length>0 ) {
+                    console.log("da co ket qua")
                     await dispatch({
                         type: "GET_MORE_ASSIGN_TASK",
                         data: response.data.dataListTask
                     });
 
-                }
-                dispatch(updateData({
-                    isGetMoreAssignTask: false
+                }else{
+                    dispatch(updateData({
+                        isGetMoreAssignTask: false
 
-                }))
+                    }))
+                }
+
             } catch (error) {
 
                 dispatch(updateData({
@@ -506,17 +524,18 @@ export function actionGetTargetTask() {  // action lấy ds cv mình giao
         try {
             const response = await Api(false).getTargetTask(getState().auth.dataCurrentUser.userId,0)
             console.log(response.data)
+            console.log("thuc hien cong viec khac")
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_TARGET_TASK",
                     data:response.data.dataListTask
                 });
+            }else {
+                dispatch(updateData({
+                    isGetTargetTask: false
 
+                }))
             }
-            dispatch(updateData({
-                isGetTargetTask :false
-
-            }))
         } catch (error) {
 
             dispatch(updateData({
@@ -535,11 +554,13 @@ export function actionGetTargetTask() {  // action lấy ds cv mình giao
 }
 export function actionGetTaskDone() {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
+        console.log("call task done")
         dispatch(updateData({
             isGetTaskDone :true
         }))
         try {
             const response = await Api(false).getTaskDone(getState().auth.dataCurrentUser.userId,0)
+            console.log("task done:")
             console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -547,11 +568,13 @@ export function actionGetTaskDone() {  // action lấy ds cv mình giao
                     data:response.data.dataListTask
                 });
 
-            }
-            dispatch(updateData({
-                isGetTaskDone :false
+            }else{
+                dispatch(updateData({
+                    isGetTaskDone :false
 
-            }))
+                }))
+            }
+
         } catch (error) {
 
             dispatch(updateData({

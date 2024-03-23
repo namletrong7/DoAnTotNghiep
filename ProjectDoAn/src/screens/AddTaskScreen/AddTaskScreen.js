@@ -231,19 +231,19 @@ export const AddTaskScreen = React.memo(({navigation})=>{
          const result = await DocumentPicker.pick({
            type: [DocumentPicker.types.allFiles], // Chọn tất cả các loại file
          });
-
-         if (result[0].size >= MaxFileSize) {
-           showMessage({
-             message: "Vui lòng chọn file có kích thước nhỏ hơn 10MB ",
-             type: "danger",
-             duration: 1000,
-             icon: { icon: "danger", position: 'left' }
-           });
-           return;
-         } else {
-           // Lưu mảng các file đã chọn vào state
-           setPickedFile((prevFiles) => [...prevFiles, ...result]);
-         }
+         setPickedFile((prevFiles) => [...prevFiles, ...result]);
+         // if (result[0].size >= MaxFileSize) {
+         //   showMessage({
+         //     message: "Vui lòng chọn file có kích thước nhỏ hơn 10MB ",
+         //     type: "danger",
+         //     duration: 1000,
+         //     icon: { icon: "danger", position: 'left' }
+         //   });
+         //   return;
+         // } else {
+         //   // Lưu mảng các file đã chọn vào state
+         //   setPickedFile((prevFiles) => [...prevFiles, ...result]);
+         // }
 
 
 

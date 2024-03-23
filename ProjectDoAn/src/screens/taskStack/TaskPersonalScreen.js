@@ -6,7 +6,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, ActivityIndicator, Platform,
+  ImageBackground,
+  Dimensions,
+  Image,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+  StatusBar,
+  ActivityIndicator,
+  Platform,
+  VirtualizedList, Modal,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,6 +48,11 @@ import {
 } from "../../redux-store/actions/task";
 import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
 import {FooterTask, FooterTaskk} from "./footerTask/FooterTask";
+import IconAssign from "../../assets/icons/IconAssign";
+import IconTarget from "../../assets/icons/IconTarget";
+import IconAll from "../../assets/icons/IconAll";
+import IconDone from "../../assets/icons/IconDone";
+import IconClose from "../../assets/icons/IconClose";
 
 const TaskPersonalScreen = ({ navigation }) => {
 
@@ -50,17 +64,36 @@ const TaskPersonalScreen = ({ navigation }) => {
   const dataAssignTask = useSelector(state => state.task.dataAssignTask);
   const dataTargetTask = useSelector(state => state.task.dataTargetTask);
   const dataTaskDone = useSelector(state => state.task.dataTaskDone);
-
-
-    console.log(dataAssignTask?.length)
+  const [currentTask, setCurrentTask] = useState(dataAssignTask);
+   console.log("currentTask:")
+     console.log(currentTask.length)
+  // console.log("currentTask:")
+   console.log(dataAssignTask.length)
   useEffect( () => {
 
      dispatch(actionGetAssignTask())
-     setLableTypeTask("Công việc tôi giao")
+     setLableTypeTask("Việc tôi giao")
 
   },[])
 
+  useEffect( () => {
+    console.log("load lại")
+    console.log("typeTask:"+typeTask)
+    if(typeTask==1){
+      setCurrentTask(dataAssignTask)
+    }
+    else if(typeTask==2){
+      setCurrentTask(dataTargetTask)
+    }
+    else if(typeTask==3){
+      setCurrentTask(dataAssignTask)
+    }
+    else{
+      setCurrentTask(dataTaskDone)
+    }
 
+
+  },[dataAssignTask,dataTaskDone,dataTargetTask,typeTask])
 
   const goToDetailTask=(taskId)=>{
     navigation.navigate('DetailTaskScreen',{taskId:taskId});
@@ -100,7 +133,6 @@ const TaskPersonalScreen = ({ navigation }) => {
         setTypeTask(4)
         setLableTypeTask("Việc của tôi xử lý đã hoàn thành")
         dispatch(actionGetTaskDone())
-
         break;
       default:
         setTypeTask(1)
@@ -130,6 +162,9 @@ const TaskPersonalScreen = ({ navigation }) => {
         break;
     }
   }
+  const getItem = (data, index) => {
+    return data[index]
+  };
 
   return (
     <SafeAreaView style={{backgroundColor:"#F0F0F0",height:'100%',paddingTop:StatusBar.currentHeight}}>
@@ -141,50 +176,75 @@ const TaskPersonalScreen = ({ navigation }) => {
           </View>
           <IconDown/>
         </TouchableOpacity>
-        {isShowMore&&
-          <View style={{backgroundColor:"white",paddingHorizontal:20}}>
-            <TouchableOpacity onPress={()=>{
-                SetIsShowMore(false)
-                filterTask(1)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc tôi giao"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              SetIsShowMore(false)
-              filterTask(2)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc tôi cần xử lý"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              SetIsShowMore(false)
-              filterTask(3)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Tất cả công việc của tôi"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              SetIsShowMore(false)
-              filterTask(4)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
-            </TouchableOpacity>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={isShowMore}
+        >
+          <TouchableOpacity style={styles.modalContainer} onPress={()=>{SetIsShowMore(false)}} >
+            <View style={styles.modalContent}>
+              <View style={{backgroundColor:"white",paddingHorizontal:20}}>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(1)}}
+                  style={{flexDirection:"row",marginTop:15}}
 
-          </View>}
+                >
+                  <IconAssign/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi giao"}</Text>
+
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(2)}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconTarget/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi cần xử lý"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(3)}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconAll/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Tất cả công việc của tôi"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(4)}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconDone/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Modal>
       </SafeAreaView>
           <View style={{height:1.5, backgroundColor:"green",marginVertical:5}}/>
-          <View style={{paddingHorizontal:10,marginTop:10,paddingBottom:"37%"}}>
-           <FlatList
-               data={dataAssignTask}
-               renderItem={({item}) => <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} />}
-               keyExtractor={item => item.taskId}
-               onAccessibilityEscape={loadMore}
-               onEndReachedThreshold={0.03}
-               showsVerticalScrollIndicator={false}
-               ListFooterComponent={
-                 <TouchableOpacity onPress={()=>{loadMore()}}>
-                   <FooterTask/>
-                   </TouchableOpacity>
-
-
-               }
-           />
-
-         </View>
+          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"20%"}}>
+           {/*<FlatList*/}
+           {/*    data={currentTask}*/}
+           {/*    extraData={currentTask}*/}
+           {/*    renderItem={({item}) => <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} />}*/}
+           {/*    keyExtractor={item => item.taskId}*/}
+           {/*    scrollEnabled={false}*/}
+           {/*    // onEndReached={loadMore}*/}
+           {/*    // onEndReachedThreshold={0.5}*/}
+           {/*    showsVerticalScrollIndicator={false}*/}
+           {/*/>*/}
+            {currentTask?.length>0?
+            (currentTask.map((item, index) => (
+              <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} key={item.taskId} />
+            ))):
+              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Bạn không có task nào"}</Text>
+      }
+            <TouchableOpacity onPress={()=>{loadMore()}}>
+              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Nhấn để tải thêm task"}</Text>
+            </TouchableOpacity>
+         </ScrollView>
 
 
     </SafeAreaView>
@@ -230,7 +290,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 20,
     color: '#fff'
+  }, modalContainer: {
+    height:"100%",
+    alignItems: 'center',
+    backgroundColor:'rgba(0,0,0,0.3)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingVertical:15,
+    elevation: 5,
+    width:"100%",
+    height:"40%"
   }
+
 });
 
 export default React.memo(TaskPersonalScreen);
