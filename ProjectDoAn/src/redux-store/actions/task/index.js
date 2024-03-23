@@ -197,7 +197,7 @@ export function actionGetMoreCommentTask(taskId,offset) {
                     });
                 }else{
                     await   dispatch({
-                        type: "GET_MORE_COMMENT",
+                        type: "s",
                         data:response.data
                     });
                 }
@@ -482,12 +482,26 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
             }))
             try {
                 const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
-                if (response.data && response.data.status == 200 && response.data?.dataListTask?.length>0 ) {
-                    console.log("da co ket qua")
-                    await dispatch({
-                        type: "GET_MORE_ASSIGN_TASK",
-                        data: response.data.dataListTask
-                    });
+                if (response.data && response.data.status == 200) {
+
+                    if(response.data?.dataListTask?.length>0){
+                        await dispatch({
+                            type: "GET_MORE_ASSIGN_TASK",
+                            data: response.data.dataListTask
+                        });
+                    }else{
+                        dispatch(updateData({
+                            isGetMoreAssignTask: false
+
+                        }))
+                        showMessage({
+                            message: "Đã load hết công việc bạn đã giao",
+                            type: "warning",
+                            duration: 1500,
+                            icon: { icon: "warning", position: 'left' }
+                        });
+                    }
+
 
                 }else{
                     dispatch(updateData({

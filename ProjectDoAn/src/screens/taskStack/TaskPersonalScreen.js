@@ -167,7 +167,14 @@ const TaskPersonalScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",height:'100%',paddingTop:StatusBar.currentHeight}}>
+    <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
+        <StatusBar
+          translucent
+          backgroundColor={'transparent'}
+        />
+      </View>
+
       <SafeAreaView style={{width:'100%'}}>
         <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
           <View style={{flexDirection:"row",marginRight:20,flex:1}}>
@@ -177,13 +184,22 @@ const TaskPersonalScreen = ({ navigation }) => {
           <IconDown/>
         </TouchableOpacity>
         <Modal
-          animationType="fade"
+          // animationIn={'slideInUp'}
+          // animationOut={'slideOutDown'}
+         animationType="fade"
           transparent={true}
           visible={isShowMore}
         >
-          <TouchableOpacity style={styles.modalContainer} onPress={()=>{SetIsShowMore(false)}} >
+          <View style={styles.modalContainer} >
             <View style={styles.modalContent}>
               <View style={{backgroundColor:"white",paddingHorizontal:20}}>
+                <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
+                  <View style={{flexDirection:"row",marginRight:20,flex:1}}>
+                    <IconBox/>
+                    <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
+                  </View>
+                  <IconClose/>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{
                   SetIsShowMore(false)
                   filterTask(1)}}
@@ -220,7 +236,7 @@ const TaskPersonalScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
-          </TouchableOpacity>
+          </View>
         </Modal>
       </SafeAreaView>
           <View style={{height:1.5, backgroundColor:"green",marginVertical:5}}/>
@@ -247,7 +263,7 @@ const TaskPersonalScreen = ({ navigation }) => {
          </ScrollView>
 
 
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -297,7 +313,6 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: 'white',
-    borderRadius: 10,
     paddingVertical:15,
     elevation: 5,
     width:"100%",

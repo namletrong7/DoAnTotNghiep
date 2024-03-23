@@ -24,11 +24,15 @@ export  function getColorBackgroundPriority(Priority){
   return Priority?colorBackgroundPriority[Priority]:"#d4eacc";
 }
 // render ra state cua nhiệm vụ bao
-var stateList = ["Cần làm","Đang làm","Hoàn thành"]
+var stateTask = ["Cần làm","Đang làm","Hoàn thành"]
 export  function getState(state){
-  return state?stateList[state]:"Cần làm";
+  return state?stateTask[state]:"Cần làm";
 }
-
+// render ra state cua project   0-Chưa thực hiện 1-Đang thực hiện 2-tạm Dừng 3-Đã kêt thúc
+var stateProject = ["Chưa thực hiện","Đang thực hiện","Tạm dừng","Đã kết thúc"]
+export  function getStateProject(state){
+  return state?stateProject[state]:"Chưa thực hiện";
+}
 
 var listTypeNotifi = ["Đã tạo công việc mới","Đã yêu cầu báo cáo tiến độ trong ",
   "Đã báo cáo tiến độ trong","Đã bình luận vào bài viết","Đã chỉnh sửa thông tin công việc: ","Đã thêm bạn vào công việc: ",

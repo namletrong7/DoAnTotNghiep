@@ -43,7 +43,13 @@ const HomeScreen = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",paddingTop:StatusBar.currentHeight, flex:1}}>
+    <View style={{backgroundColor:"#F0F0F0",flex:1}}>
+      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
+        <StatusBar
+          translucent
+          backgroundColor={'transparent'}
+        />
+      </View>
       <ScrollView>
         <View style={{paddingHorizontal:10}}>
           <View style={{marginVertical:10,}}>
@@ -81,12 +87,12 @@ const HomeScreen = ({ navigation }) => {
 
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+      <TouchableOpacity onPress={()=>{navigation.navigate("AddProjectScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
          <IconPlus/>
       </TouchableOpacity>
 
 
-    </SafeAreaView>
+    </View>
   );
 };
 

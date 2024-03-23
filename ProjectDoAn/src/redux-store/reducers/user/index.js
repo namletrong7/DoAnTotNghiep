@@ -1,7 +1,8 @@
 const initialState ={
   isGetProfileUser: false ,
   dataProfileUser:{},
-
+  isSearchUser:false,
+    dataUserSearch:[]
 
 }
 const reducerUser = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const reducerUser = (state = initialState, action) => {
         }
         case 'GET_PROFILE_USER': {
             return { ...state,
-                dataProfileUser: action.data.dataProfileUser
+                dataProfileUser: action.data.dataProfileUser,
+                isGetProfileUser:false
             };
         }
         case 'END_GET_PROFILE_USER': {
@@ -24,6 +26,23 @@ const reducerUser = (state = initialState, action) => {
                 isGetProfileUser:  false
             };
         }
+        case 'START_SEARCH_USER': {
+            return { ...state,
+                isSearchUser: true
+            };
+        }
+        case 'SEARCH_USER': {
+            return { ...state,
+                dataUserSearch: action.data,
+                isSearchUser:false
+            };
+        }
+        case 'END_GET_PROFILE_USER': {
+            return { ...state,
+                isSearchUser:  false
+            };
+        }
+
         default:
             return state
     }
