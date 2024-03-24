@@ -33,7 +33,16 @@ var stateProject = ["Chưa thực hiện","Đang thực hiện","Tạm dừng","
 export  function getStateProject(state){
   return state?stateProject[state]:"Chưa thực hiện";
 }
-
+//lấy background của trạng thái dự án
+var backgroundColorStateProject = ["#d9d9d9","#dbedfd","#fdf3db","#e5f6dd"]
+export  function getBackgroundStateProject(state){
+  return state?backgroundColorStateProject[state]:"#d9d9d9";
+}
+//lấy màu của text của trạng thái dự án
+var textColorStateProject = ["#181818","#4191df","#ecae36","#62c241"]
+export  function getColorStateProject(state){
+  return state?textColorStateProject[state]:"#181818";
+}
 var listTypeNotifi = ["Đã tạo công việc mới","Đã yêu cầu báo cáo tiến độ trong ",
   "Đã báo cáo tiến độ trong","Đã bình luận vào bài viết","Đã chỉnh sửa thông tin công việc: ","Đã thêm bạn vào công việc: ",
 "Đã hoàn thành công việc"]

@@ -11,11 +11,11 @@ import {
 import { ItemUserChoose } from "./ItemUserChoose";
 
 
-const ListUserChoose = ({dataUserChoose}) => {
+const ListUserChoose = ({dataUserChoose,handleItem}) => {
   return(
   <FlatList
     data={dataUserChoose}
-    renderItem={({item}) => <ItemUserChoose item={item}  />}
+    renderItem={({item}) => <ItemUserChoose item={item} handleItem={handleItem}  />}
     scrollEnabled={false}
     horizontal={false}
     numColumns={2}
