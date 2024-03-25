@@ -60,7 +60,8 @@ const reducerTask = (state =initialState , action) => {
         // láy dc detailtask
         case 'GET_DETAIL_TASK': {
             return { ...state,
-                detailTask: action.data.dataDetailTask
+                detailTask: action.data.dataDetailTask,
+                isGetDetailTask:false
             };
         }
         // kết thúc detailtask
@@ -79,7 +80,8 @@ const reducerTask = (state =initialState , action) => {
       // láy dc file đính kèm
         case 'GET_FILE_ATTACH': {
             return { ...state,
-                dataFileAttach: action.data.fileAttach
+                dataFileAttach: action.data.fileAttach,
+                isGetFileAttach:false
             };
         }
       // kết thúc lấy file đính kèm

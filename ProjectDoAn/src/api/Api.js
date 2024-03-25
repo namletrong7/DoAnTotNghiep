@@ -10,7 +10,7 @@ const Api = (isFormData) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://192.168.1.147:8080/DOAN/",
+            baseURL: "http://192.168.1.109:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 // Thêm các headers khác nếu cần thiết
@@ -85,6 +85,12 @@ const Api = (isFormData) => {
     const getTaskDone=(targetUser,offset)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
         return apiConfig().get(`getTaskDone.php?targetUser=${targetUser}&offset=${offset}`);
     }
+  const searchUser=(text)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
+    return apiConfig().get(`searchUser.php?textSearch=${text}`);
+  }
+  const addProject=(body)=> {
+    return apiConfig().post("addProject.php",body);
+  }
 
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
@@ -103,7 +109,8 @@ const Api = (isFormData) => {
         getAssignTask,
         getTargetTask,
         getTaskDone,
-
+      searchUser,
+      addProject
     };
 };
 export default Api;

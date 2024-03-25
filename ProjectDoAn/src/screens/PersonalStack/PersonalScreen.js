@@ -75,7 +75,8 @@ export const PersonalScreen = React.memo(({navigation})=>{
     });
   }
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",height:'100%',marginTop:StatusBar.currentHeight}}>
+    <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}/>
       <ScrollView
         contentContainerStyle={{padding:15, }}
         showsVerticalScrollIndicator={false}>
@@ -138,7 +139,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
            </View>
       </ScrollView>
       <DialogConfirmComponent visible={isShowLogOut} onConfirm={handleLogout} onClose={handleCloseLogout} content={"Bạn có chắc chắn đăng xuất khỏi ứng dụng ? Nhấn 'Đồng ý' để thực hiện đăng xuất "}   />
-    </SafeAreaView>
+    </View>
   );
 })
 

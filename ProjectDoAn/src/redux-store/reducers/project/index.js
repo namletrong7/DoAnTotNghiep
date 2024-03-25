@@ -2,7 +2,8 @@ const initialState = {
    isGetProject: false,
     dataAllProject:[],
     isGetDetailProject:false,
-    dataDetailProject:{}
+    dataDetailProject:{},
+    isAddProject:false
 }
 const reducerProject = (state =initialState , action) => {
     switch (action.type) {

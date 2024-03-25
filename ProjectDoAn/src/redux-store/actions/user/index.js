@@ -45,7 +45,49 @@ export function actionGetProfileUser(userId) {
 
   };
 }
+export function actionsearchUser(keyWord) {
+  return async (dispatch, getState) => {
+    if(!getState().user.isSearchUser){
 
+
+    await   dispatch({
+      type: "START_SEARCH_USER",
+    });
+    try {
+      const response = await Api(true).searchUser(keyWord);
+
+      if(response.data && response.data.status==200){
+        await   dispatch({
+          type: "SEARCH_USER",
+          data: response.data.dataUserSearch
+        });
+
+      }else{
+        await   dispatch({
+          type: "END_GET_PROFILE_USER",
+        });
+      }
+
+
+    } catch (error) {
+
+      await   dispatch({
+        type: "END_SEARCH_USER",
+      });
+      showMessage({
+        message: "Lỗi mạng",
+        type: "danger",
+        duration: 1000,
+        icon: { icon: "danger", position: 'left' }
+      });
+    }
+    }
+    else{
+      return ;
+    }
+
+  };
+}
 
 
 

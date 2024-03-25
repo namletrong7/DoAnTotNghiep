@@ -21,6 +21,7 @@ import {Platform, StyleSheet} from "react-native";
 import IconThongKefocus from "../assets/icons/IconThongKefocus";
 import IconThongKeUnfocus from "../assets/icons/IconThongKeUnfocus";
 import TaskPersonalScreen from "../screens/taskStack/TaskPersonalScreen";
+import { AddProjectScreen } from "../screens/AddProjectScreen/AddProjectScreen";
 
 // export  const HomeNavigator = React.memo(() => {
 //   const Stack = createNativeStackNavigator();
@@ -126,6 +127,7 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="DetailTaskScreen" component={DetailTaskScreen} />
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
       <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
+      <Stack.Screen name="AddProjectScreen" component={AddProjectScreen} />
     </Stack.Navigator>
   )
 })
