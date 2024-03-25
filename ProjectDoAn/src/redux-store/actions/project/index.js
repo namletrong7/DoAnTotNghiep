@@ -2,7 +2,7 @@ import Api from "../../../api/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { randomKeyComment } from "../../../utils/RandomKeyComment";
-import { getNewDate } from "../../../utils/ConverPickerDate";
+
 
 /**
  * Created by NamLTC on 29/01/2024

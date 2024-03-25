@@ -53,6 +53,7 @@ import IconTarget from "../../assets/icons/IconTarget";
 import IconAll from "../../assets/icons/IconAll";
 import IconDone from "../../assets/icons/IconDone";
 import IconClose from "../../assets/icons/IconClose";
+import IconSearch from "../../assets/icons/IconSearch";
 
 const TaskPersonalScreen = ({ navigation }) => {
 
@@ -64,11 +65,12 @@ const TaskPersonalScreen = ({ navigation }) => {
   const dataAssignTask = useSelector(state => state.task.dataAssignTask);
   const dataTargetTask = useSelector(state => state.task.dataTargetTask);
   const dataTaskDone = useSelector(state => state.task.dataTaskDone);
+  const isGetMoreAssignTask = useSelector(state => state.task.isGetMoreAssignTask);
   const [currentTask, setCurrentTask] = useState(dataAssignTask);
-   console.log("currentTask:")
-     console.log(currentTask.length)
+ //  console.log("currentTask:")
+   //  console.log(currentTask.length)
   // console.log("currentTask:")
-   console.log(dataAssignTask.length)
+ //  console.log(dataAssignTask.length)
   useEffect( () => {
 
      dispatch(actionGetAssignTask())
@@ -77,8 +79,8 @@ const TaskPersonalScreen = ({ navigation }) => {
   },[])
 
   useEffect( () => {
-    console.log("load lại")
-    console.log("typeTask:"+typeTask)
+   // console.log("load lại")
+  //  console.log("typeTask:"+typeTask)
     if(typeTask==1){
       setCurrentTask(dataAssignTask)
     }
@@ -101,7 +103,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
 
   const loadMore=()=>{
-      console.log("load theem:")
+    ///  console.log("load theem:")
     switch (typeTask) {
       case 1:
         dispatch(actionGetMoreAssignTask(dataAssignTask.length))
@@ -141,30 +143,6 @@ const TaskPersonalScreen = ({ navigation }) => {
         break;
     }
   }
-  const taskList= () => {
-      console.log("Goi lai ham taskList")
-    switch (typeTask) {
-      case 1:
-        return dataAssignTask
-        break;
-      case 2:
-        return dataTargetTask
-        break;
-      case 3:
-        return  dataTargetTask
-        break;
-      case 4:
-       return  dataTaskDone
-
-        break;
-      default:
-         return  dataAssignTask
-        break;
-    }
-  }
-  const getItem = (data, index) => {
-    return data[index]
-  };
 
   return (
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
@@ -176,21 +154,20 @@ const TaskPersonalScreen = ({ navigation }) => {
       </View>
 
       <SafeAreaView style={{width:'100%'}}>
-        <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
-          <View style={{flexDirection:"row",marginRight:20,flex:1}}>
+        <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,justifyContent:'space-between'}}>
+          <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
             <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
+            <IconDown/>
           </View>
-          <IconDown/>
+          <IconSearch height={30} width={30}/>
         </TouchableOpacity>
         <Modal
-          // animationIn={'slideInUp'}
-          // animationOut={'slideOutDown'}
          animationType="fade"
           transparent={true}
           visible={isShowMore}
         >
-          <View style={styles.modalContainer} >
+          <SafeAreaView style={styles.modalContainer} >
             <View style={styles.modalContent}>
               <View style={{backgroundColor:"white",paddingHorizontal:20}}>
                 <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
@@ -236,10 +213,9 @@ const TaskPersonalScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </SafeAreaView>
         </Modal>
       </SafeAreaView>
-          <View style={{height:1.5, backgroundColor:"green",marginVertical:5}}/>
           <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"20%"}}>
            {/*<FlatList*/}
            {/*    data={currentTask}*/}
@@ -257,6 +233,8 @@ const TaskPersonalScreen = ({ navigation }) => {
             ))):
               <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Bạn không có task nào"}</Text>
       }
+
+            {isGetMoreAssignTask&&<FooterTask/>}
             <TouchableOpacity onPress={()=>{loadMore()}}>
               <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Nhấn để tải thêm task"}</Text>
             </TouchableOpacity>

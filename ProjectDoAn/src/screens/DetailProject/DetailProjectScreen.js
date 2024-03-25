@@ -41,6 +41,8 @@ import { showMessage } from "react-native-flash-message";
 import {  TopTabTask1 } from "./toptab/TopTabTask";
 import { dataPriority } from "../../utils/GetPriority";
 import { actionGetAllProject, actionGetDetailProject } from "../../redux-store/actions/project";
+import IconDown from "../../assets/icons/IconDown";
+import {convertDateDB} from "../../utils/ConverPickerDate";
 
 
 
@@ -51,7 +53,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
   const snapPoints = useMemo(() => ['50%', "80%"], []);
   const bottomSheetRef = useRef(null);
 
-  const dataDetailProject = useSelector(state => state.project.dataDetailProject);
+  const dataDetailProject = useSelector(state => state.project?.dataDetailProject);
   useEffect(()=>{
     dispatch(actionGetDetailProject(itemProject.projectId))
   },[])
@@ -129,11 +131,17 @@ const ItemUserMemer=(props)=>{
                   <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailProject?.nameProject}</Text>
                 <TouchableOpacity style={{flexDirection:"row", marginTop:10}}>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu dự án: "}</Text>
-                  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.startDay}</Text>
+                  <View  style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD", flexDirection:"row"}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{convertDateDB(dataDetailProject?.startDay)}</Text>
+                  </View>
+
                 </TouchableOpacity>
                 <TouchableOpacity  style={{flexDirection:"row", marginTop:10}}>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày kết thúc dự án: "}</Text>
-                  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.endDay}</Text>
+                  <View  style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD", flexDirection:"row"}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{convertDateDB(dataDetailProject?.endDay)}</Text>
+                  </View>
+
                 </TouchableOpacity>
                 <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Người tạo dự án: "}  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.createFullName}</Text></Text>
                 <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Thành viên tham gia dự án"}</Text>
