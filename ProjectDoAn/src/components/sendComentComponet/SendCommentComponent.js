@@ -43,7 +43,7 @@ const SendCommentComponent = (props)=> {
          mediaType: 'photo', // Chỉ chọn ảnh
          compressImageQuality: 0.4,
        }).then(image => {
-         console.log(image)
+     //    console.log(image)
            setImageUri(image.path);
        });
    }

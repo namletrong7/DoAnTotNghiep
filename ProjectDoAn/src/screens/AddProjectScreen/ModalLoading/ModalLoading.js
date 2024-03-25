@@ -10,13 +10,12 @@ import LottieView from "lottie-react-native";
 const ModalLoadingAddProject = () => {
 
   const isLoading = useSelector(state => state.project.isAddProject);
-
   const multiLineText = "Đang tạo dự án mới";
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={isLoading}
+      visible={isLoading?true:false}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     elevation: 5,
-    width: "100%",
+    paddingHorizontal: 10,
    alignItems:'center'
   },
   modelButton: {

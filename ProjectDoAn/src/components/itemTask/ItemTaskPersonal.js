@@ -26,6 +26,7 @@ import IconAttach from "../../assets/icons/IconAttach";
 import ItemComment from "../listCommentComponent/ItemComment";
 import IconComment from "../../assets/icons/IconComment";
 import IconMuiTenXuong from "../../assets/icons/IconMuiTenXuong";
+import {convertDateDB, RenderWarningDate} from "../../utils/ConverPickerDate";
 
 
 export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
@@ -46,7 +47,8 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
             <Text>{'    '}</Text>
             <Text style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{item.title}</Text>
           </Text>
-          <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+item.endDay}</Text>
+          <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+convertDateDB(item.endDay)}</Text>
+          {RenderWarningDate(item.endDay)}
         </View>
 
         <View style={{flexDirection:"row"}}>

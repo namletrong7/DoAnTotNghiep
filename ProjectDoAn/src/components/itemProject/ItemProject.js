@@ -33,6 +33,7 @@ import IconLich from "../../assets/icons/IconLich";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import ItemTask from "../itemTask/ItemTask";
 import IconCheck from "../../assets/icons/IconCheck";
+import {convertDateDB} from "../../utils/ConverPickerDate";
 
 
 const ItemProject = (props) => {
@@ -68,7 +69,7 @@ const ItemProject = (props) => {
          <View style={{flexDirection:"row", justifyContent:"space-between",}}>
            <View style={{flexDirection:"row",justifyContent:'center'}}>
              <IconLich/>
-             <Text style={{fontSize:15, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props?.item?.endDay}</Text>
+             <Text style={{fontSize:15, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{convertDateDB(props?.item?.endDay)}</Text>
            </View>
 
            <View style={{flexDirection:"row"}}>

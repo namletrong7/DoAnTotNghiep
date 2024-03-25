@@ -78,7 +78,6 @@ import ModalLoadingAddProject from "./ModalLoading/ModalLoading";
 
 export const AddProjectScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
-  const dataAllProject = useSelector(state => state.project.dataAllProject);
   const [title, setTitle]=useState('');// tieeu de của project
   const [textSearch, settextSearch]=useState('');// tieeu de của project
 

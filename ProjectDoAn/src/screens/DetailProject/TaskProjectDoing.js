@@ -1,6 +1,6 @@
 // MyScreen1.js
 import React, { useEffect, useMemo, useRef } from "react";
-import { View, Text, FlatList, ScrollView, TouchableOpacity } from "react-native";
+import {View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator} from "react-native";
 import renderer from "react-test-renderer";
 import ItemTask from "../../components/itemTask/ItemTask";
 import IconMessage from "../../assets/icons/IconMessage";
@@ -16,20 +16,31 @@ import { actionGetTaskDoingProject, actionGetTaskToDoProject } from "../../redux
 const TaskProjectDoing = ({navigation,route}) => {
   const { projectId } = route?.params;
   const dispatch  = useDispatch();
-  const dataListTaskProjectDoing = useSelector(state => state.task.dataListTaskProjectDoing);
+  const dataListTaskProjectDoing = useSelector(state => state.task?.dataListTaskProjectDoing);
+  const isGetTaskProjectDoing = useSelector(state => state.task?.isGetTaskProjectDoing);
+  //console.log(isGetTaskProjectDoing)
   useEffect(()=>{
     dispatch(actionGetTaskDoingProject(projectId))
 
   },[])
   return (
     <View style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
-    {dataListTaskProjectDoing.length>0?
-        (<FlatList
-          data={dataListTaskProjectDoing}
-          renderItem={({item}) => <ItemTask item={item} navigation={navigation}  />}
-          scrollEnabled={true}
-          keyExtractor={item => item.taskId}
-        />):(    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',alignSelf:"center"}}>{"Không có công việc nào"}</Text>)}
+      {isGetTaskProjectDoing ? <ActivityIndicator size="large" color="#4577ef"/>:
+          (dataListTaskProjectDoing?.length > 0 ?
+              (<FlatList
+                  data={dataListTaskProjectDoing}
+                  renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
+                  scrollEnabled={true}
+                  keyExtractor={item => item.taskId}
+              />) : (<Text style={{
+                fontSize: 15,
+                color: "black",
+                fontFamily: "OpenSans-SemiBold",
+                fontWeight: '700',
+                alignSelf: "center"
+              }}>{"Không có công việc nào"}</Text>))
+
+      }
 </View>
   );
 };

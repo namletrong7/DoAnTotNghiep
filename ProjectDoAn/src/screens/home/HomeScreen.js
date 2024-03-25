@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, Platform,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,7 @@ import IconLogoProject from "../../assets/icons/IconLogoProject";
 import IconTaskFocus from "../../assets/icons/IconTaskFocus";
 import IconSum from "../../assets/icons/IconSum";
 
+
 const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
@@ -54,9 +55,10 @@ const HomeScreen = ({ navigation }) => {
           backgroundColor={'transparent'}
         />
       </View>
+      <SafeAreaView>
       <ScrollView>
         <View style={{paddingHorizontal:10}}>
-          <View style={{marginVertical:10,}}>
+          <View style={{marginVertical:10}}>
             <View style={{flexDirection:"row",justifyContent:"space-between",}}>
               <Image
                 source={require('../../assets/images/logo.png')}
@@ -91,15 +93,16 @@ const HomeScreen = ({ navigation }) => {
 
         </View>
       </ScrollView>
+      </SafeAreaView>
       {isShowMoreAdd&&
-      <View>
-        <TouchableOpacity onPress={()=>{navigation.navigate("AddProjectScreen")}} style={{justifyContent:'flex-start', alignItems:'center',position:"absolute",right:20, bottom:210, width:140, height:40, borderRadius:15, backgroundColor:"#e5f6dd",flexDirection:"row"}}>
+      <View style={{position:"absolute",right:20, bottom:170, width:140}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate("AddProjectScreen")}} style={{justifyContent:'flex-start', alignItems:'center', paddingVertical:5, borderRadius:15, backgroundColor:"#e5f6dd",flexDirection:"row"}}>
           <IconSum height={25} width={25}/>
           <Text style={{fontSize:15, color:"#62c241",fontFamily:"Roboto-Bold",marginLeft:5,}}>{"Tạo dự án"}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'flex-start', alignItems:'center',position:"absolute",right:20, bottom:160, width:140, height:40, borderRadius:15, backgroundColor:"#dbedfd",flexDirection:"row"}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'flex-start',marginTop:10, alignItems:'center',paddingVertical:5, borderRadius:15, backgroundColor:"#dbedfd",flexDirection:"row"}}>
           <IconSum height={25} width={25}/>
-          <Text style={{fontSize:15, color:"#4191df",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Tạo công việc"}</Text>
+          <Text style={{fontSize:15, color:"#4191df",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{"Tạo công việc"}</Text>
         </TouchableOpacity>
       </View>}
       <TouchableOpacity onPress={()=>{setIsShowMoreAdd(!isShowMoreAdd)}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>

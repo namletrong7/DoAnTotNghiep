@@ -1,9 +1,11 @@
 const initialState = {
-   isGetProject: false,
+    isGetProject: false,
     dataAllProject:[],
     isGetDetailProject:false,
     dataDetailProject:{},
-    isAddProject:false
+    isAddProject:false,
+    isTest:'nam'
+
 }
 const reducerProject = (state =initialState , action) => {
     switch (action.type) {
@@ -35,6 +37,6 @@ const reducerProject = (state =initialState , action) => {
         default:
             return state
     }
-
+    return initialState
 }
 export default reducerProject

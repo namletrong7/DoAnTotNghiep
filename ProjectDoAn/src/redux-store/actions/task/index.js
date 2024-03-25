@@ -2,7 +2,8 @@ import Api from "../../../api/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { randomKeyComment } from "../../../utils/RandomKeyComment";
-import { getNewDate } from "../../../utils/ConverPickerDate";
+import {getNewDate} from "../../../utils/ConverPickerDate";
+
 
 /**
  * Created by NamLTC on 29/01/2024
@@ -223,7 +224,7 @@ export function actionGetMoreCommentTask(taskId,offset) {
         }
 
     }else{
-            console.log("dang thuc hien load them comment roi")
+        //    console.log("dang thuc hien load them comment roi")
             return ;
         }
     }
@@ -234,7 +235,7 @@ export function actionAddCommentTask(taskId,content) {
         let avatar=getState().auth.dataCurrentUser.avatarUser
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
-            //console.log(response?.data)
+           console.log(response?.data)
 
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -244,7 +245,7 @@ export function actionAddCommentTask(taskId,content) {
                         "createUser":userId,
                         "taskId": taskId,
                         "content": content,
-                        "createdDate":getNewDate(),
+                        "createdDate":"10/10/22",
                         "avatarUser": avatar,
                         "fullName": "John Doe"
                     }
@@ -257,7 +258,7 @@ export function actionAddCommentTask(taskId,content) {
                 });
             }
         } catch (error) {
-
+            console.log(error)
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
@@ -313,13 +314,15 @@ export function actionGetTaskDoingProject(projectId) {
 
             if(response.data && response.data.status==200){
                 dispatch(updateData({
-                    dataListTaskProjectDoing: response.data.dataListTask
+                    dataListTaskProjectDoing: response.data.dataListTask,
+                    isGetTaskProjectDoing:false,
+                }))
+            }else {
+                dispatch(updateData({
+                    isGetTaskProjectDoing: false
+
                 }))
             }
-            dispatch(updateData({
-                isGetTaskProjectDoing :false
-
-            }))
         } catch (error) {
 
             dispatch(updateData({
@@ -443,7 +446,7 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
         }))
         try {
             const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId,0)
-            console.log(response.data)
+      //      console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_ASSIGN_TASK",
@@ -475,7 +478,7 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
 export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
         if(!getState().task.isGetMoreAssignTask) {
-            console.log("bat dau goi api")
+   //         console.log("bat dau goi api")
             dispatch(updateData({
                 isGetMoreAssignTask: true,
 
@@ -524,7 +527,7 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
                 });
             }
         }else{
-            console.log("đang có quá trình gọi api trước đó rồi")
+  //          console.log("đang có quá trình gọi api trước đó rồi")
             return;
         }
 
@@ -537,8 +540,8 @@ export function actionGetTargetTask() {  // action lấy ds cv mình giao
         }))
         try {
             const response = await Api(false).getTargetTask(getState().auth.dataCurrentUser.userId,0)
-            console.log(response.data)
-            console.log("thuc hien cong viec khac")
+      //      console.log(response.data)
+        //    console.log("thuc hien cong viec khac")
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_TARGET_TASK",
@@ -568,14 +571,14 @@ export function actionGetTargetTask() {  // action lấy ds cv mình giao
 }
 export function actionGetTaskDone() {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
-        console.log("call task done")
+   //     console.log("call task done")
         dispatch(updateData({
             isGetTaskDone :true
         }))
         try {
             const response = await Api(false).getTaskDone(getState().auth.dataCurrentUser.userId,0)
-            console.log("task done:")
-            console.log(response.data)
+    //        console.log("task done:")
+     //       console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_TASK_DONE",
