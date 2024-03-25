@@ -73,6 +73,8 @@ import IconTarget from "../../assets/icons/IconTarget";
 import IconAll from "../../assets/icons/IconAll";
 import IconDone from "../../assets/icons/IconDone";
 import DateTimePicker from "react-native-modal-datetime-picker";
+import { actionAddProject } from "../../redux-store/actions/project";
+import ModalLoadingAddProject from "./ModalLoading/ModalLoading";
 
 export const AddProjectScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
@@ -88,95 +90,9 @@ export const AddProjectScreen = React.memo(({navigation})=>{
   const [isShowStartDay, SetIsShowStartDay]=useState(false);//hiển thị picker chọn ngày bắt đầu
   const [isShowEndDay, SetIsShowEndDay]=useState(false);//hiển thị picker chọn kết thúc
   const [isChooseState, SetIsChooseState]=useState(false);//hiển thị modal chọn trạng thái dự án
-  const [dataUserChoose, SetdataUserChoose]=useState([])
+  const [dataUserChoose, SetdataUserChoose]=useState([])// mảng user đã chọn
   const [stateProject, SetStateProject]=useState(2)  // trạng thái dự án
-  const dataUserSearch=[
-    {
-      "userId": "0",
-      "userName": "anhvtd",
-      "firstName": "vũ thi ",
-      "lastName": "hà",
-      "fullName": "Vũ đình tuấn anh",
-      "email": "anhvtd@gmail.com",
-      "phoneNumber": "037356450",
-      "gender": "0",
-      "isActive": "0",
-      "passWord": "123456",
-      "createdByUserid": "1",
-      "avatarUser": "anhvtd.png",
-      "positionLevel": "3",
-      "birthDay": "2024-03-28 14:31:08",
-      "isAdmin": "1"
-    },
-    {
-      "userId": "1",
-      "userName": "namltc",
-      "firstName": "John",
-      "lastName": "Doe",
-      "fullName": "Lê Trọng Nam",
-      "email": "john.doe@example.com",
-      "phoneNumber": "123456789",
-      "gender": "1",
-      "isActive": "1",
-      "passWord": "password123",
-      "createdByUserid": "admin_user",
-      "avatarUser": "namltc.png",
-      "positionLevel": "2",
-      "birthDay": "1990-01-01 00:00:00",
-      "isAdmin": "1"
-    },
-    {
-      "userId": "2",
-      "userName": "sonntt",
-      "firstName": "John",
-      "lastName": "Doe",
-      "fullName": "Nguyễn Trần Thanh Sơn",
-      "email": "sonntt@KMA.com",
-      "phoneNumber": "123456789",
-      "gender": "1",
-      "isActive": "1",
-      "passWord": "123456a@",
-      "createdByUserid": "admin_user",
-      "avatarUser": "avatar.jpg",
-      "positionLevel": "2",
-      "birthDay": "1990-01-01 00:00:00",
-      "isAdmin": "1"
-    },
-    {
-      "userId": "3",
-      "userName": "hantk",
-      "firstName": "nguyễn thị kim ",
-      "lastName": "hà ",
-      "fullName": "nguyễn thị kim hà",
-      "email": "hantk@gmail.com",
-      "phoneNumber": "0337356550",
-      "gender": "1",
-      "isActive": "1",
-      "passWord": "123456",
-      "createdByUserid": "1",
-      "avatarUser": "avatar.jpg",
-      "positionLevel": "3",
-      "birthDay": "2024-03-28 14:31:08",
-      "isAdmin": "0"
-    },
-    {
-      "userId": "5",
-      "userName": "tienbv",
-      "firstName": "tien",
-      "lastName": "bui",
-      "fullName": "Bùi Văn Tiến",
-      "email": "sonntt@KMA.com",
-      "phoneNumber": "0337356550",
-      "gender": "0",
-      "isActive": "1",
-      "passWord": "123456",
-      "createdByUserid": "1",
-      "avatarUser": "tuananh.jpg",
-      "positionLevel": "0",
-      "birthDay": "2024-03-28 14:31:08",
-      "isAdmin": "0"
-    }
-  ]
+  const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
 
 
   // hàm nhán vào nút ok của pker chọn ngày bắt đầu
@@ -185,16 +101,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
        setNgayBatDau(moment(date).format('YYYY-MM-DD'))
        SetIsShowStartDay(false)
   }
-  // hàm mở lại picker chon ngày key thuc
-  const  showEndDayPicker= ()=>{
 
-    SetIsShowEndDay(true)
-  }
-  // hàm tắt picker chọn ngày key thuc
-  const  hideEndDayPicker= ()=>{
-
-    SetIsShowEndDay(false)
-  }
 
   // hàm nhán vào nút ok của pker ngày key thuc
   const onConfirmEndDay = (date)=>{
@@ -204,23 +111,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
   }
 
 
-  const ItemUserMemer=(props)=>{
-    const {item}= props
-    return (
-      <View style={{flexDirection:"row", borderRadius:14, backgroundColor:"#DDDDDD", flex:0.5, marginHorizontal:5,marginVertical:2,paddingVertical:3, alignItems:'center'}}>
-        <FastImage
-          style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden",marginLeft:3}}
-          source={{
-            uri: (baseUrlAvatarUser+item?.avatarUser)||''
-          }}
-          resizeMode={FastImage.resizeMode.preload}
 
-        />
-        <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{item.fullName}</Text>
-         <IconClose2/>
-      </View>
-    )
-  }
   const handleChooseUser=(itemCheck)=> {  // hàm nhấn vào để chọn user trong ds tìm kiếm
     if (checkMember(itemCheck, dataUserChoose)) { // nếu đã nằm trong ds dc chọn
       const newDataUserChoose = dataUserChoose.filter(item => item.userName !== itemCheck.userName);
@@ -245,6 +136,16 @@ export const AddProjectScreen = React.memo(({navigation})=>{
     settextSearch(value)
     dispatch(actionsearchUser(value))
   }
+  const handleAddProject=async () => {
+    await dispatch(actionAddProject({
+      "nameProject":title,
+      "startDay":ngayBatDau,
+      "endDay":ngayKetThuc,
+      "createUser":dataCurrentUser.userId,
+      "state":stateProject,
+      "projectUser":dataUserChoose
+    }))
+  }
   return (
     <View>
       <HeaderComponent title={"Tạo Dự Án Mới"} navigation={navigation} back/>
@@ -262,6 +163,8 @@ export const AddProjectScreen = React.memo(({navigation})=>{
           <View style={{flexDirection:"row",alignItems:'center',marginTop:10}}>
             <IconLogoProject/>
             <TextInput
+              value={title}
+              onChangeText={setTitle}
               placeholder={"Nhập tên dự án"}
               placeholderTextColor={"#888888"}
               style={{ height: 40,flex:1,marginLeft:10,borderRadius:5, borderColor: "#888888", borderWidth: 0.5, textAlignVertical:"center", fontSize:14, fontFamily: "OpenSans-Regular" }}
@@ -351,7 +254,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
           </KeyboardAvoidingView>
          <ListUserSearch  dataUserChoose={dataUserChoose} handleChooseUser={handleChooseUser}/>
 
-           <TouchableOpacity  style={{height:50,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#daeefd", marginTop:30,alignItems:'center', justifyContent:'center'}}>
+           <TouchableOpacity onPress={handleAddProject} style={{height:50,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#daeefd", marginTop:30,alignItems:'center', justifyContent:'center'}}>
              <Text style={{
                fontSize: 15,
                color: "#2f88dc",
@@ -417,6 +320,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
         onCancel={()=>{SetIsShowEndDay(false)}}
         onConfirm={onConfirmEndDay}
       />
+      <ModalLoadingAddProject/>
     </View>
   );
 })

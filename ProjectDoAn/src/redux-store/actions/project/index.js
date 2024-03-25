@@ -93,7 +93,46 @@ export function actionGetDetailProject(projectId) {
 
     };
 }
-//
+export function actionAddProject(body) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isAddProject:true
+        }))
+        try {
+            const response = await Api(false).addProject(body);
+
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 1500,
+                    icon: { icon: "success", position: 'left' }
+                });
+                dispatch(updateData({
+                    isAddProject:false
+                }))
+            }else{
+                dispatch(updateData({
+                    isAddProject:false
+                }))
+            }
+
+
+        } catch (error) {
+
+            dispatch(updateData({
+                isAddProject:false
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 
 
 

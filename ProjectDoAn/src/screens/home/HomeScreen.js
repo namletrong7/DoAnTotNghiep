@@ -27,12 +27,16 @@ import {useRef} from "react/index";
 import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
 import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
 import { actionGetAllProject } from "../../redux-store/actions/project";
+import IconLogoProject from "../../assets/icons/IconLogoProject";
+import IconTaskFocus from "../../assets/icons/IconTaskFocus";
+import IconSum from "../../assets/icons/IconSum";
 
 const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   const dataAllProject = useSelector(state => state.project.dataAllProject);
+  const [isShowMoreAdd, setIsShowMoreAdd]=useState(false);// show thêm lựa chọn thêm projet hay công việc
   useEffect(()=>{
       dispatch(actionGetAllProject())
   },[])
@@ -87,10 +91,20 @@ const HomeScreen = ({ navigation }) => {
 
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={()=>{navigation.navigate("AddProjectScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
-         <IconPlus/>
+      {isShowMoreAdd&&
+      <View>
+        <TouchableOpacity onPress={()=>{navigation.navigate("AddProjectScreen")}} style={{justifyContent:'flex-start', alignItems:'center',position:"absolute",right:20, bottom:210, width:140, height:40, borderRadius:15, backgroundColor:"#e5f6dd",flexDirection:"row"}}>
+          <IconSum height={25} width={25}/>
+          <Text style={{fontSize:15, color:"#62c241",fontFamily:"Roboto-Bold",marginLeft:5,}}>{"Tạo dự án"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'flex-start', alignItems:'center',position:"absolute",right:20, bottom:160, width:140, height:40, borderRadius:15, backgroundColor:"#dbedfd",flexDirection:"row"}}>
+          <IconSum height={25} width={25}/>
+          <Text style={{fontSize:15, color:"#4191df",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Tạo công việc"}</Text>
+        </TouchableOpacity>
+      </View>}
+      <TouchableOpacity onPress={()=>{setIsShowMoreAdd(!isShowMoreAdd)}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+        <IconPlus/>
       </TouchableOpacity>
-
 
     </View>
   );
