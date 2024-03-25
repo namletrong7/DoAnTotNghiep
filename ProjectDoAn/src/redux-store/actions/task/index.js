@@ -184,9 +184,15 @@ export function actionGetMoreCommentTask(taskId,offset) {
 
             const response = await Api(false).getCommentTask(taskId,offset);
 
-
+           console.log(response.data)
             if(response.data && response.data.status==200){
-                if(response.data.commentTask.length==0){
+                if(response.data.commentTask.length>0){
+                    await   dispatch({
+                        type: "GET_MORE_COMMENT",
+                        data:response.data
+                    });
+
+                }else{
                     showMessage({
                         message: "Đã load hết tất cả bình luận",
                         type: "warning",
@@ -195,11 +201,6 @@ export function actionGetMoreCommentTask(taskId,offset) {
                     });
                     await   dispatch({ // kết thúc sự kiện load detail task
                         type: "END_GET_MORE_COMMENT",
-                    });
-                }else{
-                    await   dispatch({
-                        type: "s",
-                        data:response.data
                     });
                 }
 

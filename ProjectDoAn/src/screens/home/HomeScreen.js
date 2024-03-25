@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <SafeAreaView>
       <ScrollView>
-        <View style={{paddingHorizontal:10}}>
+        <View style={{paddingHorizontal:10,marginBottom:"40%"}}>
           <View style={{marginVertical:10}}>
             <View style={{flexDirection:"row",justifyContent:"space-between",}}>
               <Image
