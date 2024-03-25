@@ -2,7 +2,8 @@ const initialState ={
   isGetProfileUser: false ,
   dataProfileUser:{},
   isSearchUser:false,
-    dataUserSearch:[]
+    dataUserSearch:[],
+    isEditUserProject:false,
 
 }
 const reducerUser = (state = initialState, action) => {
@@ -40,6 +41,16 @@ const reducerUser = (state = initialState, action) => {
         case 'END_GET_PROFILE_USER': {
             return { ...state,
                 isSearchUser:  false
+            };
+        }
+        case 'START_EDIT_USER_PROJECT': {
+            return { ...state,
+                isEditUserProject:  false
+            };
+        }
+        case 'END_EDIT_USER_PROJECT': {
+            return { ...state,
+                isEditUserProject:  false
             };
         }
 

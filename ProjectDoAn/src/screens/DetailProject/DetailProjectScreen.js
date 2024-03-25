@@ -43,6 +43,7 @@ import { dataPriority } from "../../utils/GetPriority";
 import { actionGetAllProject, actionGetDetailProject } from "../../redux-store/actions/project";
 import IconDown from "../../assets/icons/IconDown";
 import {convertDateDB} from "../../utils/ConverPickerDate";
+import { BottomEditUser } from "./BottomEditUser";
 
 
 
@@ -50,8 +51,9 @@ import {convertDateDB} from "../../utils/ConverPickerDate";
 const DetailProjectScreen = ({ navigation ,route}) => {
    const {itemProject} =  route?.params
   const dispatch  = useDispatch();
-  const snapPoints = useMemo(() => ['50%', "80%"], []);
-  const bottomSheetRef = useRef(null);
+  const snapPoints = useMemo(() => ['50%', "80%",'99%'], []);
+  const bottomSheetRef = useRef(null);  // cho bottom thoong tin project
+  const bottomEditUserRef = useRef(null);  // cho bottom thoong tin project
 
   const dataDetailProject = useSelector(state => state.project?.dataDetailProject);
   useEffect(()=>{
@@ -68,11 +70,16 @@ const DetailProjectScreen = ({ navigation ,route}) => {
     []
   );
   // hàm mở ra bottom sheet thông tin của project
-  function handelOpenModal (){
+  function handelOpenDetail (){
     bottomSheetRef.current?.present();
   }
-
-
+  // hàm mở ra bottom sheet thông tin của project
+  function handelOpenEditUser (){
+    bottomEditUserRef.current?.present();
+  }
+  function handelCloseEditUser (){
+    bottomEditUserRef.current?.dismiss();
+  }
 const ItemUserMemer=(props)=>{
     const {item}= props
   return (
@@ -103,22 +110,21 @@ const ItemUserMemer=(props)=>{
              <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{itemProject?.state==0?"Đang triển khai":"Đã kết thúc"}</Text>
            </View>
        <View style={{flexDirection:"row", justifyContent:"space-between",display:"flex", height:'100%', alignItems:"center", flex:0.25}}>
-         <TouchableOpacity  >
+         <TouchableOpacity onPress={()=>{handelOpenEditUser()}} >
            <IconAddUser/>
          </TouchableOpacity>
-         <TouchableOpacity onPress={()=>{handelOpenModal()}}>
+         <TouchableOpacity onPress={()=>{handelOpenDetail()}}>
            <IconInfor/>
          </TouchableOpacity>
        </View>
      </View>
-      {/*<TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:0, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>*/}
-      {/*   <IconPlus/>*/}
-      {/*</TouchableOpacity>*/}
+
 
       <GestureHandlerRootView  style={{ borderRadius:16,  display:"flex"}}>
           <View style={{height:"100%"}}>
                <TopTabTask1 projectId={itemProject?.projectId}/>
           </View>
+        <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
         <BottomSheetModalProvider>
           <BottomSheetModal
               ref={bottomSheetRef}

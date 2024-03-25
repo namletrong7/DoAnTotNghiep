@@ -1,6 +1,7 @@
 import Api from "../../../api/Api";
 ;
 import { showMessage } from "react-native-flash-message";
+import { actionGetDetailProject } from "../project";
 
 
 /**
@@ -53,7 +54,7 @@ export function actionsearchUser(keyWord) {
       type: "START_SEARCH_USER",
     });
     try {
-      const response = await Api(true).searchUser(keyWord);
+      const response = await Api(false).searchUser(keyWord);
 
       if(response.data && response.data.status==200){
         await   dispatch({
@@ -62,6 +63,12 @@ export function actionsearchUser(keyWord) {
         });
 
       }else{
+        showMessage({
+          message: "Xảy ra lỗi vui lòng thử lại sau",
+          type: "danger",
+          duration: 2000,
+          icon: { icon: "danger", position: 'left' }
+        });
         await   dispatch({
           type: "END_GET_PROFILE_USER",
         });
@@ -87,7 +94,60 @@ export function actionsearchUser(keyWord) {
 
   };
 }
+export function actionEditUserProject(body,projectId) {
+  return async (dispatch, getState) => {
+    if(!getState().user.isEditUserProject){
 
+
+      await   dispatch({
+        type: "START_EDIT_USER_PROJECT",
+      });
+      try {
+        const response = await Api(false).editUserOfProject(body);
+       console.log(response.data)
+        if(response.data && response.data.status==200){
+         await dispatch(actionGetDetailProject(projectId))
+          await   dispatch({
+            type: "END_EDIT_USER_PROJECT",
+          });
+          showMessage({
+            message: "Cập nhật thành viên dự án thành công",
+            type: "success",
+            duration: 1500,
+            icon: { icon: "success", position: 'left' }
+          });
+        }else{
+          showMessage({
+            message: "Xảy ra lỗi vui lòng thử lại sau",
+            type: "danger",
+            duration: 2000,
+            icon: { icon: "danger", position: 'left' }
+          });
+          await   dispatch({
+            type: "END_EDIT_USER_PROJECT",
+          });
+        }
+
+
+      } catch (error) {
+
+        await   dispatch({
+          type: "END_EDIT_USER_PROJECT",
+        });
+        showMessage({
+          message: "Lỗi mạng",
+          type: "danger",
+          duration: 1000,
+          icon: { icon: "danger", position: 'left' }
+        });
+      }
+    }
+    else{
+      return ;
+    }
+
+  };
+}
 
 
 export default {
