@@ -70,7 +70,7 @@ export function actionsearchUser(keyWord) {
           icon: { icon: "danger", position: 'left' }
         });
         await   dispatch({
-          type: "END_GET_PROFILE_USER",
+          type: "END_SEARCH_USER",
         });
       }
 

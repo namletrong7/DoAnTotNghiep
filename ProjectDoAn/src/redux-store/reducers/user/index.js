@@ -38,7 +38,7 @@ const reducerUser = (state = initialState, action) => {
                 isSearchUser:false
             };
         }
-        case 'END_GET_PROFILE_USER': {
+        case 'END_SEARCH_USER': {
             return { ...state,
                 isSearchUser:  false
             };
