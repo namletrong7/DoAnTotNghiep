@@ -12,6 +12,7 @@ import { getValuePositionLevel } from "../../utils/GetValuePosition";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDetailProject } from "../../redux-store/actions/project";
 import { actionGetTaskToDoProject } from "../../redux-store/actions/task";
+import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 
 const TaskProjectToDo = ({navigation,route}) => {
   const { projectId } = route?.params;
@@ -31,13 +32,8 @@ const TaskProjectToDo = ({navigation,route}) => {
                   renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
                   scrollEnabled={true}
                   keyExtractor={item => item.taskId}
-              />) : (<Text style={{
-                fontSize: 15,
-                color: "black",
-                fontFamily: "OpenSans-SemiBold",
-                fontWeight: '700',
-                alignSelf: "center"
-              }}>{"Không có công việc nào"}</Text>))
+              />) : (<EmptyTask/>)
+          )
 
       }
     </View>

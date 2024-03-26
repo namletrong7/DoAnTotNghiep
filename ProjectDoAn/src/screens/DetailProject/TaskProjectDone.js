@@ -16,6 +16,7 @@ import {
   actionGetTaskDoneProject,
   actionGetTaskToDoProject,
 } from "../../redux-store/actions/task";
+import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 
 const TaskProjectDone = ({navigation,route}) => {
   const { projectId } = route?.params;
@@ -35,13 +36,7 @@ const TaskProjectDone = ({navigation,route}) => {
                   renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
                   scrollEnabled={true}
                   keyExtractor={item => item.taskId}
-              />) : (<Text style={{
-                fontSize: 15,
-                color: "black",
-                fontFamily: "OpenSans-SemiBold",
-                fontWeight: '700',
-                alignSelf: "center"
-              }}>{"Không có công việc nào"}</Text>))
+              />) : (<EmptyTask/>))
 
       }
     </View>

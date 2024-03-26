@@ -54,6 +54,7 @@ import IconAll from "../../assets/icons/IconAll";
 import IconDone from "../../assets/icons/IconDone";
 import IconClose from "../../assets/icons/IconClose";
 import IconSearch from "../../assets/icons/IconSearch";
+import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 
 const TaskPersonalScreen = ({ navigation }) => {
 
@@ -231,12 +232,12 @@ const TaskPersonalScreen = ({ navigation }) => {
             (currentTask.map((item, index) => (
               <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} key={item.taskId} />
             ))):
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Bạn không có task nào"}</Text>
+              <EmptyTask/>
       }
 
             {isGetMoreAssignTask&&<FooterTask/>}
             <TouchableOpacity onPress={()=>{loadMore()}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Nhấn để tải thêm task"}</Text>
+              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Nhấn để tải thêm task..."}</Text>
             </TouchableOpacity>
          </ScrollView>
 

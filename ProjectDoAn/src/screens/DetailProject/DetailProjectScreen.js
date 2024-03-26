@@ -39,7 +39,7 @@ import IconBack from "../../assets/icons/IconBack";
 import IconEdit from "../../assets/icons/IconEdit";
 import { showMessage } from "react-native-flash-message";
 import {  TopTabTask1 } from "./toptab/TopTabTask";
-import { dataPriority } from "../../utils/GetPriority";
+import { dataPriority, getStateProject } from "../../utils/GetPriority";
 import { actionGetAllProject, actionGetDetailProject } from "../../redux-store/actions/project";
 import IconDown from "../../assets/icons/IconDown";
 import {convertDateDB} from "../../utils/ConverPickerDate";
@@ -107,7 +107,7 @@ const ItemUserMemer=(props)=>{
           <IconProject/>
            <View style={{justifyContent:"flex-start", flex:0.7}}>
              <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{itemProject?.nameProject}</Text>
-             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{itemProject?.state==0?"Đang triển khai":"Đã kết thúc"}</Text>
+             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{getStateProject(itemProject?.state)}</Text>
            </View>
        <View style={{flexDirection:"row", justifyContent:"space-between",display:"flex", height:'100%', alignItems:"center", flex:0.25}}>
          <TouchableOpacity onPress={()=>{handelOpenEditUser()}} >

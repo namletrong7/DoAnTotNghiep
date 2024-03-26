@@ -37,10 +37,10 @@ import {useSelector} from "react-redux";
                     <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Thay đổi người xử lý"}</Text>
                 </View>
                 {props.assignUser==currentUser&&
-                <View style={{flexDirection:"row",marginTop:10}}>
+                <TouchableOpacity onPress={props.openDialogRequestReport} style={{flexDirection:"row",marginTop:10}}>
                     <IconReport/>
                     <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5,}}>{"Y/C Báo cáo"}</Text>
-                </View>}
+                </TouchableOpacity>}
                 <View style={{flexDirection:"row",marginTop:10}}>
                     <IconCalendar/>
                     <Text style={{fontSize:14, color:"#0066FF",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Gia hạn"}</Text>
