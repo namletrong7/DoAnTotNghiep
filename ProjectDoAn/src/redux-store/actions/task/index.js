@@ -534,7 +534,7 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
 
     };
 }
-export function actionGetTargetTask() {  // action lấy ds cv mình giao
+export function actionGetTargetTask() {  // action lấy ds cv mình cần xử lý
     return async (dispatch, getState) => {
         dispatch(updateData({
             isGetTargetTask :true
@@ -570,7 +570,7 @@ export function actionGetTargetTask() {  // action lấy ds cv mình giao
 
     };
 }
-export function actionGetTaskDone() {  // action lấy ds cv mình giao
+export function actionGetTaskDone() {
     return async (dispatch, getState) => {
    //     console.log("call task done")
         dispatch(updateData({
@@ -599,6 +599,105 @@ export function actionGetTaskDone() {  // action lấy ds cv mình giao
                 isGetTaskDone :false
 
             }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionChangePriorityTask(priority,taskId) {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).changePriorityTask(priority,taskId)
+            console.log(response)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionChangeProgressTask(progress,taskId) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).changeProgressTask(progress,taskId)
+            console.log(response)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionReportTask(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).reportTask(body)
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",

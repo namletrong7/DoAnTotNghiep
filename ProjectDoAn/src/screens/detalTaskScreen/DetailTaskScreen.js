@@ -67,6 +67,7 @@ import DialogReport from "./dialogReport/DialogReport";
 import DialogProgress from "./DialogProgress/DialogProgress";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
 import {RenderActionTask} from "./ActionTab/RenderActionTab";
+import IconArrowDown from "../../assets/icons/IconArrowDown";
 
 
 
@@ -86,6 +87,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const refChangePriority = useRef(null); // ref cho bottm sheet chinh sau priority
 
   const [isVisibleReport, setIsVisibleReport] = useState(false);
+  const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
   const [isVisibleProgress, setIsVisibleProgress] = useState(false);
   const [isVisibleDone, setIsVisibleDone] = useState(false);
 
@@ -113,6 +115,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     const closeDialogReport=()=>{
       setIsVisibleReport(false)
     }
+  const closeDialogRequestReport=()=>{
+    setisVisibleRequestReport(false)
+  }
   const closeDialogProgress=()=>{
     setIsVisibleProgress(false)
   }
@@ -121,6 +126,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   }
   const openDialogReport=()=>{
         setIsVisibleReport(true)
+  }
+  const openDialogRequestReport=()=>{
+    setisVisibleRequestReport(true)
   }
     const openDialogProgress=()=>{
         setIsVisibleProgress(true)
@@ -160,11 +168,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </TouchableOpacity>
 
 
-              <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:16, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",marginTop:10,alignSelf:"flex-start"}}>
+              <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",marginTop:10,alignSelf:"flex-start",flexDirection:"row"}}>
                 <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
+                 <IconArrowDown/>
               </TouchableOpacity>
                 {(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser)&&
-              <RenderActionTask openDialogReport={openDialogReport} openDialogProgress={openDialogProgress}  openDialogDone={opengDialogDone} assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />}
+              <RenderActionTask  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress}  openDialogDone={opengDialogDone} assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />}
               <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:10}}>
                 <View style={{flexDirection:"column", justifyContent:"flex-start"}}>
                     <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu"}</Text>
@@ -250,12 +259,14 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </View>}
           </ScrollView>
 
-            <BottomChangePriority   bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
+            <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
 
         </GestureHandlerRootView>
-       <DialogReport visible={isVisibleReport} type={1}  title={"Yêu cầu báo cáo"} onClose={closeDialogReport}/>
-       <DialogProgress visible={isVisibleProgress} onClose={closeDialogProgress} />
-        <DialogConfirmComponent visible={isVisibleDone} onClose={closeDialogDone} content={"Bạn có chắc là đã làm xong công việc này chứ? Nhấn đồng ý để hoàn thành công việc này"}/>
+       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
+      <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>
+
+      <DialogProgress  taskId={taskId} visible={isVisibleProgress} onClose={closeDialogProgress} />
+        <DialogConfirmComponent  taskId={taskId} visible={isVisibleDone} onClose={closeDialogDone} content={"Bạn có chắc là đã làm xong công việc này chứ? Nhấn đồng ý để hoàn thành công việc này"}/>
       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{ left: 0, right: 0, bottom:0,position:"absolute",backgroundColor:"#EEEEEE"}}>
           <SendCommentComponent taskId={taskId}/>
       </KeyboardAvoidingView>

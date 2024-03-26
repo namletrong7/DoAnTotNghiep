@@ -60,7 +60,7 @@ export  const HomeStack = React.memo(() => {
       headerShown: false
     }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="DetailProjectScreen1" component={DetailProjectScreen} />
+      <Stack.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
     </Stack.Navigator>
   )
 })
@@ -128,7 +128,6 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
       <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
       <Stack.Screen name="AddProjectScreen" component={AddProjectScreen} />
-      <Stack.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
     </Stack.Navigator>
   )
 })

@@ -59,12 +59,24 @@ const ItemProject = (props) => {
 
          <Text numberOfLines={2} style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.nameProject}</Text>
          <View style={{marginVertical:10, flexDirection:"row", alignItems:"center",}}>
-           <FlatList
-             data={props?.item?.dataListUser}
-             renderItem={({item,index}) => <ItemUser item={item} index={index} />}
-             horizontal={true}
-             keyExtractor={item => item.userId}
-           />
+          <View style={{flexDirection:"row",}}>
+            <View  style={{alignSelf:'flex-start'}}>
+              <FlatList
+                data={props?.item?.dataListUser.slice(0, 4)}
+                renderItem={({item,index}) => <ItemUser item={item} index={index} />}
+                horizontal={true}
+                keyExtractor={item => item.userId}
+              />
+            </View>
+            {props?.item?.dataListUser.length>4&&
+           <View
+              style={{width: 30,alignSelf:"flex-start",alignItems:'center',justifyContent:'center', height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:-10,backgroundColor:"#6699FF"}}
+            >
+             <Text  style={{fontSize:13, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{"+"+(props?.item?.dataListUser.length-4)}</Text>
+
+           </View>}
+          </View>
+
          </View>
          <View style={{flexDirection:"row", justifyContent:"space-between",}}>
            <View style={{flexDirection:"row",justifyContent:'center'}}>
