@@ -10,7 +10,7 @@ const Api = (isFormData) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://192.168.1.102:8080/DOAN/",
+            baseURL: "http://3.25.188.2:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 // Thêm các headers khác nếu cần thiết
