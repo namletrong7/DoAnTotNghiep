@@ -87,17 +87,16 @@ export const BottomEditUser=React.memo((props)=>{
             <ListUserChoose dataUserChoose={dataUser} handleItem={handleDeleleUser}/>
             <Text style={{fontSize:15,alignSelf:'flex-start',marginVertical:10, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Tìm kiếm thành viên thành viên"}</Text>
             <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' >
-              <SafeAreaView style={{ flexDirection: "row",alignItems:'center', borderRadius: 15,marginVertical:10 ,  backgroundColor:"#EEEEEE",paddingHorizontal:10, paddingVertical:Platform.OS==='ios'?5:0,marginLeft:5}}>
+              <View style={{ flexDirection: "row",alignItems:'center', borderRadius: 15,marginVertical:10 ,  backgroundColor:"#EEEEEE",paddingHorizontal:10, paddingVertical:Platform.OS==='ios'?5:0,marginLeft:5,flex:1}}>
                 <IconSearch/>
                 <TextInput
-                  multiline={true}
-                  value={textSearch}
-                  onChangeText={handleSearchUser}
-                  style={{ color: 'black', fontSize: 15, fontFamily: "OpenSans-Regular", flex: 1 }}
-                  placeholder="Tim kiếm thành viên..."
-                  placeholderTextColor={"#888888"}
+                    value={textSearch}
+                    onChangeText={handleSearchUser}
+                    style={{ color: 'black', fontSize: 15, fontFamily: "OpenSans-Regular" }}
+                    placeholder="Tim kiếm thành viên..."
+                    placeholderTextColor={"#888888"}
                 />
-              </SafeAreaView>
+              </View>
             </KeyboardAvoidingView>
             <ListUserSearch dataUserChoose={dataUser} handleChooseUser={handleChooseUser}/>
             <TouchableOpacity onPress={handleEditUserProject} style={{height:50,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#daeefd", marginTop:30,alignItems:'center', justifyContent:'center'}}>
