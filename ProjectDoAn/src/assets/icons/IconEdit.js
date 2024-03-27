@@ -2,22 +2,22 @@ import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
 
 const IconEdit = (props) => (
-  <Svg
-    width={20}
-    height={20}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <Path
-      d="M21.062 5.242 18.94 3.121a3 3 0 0 0-4.242 0L3.707 14.112a3 3 0 0 0-.861 1.797l-.394 3.617a2 2 0 0 0 2.204 2.205l3.618-.394a3 3 0 0 0 1.796-.86L21.063 9.484a3 3 0 0 0 0-4.243Z"
-      fill="#BFBFBF"
-    />
-    <Path
-      d="M21.062 5.242 18.94 3.121a3 3 0 0 0-4.242 0l-2.334 2.333 6.364 6.364 2.334-2.333a3 3 0 0 0 0-4.243Z"
-      fill="#000"
-    />
-  </Svg>
+    <Svg
+        width={20}
+        height={20}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+      <Path
+          d="M20.15 7.94 8.28 19.81c-1.06 1.07-4.23 1.56-5 .85-.77-.71-.21-3.88.85-4.95L16 3.84a2.9 2.9 0 0 1 4.1 4.1h.05ZM21 21h-9"
+          stroke="#1062dc"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+      />
+    </Svg>
 )
 
 export default IconEdit

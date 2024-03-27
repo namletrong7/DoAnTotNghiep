@@ -13,7 +13,7 @@ function IconUser(props) {
     >
       <Path
         d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M16 7a4 4 0 11-8 0 4 4 0 018 0z"
-        stroke="#ffffff"
+        stroke="black"
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"

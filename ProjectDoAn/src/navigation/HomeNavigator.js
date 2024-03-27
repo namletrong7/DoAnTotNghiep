@@ -22,6 +22,8 @@ import IconThongKefocus from "../assets/icons/IconThongKefocus";
 import IconThongKeUnfocus from "../assets/icons/IconThongKeUnfocus";
 import TaskPersonalScreen from "../screens/taskStack/TaskPersonalScreen";
 import { AddProjectScreen } from "../screens/AddProjectScreen/AddProjectScreen";
+import ProFilePersonalScreen from "../screens/PersonalStack/ProFilePersonalScreen";
+import EditProfilePersonalScreen from "../screens/PersonalStack/EditProfilePersonalScreen";
 
 // export  const HomeNavigator = React.memo(() => {
 //   const Stack = createNativeStackNavigator();
@@ -128,6 +130,8 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
       <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
       <Stack.Screen name="AddProjectScreen" component={AddProjectScreen} />
+        <Stack.Screen name="ProFilePersonalScreen" component={ProFilePersonalScreen} />
+        <Stack.Screen name="EditProfilePersonalScreen" component={EditProfilePersonalScreen} />
     </Stack.Navigator>
   )
 })

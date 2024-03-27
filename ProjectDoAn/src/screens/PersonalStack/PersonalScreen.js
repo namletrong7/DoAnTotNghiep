@@ -76,7 +76,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
   }
   return (
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
-      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}/>
+      <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}/>
       <ScrollView
         contentContainerStyle={{padding:15, }}
         showsVerticalScrollIndicator={false}>
@@ -84,7 +84,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
                <View>
                    <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"Cá nhân bạn"}</Text>
                </View>
-             <TouchableOpacity style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <TouchableOpacity onPress={()=>{navigation.navigate("ProFilePersonalScreen")}} style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
                <FastImage
                  style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
                  source={{
