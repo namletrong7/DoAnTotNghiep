@@ -15,6 +15,8 @@ import NotifiScreen from "./src/screens/Notifi/NotifiScreen";
 import HomeScreen from "./src/screens/home/HomeScreen";
 import DetailProjectScreen from "./src/screens/DetailProject/DetailProjectScreen";
 import { AddProjectScreen } from "./src/screens/AddProjectScreen/AddProjectScreen";
+import ProFilePersonalScreen from "./src/screens/PersonalStack/ProFilePersonalScreen";
+import EditProfilePersonalScreen from "./src/screens/PersonalStack/EditProfilePersonalScreen";
 
 
 
