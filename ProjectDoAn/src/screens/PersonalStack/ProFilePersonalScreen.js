@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl, Modal,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,14 +33,16 @@ import IconPhone2 from "../../assets/icons/IconPhone2";
 import IconGiftBox from "../../assets/icons/IconGitBox";
 import IconEdit from "../../assets/icons/IconEdit";
 import {convertDateDB} from "../../utils/ConverPickerDate";
+import IconCam from "../../assets/icons/IconCam";
+import { getColorStateProject, getStateProject } from "../../utils/GetPriority";
 
 
 const ProFilePersonalScreen = ({ navigation ,route }) => {
 
   const [refreshing, setRefreshing] = useState(false);
     const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
-   console.log(dataCurrentUser)
 
+  const [isShowOptionAvatar, setIsShowOptionAvatar] = useState(false);
 
   return (
     <View style={{backgroundColor:"white",height:'100%'}}>
@@ -69,6 +71,19 @@ const ProFilePersonalScreen = ({ navigation ,route }) => {
                      <Text style={styles.textInfor}>{"Họ và tên:"}</Text>
                      <Text style={styles.textInfor}>{dataCurrentUser?.fullName}</Text>
                  </View>
+               <TouchableOpacity onPress={()=>{setIsShowOptionAvatar(true)}} style={{flex:1,alignItems:"flex-end"}}>
+                 <FastImage
+                   style={{ width: 60, height: 60,borderRadius: 60/2 ,}}
+                   source={{
+                     uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
+                   }}
+                   resizeMode={FastImage.resizeMode.stretch}/>
+                 <View style={{width: 25, height: 25,borderRadius: 25/2,marginTop:-20,backgroundColor:"#DDDDDD",alignItems:"center",justifyContent:'center'}}>
+                   <IconCam  width={17} height={17}/>
+                 </View>
+
+               </TouchableOpacity>
+
              </View>
             <View style={styles.viewItemInfor}>
                 <IconCardId/>
@@ -119,6 +134,22 @@ const ProFilePersonalScreen = ({ navigation ,route }) => {
         </View>
 
       </ScrollView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isShowOptionAvatar}
+      >
+        <TouchableOpacity  onPress={()=>{setIsShowOptionAvatar(false)}} style={styles.modalContainer} >
+          <View  style={styles.modalContent}>
+            <TouchableOpacity onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:dataCurrentUser?.avatarUser})}}>
+              <Text style={styles.textInfor}>{"Xem ảnh đại diện "}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginVertical:20}}>
+              <Text style={styles.textInfor}>{"Thay đổi ảnh đại diện "}</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
 };
@@ -128,12 +159,29 @@ const styles = StyleSheet.create({
     flex: 1,
   } ,
     viewItemInfor:{
-        flexDirection:"row", alignItems:"flex-start",
+        flexDirection:"row", alignSelf:"flex-start",
         marginTop:15
     },
     textInfor:{
         fontSize: 17, color: "black", fontFamily: "OpenSans-Regular"
-    }
+    },
+  modalContainer: {
+    height:"100%",
+    alignItems: 'center',
+    backgroundColor:'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    paddingVertical:15,
+    elevation: 5,
+    width:"100%",
+    position:"absolute",
+    height:"15%",
+    bottom:0,
+    justifyContent:'center',
+    alignItems:"center"
+
+  }
 
 });
 

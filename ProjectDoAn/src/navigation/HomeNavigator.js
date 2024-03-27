@@ -24,6 +24,7 @@ import TaskPersonalScreen from "../screens/taskStack/TaskPersonalScreen";
 import { AddProjectScreen } from "../screens/AddProjectScreen/AddProjectScreen";
 import ProFilePersonalScreen from "../screens/PersonalStack/ProFilePersonalScreen";
 import EditProfilePersonalScreen from "../screens/PersonalStack/EditProfilePersonalScreen";
+import ViewImageScreen from "../screens/ViewImageScreen/ViewImageScreen";
 
 // export  const HomeNavigator = React.memo(() => {
 //   const Stack = createNativeStackNavigator();
@@ -66,7 +67,20 @@ export  const HomeStack = React.memo(() => {
     </Stack.Navigator>
   )
 })
+// stack này bao gồm các màn hình cá nhân user đang login -> chi tiêt cá nhân ->chỉnh sửa thông tin cá nhân
+export  const PersonalStack = React.memo(() => {
+  const Stack = createNativeStackNavigator();
 
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="PersonalScreen" component={PersonalScreen} />
+      <Stack.Screen name="ProFilePersonalScreen" component={ProFilePersonalScreen} />
+      <Stack.Screen name="EditProfilePersonalScreen" component={EditProfilePersonalScreen} />
+    </Stack.Navigator>
+  )
+})
 export  const BottomHomeNavigation = React.memo(() => {
   const Tab = createBottomTabNavigator();
 
@@ -81,7 +95,7 @@ export  const BottomHomeNavigation = React.memo(() => {
               else if (route.name === "NotifiStack") {
                 iconName = focused ? <IconNotifiFocus/> : <IconNotifiUnFocus/>;
               }
-              else if (route.name === "PersonalScreen") {
+              else if (route.name === "PersonalStack") {
                 iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
               }
               else if (route.name === "TaskPersonalScreen") {
@@ -113,7 +127,7 @@ export  const BottomHomeNavigation = React.memo(() => {
           <Tab.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
             <Tab.Screen name="ThongKe" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thống kê" }}   />
           <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo" }}   />
-          <Tab.Screen name="PersonalScreen" component={PersonalScreen} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />
+          <Tab.Screen name="PersonalStack" component={PersonalStack} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />
         </Tab.Navigator>
 
   )
@@ -130,8 +144,7 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
       <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
       <Stack.Screen name="AddProjectScreen" component={AddProjectScreen} />
-        <Stack.Screen name="ProFilePersonalScreen" component={ProFilePersonalScreen} />
-        <Stack.Screen name="EditProfilePersonalScreen" component={EditProfilePersonalScreen} />
+      <Stack.Screen name="ViewImageScreen" component={ViewImageScreen} />
     </Stack.Navigator>
   )
 })

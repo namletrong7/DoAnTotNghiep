@@ -93,21 +93,25 @@ const ProFileUserScreen = ({ navigation ,route }) => {
           {isGetProfileUser?(<ShimmerProfileUser/>):
 
               <View>
-                <FastImage
-                  style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 100 / 2,
-                    overflow: "hidden",
-                    borderWidth: 1,
-                    borderColor: "#99CCFF",
-                    alignSelf: "center",
-                  }}
-                  source={{
-                    uri: (baseUrlAvatarUser+dataUser?.avatarUser||'')
-                  }}
-                  resizeMode={FastImage.resizeMode.stretch}
-                />
+                <TouchableOpacity onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:dataUser?.avatarUser})}}>
+                  <FastImage
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: 100 / 2,
+                      overflow: "hidden",
+                      borderWidth: 1,
+                      borderColor: "#99CCFF",
+                      alignSelf: "center",
+                    }}
+                    source={{
+                      uri: (baseUrlAvatarUser+dataUser?.avatarUser||'')
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                  />
+                </TouchableOpacity>
+
+
                 <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:20,alignSelf:"center"}}>{dataUser?.fullName||''}</Text>
                 <RenderContactIcon/>
                 <RenderContent title={"Số điện thoại:"} content={dataUser?.phoneNumber||''}/>
