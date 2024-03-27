@@ -1,14 +1,14 @@
 import * as React from "react"
 import Svg, {SvgProps, G, Path, Circle} from "react-native-svg"
 
-const IconCam = () => (
+const IconCam = (props) => (
     <Svg
         width={29}
         height={29}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-
+        {...props}
     >
       <Circle cx={12} cy={13} r={3} stroke="#0066FF" strokeWidth={1.5} />
       <Path
