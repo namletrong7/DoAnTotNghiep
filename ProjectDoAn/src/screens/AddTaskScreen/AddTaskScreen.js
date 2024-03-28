@@ -49,6 +49,8 @@ import ModalLoading from "./ModalLoading/ModalLoading";
 import { dataPriority } from "../../utils/GetPriority";
 import HeaderComponent from "../../components/header/HeaderComponent";
 import { createListProjectDropDown } from "../../utils/CreateListDropDown";
+import { actionGetListUserProject } from "../../redux-store/actions/user";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
 export const AddTaskScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
@@ -117,9 +119,9 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
 
   // hàm chọn value cho project Id dc chọn
-  const onSelectProjectId=item=>{
-         setValueProjectId(item.value)
-
+  const onSelectProjectId=async item => {
+    setValueProjectId(item.value)
+    await dispatch(actionGetListUserProject(item.value))
   }
   const onSelectPriority=item=>{
     setValuePriority(item.value)
@@ -324,7 +326,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
                <FastImage
                  style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",marginLeft:20}}
                  source={{
-                   uri: "http://192.168.1.109:8080/DOAN/avatarUser/"+targetUser.avatarUser
+                   uri: baseUrlAvatarUser+targetUser.avatarUser
                  }}
                  resizeMode={FastImage.resizeMode.stretch}
 
@@ -379,7 +381,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
              />
            </View>
            {/*<TextInputComponent textInput={content} setTextInput={setContent} title={"Nội dung công việc *"} placeHolder={"Nhập nội dung công việc "} height={150}/>*/}
-           <ModalUserProject visible={isShowModalUser} data={UserProject} onClose={onCloseUser} handleItem={handelItemUser}/>
+           <ModalUserProject targetUser={targetUser} visible={isShowModalUser} data={UserProject} onClose={onCloseUser} handleItem={handelItemUser}/>
            <TouchableOpacity onPress={()=>{addTask()}} style={{height:60, borderRadius:17, backgroundColor:"#4577ef", marginTop:30,alignItems:'center', justifyContent:'center'}}>
              <Text style={{
                fontSize: 17,

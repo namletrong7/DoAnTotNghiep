@@ -50,6 +50,6 @@ const reducerAuth = (state = initialState, action) => {
         default:
             return state
     }
-
+    return state
 }
 export default reducerAuth

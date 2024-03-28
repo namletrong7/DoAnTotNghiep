@@ -37,6 +37,6 @@ const reducerProject = (state =initialState , action) => {
         default:
             return state
     }
-    return initialState
+    return state
 }
 export default reducerProject

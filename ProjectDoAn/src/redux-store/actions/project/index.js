@@ -59,6 +59,7 @@ export function actionGetAllProject() {
 }
 export function actionGetDetailProject(projectId) {
     return async (dispatch, getState) => {
+
         dispatch(updateData({
             isGetDetailProject:true
 

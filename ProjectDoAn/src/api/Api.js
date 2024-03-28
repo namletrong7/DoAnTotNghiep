@@ -103,6 +103,9 @@ const Api = (isFormData) => {
   const reportTask=(body)=> {
     return apiConfig().post("reportTask.php",body);
   }
+  const getListUserOfProject=(projectId)=> {
+    return apiConfig().post(`getUserProject.php?projectId=${projectId}`);
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -125,7 +128,9 @@ const Api = (isFormData) => {
       editUserOfProject,
       changePriorityTask,
       changeProgressTask,
-      reportTask
+      reportTask,
+      getListUserOfProject
+
     };
 };
 export default Api;

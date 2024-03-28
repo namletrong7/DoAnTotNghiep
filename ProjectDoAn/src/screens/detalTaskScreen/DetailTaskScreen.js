@@ -31,7 +31,12 @@ import {
 } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
-import { getColorBackgroundPriority, getColorPriority, getValuePriority } from "../../utils/GetPriority";
+import {
+  getBackgroundStateTask,
+  getColorBackgroundPriority,
+  getColorPriority, getColorTextStateTask, getState,
+  getValuePriority,
+} from "../../utils/GetPriority";
 import ListCommentComponet from "../../components/listCommentComponent/ListCommentComponet";
 import FastImage from "react-native-fast-image";
 import IconCalendar from "../../assets/icons/IconCalendar";
@@ -167,11 +172,23 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               <IconEdit/>
             </TouchableOpacity>
 
+             <View style={{flexDirection:"row",alignItems:'center',marginTop:10,justifyContent:"space-between"}}>
+               <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",flexDirection:"row"}}>
+                 <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
+                 <IconArrowDown width={10} height={10}/>
+               </TouchableOpacity>
+               <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,borderRadius:16,paddingHorizontal:10,flexDirection:"row",justifyContent:'center'}}>
+                 <Text style={{
+                   fontSize: 15,
+                   color: getColorTextStateTask(dataDetailTask?.state),
+                   fontFamily: "OpenSans-Regular",
+                 }}>{getState(dataDetailTask?.state)}
+                   <IconArrowDown width={10} height={10}/>
+                 </Text>
+               </View>
+             </View>
 
-              <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",marginTop:10,alignSelf:"flex-start",flexDirection:"row"}}>
-                <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
-                 <IconArrowDown/>
-              </TouchableOpacity>
+
                 {(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser)&&
               <RenderActionTask  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress}  openDialogDone={opengDialogDone} assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />}
               <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:10}}>
