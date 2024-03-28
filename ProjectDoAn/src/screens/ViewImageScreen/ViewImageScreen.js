@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
 
-  StyleSheet, StatusBar, TouchableOpacity,
+  StyleSheet, StatusBar, TouchableOpacity, SafeAreaView,
 } from "react-native";
 import { ImageZoom } from '@likashefqet/react-native-image-zoom';
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
@@ -16,12 +16,8 @@ const ViewImageScreen = ({ navigation ,route }) => {
 
   return (
     <View style={{backgroundColor:"white",height:'100%'}}>
-      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
-        <StatusBar
-          translucent
-          backgroundColor={'transparent'}
-        />
-      </View>
+      <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight,backgroundColor:"black"}}/>
+
       <TouchableOpacity  onPress={()=>{navigation.goBack()}} style={{alignSelf:'flex-end'}}>
         <IconClose/>
       </TouchableOpacity>

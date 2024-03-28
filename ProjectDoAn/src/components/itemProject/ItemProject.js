@@ -70,7 +70,7 @@ const ItemProject = (props) => {
             </View>
             {props?.item?.dataListUser.length>4&&
            <View
-              style={{width: 30,alignSelf:"flex-start",alignItems:'center',justifyContent:'center', height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:-10,backgroundColor:"#6699FF"}}
+              style={{width: 30,alignSelf:"flex-start",alignItems:'center',justifyContent:'center', height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:-10,backgroundColor:"#fee8e1"}}
             >
              <Text  style={{fontSize:13, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{"+"+(props?.item?.dataListUser.length-4)}</Text>
 

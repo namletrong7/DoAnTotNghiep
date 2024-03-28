@@ -28,6 +28,16 @@ var stateTask = ["Cần làm","Đang làm","Hoàn thành"]
 export  function getState(state){
   return state?stateTask[state]:"Cần làm";
 }
+// render ra mau chu state cua nhiệm vụ bao
+var colorTextStateTask = ["#2986ff","#fa7d52","#5f33e1"]
+export  function getColorTextStateTask(state){
+    return state?colorTextStateTask[state]:"#2986ff";
+}
+// render ra backgroun mau chu state cua nhiệm vụ bao
+var backgroundStateTask = ["#e3f3ff","#fee8e1","#e0dcf1"]
+export  function getBackgroundStateTask(state){
+    return state?backgroundStateTask[state]:"#e3f3ff";
+}
 // render ra state cua project   0-Chưa thực hiện 1-Đang thực hiện 2-tạm Dừng 3-Đã kêt thúc
 var stateProject = ["Chưa thực hiện","Đang thực hiện","Tạm dừng","Đã kết thúc"]
 export  function getStateProject(state){
