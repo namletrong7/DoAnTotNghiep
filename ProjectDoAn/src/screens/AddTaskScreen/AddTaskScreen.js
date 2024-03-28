@@ -387,7 +387,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
                fontFamily: "OpenSans-SemiBold",
              }}>{"Tạo công việc mới"}</Text>
            </TouchableOpacity>
-
+           <ModalLoading/>
          </View>
       </KeyboardAwareScrollView>
     </View>
