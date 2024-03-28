@@ -4,7 +4,7 @@ const initialState ={
   isSearchUser:false,
     dataUserSearch:[],
     isEditUserProject:false,
-
+    listUserOfProject:[],
 }
 const reducerUser = (state = initialState, action) => {
     switch (action.type) {
@@ -53,10 +53,21 @@ const reducerUser = (state = initialState, action) => {
                 isEditUserProject:  false
             };
         }
+        case 'GET_USER_OF_PROJECT': {  // lấy dc danh sách user của project
+            return { ...state,
+                listUserOfProject:  action.data
+            };
+        }
+        case 'GET_USER_OF_PROJECT_FAIL': {  // ko lấy dc danh sách user của project
+            return { ...state,
+                listUserOfProject:  []
+            };
+        }
 
         default:
             return state
     }
+    return state
 
 }
 export default reducerUser

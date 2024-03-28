@@ -54,7 +54,7 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
           <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+convertDateDB(item.endDay)}</Text>
           <View style={{flexDirection:"row",justifyContent:'space-between',alignItems:'center',flex:1}}>
             {RenderWarningDate(item.endDay)}
-            <View style={{backgroundColor:getBackgroundStateTask(item?.state),alignItems:'center',justifyContent:'center',padding:3,borderRadius:16,paddingHorizontal:10}}>
+            <View style={{backgroundColor:getBackgroundStateTask(item?.state),justifyContent:'center',padding:3,borderRadius:16,paddingHorizontal:10}}>
               <Text style={{
                 fontSize: 13,
                 color: getColorTextStateTask(item?.state),
