@@ -57,7 +57,7 @@ const ItemProject = (props) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item)}}>
 
-         <Text numberOfLines={2} style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props.item.nameProject}</Text>
+         <Text numberOfLines={2} style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props?.item?.nameProject}</Text>
          <View style={{marginVertical:10, flexDirection:"row", alignItems:"center",}}>
           <View style={{flexDirection:"row",}}>
             <View  style={{alignSelf:'flex-start'}}>
