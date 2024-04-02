@@ -49,9 +49,9 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
             }}>{getValuePriority(item.priority)}
             </Text>
             <Text>{'    '}</Text>
-            <Text   style={{fontSize:17, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-SemiBold",textDecorationLine: item.state==2?"line-through":"none"}}>{item.title}</Text>
+            <Text   style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",textDecorationLine: item.state==2?"line-through":"none"}}>{item.title}</Text>
           </Text>
-          <Text style={{fontSize:15, flexWrap: "wrap", color:"black",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+convertDateDB(item.endDay)}</Text>
+          <Text style={{fontSize:15, flexWrap: "wrap", color:"#9260f4",fontFamily:"OpenSans-Regular",marginVertical:10}}>{"Hạn: "+convertDateDB(item.endDay)}</Text>
           <View style={{flexDirection:"row",justifyContent:'space-between',alignItems:'center',flex:1}}>
             {RenderWarningDate(item.endDay)}
             <View style={{backgroundColor:getBackgroundStateTask(item?.state),justifyContent:'center',padding:3,borderRadius:16,paddingHorizontal:10}}>
