@@ -8,6 +8,7 @@ const IconCalendar = (props) => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <Path
       d="M8 2v3M16 2v3"

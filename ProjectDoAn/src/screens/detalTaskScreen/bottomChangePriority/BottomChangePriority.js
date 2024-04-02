@@ -32,7 +32,7 @@ export const BottomChangePriority = React.memo((props) => {
     const {bottomSheetRef,priority,taskId} = props
   const dispatch = useDispatch();
     const renderBackdrop = useCallback(
-        (props: any) => {
+        (props) => {
             return <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />;
         },
         []
@@ -47,7 +47,7 @@ export const BottomChangePriority = React.memo((props) => {
                 ref={bottomSheetRef}
                 enablePanDownToClose={true}
                 backdropComponent={renderBackdrop}
-                snapPoints={['40%']}>
+                snapPoints={['50%']}>
                 <BottomSheetScrollView  >
                     <View style={{paddingHorizontal:10, backgroundColor:"white",alignItems:"center",paddingBottom:200,justifyContent:"center"}}>
                           <TouchableOpacity onPress={()=>{handleChangePriority(0)}} style={{backgroundColor:priority==0?"#CCCCCC":null,width:"100%",paddingVertical:4}}>
