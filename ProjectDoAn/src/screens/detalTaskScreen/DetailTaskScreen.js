@@ -68,6 +68,7 @@ import IconBack from "../../assets/icons/IconBack";
 import IconMenu from "../../assets/icons/IconMenu";
 import {RenderActionComment} from "./ActionComment/RenderActionComment";
 import {globals as AlertIOS} from "@react-native/eslint-config";
+import { showMessage } from "react-native-flash-message";
 
 
 
@@ -285,9 +286,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 />
 
         </View>
-              <ListFileAttachComponent taskId={taskId}/>
-              <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
             </View>}
+            <ListFileAttachComponent taskId={taskId}/>
+            <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
+
           </ScrollView>
              <RenderActionComment  commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard}  />
             <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
