@@ -388,7 +388,6 @@ export function actionGetAllTask(offset) {
             }
             dispatch(updateData({
                 isGetAllTask :false
-
             }))
         } catch (error) {
             dispatch(updateData({

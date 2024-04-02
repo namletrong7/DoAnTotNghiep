@@ -24,9 +24,9 @@ import IconCalendar from "../../assets/icons/IconCalendar";
 import { baseUrlAvatarUser, baseUrlLinkFile } from "../../api/ConstBaseUrl";
 
 
-const ItemComment = ({item,navigation}) => {
+const ItemComment = ({item,navigation,openActionComment}) => {
   return (
-    <View style={{ marginTop: 20, flexDirection: "row", flex: 1, }} >
+    <TouchableOpacity style={{ marginTop: 20, flexDirection: "row", flex: 1, }} onLongPress={()=>{openActionComment(item)}} >
       <TouchableOpacity onPress={() => {
         navigation.navigate("ProfileUser", { userId: item?.createUser })
       }}>
@@ -72,7 +72,7 @@ const ItemComment = ({item,navigation}) => {
 
       </View>
 
-    </View>
+    </TouchableOpacity>
   )
 }
 

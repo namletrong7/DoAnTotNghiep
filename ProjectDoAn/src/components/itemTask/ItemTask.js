@@ -80,11 +80,11 @@ const ItemTask = (props) => {
           />
         </View>
         <View style={{  flexDirection:"row",alignItems:"center"}}>
-          <IconAttach/>
+          <IconComment/>
           <Text style={{fontSize:15, color:"#787486",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"6 bình luận"}</Text>
         </View>
         <View style={{  flexDirection:"row",alignItems:"center"}}>
-          <IconComment/>
+          <IconAttach/>
           <Text style={{fontSize:15, color:"#787486",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"10 file đính kèm"}</Text>
         </View>
       </View>
