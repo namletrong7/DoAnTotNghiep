@@ -128,95 +128,6 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
   }
 
-  const UserProject=useMemo(()=>{
-    return [
-      {
-        "userId": "1",
-        "userName": "namltc",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "John Doe",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "avatar.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "avatar.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "avatar.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "anh.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "anh.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      }
-    ]
-  })
 // hàm hõ trợ láy ra các file từ điện thoại
   const pickDocument = async () => {
      if(pickedFile.length>=5){
@@ -381,7 +292,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
              />
            </View>
            {/*<TextInputComponent textInput={content} setTextInput={setContent} title={"Nội dung công việc *"} placeHolder={"Nhập nội dung công việc "} height={150}/>*/}
-           <ModalUserProject targetUser={targetUser} visible={isShowModalUser} data={UserProject} onClose={onCloseUser} handleItem={handelItemUser}/>
+           <ModalUserProject targetUser={targetUser} visible={isShowModalUser} onClose={onCloseUser} handleItem={handelItemUser}/>
            <TouchableOpacity onPress={()=>{addTask()}} style={{height:60, borderRadius:17, backgroundColor:"#4577ef", marginTop:30,alignItems:'center', justifyContent:'center'}}>
              <Text style={{
                fontSize: 17,
