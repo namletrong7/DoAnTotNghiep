@@ -176,7 +176,7 @@ export function actionGetCommentTask(taskId,offset) {
 }
 export function actionGetMoreCommentTask(taskId,offset) {
     return async (dispatch, getState) => {
-        if (!getState().task.isGetMoreComment) {
+        if (!getState().task.isGetMoreComment && !getState().task.isGetComment) {
         await   dispatch({  // bắt đầu
             type: "START_GET_MORE_COMMENT",
         });
@@ -477,7 +477,7 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
 }
 export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
-        if(!getState().task.isGetMoreAssignTask) {
+        if(!getState().task.isGetMoreAssignTask && !getState().task.isGetAssignTask) {
    //         console.log("bat dau goi api")
             dispatch(updateData({
                 isGetMoreAssignTask: true,
@@ -527,7 +527,6 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
                 });
             }
         }else{
-  //          console.log("đang có quá trình gọi api trước đó rồi")
             return;
         }
 
