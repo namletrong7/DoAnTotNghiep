@@ -17,6 +17,7 @@ import IconDelete from "../../../assets/icons/IconDelete";
 import IconCopy from "../../../assets/icons/IconCopy";
 import IconEdit from "../../../assets/icons/IconEdit";
 import IconEdit2 from "../../../assets/icons/IconEdit2";
+import { actionDeleteComment } from "../../../redux-store/actions/task";
 
 /**
  * Created by TuanTQd on 21/03/2024
@@ -29,6 +30,11 @@ import IconEdit2 from "../../../assets/icons/IconEdit2";
         },
         []
     );
+
+    const handleDeleteComment=()=>{
+      props.dispatch(actionDeleteComment(props?.commentSelected?.commentId))
+      props.refChangeActionComment.current?.dismiss();
+    }
     return(
         <BottomSheetModalProvider>
             <BottomSheetModal
@@ -43,12 +49,12 @@ import IconEdit2 from "../../../assets/icons/IconEdit2";
                             <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Sao chép"}</Text>
                         </TouchableOpacity>
                         {currentUser===props?.commentSelected?.createUser&&
-                        <TouchableOpacity  style={{flexDirection:"row",marginTop:20}}>
+                        <TouchableOpacity onPress={props.openDialogEditComment} style={{flexDirection:"row",marginTop:20}}>
                             <IconEdit2/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10,}}>{"Sửa"}</Text>
                         </TouchableOpacity>}
                         {currentUser===props?.commentSelected?.createUser&&
-                        <TouchableOpacity  style={{flexDirection:"row",marginTop:20}}>
+                        <TouchableOpacity onPress={handleDeleteComment} style={{flexDirection:"row",marginTop:20}}>
                             <IconDelete />
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Xóa"}</Text>
                         </TouchableOpacity>}
