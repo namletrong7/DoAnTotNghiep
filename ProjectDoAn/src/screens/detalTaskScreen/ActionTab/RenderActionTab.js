@@ -32,7 +32,7 @@ import IconDelete from "../../../assets/icons/IconDelete";
                 ref={props.refChangeActionTab}
                 enablePanDownToClose={true}
                 backdropComponent={renderBackdrop}
-                snapPoints={['70%']}>
+                snapPoints={['58%']}>
                 <BottomSheetScrollView  >
                     <View style={{paddingHorizontal:20, backgroundColor:"white",paddingBottom:200,justifyContent:"center"}}>
                         {props.targetUser===currentUser&&

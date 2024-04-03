@@ -17,11 +17,6 @@ const initialState = {
     dataAllTask:[],
     isGetMoreAllTask:false,
     isGetAssignTask:false,
-    dataTaskPerSon:{
-        dataAssignTask:[],
-        dataTargetTask:[],
-       dataTaskDone:[]
-    },
     dataAssignTask:[],
     isGetTargetTask:false,
     dataTargetTask:[],
