@@ -22,6 +22,7 @@ import FastImage from 'react-native-fast-image'
 import { getColorBackgroundPriority, getColorPriority, getState, getValuePriority } from "../../utils/GetPriority";
 import IconCalendar from "../../assets/icons/IconCalendar";
 import { baseUrlAvatarUser, baseUrlLinkFile } from "../../api/ConstBaseUrl";
+import { convertDateDB } from "../../utils/ConverPickerDate";
 
 
 const ItemComment = ({item,navigation,openActionComment}) => {
@@ -43,24 +44,25 @@ const ItemComment = ({item,navigation,openActionComment}) => {
 
       <View style={{ marginLeft: 10, flex: 0.95 }}>
 
-        <TouchableOpacity style={{ flexDirection: "row", }} onPress={() => {
-          navigation.navigate("ProfileUser", { userId: item?.createUser })
-        }}>
-          <Text numberOfLines={1}
-                style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.fullName}</Text>
-          <View style={{
-            width: 7,
-            height: 7,
-            borderRadius: 7 / 2,
-            backgroundColor: "#888888",
-            margin: 9,
-            alignSelf: "center"
-          }} />
-          <Text style={{ fontSize: 14, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.createdDate}</Text>
-        </TouchableOpacity>
+
         <View style={{ backgroundColor: "#DDDDDD",borderRadius: 16,
-          borderBottomRightRadius: 0,
+          borderBottomRightRadius: 0, paddingVertical:5, paddingHorizontal:10,
           alignSelf:"flex-start",}}>
+          <TouchableOpacity style={{ flexDirection: "row",alignItems:'center'}} onPress={() => {
+            navigation.navigate("ProfileUser", { userId: item?.createUser })
+          }}>
+            <Text numberOfLines={1}
+                  style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.fullName}</Text>
+            <View style={{
+              width: 7,
+              height: 7,
+              borderRadius: 7 / 2,
+              backgroundColor: "#888888",
+              marginHorizontal: 9,
+              alignSelf: "center"
+            }} />
+            <Text style={{ fontSize: 13, color: "black", fontFamily: "OpenSans-Regular" }}>{convertDateDB(item?.createdDate)}</Text>
+          </TouchableOpacity>
           <Text style={{
             fontSize: 15,
             color: "black",

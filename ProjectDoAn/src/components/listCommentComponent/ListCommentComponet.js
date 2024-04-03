@@ -42,7 +42,6 @@ import ItemTask from "../itemTask/ItemTask";
 
      useEffect(()=> {// hàm thực hiện sau mỗi lần render
      dispatch(actionGetCommentTask(props.taskId,0))
-     console.log("goi lai api get comment")
     },[props.taskId])
    const loadMoreComment=()=>{
      dispatch(actionGetMoreCommentTask(props.taskId,dataCommentTask.length))

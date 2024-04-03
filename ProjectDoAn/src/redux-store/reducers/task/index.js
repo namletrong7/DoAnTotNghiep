@@ -182,6 +182,24 @@ const reducerTask = (state =initialState , action) => {
                 isGetMoreAssignTask: false
             };
         }
+        case 'EDIT_COMMENT': {
+            return { ...state,
+                dataCommentTask: state.dataCommentTask.map(comment =>
+                  comment.commentId === action.data.commentId
+                    ? { ...comment, content: action.data.content }
+                    : comment
+                ),
+            };
+        }
+        case 'DELETE_COMMENT': {
+            return { ...state,
+                dataCommentTask:state.dataCommentTask.filter(comment =>
+                  comment.commentId !== action.data.commentId
+                ),
+
+            };
+        }
+
         default:
             return state
     }

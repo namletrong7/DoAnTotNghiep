@@ -69,6 +69,7 @@ import IconMenu from "../../assets/icons/IconMenu";
 import {RenderActionComment} from "./ActionComment/RenderActionComment";
 import {globals as AlertIOS} from "@react-native/eslint-config";
 import { showMessage } from "react-native-flash-message";
+import DialogEditComment from "./DialogEditComment/DialogEditComment";
 
 
 
@@ -90,6 +91,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const [isVisibleReport, setIsVisibleReport] = useState(false);
   const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
   const [isVisibleProgress, setIsVisibleProgress] = useState(false);
+  const [isVisibleEditComment, setIsVisibleEditComment] = useState(false);
     const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
     const refChangeActionTab = useRef(null);
     const refChangeActionComment = useRef(null);
@@ -123,6 +125,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const closeDialogProgress=()=>{
     setIsVisibleProgress(false)
   }
+  const closeDialogEditComment=()=>{
+    setIsVisibleEditComment(false)
+  }
   const openDialogReport=()=>{
         setIsVisibleReport(true)
   }
@@ -132,7 +137,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     const openDialogProgress=()=>{
         setIsVisibleProgress(true)
     }
-
+  const openDialogEditComment=()=>{
+    setIsVisibleEditComment(true)
+  }
     const openActionTab=()=>{
         if(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser){
             refChangeActionTab.current?.present();
@@ -291,13 +298,14 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
 
           </ScrollView>
-             <RenderActionComment  commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard}  />
+             <RenderActionComment dispatch={dispatch} commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard} openDialogEditComment={openDialogEditComment}  />
             <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
             <RenderActionTask refChangeActionTab={refChangeActionTab}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress}   assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>
       <DialogProgress  taskId={taskId} visible={isVisibleProgress} onClose={closeDialogProgress} />
+      <DialogEditComment   visible={isVisibleEditComment} onClose={closeDialogEditComment} dispatch={dispatch} comment={commentSelected} />
       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{ left: 0, right: 0, bottom:0,position:"absolute",backgroundColor:"#EEEEEE"}}>
           <SendCommentComponent taskId={taskId}/>
       </KeyboardAvoidingView>

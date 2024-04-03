@@ -242,11 +242,11 @@ export function actionAddCommentTask(taskId,content) {
                 await   dispatch({
                     type: "ADD_COMMENT_TASK",
                     data:{
-                        "commentId": randomKeyComment(),
+                        "commentId": response.data?.lastCommentId,
                         "createUser":userId,
                         "taskId": taskId,
                         "content": content,
-                        "createdDate":"10/10/22",
+                        "createdDate":getNewDate(),
                         "avatarUser": avatar,
                         "fullName": "John Doe"
                     }
@@ -704,6 +704,27 @@ export function actionReportTask(body) {
             });
         }
 
+    };
+}
+export function actionEditComment(commentId, content) {
+    return async (dispatch, getState) => {
+        await dispatch({
+            type: "EDIT_COMMENT",
+            data: {
+                commentId:commentId,
+                content:content
+            }
+        });
+    };
+}
+export function actionDeleteComment(commentId) {
+    return async (dispatch, getState) => {
+        await dispatch({
+            type: "DELETE_COMMENT",
+            data: {
+                commentId:commentId,
+            }
+        });
     };
 }
 //--------------------------------------nghiêm túc
