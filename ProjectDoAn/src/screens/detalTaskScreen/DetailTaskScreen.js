@@ -70,6 +70,9 @@ import {RenderActionComment} from "./ActionComment/RenderActionComment";
 import {globals as AlertIOS} from "@react-native/eslint-config";
 import { showMessage } from "react-native-flash-message";
 import DialogEditComment from "./DialogEditComment/DialogEditComment";
+import IconAttach from "../../assets/icons/IconAttach";
+import IconAttachFile from "../../assets/icons/IconAttachFile";
+
 
 
 
@@ -186,9 +189,20 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 <IconBack/>
             </TouchableOpacity>
             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Chi tiết công việc"}</Text>
-            <TouchableOpacity onPress={openActionTab} style={{alignContent:'flex-end'}}>
+            <View  style={{ flexDirection:"row"}}>
+              <TouchableOpacity>
+                <IconAttachFile/>
+              </TouchableOpacity>
+
+
+
+
+
+              <TouchableOpacity onPress={openActionTab} style={{marginLeft:10}}>
                 <IconMenu/>
-            </TouchableOpacity>
+              </TouchableOpacity>
+
+            </View>
 
         </View>
         <GestureHandlerRootView  style={{ borderRadius:16,flex:1}}>

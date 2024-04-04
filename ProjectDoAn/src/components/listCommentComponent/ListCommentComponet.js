@@ -58,6 +58,7 @@ import ItemTask from "../itemTask/ItemTask";
          {isGetComment?(<ShimmerEffectCommentComponent/>):
            <FlatList
               data={dataCommentTask}
+              initialNumToRender={5}
               renderItem={({item}) => <ItemComment item={item} navigation={navi}  openActionComment={props.openActionComment}/>}
               keyExtractor={(item, index) => index.toString()}
               scrollEnabled={false}
