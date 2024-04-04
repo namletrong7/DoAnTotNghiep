@@ -8,7 +8,6 @@ import { randomKeyComment } from "../../../utils/RandomKeyComment";
  * Created by NamLTC on 29/01/2024
  * action auth gọi api xác thực
  */
-
 export function updateData(data) {
     return {
         type: 'AUTH_UPDATE_DATA',

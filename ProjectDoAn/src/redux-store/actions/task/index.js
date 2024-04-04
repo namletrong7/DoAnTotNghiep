@@ -146,7 +146,6 @@ export function actionGetCommentTask(taskId,offset) {
         try {
 
             const response = await Api(false).getCommentTask(taskId,offset);
-            // in ra response trả về
 
 
             if(response.data && response.data.status==200){
@@ -184,7 +183,6 @@ export function actionGetMoreCommentTask(taskId,offset) {
 
             const response = await Api(false).getCommentTask(taskId,offset);
 
-           console.log(response.data)
             if(response.data && response.data.status==200){
                 if(response.data.commentTask.length>0){
                     await   dispatch({
@@ -236,7 +234,7 @@ export function actionAddCommentTask(taskId,content) {
         let avatar=getState().auth.dataCurrentUser.avatarUser
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
-           console.log(response?.data)
+
 
             if(response.data && response.data.status==200){
                 await   dispatch({

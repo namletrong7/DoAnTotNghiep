@@ -248,7 +248,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                         <FastImage
                             style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
                             source={{
-                                uri: (baseUrlAvatarUser+dataDetailTask?.assignAvatar)||''
+                                uri: baseUrlAvatarUser+dataDetailTask?.assignAvatar
                             }}
                             resizeMode={FastImage.resizeMode.stretch}
 

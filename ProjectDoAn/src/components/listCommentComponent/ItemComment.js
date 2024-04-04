@@ -67,8 +67,8 @@ const ItemComment = ({item,navigation,openActionComment}) => {
             fontSize: 15,
             color: "black",
             fontFamily: "OpenSans-Regular",
-            paddingHorizontal: 10,
-            paddingVertical: 5,
+            paddingHorizontal: 5,
+            marginVertical:3,
           }}>{item?.content}</Text>
         </View>
 

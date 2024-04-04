@@ -57,9 +57,9 @@ export function actionGetAllProject() {
 
     };
 }
+const api = new Api(true)
 export function actionGetDetailProject(projectId) {
     return async (dispatch, getState) => {
-
         dispatch(updateData({
             isGetDetailProject:true
 

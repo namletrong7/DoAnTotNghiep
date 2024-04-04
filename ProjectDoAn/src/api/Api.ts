@@ -76,7 +76,7 @@ const Api = (isFormData) => {
   const getAllTask=(offset)=>{  /// api lasy tat ca cac task
     return apiConfig().get(`getAllTask.php?offset=${offset}`);
   }
-    const getAssignTask=(assignUser,offset)=>{ // api lấy danh sách cong việc tôi giao
+    const getAssignTask=(assignUser:number,offset:number)=>{ // api lấy danh sách cong việc tôi giao
         return apiConfig().get(`getAssignTask.php?assignUser=${assignUser}&offset=${offset}`);
     }
     const getTargetTask=(targetUser,offset)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
@@ -97,7 +97,7 @@ const Api = (isFormData) => {
   const changePriorityTask=(priority, taskId)=> {
     return apiConfig().get(`changePriorityTask.php?priority=${priority}&taskId=${taskId}`);
   }
-  const changeProgressTask=(progress, taskId)=> {
+  const changeProgressTask=(progress:number, taskId:any)=> {
     return apiConfig().get(`changeProgressTask.php?progress=${progress}&taskId=${taskId}`);
   }
   const reportTask=(body)=> {
