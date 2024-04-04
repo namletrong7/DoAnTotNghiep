@@ -54,7 +54,7 @@ const RenderIcon = (props) => {
 
             <View style={{
                 flex: 0.88, flexDirection: "row", alignItems: "center", borderRadius: 16,
-                backgroundColor: "#DDDDDD", paddingVertical: 5,
+                backgroundColor: "rgba(0,0,0,0.05)", paddingVertical: 5,
                 paddingHorizontal: 5,
             }}>
                 <View style={{ paddingHorizontal:6 }}>

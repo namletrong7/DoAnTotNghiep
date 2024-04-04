@@ -230,8 +230,9 @@ export function actionGetMoreCommentTask(taskId,offset) {
 }
 export function actionAddCommentTask(taskId,content) {
     return async (dispatch, getState) => {
-        let userId= getState().auth.dataCurrentUser.userId
-        let avatar=getState().auth.dataCurrentUser.avatarUser
+        let userId= getState().auth.dataCurrentUser?.userId
+        let avatar=getState().auth.dataCurrentUser?.avatarUser
+        let fullName=getState().auth.dataCurrentUser?.fullName
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
 
@@ -246,7 +247,7 @@ export function actionAddCommentTask(taskId,content) {
                         "content": content,
                         "createdDate":getNewDate(),
                         "avatarUser": avatar,
-                        "fullName": "John Doe"
+                        "fullName": fullName
                     }
                 });
                 showMessage({

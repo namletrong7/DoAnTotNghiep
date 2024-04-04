@@ -23,6 +23,8 @@ import { getColorBackgroundPriority, getColorPriority, getState, getValuePriorit
 import IconCalendar from "../../assets/icons/IconCalendar";
 import { baseUrlAvatarUser, baseUrlLinkFile } from "../../api/ConstBaseUrl";
 import { convertDateDB } from "../../utils/ConverPickerDate";
+import IconLike from "../../assets/icons/IconLike";
+import IconUnLike from "../../assets/icons/IconUnlike";
 
 
 const ItemComment = ({item,navigation,openActionComment}) => {
@@ -42,17 +44,15 @@ const ItemComment = ({item,navigation,openActionComment}) => {
         />
       </TouchableOpacity>
 
-      <View style={{ marginLeft: 10, flex: 0.95 }}>
-
-
-        <View style={{ backgroundColor: "#DDDDDD",borderRadius: 16,
+      <View style={{ marginLeft: 10,flex:0.9}}>
+        <View style={{ backgroundColor: "rgba(0,0,0,0.05)",borderRadius: 16,
           borderBottomRightRadius: 0, paddingVertical:5, paddingHorizontal:10,
           alignSelf:"flex-start",}}>
           <TouchableOpacity style={{ flexDirection: "row",alignItems:'center'}} onPress={() => {
             navigation.navigate("ProfileUser", { userId: item?.createUser })
           }}>
             <Text numberOfLines={1}
-                  style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.fullName}</Text>
+                  style={{ fontSize: 14, color: "black", fontFamily: "OpenSans-SemiBold" }}>{item?.fullName}</Text>
             <View style={{
               width: 7,
               height: 7,
@@ -64,15 +64,17 @@ const ItemComment = ({item,navigation,openActionComment}) => {
             <Text style={{ fontSize: 13, color: "black", fontFamily: "OpenSans-Regular" }}>{convertDateDB(item?.createdDate)}</Text>
           </TouchableOpacity>
           <Text style={{
-            fontSize: 15,
+            fontSize: 14,
             color: "black",
             fontFamily: "OpenSans-Regular",
             paddingHorizontal: 5,
             marginVertical:3,
           }}>{item?.content}</Text>
         </View>
-
       </View>
+     <TouchableOpacity style={{alignSelf:'center',marginLeft:10}}>
+       <IconUnLike/>
+     </TouchableOpacity>
 
     </TouchableOpacity>
   )
