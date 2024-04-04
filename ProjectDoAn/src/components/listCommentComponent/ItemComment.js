@@ -44,7 +44,7 @@ const ItemComment = ({item,navigation,openActionComment}) => {
         />
       </TouchableOpacity>
 
-      <View style={{ marginLeft: 10,flex:0.9}}>
+      <View style={{ marginLeft: 10,flex:1}}>
         <View style={{ backgroundColor: "rgba(0,0,0,0.05)",borderRadius: 16,
           borderBottomRightRadius: 0, paddingVertical:5, paddingHorizontal:10,
           alignSelf:"flex-start",}}>

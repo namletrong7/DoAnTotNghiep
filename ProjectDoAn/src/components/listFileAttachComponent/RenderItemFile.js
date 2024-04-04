@@ -53,7 +53,7 @@ const RenderIcon = (props) => {
                           }}>
 
             <View style={{
-                flex: 0.88, flexDirection: "row", alignItems: "center", borderRadius: 16,
+                flex: 1, flexDirection: "row", alignItems: "center", borderRadius: 16,
                 backgroundColor: "rgba(0,0,0,0.05)", paddingVertical: 5,
                 paddingHorizontal: 5,
             }}>
@@ -61,11 +61,10 @@ const RenderIcon = (props) => {
                     <RenderIcon extension={props.item?.extension} />
                 </View>
                 <Text numberOfLines={2} style={{
-                    fontSize: 15,
+                    fontSize: 14,
                     color: "black",
                     fontFamily: "OpenSans-Regular",
-                    textAlign: "left",
-                    flex:0.88
+                    flex:1
                 }}>{props.item.fileName}</Text>
             </View>
             <View style={{ flex: 0.12, alignItems:'center' }}>
