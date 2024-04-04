@@ -146,7 +146,6 @@ export function actionGetCommentTask(taskId,offset) {
         try {
 
             const response = await Api(false).getCommentTask(taskId,offset);
-            // in ra response trả về
 
 
             if(response.data && response.data.status==200){
@@ -184,7 +183,6 @@ export function actionGetMoreCommentTask(taskId,offset) {
 
             const response = await Api(false).getCommentTask(taskId,offset);
 
-           console.log(response.data)
             if(response.data && response.data.status==200){
                 if(response.data.commentTask.length>0){
                     await   dispatch({
@@ -232,11 +230,12 @@ export function actionGetMoreCommentTask(taskId,offset) {
 }
 export function actionAddCommentTask(taskId,content) {
     return async (dispatch, getState) => {
-        let userId= getState().auth.dataCurrentUser.userId
-        let avatar=getState().auth.dataCurrentUser.avatarUser
+        let userId= getState().auth.dataCurrentUser?.userId
+        let avatar=getState().auth.dataCurrentUser?.avatarUser
+        let fullName=getState().auth.dataCurrentUser?.fullName
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
-           console.log(response?.data)
+
 
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -248,7 +247,7 @@ export function actionAddCommentTask(taskId,content) {
                         "content": content,
                         "createdDate":getNewDate(),
                         "avatarUser": avatar,
-                        "fullName": "John Doe"
+                        "fullName": fullName
                     }
                 });
                 showMessage({
