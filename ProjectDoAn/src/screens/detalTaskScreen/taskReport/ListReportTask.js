@@ -22,74 +22,8 @@ import IconArrowUp from "../../../assets/icons/IconArrowLeft";
 
 export const ListReportTask = React.memo((props) => {
 
-    const dispatch = useDispatch();
-    const {assignUser,targetUser,currenUser}= props
   const dataReport = useSelector(state => state.task.detailTask.dataReport);
-  //  console.log(currenUser === targetUser && assignUser==1)
-    const [seeAll, setSeeAll] = useState(true); // xem có nên xem hết file hay không
-    const dataListBaoCao = [
-      {
-        "reportId": "0",
-        "taskId": "T001",
-        "createUser": "1",
-        "type": "0",
-        "status": "0",
-        "content": "dd",
-        "fullName": "John Doe"
-      },
-      {
-        "reportId": "1",
-        "taskId": "T001",
-        "createUser": "1",
-        "type": "1",
-        "status": "1",
-        "content": "em xin phép dc trình bày: " +
-          "phẩm của chúng ta như vậy, em có biết là tổn thất của chúng ta lần này lớn đến nhương nào hay không",
-        "fullName": "John Doe"
-      }
-    ]
-
-
-    // useEffect(() => {
-    //   dispatch(actionGetFileAttach(props.taskId))
-    // }, []);
-   // const RenderActionReport=(props)=>{
-   //   const {item} = props
-   //   if(item.type==0)// neu báo cáo có kiểu type=0 là yêu cầu báo cáo
-   //   {
-   //     return (
-   //       <View style={{alignSelf:"flex-end", marginTop:15}}>
-   //         {currenUser == targetUser && item.status == 0 ? (
-   //           <View style={{ backgroundColor: "#c0dbf5", borderRadius: 10, paddingVertical: 7 , width:70, alignItems:"center", borderWidth:1, borderColor:"#1281e9"}}>
-   //             <Text style={{color:"#148eff"}}>{"Báo cáo"}</Text>
-   //           </View>
-   //         ) : null}
-   //       </View>
-   //
-   //     )
-   //   }
-   //   if(item.type==1)// neu là báo cáo công việc
-   //   {
-   //     return (
-   //       <View style={{alignSelf:"flex-end", marginTop:15,}}>
-   //         {currenUser == assignUser && item.status == 1 ? (
-   //           <View style={{flexDirection:"row"}}>
-   //             <View style={{ backgroundColor: "#fcd3d3", borderRadius: 10, paddingVertical: 7 , width:70, alignItems:"center", borderWidth:1, borderColor:"#fd1818"}}>
-   //               <Text style={{color:"#fd1818"}}>{"Từ chối"}</Text>
-   //             </View>
-   //             <View style={{ marginLeft:10, backgroundColor: "#c0dbf5", borderRadius: 10, paddingVertical: 7 , width:70, alignItems:"center", borderWidth:1, borderColor:"#1281e9"}}>
-   //               <Text style={{color:"#148eff"}}>{"Duyệt"}</Text>
-   //             </View>
-   //           </View>
-   //
-   //         ) : null}
-   //       </View>
-   //
-   //     )
-   //   }
-   //
-   //
-   // }
+  const [seeAll, setSeeAll] = useState(true);
 
     const RenderItemReport = (props) => {
       const {item} = props
