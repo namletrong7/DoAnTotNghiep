@@ -30,6 +30,7 @@ const TaskProjectDoing = ({navigation,route}) => {
           (dataListTaskProjectDoing?.length > 0 ?
               (<FlatList
                   data={dataListTaskProjectDoing}
+                  initialNumToRender={5}
                   renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
                   scrollEnabled={true}
                   keyExtractor={item => item.taskId}

@@ -64,7 +64,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
 
   // @ts-ignore
   const renderBackdrop = useCallback(
-    (props: any) => {
+    (props) => {
       return <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />;
     },
     []
