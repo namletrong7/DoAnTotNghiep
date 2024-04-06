@@ -32,10 +32,10 @@ export const BottomChangePriority = React.memo((props) => {
         },
         []
     );
-    const handleChangePriority=async (priority) => {
-      await dispatch(actionChangePriorityTask(priority, taskId))
-      bottomSheetRef.current.dismiss();
-    }
+  const handleChangePriority = useCallback(async (priority) => {
+    await dispatch(actionChangePriorityTask(priority, taskId));
+    bottomSheetRef.current.dismiss();
+  }, [ taskId]);
     return(
         <BottomSheetModalProvider>
             <BottomSheetModal

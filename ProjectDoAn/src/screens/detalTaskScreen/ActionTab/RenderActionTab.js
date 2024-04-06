@@ -26,9 +26,9 @@ import IconDelete from "../../../assets/icons/IconDelete";
         },
         []
     );
-    const closeActionTab=()=>{
-      props.refChangeActionTab.current?.dismiss();
-    }
+    // const closeActionTab=()=>{
+    //   props.refChangeActionTab.current?.dismiss();
+    // }
 
     return(
         <BottomSheetModalProvider>

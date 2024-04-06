@@ -31,10 +31,11 @@ import { actionDeleteComment } from "../../../redux-store/actions/task";
         []
     );
 
-    const handleDeleteComment=async () => {
-      await props.dispatch(actionDeleteComment(props?.commentSelected?.commentId))
-      props.refChangeActionComment.current?.dismiss();
-    }
+  const handleDeleteComment = useCallback(async () => {
+    await props.dispatch(actionDeleteComment(props?.commentSelected?.commentId));
+    props.refChangeActionComment.current?.dismiss();
+  }, [ props.commentSelected]);
+
     return(
         <BottomSheetModalProvider>
             <BottomSheetModal
