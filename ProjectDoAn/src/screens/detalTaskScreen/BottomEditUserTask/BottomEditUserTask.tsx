@@ -4,8 +4,7 @@
 
 import React, {useCallback, useEffect, useState} from "react";
 import {
-  Dimensions,
-  FlatList, KeyboardAvoidingView, Platform,
+  Dimensions, KeyboardAvoidingView, Platform,
   SafeAreaView, ScrollView,
   StyleSheet,
   Text, TextInput,
@@ -13,7 +12,7 @@ import {
   useWindowDimensions,
   View
 } from "react-native";
-
+import {  FlatList } from 'react-native-gesture-handler';
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -32,7 +31,7 @@ import IconArrowRight from "../../../assets/icons/IconArrowRigth.js";
 import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
 import FastImage from "react-native-fast-image";
 import IconSearch from "../../../assets/icons/IconSearch.js";
-import { actionsearchUser } from "../../../redux-store/actions/user";
+import { actionEditUserForTask, actionsearchUser } from "../../../redux-store/actions/user";
 import { ItemUserSearch } from "../../AddProjectScreen/ListUserSearch/ItemUserSearch.js";
 import { ItemUser } from "./itemUser.tsx";
 
@@ -53,9 +52,9 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
     useEffect(()=>{
       console.log("mout lai")
     },[])
-    const handleEditUser=async (priority:any):Promise<void> => {
-      await dispatch(actionChangePriorityTask(priority, taskId))
+    const handleEditUser=async ():Promise<void> => {
       bottomSheetRef.current.dismiss();
+      await dispatch(actionEditUserForTask(type, taskId,userSelected?.userId))
     }
    const handleSearchUser=(value:string)=>{
       setTextSearch(value)
@@ -71,7 +70,6 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
                 enablePanDownToClose={true}
                 backdropComponent={renderBackdrop}
                 snapPoints={['80%']}>
-                <BottomSheetScrollView  >
                     <View style={{paddingHorizontal:10, backgroundColor:"white",marginBottom:200}}>
                           <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center",width:'100%'}}>
                                 <TouchableOpacity>
@@ -83,7 +81,7 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
                               fontFamily: "Roboto-Bold",
                               textAlign: "left",
                             }}>{type==0?"Người giao việc":"Giao xử lý"}</Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity  onPress={handleEditUser}>
                               <Text style={{
                                 fontSize: 17,
                                 color: "#3399FF",
@@ -122,13 +120,13 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
                         </SafeAreaView>
                       </KeyboardAvoidingView>
                       <FlatList
+                        style={{marginBottom:'10%'}}
                         data={dataUserSearch}
                         renderItem={({item}) => <ItemUser item={item} handleChooseUser={handleChooseUser}/>}
-                        scrollEnabled={false}
+                        scrollEnabled={true}
                         keyExtractor={item => item.userId}
                       />
                     </View>
-                </BottomSheetScrollView>
             </BottomSheetModal>
         </BottomSheetModalProvider>
     )
