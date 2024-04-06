@@ -19,6 +19,7 @@ import ListUserSearch from "../../AddProjectScreen/ListUserSearch/ListUserSearch
 import { checkMember } from "../../AddProjectScreen/Utils/CheckMember";
 import { drawAsImage } from "@shopify/react-native-skia";
 import { showMessage } from "react-native-flash-message";
+import { ScrollView } from "react-native-gesture-handler";
 
 export const BottomEditUser=React.memo((props)=>{
   const {bottomSheetRef,renderBackdrop,dataUserChoose,snapPoints,projectId,handelCloseEditUser}= props
@@ -80,7 +81,7 @@ export const BottomEditUser=React.memo((props)=>{
         enablePanDownToClose={true}
         backdropComponent={renderBackdrop}
         snapPoints={snapPoints}>
-        <BottomSheetScrollView style={{backgroundColor:"white"}} >
+        <ScrollView style={{backgroundColor:"white"}} >
           <View style={{paddingHorizontal:10, backgroundColor:"white",marginBottom:"40%"}}>
             <Text style={{fontSize:18,alignSelf:'center',marginVertical:10, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Chỉnh sửa thành viên tham gia dự án"}</Text>
             <Text style={{fontSize:15,alignSelf:'flex-start',marginVertical:10, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Các thành viên đang tham gia dự án:"}</Text>
@@ -107,7 +108,7 @@ export const BottomEditUser=React.memo((props)=>{
               }}>{"Cập nhật thành viên"}</Text>
             </TouchableOpacity>
           </View>
-        </BottomSheetScrollView>
+        </ScrollView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
   )

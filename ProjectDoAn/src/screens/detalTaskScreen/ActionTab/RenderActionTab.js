@@ -1,11 +1,11 @@
-import {Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Text, TouchableOpacity, View} from "react-native";
 import IconReport from "../../../assets/icons/IconReport";
 import IconPin from "../../../assets/icons/IconProhress";
-import IconDone from "../../../assets/icons/IconDone";
 import IconChangehuman from "../../../assets/icons/IconChangeHuman";
 import IconCalendar from "../../../assets/icons/IconCalendar";
 import React, {useCallback} from "react";
 import {useSelector} from "react-redux";
+import { ScrollView } from 'react-native-gesture-handler';
 import {
     BottomSheetBackdrop,
     BottomSheetModal,
@@ -26,6 +26,10 @@ import IconDelete from "../../../assets/icons/IconDelete";
         },
         []
     );
+    const closeActionTab=()=>{
+      props.refChangeActionTab.current?.dismiss();
+    }
+
     return(
         <BottomSheetModalProvider>
             <BottomSheetModal
@@ -33,7 +37,7 @@ import IconDelete from "../../../assets/icons/IconDelete";
                 enablePanDownToClose={true}
                 backdropComponent={renderBackdrop}
                 snapPoints={['58%']}>
-                <BottomSheetScrollView  >
+                <ScrollView  >
                     <View style={{paddingHorizontal:20, backgroundColor:"white",paddingBottom:200,justifyContent:"center"}}>
                         {props.targetUser===currentUser&&
                         <TouchableOpacity onPress={props.openDialogReport} style={{flexDirection:"row",marginTop:10}}>
@@ -49,14 +53,14 @@ import IconDelete from "../../../assets/icons/IconDelete";
                             <IconPin/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Tiến độ"}</Text>
                         </TouchableOpacity>
-                        <View style={{flexDirection:"row",marginTop:20}}>
+                        <TouchableOpacity onPress={()=>{props.openBottomEditUser(0)}} style={{flexDirection:"row",marginTop:20}}>
                             <IconChangehuman/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Thay đổi người giao"}</Text>
-                        </View>
-                        <View style={{flexDirection:"row",marginTop:20}}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{props.openBottomEditUser(1)}} style={{flexDirection:"row",marginTop:20}}>
                             <IconChangehuman/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Thay đổi người xử lý"}</Text>
-                        </View>
+                        </TouchableOpacity>
 
                         <View style={{flexDirection:"row",marginTop:20}}>
                             <IconCalendar  width={25}
@@ -74,7 +78,7 @@ import IconDelete from "../../../assets/icons/IconDelete";
                         </View>
 
                     </View>
-                </BottomSheetScrollView>
+                </ScrollView>
             </BottomSheetModal>
         </BottomSheetModalProvider>
 

@@ -72,6 +72,7 @@ import { showMessage } from "react-native-flash-message";
 import DialogEditComment from "./DialogEditComment/DialogEditComment";
 import IconAttach from "../../assets/icons/IconAttach";
 import IconAttachFile from "../../assets/icons/IconAttachFile";
+import { BottomEditUserTask } from "./BottomEditUserTask/BottomEditUserTask";
 
 
 
@@ -98,7 +99,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
     const refChangeActionTab = useRef(null);
     const refChangeActionComment = useRef(null);
-
+  const refChangeEditUser = useRef(null); // hiern thị bottom sheet thya dỏi user
+  const [typeEditUser, setTypeEditUser] = useState(0); // type cho bottom chỉnh sửa user giao hay xử lý
     function handelOpenChangePriority (){// hàm mở ra bottom sheet thay doi proority
         refChangePriority.current?.present();
     }
@@ -161,6 +163,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         setCommentSelected(item)
         refChangeActionComment.current?.present();
     }
+    const openBottomEditUser=(type)=>{
+      setTypeEditUser(type)
+      refChangeEditUser.current?.present();
+      refChangeActionTab.current?.dismiss()
+    }
+
    const changTitleTask=async (newTitle) => {
      showMessage({
        message: "Chỉnh sửa tiêu đề thành công",
@@ -312,9 +320,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
 
           </ScrollView>
+          <BottomEditUserTask bottomSheetRef ={refChangeEditUser} taskId={taskId} type={typeEditUser}  />
              <RenderActionComment dispatch={dispatch} commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard} openDialogEditComment={openDialogEditComment}  />
             <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
-            <RenderActionTask refChangeActionTab={refChangeActionTab}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress}   assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />
+            <RenderActionTask refChangeActionTab={refChangeActionTab} openBottomEditUser={openBottomEditUser}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress}   assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>

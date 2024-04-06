@@ -31,8 +31,8 @@ import { actionDeleteComment } from "../../../redux-store/actions/task";
         []
     );
 
-    const handleDeleteComment=()=>{
-      props.dispatch(actionDeleteComment(props?.commentSelected?.commentId))
+    const handleDeleteComment=async () => {
+      await props.dispatch(actionDeleteComment(props?.commentSelected?.commentId))
       props.refChangeActionComment.current?.dismiss();
     }
     return(

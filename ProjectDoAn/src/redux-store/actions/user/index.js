@@ -191,6 +191,43 @@ export function actionGetListUserProject(projectId) {
 
   };
 }
+export function actionEditUserForTask(type , taskId, userId) {
+  return async (dispatch, getState) => {
+      try {
+        const response = await Api(false).editUserForTask(type,taskId, userId );
+
+        if(response.data && response.data.status==200){
+          showMessage({
+            message: response.data?.message,
+            type: "success",
+            duration: 1000,
+            icon: { icon: "success", position: 'left' }
+          });
+
+        }
+        else{
+          showMessage({
+            message: "Xảy ra lỗi vui lòng thử lại sau",
+            type: "warning",
+            duration: 1000,
+            icon: { icon: "warning", position: 'left' }
+          });
+        }
+      } catch (error) {
+        await   dispatch({
+          type: "GET_USER_OF_PROJECT_FAIL",
+        });
+        showMessage({
+          message: "Lỗi mạng",
+          type: "danger",
+          duration: 1000,
+          icon: { icon: "danger", position: 'left' }
+        });
+      }
+
+
+  };
+}
 
 export default {
   actionGetProfileUser
