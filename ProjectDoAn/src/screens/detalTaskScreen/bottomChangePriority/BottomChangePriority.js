@@ -2,30 +2,25 @@
  * Componet hiển thị bottm tab thay doi  priority cho task
  */
 
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback} from "react";
 import {
-  Dimensions,
-  FlatList,
-  SafeAreaView, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  useWindowDimensions,
   View,
 } from "react-native";
 
 
-import { useDispatch, useSelector } from "react-redux";
-import IconArrowDown from "../../../assets/icons/IconArrowDown";
-import IconArrowUp from "../../../assets/icons/IconArrowLeft";
+import { useDispatch } from "react-redux";
+
 import {
     BottomSheetBackdrop,
     BottomSheetModal,
     BottomSheetModalProvider,
-    BottomSheetScrollView
 } from "@gorhom/bottom-sheet";
 import {getColorBackgroundPriority, getColorPriority, getValuePriority} from "../../../utils/GetPriority";
 import { actionChangePriorityTask } from "../../../redux-store/actions/task";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 export const BottomChangePriority = React.memo((props) => {
@@ -48,7 +43,7 @@ export const BottomChangePriority = React.memo((props) => {
                 enablePanDownToClose={true}
                 backdropComponent={renderBackdrop}
                 snapPoints={['40%']}>
-                <BottomSheetScrollView  >
+                <ScrollView  >
                     <View style={{paddingHorizontal:10, backgroundColor:"white",alignItems:"center",paddingBottom:200,justifyContent:"center"}}>
                           <TouchableOpacity onPress={()=>{handleChangePriority(0)}} style={{backgroundColor:priority==0?"#CCCCCC":null,width:"100%",paddingVertical:4}}>
                               <View style={{padding:8,paddingHorizontal:10, borderRadius:16, backgroundColor:getColorBackgroundPriority( 0) ,alignItems:"center",alignSelf:"center"}}>
@@ -75,7 +70,7 @@ export const BottomChangePriority = React.memo((props) => {
 
 
                     </View>
-                </BottomSheetScrollView>
+                </ScrollView>
             </BottomSheetModal>
         </BottomSheetModalProvider>
     )
