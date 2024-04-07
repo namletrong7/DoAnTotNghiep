@@ -1,7 +1,7 @@
 /*
 *   Component hiển thị cho phép báo cáo tiến độ hoặc yêu cầu báo
 * */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 import IconSub from "../../../assets/icons/IconSub";
@@ -13,10 +13,14 @@ const DialogReport = ({ visible ,onClose,taskId}) => {
   const dispatch = useDispatch();
 
   const [progress, setProgress] = useState(0);
-  const handleChangePriorityTask=async () => {
-    await dispatch(actionChangeProgressTask(progress, taskId))
-    onClose()
-  }
+  const handleChangePriorityTask = useCallback(async () => {
+    try {
+      await dispatch(actionChangeProgressTask(progress, taskId));
+      onClose();
+    } catch (error) {
+      console.error('Error changing priority of task:', error);
+    }
+  }, [ progress, taskId, onClose]);
   return (
     <Modal
       animationType="slide"

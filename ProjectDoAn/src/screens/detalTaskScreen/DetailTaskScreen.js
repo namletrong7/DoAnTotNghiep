@@ -8,56 +8,35 @@ import RenderHtml from 'react-native-render-html';
 import {
     View,
     Text,
-    Button,
     StyleSheet,
     TouchableOpacity,
-    TouchableWithoutFeedback,
-    ActivityIndicator,
-    ImageBackground,
     Dimensions,
-    Image,
     SafeAreaView,
-    FlatList,
-    TextInput,
     ScrollView,
     KeyboardAvoidingView,
-    RefreshControl, Platform, StatusBar, ToastAndroid,
+    RefreshControl, StatusBar,
 } from "react-native";
-import {
-  actionAddComment,
-  actionAddDataFake,
-  actionChangeTitleTask,
-  actionLogout,
-} from "../../redux-store/actions/auth";
+import { actionChangeTitleTask, } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
+
 import {
     getBackgroundStateTask,
     getColorBackgroundPriority,
-    getColorPriority, getColorTextStateTask, getState, getStateProject,
+    getColorPriority, getColorTextStateTask, getState,
     getValuePriority,
 } from "../../utils/GetPriority";
 import ListCommentComponet from "../../components/listCommentComponent/ListCommentComponet";
 import FastImage from "react-native-fast-image";
 import SendCommentComponent from "../../components/sendComentComponet/SendCommentComponent";
 import { ListFileAttachComponent } from "../../components/listFileAttachComponent/ListFileAttachComponent";
-import ModalChaneConent from "../../components/changeConentComponent/ModalChangeContent";
 import IconEdit from "../../assets/icons/IconEdit";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import LoadingComponent from "../../components/loadingComponent/LoadingComponent";
 import { actionGetDetailTask } from "../../redux-store/actions/task";
-import { useRoute } from "@react-navigation/native";
+
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import { ListReportTask } from "./taskReport/ListReportTask";
 
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import {TopTabTask1} from "../DetailProject/toptab/TopTabTask";
-import {
-    BottomSheetBackdrop,
-    BottomSheetModal,
-    BottomSheetModalProvider,
-    BottomSheetScrollView
-} from "@gorhom/bottom-sheet";
 import {useRef} from "react/index";
 import {BottomChangePriority} from "./bottomChangePriority/BottomChangePriority";
 import DialogReport from "./dialogReport/DialogReport";
@@ -67,28 +46,27 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconBack from "../../assets/icons/IconBack";
 import IconMenu from "../../assets/icons/IconMenu";
 import {RenderActionComment} from "./ActionComment/RenderActionComment";
-import {globals as AlertIOS} from "@react-native/eslint-config";
 import { showMessage } from "react-native-flash-message";
-import DialogEditComment from "./DialogEditComment/DialogEditComment";
-import IconAttach from "../../assets/icons/IconAttach";
+import DialogEditComment from "./DialogEditComment/DialogEditComment";;
 import IconAttachFile from "../../assets/icons/IconAttachFile";
 import { BottomEditUserTask } from "./BottomEditUserTask/BottomEditUserTask";
+import DialogChangContent from "../../components/changeConentComponent/ModalChangeContent";
 
 
 
 
 export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
-  const { taskId } = route?.params||"T001";
+  const { taskId } = route?.params || "T001";
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   // láy data detail task từ  reducer có dược
   const dataDetailTask = useSelector(state => state.task.detailTask);
   const isGetDetailTask = useSelector(state => state.task.isGetDetailTask);
-    const currentUser = useSelector(state => state.auth.dataCurrentUser.userId);
+  const currentUser = useSelector(state => state.auth.dataCurrentUser.userId);
   const [redMoreContent, setRedMoreContent] = useState(false); // bến xác định xem có đọc thêm nội dung khi nó quá dài hya không
   // Lấy thông tin kích thước của màn hình
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+  const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
   const [isShowChangeConent, setIsShowChangeConent] = useState(false); // hiển thị dialog chỉnh sửa thông tin
   const refChangePriority = useRef(null); // ref cho bottm sheet chinh sau priority
 
@@ -96,21 +74,22 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
   const [isVisibleProgress, setIsVisibleProgress] = useState(false);
   const [isVisibleEditComment, setIsVisibleEditComment] = useState(false);
-    const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
-    const refChangeActionTab = useRef(null);
-    const refChangeActionComment = useRef(null);
+  const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
+  const refChangeActionTab = useRef(null);
+  const refChangeActionComment = useRef(null);
   const refChangeEditUser = useRef(null); // hiern thị bottom sheet thya dỏi user
   const [typeEditUser, setTypeEditUser] = useState(0); // type cho bottom chỉnh sửa user giao hay xử lý
-    function handelOpenChangePriority (){// hàm mở ra bottom sheet thay doi proority
-        refChangePriority.current?.present();
-    }
+
+  const handelOpenChangePriority = useCallback(() => {// hàm mở ra bottom sheet thay doi proority
+    refChangePriority.current?.present();
+  },[]);
 
   useEffect( () => {
 
      dispatch(actionGetDetailTask(taskId))
 
   },[taskId])
-   const onRefresh = () => {
+   const onRefresh = useCallback(() => {
     // Đặt refreshing thành true để thể hiện quá trình load lại
     setRefreshing(true);
     dispatch(actionGetDetailTask(taskId))
@@ -119,33 +98,33 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
     // Sau khi hoàn thành, đặt refreshing về false để kết thúc quá trình load lại
     setRefreshing(false);
-  };
+  },[taskId,setRefreshing]);
 
-    const closeDialogReport=()=>{
+    const closeDialogReport=useCallback(()=>{
       setIsVisibleReport(false)
-    }
-  const closeDialogRequestReport=()=>{
+    },[])
+  const closeDialogRequestReport=useCallback(()=>{
     setisVisibleRequestReport(false)
-  }
-  const closeDialogProgress=()=>{
+  },[])
+  const closeDialogProgress=useCallback(()=>{
     setIsVisibleProgress(false)
-  }
-  const closeDialogEditComment=()=>{
+  },[])
+  const closeDialogEditComment=useCallback(()=>{
     setIsVisibleEditComment(false)
-  }
-  const openDialogReport=()=>{
+  },[])
+  const openDialogReport=useCallback(()=>{
         setIsVisibleReport(true)
-  }
-  const openDialogRequestReport=()=>{
+  },[])
+  const openDialogRequestReport=useCallback(()=>{
     setisVisibleRequestReport(true)
-  }
-    const openDialogProgress=()=>{
+  },[])
+    const openDialogProgress=useCallback(()=>{
         setIsVisibleProgress(true)
-    }
-  const openDialogEditComment=()=>{
+    },[])
+  const openDialogEditComment=useCallback(()=>{
     setIsVisibleEditComment(true)
-  }
-    const openActionTab=()=>{
+  },[])
+    const openActionTab=useCallback(()=>{
         if(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser){
             refChangeActionTab.current?.present();
         }
@@ -158,18 +137,18 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             });
            return ;
         }
-    }
-    const openActionComment=(item)=>{
+    },[currentUser,dataDetailTask])
+    const openActionComment=useCallback((item)=>{
         setCommentSelected(item)
         refChangeActionComment.current?.present();
-    }
-    const openBottomEditUser=(type)=>{
+    },[])
+    const openBottomEditUser=useCallback((type)=>{
       setTypeEditUser(type)
       refChangeEditUser.current?.present();
       refChangeActionTab.current?.dismiss()
-    }
+    },[])
 
-   const changTitleTask=async (newTitle) => {
+   const changTitleTask=useCallback(async (newTitle) => {
      showMessage({
        message: "Chỉnh sửa tiêu đề thành công",
        type: "success",
@@ -178,11 +157,11 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
      });
      await dispatch(actionChangeTitleTask(newTitle))
      setIsShowChangeConent(false)
-   }
-    const copyToClipboard =()=>{
+   },[actionChangeTitleTask])
+    const copyToClipboard =useCallback(()=>{
         Clipboard.setString(commentSelected?.content);
         refChangeActionComment.current?.dismiss()
-    }
+    },[commentSelected])
 
   return (
     <View style={{height:"100%",backgroundColor:"#EEEEEE"}}>
@@ -332,7 +311,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{ left: 0, right: 0, bottom:0,position:"absolute",backgroundColor:"#EEEEEE"}}>
           <SendCommentComponent taskId={taskId}/>
       </KeyboardAvoidingView>
-        <ModalChaneConent visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
+        <DialogChangContent visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
     </View>
 
   );

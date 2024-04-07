@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
-const ModalChaneConent = ({ visible, onClose,onEdit }) => {
+const DialogChangContent = ({ visible, onClose,onEdit }) => {
   const  [content , setContent] = useState('');
 
   return (
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default React.memo(ModalChaneConent) ;
+export default React.memo(DialogChangContent) ;

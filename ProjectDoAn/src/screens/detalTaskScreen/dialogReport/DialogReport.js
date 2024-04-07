@@ -1,7 +1,7 @@
 /*
 *   Component hiển thị cho phép báo cáo tiến độ hoặc yêu cầu báo
 * */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 import { actionReportTask } from "../../../redux-store/actions/task";
@@ -9,18 +9,20 @@ import { actionReportTask } from "../../../redux-store/actions/task";
 const DialogReport = ({ visible,title, onClose, type,taskId ,dispatch,userId}) => {
   const [content, setContent] = useState("");
 
-  const handleReportTask=async () => {
-    await dispatch(actionReportTask({
-
-      "taskId":taskId,
-      "createUser":userId,
-      "content":content,
-      "typeTask":type
-
-    }))
-    setContent('')
-    onClose()
-  }
+  const handleReportTask = useCallback(async () => {
+    try {
+      await dispatch(actionReportTask({
+        taskId: taskId,
+        createUser: userId,
+        content: content,
+        typeTask: type
+      }));
+      setContent('');
+      onClose();
+    } catch (error) {
+      console.error('Error reporting task:', error);
+    }
+  }, [  taskId, userId, content, type]);
   return (
     <Modal
       animationType="slide"

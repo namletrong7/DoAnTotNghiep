@@ -39,7 +39,7 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
 
     const [refreshing, setRefreshing] = useState(false);
     const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
-    console.log(dataCurrentUser)
+
 
 
     return (
