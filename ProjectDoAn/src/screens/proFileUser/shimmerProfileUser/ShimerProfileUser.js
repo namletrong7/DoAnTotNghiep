@@ -27,12 +27,25 @@ export  const ShimmerProfileUser =React.memo((props) => {
                               height={100}
                               LinearGradient={LinearGradient}>
           </ShimmerPlaceholder>
-          <View style={{marginTop:30}}>
-            <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,backgroudColor:"red"}}
-                                width={screenWidth*0.7}
-                                height={20}
-                                LinearGradient={LinearGradient}>
-            </ShimmerPlaceholder>
+          <View style={{marginTop:50}}>
+            <View style={{flexDirection:"row",justifyContent:'space-between'}}>
+              <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,backgroudColor:"red"}}
+                                  width={40}
+                                  height={40}
+                                  LinearGradient={LinearGradient}>
+              </ShimmerPlaceholder>
+              <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,backgroudColor:"red"}}
+                                  width={40}
+                                  height={40}
+                                  LinearGradient={LinearGradient}>
+              </ShimmerPlaceholder>
+              <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,backgroudColor:"red"}}
+                                  width={40}
+                                  height={40}
+                                  LinearGradient={LinearGradient}>
+              </ShimmerPlaceholder>
+            </View>
+
             <ShimmerPlaceholder visible={isVisible} style={{borderRadius:10,marginTop:30}}
                                 width={screenWidth*0.7}
                                 height={20}

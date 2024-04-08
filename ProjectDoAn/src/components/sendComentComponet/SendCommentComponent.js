@@ -2,7 +2,7 @@
  * Componet hiển thị danh sách bình luận
  */
 
-import React, { Component, useState } from "react";
+import React, { Component, useCallback, useState } from "react";
 import ImagePicker from 'react-native-image-crop-picker';
 import {
   Dimensions,
@@ -32,12 +32,12 @@ const SendCommentComponent = (props)=> {
     const [imageUri, setImageUri] = useState(null);
   const [content, setContent] = useState("");
 
-    const sendComment=()=>{
-      dispatch(actionAddCommentTask(props.taskId,content))
+    const sendComment=useCallback(()=>{
+      dispatch(actionAddCommentTask(props?.taskId,content))
       setContent('')
       setImageUri(null)
 
-    }
+    },[props?.taskId,content])
    function  chooseImage(){
        ImagePicker.openPicker({
          mediaType: 'photo', // Chỉ chọn ảnh

@@ -4,8 +4,8 @@ import Svg, { Path } from "react-native-svg"
 function IconClose(props) {
   return (
     <Svg
-      width={props.height ? props.height : 30}
-      height={props.width ? props.width : 30}
+      width={30}
+      height={30}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
