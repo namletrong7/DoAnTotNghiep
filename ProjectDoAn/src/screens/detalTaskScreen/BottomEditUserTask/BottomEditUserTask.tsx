@@ -52,17 +52,17 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
     useEffect(()=>{
       console.log("mout lai")
     },[])
-    const handleEditUser=async ():Promise<void> => {
-      bottomSheetRef.current.dismiss();
-      await dispatch(actionEditUserForTask(type, taskId,userSelected?.userId))
-    }
-   const handleSearchUser=(value:string)=>{
-      setTextSearch(value)
-     dispatch(actionsearchUser(value))
-   }
-   const handleChooseUser=(item:object)=>{
-      setUserSelected(item)
-   }
+  const handleEditUser = useCallback(async (): Promise<void> => {
+    bottomSheetRef.current.dismiss();
+      await dispatch(actionEditUserForTask(type, taskId, userSelected?.userId));
+  }, [ type, taskId, userSelected?.userId]);
+  const handleSearchUser = useCallback((value: string) => {
+    setTextSearch(value);
+    dispatch(actionsearchUser(value));
+  }, []);
+  const handleChooseUser = useCallback((item: object) => {
+    setUserSelected(item);
+  }, []);
   return(
         <BottomSheetModalProvider>
             <BottomSheetModal

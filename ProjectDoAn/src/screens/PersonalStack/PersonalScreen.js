@@ -2,7 +2,7 @@
  * Màn hình cá nhân của user đang đăng nhập đưa vào bottomtab
  */
 
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -50,30 +50,30 @@ export const PersonalScreen = React.memo(({navigation})=>{
   const [isShowLogOut, SetIsShowLogOut] = useState(false); // show dialog đăng xuát
   const dispatch = useDispatch();
 
-  const handleLogout=()=>{
+  const handleLogout=useCallback(()=>{
 
    dispatch(actionLogout())
 
-  }
-  const handleCloseLogout=()=>{
+  },[])
+  const handleCloseLogout=useCallback(()=>{
     SetIsShowLogOut(false)
-  }
-  const show=()=>{
+  },[])
+  const show=useCallback(()=>{
     showMessage({
       message: "Tính năng đang được phát triển",
       type: "warning",
       duration: 3000,
       icon: { icon: "warning", position: 'left' }
     });
-  }
-  const showInfo=()=>{
+  },[])
+  const showInfo=useCallback(()=>{
     showMessage({
       message: "Phiên bản 1.0.0",
       type: "warning",
       duration: 3000,
       icon: { icon: "warning", position: 'left' }
     });
-  }
+  },[])
   return (
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}/>

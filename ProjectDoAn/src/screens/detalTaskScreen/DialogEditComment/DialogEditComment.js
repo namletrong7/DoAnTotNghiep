@@ -1,7 +1,7 @@
 /*
 *   Component hiển thị cho phép báo cáo tiến độ hoặc yêu cầu báo
 * */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 import { actionEditComment, actionReportTask } from "../../../redux-store/actions/task";
@@ -12,11 +12,13 @@ const DialogEditComment = ({ visible, onClose, comment,dispatch}) => {
   useEffect(()=>{
      setContent(comment?.content)
   },[comment])
-  const handleEditComment=async () => {
-    await dispatch(actionEditComment(comment.commentId, content))
-    setContent('')
-    onClose()
-  }
+  const handleEditComment = useCallback(async () => {
+
+      await dispatch(actionEditComment(comment.commentId, content));
+      setContent('');
+      onClose();
+
+  }, [ comment?.commentId, content]);
   return (
     <Modal
       animationType="slide"

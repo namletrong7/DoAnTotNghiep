@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import { convertDateDB } from "../../../utils/ConverPickerDate";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ListUserChoose from "../../AddProjectScreen/ListUserChoose/ListUserChoose";
 import IconSearch from "../../../assets/icons/IconSearch";
 import { actionEditUserProject, actionsearchUser } from "../../../redux-store/actions/user";
@@ -30,22 +30,22 @@ export const BottomEditUser=React.memo((props)=>{
   useEffect(()=>{
     setDataUser(dataUserChoose)
   },[dataUserChoose])
-  const handleSearchUser=value=>{
-    settextSearch(value)
-    dispatch(actionsearchUser(value))
-  }
-  const handleChooseUser=(itemCheck)=> {  // hàm nhấn vào để chọn user trong ds tìm kiếm
-    if (checkMember(itemCheck, dataUser)) { // nếu đã nằm trong ds dc chọn
+  const handleSearchUser = useCallback((value) => {
+    settextSearch(value);
+    dispatch(actionsearchUser(value));
+  }, [dispatch]);
+  const handleChooseUser = useCallback((itemCheck) => {
+    if (checkMember(itemCheck, dataUser)) { // nếu đã nằm trong danh sách đã chọn
       const newDataUserChoose = dataUser.filter(item => item.userName !== itemCheck.userName);
       setDataUser(newDataUserChoose);
-    } else { // nếu người đó chưa nằm trong  danh sách được chọn
+    } else { // nếu người đó chưa nằm trong danh sách đã chọn
       setDataUser([...dataUser, itemCheck])
     }
-  }
- function handlOnClose(){
-    setDataUser(dataUserChoose)
- }
-  const handleDeleleUser=(userId)=>{
+  }, [dataUser, setDataUser, checkMember]);
+  const handlOnClose = useCallback(() => {
+    setDataUser(dataUserChoose);
+  }, [dataUserChoose, setDataUser]);
+  const handleDeleteUser = useCallback((userId) => {
     // Tạo một bản sao của danh sách
     const updatedData = [...dataUser];
     const index = updatedData.findIndex(user => user.userId === userId);
@@ -54,8 +54,9 @@ export const BottomEditUser=React.memo((props)=>{
     }
     // Cập nhật state để kích thích việc render lại
     setDataUser(updatedData);
-  }
-  async function handleEditUserProject() {
+  }, [dataUser, setDataUser]);
+  const handleEditUserProject = useCallback(async () => {
+    console.log(dataUser, dataUserChoose.length)
     if (dataUser === dataUserChoose) {
       showMessage({
         message: "Thành viên dự án không có thay đổi gì so với ban đầu vui lòng kiểm tra lại ",
@@ -68,10 +69,10 @@ export const BottomEditUser=React.memo((props)=>{
       await dispatch(actionEditUserProject({
         "projectId": projectId,
         "listUser": dataUser
-      },projectId))
+      }, projectId))
     }
     handelCloseEditUser()
-  }
+  }, [dataUser, dataUserChoose, projectId, dispatch, handelCloseEditUser]);
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
@@ -85,7 +86,7 @@ export const BottomEditUser=React.memo((props)=>{
           <View style={{paddingHorizontal:10, backgroundColor:"white",marginBottom:"40%"}}>
             <Text style={{fontSize:18,alignSelf:'center',marginVertical:10, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Chỉnh sửa thành viên tham gia dự án"}</Text>
             <Text style={{fontSize:15,alignSelf:'flex-start',marginVertical:10, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Các thành viên đang tham gia dự án:"}</Text>
-            <ListUserChoose dataUserChoose={dataUser} handleItem={handleDeleleUser}/>
+            <ListUserChoose dataUserChoose={dataUser} handleItem={handleDeleteUser}/>
             <Text style={{fontSize:15,alignSelf:'flex-start',marginVertical:10, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{"Tìm kiếm thành viên thành viên"}</Text>
             <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' >
               <View style={{ flexDirection: "row",alignItems:'center', borderRadius: 15,marginVertical:10 ,  backgroundColor:"#EEEEEE",paddingHorizontal:10, paddingVertical:Platform.OS==='ios'?5:0,marginLeft:5,flex:1}}>

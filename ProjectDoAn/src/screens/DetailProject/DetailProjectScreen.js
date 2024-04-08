@@ -70,16 +70,16 @@ const DetailProjectScreen = ({ navigation ,route}) => {
     []
   );
   // hàm mở ra bottom sheet thông tin của project
-  function handelOpenDetail (){
+  const handelOpenDetail = useCallback(() => {
     bottomSheetRef.current?.present();
-  }
+  }, []);
   // hàm mở ra bottom sheet thông tin của project
-  function handelOpenEditUser (){
+  const handelOpenEditUser = useCallback(() => {
     bottomEditUserRef.current?.present();
-  }
-  function handelCloseEditUser (){
+  }, []);
+  const handelCloseEditUser = useCallback(() => {
     bottomEditUserRef.current?.dismiss();
-  }
+  }, [bottomEditUserRef]);
 const ItemUserMemer=(props)=>{
     const {item}= props
   return (
