@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -26,10 +26,12 @@ import {
   ShimmerEffectCommentComponent
 } from "../../components/shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
+import IconUser from "../../assets/icons/IconUser";
+import IconProfileUse from "../../assets/icons/IconProfileUse";
 
 
 const ProFileUserScreen = ({ navigation ,route }) => {
-
+    const {userId}=route?.params
   const dispatch = useDispatch();
   const widthScreen = Dimensions.get('window').width
   const heightScreen = Dimensions.get('window').height
@@ -40,43 +42,58 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   useEffect(()=>{
 
     dispatch(actionGetProfileUser(route?.params?.userId))
-  },[route?.params?.userId])
-  const handleGetProfileUser=()=> {
+  },[userId])
+  const handleGetProfileUser=useCallback(()=> {
     setRefreshing(true);
     dispatch(actionGetProfileUser(route?.params?.userId))
     setRefreshing(false);
-  }
+  },[userId])
    const RenderContent = (props) =>{
     return(
       <View style={{flexDirection:"row",alignItems:"center",marginTop:10,flex:1}}>
-          <View style={{width:14, height:14, borderRadius:14/2, backgroundColor:"#3366CC",marginLeft:10}}/>
-          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10,flex:0.4}}>{props?.title || "số điện thoại"}</Text>
-          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:4,flex:0.6}}>{props?.content ||"0337356550"}</Text>
+          <View style={{width:10, height:10, borderRadius:10/2, backgroundColor:"#3366CC",marginLeft:10}}/>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10,flex:0.4}}>{props?.title || "số điện thoại"}</Text>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:4,flex:0.6}}>{props?.content ||"0337356550"}</Text>
       </View>
     )
    }
-  const RenderContactIcon = () =>{
+  const RenderContactIcon = React.memo(() =>{
     return(
-      <View style={{flexDirection:"row",marginTop:20,marginBottom:40,alignSelf:"center",justifyContent:"space-around"}}>
+      <View style={{flexDirection:"row",marginTop:20,marginBottom:20,justifyContent:"space-between"}}>
         <TouchableOpacity onPress={()=>{
           showMessage({
-            message: "thanhf cong",
-            type: "success",
+            message: "Tính năng đang được phát triển",
+            type: "warning",
             duration: 1000,
-            icon: { icon: "success", position: 'left' }
+            icon: { icon: "warning", position: 'left' }
           });
-        }} style={{marginRight:40}}>
+        }} style={{alignItems:"center"}}>
           <IconMessage/>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{'Trò chuyện'}</Text>
+        </TouchableOpacity  >
+        <TouchableOpacity  onPress={()=>{navigation.navigate("UserPageScreen",{userId:userId})}}  style={{alignItems:'center',marginLeft:-20}}>
+          <IconProfileUse/>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{'Trang cá nhân'}</Text>
         </TouchableOpacity>
-        <View style={{marginRight:40}}>
-          <IconPhone/>
-        </View>
-        <View style={{marginRight:20}}>
-          <IconMail/>
-        </View>
+        <TouchableOpacity onPress={()=>{
+          showMessage({
+            message: "Tính năng đang được phát triển",
+            type: "warning",
+            duration: 1000,
+            icon: { icon: "warning", position: 'left' }
+          });
+        }}  style={{alignItems:'center'}}>
+          <View style={{alignItems:'center', justifyContent:'center'}}>
+            <View style={{height:40, width:40, borderRadius:40/2, backgroundColor:"black",opacity:0.15}}>
+            </View>
+            <IconPhone style={{position:"absolute"}}/>
+          </View>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{'Gọi điện'}</Text>
+
+        </TouchableOpacity>
       </View>
     )
-  }
+  })
 
   return (
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
@@ -100,12 +117,10 @@ const ProFileUserScreen = ({ navigation ,route }) => {
                       height: 100,
                       borderRadius: 100 / 2,
                       overflow: "hidden",
-                      borderWidth: 1,
-                      borderColor: "#99CCFF",
                       alignSelf: "center",
                     }}
                     source={{
-                      uri: (baseUrlAvatarUser+dataUser?.avatarUser||'')
+                      uri: (baseUrlAvatarUser+dataUser?.avatarUser)||'https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1712574436~exp=1712575036~hmac=45f0ec209d444e0275361139f242a77a592eab1547c026daedddafe25dd6fe72'
                     }}
                     resizeMode={FastImage.resizeMode.stretch}
                   />

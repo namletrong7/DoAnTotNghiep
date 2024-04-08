@@ -236,14 +236,14 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                   </View>
                 </View>
 
-                  <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:5}}>
+                  <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15}}>
                       <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày kết thúc"}</Text>
                       <View style={{flexDirection:"row",alignItems:"center",backgroundColor:"#DDDDDD", borderRadius:7,padding:5}}>
                           <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay||''}</Text>
                       </View>
                   </View>
 
-                <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:5,flex:1}}>
+                <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>
                     <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Người giao"}</Text>
                     <View style={{flexDirection:"row",alignItems:"center",borderColor:"#999999",borderWidth:0.6, borderRadius:7,padding:3,flex:1}}>
                         <FastImage
@@ -257,7 +257,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                         <Text style={{flexWrap:"wrap",fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{dataDetailTask?.assignFullName||''}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:5,flex:1}}>
+                <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>
                     <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Người xử lý"}</Text>
                     <View style={{flexDirection:"row",alignItems:"center",borderColor:"#999999",borderWidth:0.6, borderRadius:7,padding:3,flex:1}}>
                         <FastImage

@@ -3,21 +3,24 @@ import Svg, { SvgProps, Path } from "react-native-svg"
 
 const IconMessage = (props) => (
   <Svg
-    width={30}
-    height={30}
+    width={40}
+    height={40}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <Path
-      d="M5 16.55v3.35a2.1 2.1 0 0 0 3.54 1.53l2.61-2.46h.87c5.52 0 10-3.8 10-8.5s-4.48-8.5-10-8.5-10 3.81-10 8.5a7.93 7.93 0 0 0 3 6.06l-.02.02Z"
-      stroke="#0099FF"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M18.28 9.76v3.14c0 .2-.01.4-.03.59-.18 2.12-1.43 3.18-3.73 3.18h-.31c-.2 0-.39.09-.5.25l-.94 1.26c-.42.56-1.09.56-1.51 0l-.94-1.26a.733.733 0 0 0-.5-.25h-.31c-2.51 0-3.76-.62-3.76-3.76V9.77c0-2.3 1.06-3.55 3.18-3.73.19-.02.39-.03.59-.03h5.03c2.47-.01 3.73 1.25 3.73 3.75Z"
+      fill="#1062dc"
+    />
+    <Path
+      opacity={0.15}
+      d="M16.19 2H7.82C4.18 2 2.01 4.17 2.01 7.81v8.37c0 3.64 2.17 5.81 5.81 5.81h8.37c3.64 0 5.81-2.17 5.81-5.81V7.81C22 4.17 19.83 2 16.19 2Z"
+      fill="black"
     />
   </Svg>
+
 )
 
 export default IconMessage
