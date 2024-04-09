@@ -107,17 +107,17 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
                            }}>{userSelected?.userName}</Text>
                          </View>
                       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' >
-                        <SafeAreaView style={{ flexDirection: "row",alignItems:'center', borderRadius: 15,marginVertical:10 ,  backgroundColor:"#EEEEEE",paddingHorizontal:10, paddingVertical:Platform.OS==='ios'?5:0,marginLeft:5}}>
+                        <View style={{ position:"relative",flexDirection: "row",alignItems:'center', borderRadius: 15,marginVertical:10 ,  backgroundColor:"#EEEEEE",paddingHorizontal:10, paddingVertical:Platform.OS==='ios'?5:0,marginLeft:5}}>
                           <IconSearch/>
                           <TextInput
-                            multiline={true}
                             value={textSearch}
                             onChangeText={handleSearchUser}
+                            scrollEnabled={false}
                             style={{ color: 'black', fontSize: 15, fontFamily: "OpenSans-Regular", flex: 1 }}
                             placeholder="Tim kiếm thành viên..."
                             placeholderTextColor={"#888888"}
                           />
-                        </SafeAreaView>
+                        </View>
                       </KeyboardAvoidingView>
                       <FlatList
                         style={{marginBottom:'10%'}}

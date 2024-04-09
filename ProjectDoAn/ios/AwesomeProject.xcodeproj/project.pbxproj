@@ -13,7 +13,6 @@
 		04997976ADFA4DA482C2126D /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCBEFCD0F2284938B01B1F40 /* Roboto-Thin.ttf */; };
 		061835561BB440808E43792D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F49AF290646A42B7B95A6158 /* Roboto-Medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		34E279A5843441A6A27B2D72 /* entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A2EBB0D00A4E70A573B0E9 /* entypo.ttf */; };
 		3F7F0F1983C84BDFABB56563 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E68CB59F3D94A038EC30A22 /* Roboto-BlackItalic.ttf */; };
@@ -313,7 +312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				CA5487582BA7CF5C002241B2 /* main.jsbundle in Resources */,
 				34E279A5843441A6A27B2D72 /* entypo.ttf in Resources */,
 				43D239EEFE334C27BA9A6664 /* OpenSans-Regular.ttf in Resources */,
@@ -556,6 +554,7 @@
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-AwesomeProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -588,6 +587,7 @@
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-AwesomeProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -693,10 +693,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -775,10 +772,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
