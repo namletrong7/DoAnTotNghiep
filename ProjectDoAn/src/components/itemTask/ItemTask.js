@@ -41,7 +41,7 @@ const ItemTask = (props) => {
   function gotoDetailScreen (taskId){
     props.navigation.navigate('DetailTaskScreen',{taskId:taskId});
   }
-  const content = `<bluecircle></bluecircle>`;
+
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen(props.item.taskId)}}>
       <View style={{flexDirection:'row'}}>
@@ -69,9 +69,6 @@ const ItemTask = (props) => {
             }
 
           }}
-          renderers: {
-            bluecircle: () => <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: 'blue' }} />
-        }
         />
         {/*<Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular"}} numberOfLines={2}>{props?.item?.content}</Text>*/}
       </View>)}
