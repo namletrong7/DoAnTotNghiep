@@ -286,11 +286,29 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
                 <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
               </TouchableOpacity>
-              <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:15}}>
+              <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:7}}>
 
             <RenderHtml
                   contentWidth={screenWidth}
                   source={{html:dataDetailTask?.content}}
+                  renderersProps={{
+                    a: {
+                      onPress(event, url, htmlAttribs, target) {
+                              navigation.navigate("WebViewScreen",{url:url})
+                      }
+
+                      }
+                  }}
+                  tagsStyles={{
+                    div:{
+                      color:"black",
+                      fontSize:15
+                    },
+                    a:{
+                      color:"black"
+                    }
+
+                  }}
                 />
 
         </View>

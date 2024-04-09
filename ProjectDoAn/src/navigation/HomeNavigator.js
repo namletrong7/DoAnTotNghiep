@@ -26,6 +26,7 @@ import ProFilePersonalScreen from "../screens/PersonalStack/ProFilePersonalScree
 import EditProfilePersonalScreen from "../screens/PersonalStack/EditProfilePersonalScreen";
 import ViewImageScreen from "../screens/ViewImageScreen/ViewImageScreen";
 import UserPageScreen from "../screens/UserPageScreen/UserPageScreen";
+import WebViewScreen from "../screens/WebViewScreen/WebViewScreen";
 
 // export  const HomeNavigator = React.memo(() => {
 //   const Stack = createNativeStackNavigator();
@@ -147,6 +148,7 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="AddProjectScreen" component={AddProjectScreen} />
       <Stack.Screen name="ViewImageScreen" component={ViewImageScreen} />
       <Stack.Screen name="UserPageScreen" component={UserPageScreen} />
+      <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
     </Stack.Navigator>
   )
 })
