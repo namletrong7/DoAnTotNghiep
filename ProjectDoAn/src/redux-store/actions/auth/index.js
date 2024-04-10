@@ -73,6 +73,9 @@ export function actionLogout() {
         await   dispatch({
             type: "RESET_USER",
         });
+        await   dispatch({
+            type: "RESET_PROJECT",
+        });
 
 
     };

@@ -304,9 +304,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                       color:"black",
                       fontSize:15
                     },
-                    a:{
-                      color:"black"
-                    }
+
 
                   }}
                 />

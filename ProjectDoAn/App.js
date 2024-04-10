@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Provider } from 'react-redux';
 import { store, persistor } from "./src/redux-store/reducers";
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,6 +18,7 @@ import { AddProjectScreen } from "./src/screens/AddProjectScreen/AddProjectScree
 import ProFilePersonalScreen from "./src/screens/PersonalStack/ProFilePersonalScreen";
 import EditProfilePersonalScreen from "./src/screens/PersonalStack/EditProfilePersonalScreen";
 import UserPageScreen from "./src/screens/UserPageScreen/UserPageScreen";
+import messaging from "@react-native-firebase/messaging";
 
 
 
@@ -26,6 +27,11 @@ const App = () => {
     // yêu cầu quyền đọc ghi file
     requestStoragePermission()
   },[])
+  // Register background handler
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+  });
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

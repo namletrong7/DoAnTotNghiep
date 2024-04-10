@@ -69,11 +69,10 @@ export function actionsearchUser(keyWord) {
           duration: 2000,
           icon: { icon: "danger", position: 'left' }
         });
-        await   dispatch({
-          type: "END_SEARCH_USER",
-        });
       }
-
+      await   dispatch({
+        type: "END_SEARCH_USER",
+      });
 
     } catch (error) {
 
