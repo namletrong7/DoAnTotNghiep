@@ -75,12 +75,13 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   const richText = useRef();
-  const [descHTML, setDescHTML] = useState("");
+  const [descHTML, setDescHTML] = useState( <div></div>);
   const richTextHandle = (descriptionText) => {
     if (descriptionText) {
       setDescHTML(descriptionText);
+      console.log(descriptionText)
     } else {
-      setDescHTML("");
+      setDescHTML(<div></div>);
     }
   };
    // hàm mở lại picker chon ngày bắt đầu

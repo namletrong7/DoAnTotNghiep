@@ -55,6 +55,7 @@ import IconDone from "../../assets/icons/IconDone";
 import IconClose from "../../assets/icons/IconClose";
 import IconSearch from "../../assets/icons/IconSearch";
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
+import IconLoadMore from "../../assets/icons/IconLoadMorer";
 
 const TaskPersonalScreen = ({ navigation }) => {
 
@@ -236,8 +237,9 @@ const TaskPersonalScreen = ({ navigation }) => {
       }
 
             {isGetMoreAssignTask&&<FooterTask/>}
-            <TouchableOpacity onPress={()=>{loadMore()}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",paddingVertical:20 }}>{"Nhấn để tải thêm task..."}</Text>
+            <TouchableOpacity style={{flexDirection:"row",marginTop:10}} onPress={()=>{loadMore()}}>
+              <IconLoadMore/>
+              <Text style={{ fontSize: 17, color: "black",marginLeft:5, fontFamily: "OpenSans-Regular" }}>{"Nhấn để tải thêm task..."}</Text>
             </TouchableOpacity>
          </ScrollView>
 

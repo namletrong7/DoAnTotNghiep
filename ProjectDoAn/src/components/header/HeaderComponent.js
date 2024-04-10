@@ -10,8 +10,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import IconMenu from "../../assets/icons/IconMenu";
-import IconArrowLeft from "../../assets/icons/IconArrowLeft";
+
 import IconBack from "../../assets/icons/IconBack";
 
 function HeaderComponent (props) {

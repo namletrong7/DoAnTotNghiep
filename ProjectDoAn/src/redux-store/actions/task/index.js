@@ -31,14 +31,12 @@ export function actionAddTask(body) {
                     duration: 1000,
                     icon: { icon: "success", position: 'left' }
                 });
-                dispatch({
-                    type: "END_ADD_TASK",
-                });
-            }else{
-                dispatch({
-                    type: "END_ADD_TASK",
-                });
+
             }
+                dispatch({
+                    type: "END_ADD_TASK",
+                });
+
 
 
 

@@ -25,6 +25,7 @@ import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import IconAttach from "../../assets/icons/IconAttach";
 import ItemComment from "../listCommentComponent/ItemComment";
 import IconComment from "../../assets/icons/IconComment";
+import RenderHtml from "react-native-render-html";
 
 
 const ItemTask = (props) => {
@@ -40,6 +41,7 @@ const ItemTask = (props) => {
   function gotoDetailScreen (taskId){
     props.navigation.navigate('DetailTaskScreen',{taskId:taskId});
   }
+
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen(props.item.taskId)}}>
       <View style={{flexDirection:'row'}}>
@@ -53,8 +55,22 @@ const ItemTask = (props) => {
         <Text numberOfLines={2} style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props?.item?.title}</Text>
       </View>
       {props.item.content.trim().length>0&&
-      (<View style={{marginTop:5}}>
-        <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular"}} numberOfLines={2}>{props?.item?.content}</Text>
+      (<View style={{marginTop:5,height:10,flex:1}}>
+        <RenderHtml
+          contentWidth={ Dimensions.get("window").width}
+          source={{html:props?.item?.content}}
+          tagsStyles={{
+            div:{
+              color:"black",
+              fontSize:15
+            },
+            a:{
+              color:"black"
+            }
+
+          }}
+        />
+        {/*<Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular"}} numberOfLines={2}>{props?.item?.content}</Text>*/}
       </View>)}
       <View style={{flexDirection:"row",marginTop:10,alignContent:"center"}}>
         <View style={{marginTop:10,backgroundColor:"#CCCCCC",height:10, borderRadius:50,width:'84%'}}>
