@@ -54,24 +54,6 @@ const ItemTask = (props) => {
       <View style={{marginTop:7}}>
         <Text numberOfLines={2} style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props?.item?.title}</Text>
       </View>
-      {props.item.content.trim().length>0&&
-      (<View style={{marginTop:5,height:10,flex:1}}>
-        <RenderHtml
-          contentWidth={ Dimensions.get("window").width}
-          source={{html:props?.item?.content}}
-          tagsStyles={{
-            div:{
-              color:"black",
-              fontSize:15
-            },
-            a:{
-              color:"black"
-            }
-
-          }}
-        />
-        {/*<Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular"}} numberOfLines={2}>{props?.item?.content}</Text>*/}
-      </View>)}
       <View style={{flexDirection:"row",marginTop:10,alignContent:"center"}}>
         <View style={{marginTop:10,backgroundColor:"#CCCCCC",height:10, borderRadius:50,width:'84%'}}>
           <View style={{flex:1,backgroundColor:"#4577ef",borderRadius:50,width:props.item.progress+"%"}}></View>

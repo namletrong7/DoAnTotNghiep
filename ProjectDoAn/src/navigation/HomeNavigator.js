@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProFileUserScreen from "../screens/proFileUser/ProFileUserScreen";
 import HomeScreen from "../screens/home/HomeScreen";
 import { DetailTaskScreen } from "../screens/detalTaskScreen/DetailTaskScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import IconHomeFocus from "../assets/icons/IconHomeFocus";
 import IconHomeUnFocus from "../assets/icons/IconHomeUnFocus";
 import IconTaskFocus from "../assets/icons/IconTaskFocus";
@@ -17,7 +17,7 @@ import { AddTaskScreen } from "../screens/AddTaskScreen/AddTaskScreen";
 import { PersonalScreen } from "../screens/PersonalStack/PersonalScreen";
 import NotifiScreen from "../screens/Notifi/NotifiScreen";
 import DetailProjectScreen from "../screens/DetailProject/DetailProjectScreen";
-import {Platform, StyleSheet} from "react-native";
+import { Alert, Platform, StyleSheet } from "react-native";
 import IconThongKefocus from "../assets/icons/IconThongKefocus";
 import IconThongKeUnfocus from "../assets/icons/IconThongKeUnfocus";
 import TaskPersonalScreen from "../screens/taskStack/TaskPersonalScreen";
@@ -27,22 +27,8 @@ import EditProfilePersonalScreen from "../screens/PersonalStack/EditProfilePerso
 import ViewImageScreen from "../screens/ViewImageScreen/ViewImageScreen";
 import UserPageScreen from "../screens/UserPageScreen/UserPageScreen";
 import WebViewScreen from "../screens/WebViewScreen/WebViewScreen";
+import messaging from '@react-native-firebase/messaging';
 
-// export  const HomeNavigator = React.memo(() => {
-//   const Stack = createNativeStackNavigator();
-//
-//   return (
-//     <Stack.Navigator screenOptions={{
-//       headerShown: false
-//     }}>
-//       <Stack.Screen name="Home" component={HomeScreen} />
-//       <Stack.Screen name="Detail" component={DetailTaskScreen} />
-//       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
-//       <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
-//     </Stack.Navigator>
-//   )
-// })
-// stack này bao gồm màn hình thông báo -> màn hình chi tiết công việc
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
 
@@ -135,7 +121,18 @@ export  const BottomHomeNavigation = React.memo(() => {
   )
 })
 export  const StackNavigate = React.memo(() => {
+  const navi = useNavigation();
   const Stack = createNativeStackNavigator();
+  messaging().onMessage(async remoteMessage => {
+    navi.navigate("DetailTaskScreen")
+  });
+  messaging().onNotificationOpenedApp(messaging=>{
+    navi.navigate("DetailTaskScreen")
+  })
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    navi.navigate({ routeName: 'DetailTaskScreen' });
+
+  });
 
   return (
     <Stack.Navigator screenOptions={{
