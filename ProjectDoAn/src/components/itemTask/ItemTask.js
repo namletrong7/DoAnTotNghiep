@@ -51,16 +51,16 @@ const ItemTask = (props) => {
          </View>
         {RenderPriority()}
       </View>
-      <View style={{marginTop:7}}>
+      <View style={{marginTop:5}}>
         <Text numberOfLines={2} style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props?.item?.title}</Text>
       </View>
-      <View style={{flexDirection:"row",marginTop:10,alignContent:"center"}}>
+      <View style={{flexDirection:"row",marginTop:5,alignContent:"center"}}>
         <View style={{marginTop:10,backgroundColor:"#CCCCCC",height:10, borderRadius:50,width:'84%'}}>
           <View style={{flex:1,backgroundColor:"#4577ef",borderRadius:50,width:props.item.progress+"%"}}></View>
         </View>
           <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:4,marginLeft:10}} numberOfLines={2}>{props?.item?.progress+"%"}</Text>
       </View>
-      <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:5,marginHorizontal:5}}>
+      <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:9,marginHorizontal:5}}>
         <View style={{flexDirection:"row",alignSelf:'center'}}>
           <FastImage
             style={{ width: 20, height: 20,borderRadius: 20/2 ,overflow: "hidden"}}
