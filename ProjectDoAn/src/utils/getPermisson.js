@@ -1,9 +1,10 @@
 import { PermissionsAndroid } from "react-native";
 import { Platform } from 'react-native';
 import { PERMISSIONS, request } from 'react-native-permissions';
-import { firebase } from "@react-native-firebase/messaging";
-
+import messaging, { firebase } from "@react-native-firebase/messaging";
+import notifee from '@notifee/react-native';
 export async function requestStoragePermission() {
+    await notifee.requestPermission()
     if(Platform.OS==='android'){
         try {
             const granted = await PermissionsAndroid.requestMultiple([
@@ -35,4 +36,16 @@ export async function requestStoragePermission() {
 
 }
 
+export async function requestUserPermission() {
+    if (Platform.OS === 'android' && Platform.Version >= 33) {
+        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
 
+        /* Bkav TuanTQd: Xin quyền Notify trên Android 13 Tham khảo https://notifee.app/react-native/docs/ios/permissions */
+        const settings = await notifee.requestPermission();
+    } else {
+        const authStatus = await messaging().requestPermission();
+        const enabled =
+            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    }
+}

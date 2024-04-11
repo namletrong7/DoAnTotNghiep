@@ -40,6 +40,7 @@ import IconInfo from "../../assets/icons/IconInfo";
 import { useFocusEffect } from "@react-navigation/native";
 import IconKey from "../../assets/icons/IconKey";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
+import {PushNotify} from "../../utils/PushNotify";
 
 
 

@@ -69,10 +69,7 @@ const TaskPersonalScreen = ({ navigation }) => {
   const dataTaskDone = useSelector(state => state.task.dataTaskDone);
   const isGetMoreAssignTask = useSelector(state => state.task.isGetMoreAssignTask);
   const [currentTask, setCurrentTask] = useState(dataAssignTask);
- //  console.log("currentTask:")
-   //  console.log(currentTask.length)
-  // console.log("currentTask:")
- //  console.log(dataAssignTask.length)
+
   useEffect( () => {
 
      dispatch(actionGetAssignTask())
@@ -81,8 +78,6 @@ const TaskPersonalScreen = ({ navigation }) => {
   },[])
 
   useEffect( () => {
-   // console.log("load lại")
-  //  console.log("typeTask:"+typeTask)
     if(typeTask==1){
       setCurrentTask(dataAssignTask)
     }
@@ -218,17 +213,7 @@ const TaskPersonalScreen = ({ navigation }) => {
           </SafeAreaView>
         </Modal>
       </SafeAreaView>
-          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"20%"}}>
-           {/*<FlatList*/}
-           {/*    data={currentTask}*/}
-           {/*    extraData={currentTask}*/}
-           {/*    renderItem={({item}) => <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} />}*/}
-           {/*    keyExtractor={item => item.taskId}*/}
-           {/*    scrollEnabled={false}*/}
-           {/*    // onEndReached={loadMore}*/}
-           {/*    // onEndReachedThreshold={0.5}*/}
-           {/*    showsVerticalScrollIndicator={false}*/}
-           {/*/>*/}
+          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"25%"}}>
             {currentTask?.length>0?
             (currentTask.map((item, index) => (
               <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} key={item.taskId} />

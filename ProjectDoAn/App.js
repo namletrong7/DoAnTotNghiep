@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { DetailTaskScreen } from "./src/screens/detalTaskScreen/DetailTaskScreen";
 import { AddTaskScreen } from "./src/screens/AddTaskScreen/AddTaskScreen";
 import LoginScreen from "./src/screens/login/LoginScreen";
-import { requestStoragePermission } from "./src/utils/getPermisson";
+import {requestStoragePermission, requestUserPermission} from "./src/utils/getPermisson";
 import ProFileUserScreen from "./src/screens/proFileUser/ProFileUserScreen";
 import { BottomHomeNavigation, HomeNavigator, StackNavigate } from "./src/navigation/HomeNavigator";
 import AppNavigator from "./src/navigation/AppNavigator";
@@ -25,12 +25,11 @@ import messaging from "@react-native-firebase/messaging";
 const App = () => {
   useEffect(()=>{
     // yêu cầu quyền đọc ghi file
+    requestUserPermission()
     requestStoragePermission()
+
   },[])
-  // Register background handler
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    console.log('Message handled in the background!', remoteMessage);
-  });
+
 
   return (
     <Provider store={store}>

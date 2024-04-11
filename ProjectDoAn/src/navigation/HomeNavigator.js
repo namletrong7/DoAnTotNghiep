@@ -27,7 +27,8 @@ import EditProfilePersonalScreen from "../screens/PersonalStack/EditProfilePerso
 import ViewImageScreen from "../screens/ViewImageScreen/ViewImageScreen";
 import UserPageScreen from "../screens/UserPageScreen/UserPageScreen";
 import WebViewScreen from "../screens/WebViewScreen/WebViewScreen";
-import messaging from '@react-native-firebase/messaging';
+import messaging, {firebase} from '@react-native-firebase/messaging';
+import {showMessage} from "react-native-flash-message";
 
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -123,17 +124,42 @@ export  const BottomHomeNavigation = React.memo(() => {
 export  const StackNavigate = React.memo(() => {
   const navi = useNavigation();
   const Stack = createNativeStackNavigator();
-  messaging().onMessage(async remoteMessage => {
-    navi.navigate("DetailTaskScreen")
+  useEffect(()=>{
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log("có thông báo mới")
+      showMessage({
+        message: "Có thông báo mới",
+        type: "success",
+        duration: 3000,
+        icon: { icon: "success", position: 'left' }
+      });
+    });
+    return unsubscribe
+  },[])
+  // khi nhấn vào thông báo mà app đang chạy nền
+  // messaging().setBackgroundMessageHandler(async remoteMessage => {
+  //   console.log("nhận thông báo ở chế độ nền")
+  //   showMessage({
+  //     message: "Có thông báo mới",
+  //     type: "success",
+  //     duration: 3000,
+  //     icon: { icon: "success", position: 'left' }
+  //   });
+  //   navi.navigate(  'AddProjectScreen' );
+  //
+  // });
+  // hành khi nhấn vào thông báo mà app đã bị kill rồi
+  messaging().getInitialNotification().then(remoteMessage => {
+    if (remoteMessage) {
+      console.log('Notification opened app:', remoteMessage);
+      // Xử lý hành động từ thông báo ở đây
+      navi.navigate("DetailTaskScreen",{taskId:"T001"});
+    }
   });
+  // nhasn vao thong bao thi mo app
   messaging().onNotificationOpenedApp(messaging=>{
-    navi.navigate("DetailTaskScreen")
+    navi.navigate("DetailTaskScreen",{taskId:"T001"});
   })
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    navi.navigate({ routeName: 'DetailTaskScreen' });
-
-  });
-
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false
