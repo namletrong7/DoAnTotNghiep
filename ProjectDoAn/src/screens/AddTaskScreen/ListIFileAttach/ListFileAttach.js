@@ -28,8 +28,9 @@ export  const ListFileAttach =React.memo((props) =>{
       <View style={styles.container}>
         <FlatList
               data={dataFilePicker}
-              scrollEnabled={false}
-              numColumns={2}
+              scrollEnabled={true}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
               renderItem={({item, index})=><RenderItemFile item={item} index={index} handleDelete={handleDelete}/>}
               keyExtractor={(item, index) => index.toString()}
             />

@@ -99,7 +99,9 @@ export const ListFileAttachComponent = React.memo((props) => {
         {seeAll ? (
           dataListFileTask?.length > 0 ? <FlatList
               data={dataListFileTask}
-              scrollEnabled={false}
+              scrollEnabled={true}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => <RenderItemFile item={item} />}
               keyExtractor={(item, index) => index.toString()}
             /> :

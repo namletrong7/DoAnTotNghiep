@@ -3,8 +3,8 @@ import Svg, {SvgProps, Path, Rect, Stop, LinearGradient, Defs} from "react-nativ
 
 const IconFile = (props) => (
     <Svg
-        width={40}
-        height={40}
+        width={20}
+        height={20}
         viewBox="0 0 32 32"
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
