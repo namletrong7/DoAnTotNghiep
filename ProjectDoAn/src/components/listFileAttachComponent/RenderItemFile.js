@@ -37,7 +37,6 @@ const RenderIcon = (props) => {
     return (
         <TouchableOpacity style={{
             marginTop: 10,
-            flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
             flex: 1,
@@ -53,22 +52,17 @@ const RenderIcon = (props) => {
                           }}>
 
             <View style={{
-                flex: 1, flexDirection: "row", alignItems: "center", borderRadius: 16,
-                backgroundColor: "rgba(0,0,0,0.05)", paddingVertical: 5,
-                paddingHorizontal: 5,
+                flex: 1, alignItems: "center",width:65, borderRadius: 10,
+                borderColor: "rgba(0,0,0,0.3)",borderWidth:1, paddingVertical: 10,
+                paddingHorizontal: 5,marginHorizontal:4
             }}>
-                <View style={{ paddingHorizontal:6 }}>
                     <RenderIcon extension={props.item?.extension} />
-                </View>
-                <Text numberOfLines={2} style={{
-                    fontSize: 14,
+                <Text numberOfLines={3} style={{
+                    fontSize: 12,
                     color: "black",
                     fontFamily: "OpenSans-Regular",
                     flex:1
                 }}>{props.item.fileName}</Text>
-            </View>
-            <View style={{ flex: 0.12, alignItems:'center' }}>
-                <IconDownLoad />
             </View>
         </TouchableOpacity>
     );

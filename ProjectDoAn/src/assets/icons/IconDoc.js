@@ -3,8 +3,8 @@ import Svg, {SvgProps, Path, Defs, LinearGradient, Stop} from "react-native-svg"
 
 const IconDoc = (props) => (
     <Svg
-        width={40}
-        height={40}
+        width={20}
+        height={20}
         viewBox="0 0 32 32"
         data-name="Layer 1"
         id="Layer_1"
