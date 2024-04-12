@@ -256,9 +256,11 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
 
            <ListFileAttach dataFilePicker={pickedFile} handleDelete = {handleDeleteItemFile}/>
-            <TouchableOpacity  onPress={()=>{pickDocument()}} style={{alignItems:"center", justifyContent:"center", marginTop:15}}>
-              <IconUpload/>
-             <Text style={{fontSize:15, color:"#4577ef",fontFamily:"OpenSans-SemiBold",marginRight:10}}>{"Nhấn để chọn file"}</Text>
+            <TouchableOpacity  onPress={()=>{pickDocument()}} style={{alignItems:"center", justifyContent:"center", marginTop:15, borderColor:"#148eff",borderWidth:1,borderRadius:8, borderStyle:"dashed",padding:10}}>
+              <View style={{width:70,height:70,borderRadius:25, backgroundColor:"#c7e4ff",alignItems:"center",justifyContent:'center'}}>
+                <IconUpload />
+              </View>
+             <Text style={{fontSize:15, color:"#148eff",fontFamily:"OpenSans-SemiBold",marginRight:10}}>{"Nhấn để chọn file đính kèm"}</Text>
            </TouchableOpacity>
            <View style={styles.richTextContainer}>
              <RichEditor
