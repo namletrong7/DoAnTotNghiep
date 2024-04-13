@@ -19,6 +19,8 @@ import ProFilePersonalScreen from "./src/screens/PersonalStack/ProFilePersonalSc
 import EditProfilePersonalScreen from "./src/screens/PersonalStack/EditProfilePersonalScreen";
 import UserPageScreen from "./src/screens/UserPageScreen/UserPageScreen";
 import messaging from "@react-native-firebase/messaging";
+import FlashMessage from "react-native-flash-message";
+import { Platform } from "react-native";
 
 
 
@@ -37,6 +39,7 @@ const App = () => {
         <NavigationContainer>
           <AppNavigator
           />
+          <FlashMessage position="top" style={{height:100,  alignItems:"flex-end"}} />
         </NavigationContainer>
       </PersistGate>
     </Provider>

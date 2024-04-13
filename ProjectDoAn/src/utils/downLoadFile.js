@@ -74,11 +74,10 @@ export const taiFile = async (setIsShowProgress,filePathIOS,filePathAndroid,setP
     .then((res) => {
       setPercentage(100)
       setIsShowProgress(false)
-      if(Platform.OS==='ios'){
-        FileViewer.open(filePathIOS, { showOpenWithDialog: true });
-      }
+        FileViewer.open(filePathAndroid, { showOpenWithDialog: true });
     })
     .catch((err) => {
+      console.log(err)
       setIsShowProgress(false)
       return ;
     });
