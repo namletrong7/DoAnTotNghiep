@@ -41,8 +41,11 @@ import { useFocusEffect } from "@react-navigation/native";
 import IconKey from "../../assets/icons/IconKey";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
 import {PushNotify} from "../../utils/PushNotify";
-
-
+import axios from "axios";
+import RNFetchBlob from "rn-fetch-blob";
+import ReactNativeBlobUtil from "react-native-blob-util";
+import {Svg, Circle, Path} from 'react-native-svg';
+import FileViewer from "react-native-file-viewer";
 
 export const PersonalScreen = React.memo(({navigation})=>{
 
@@ -50,12 +53,52 @@ export const PersonalScreen = React.memo(({navigation})=>{
   const [isShow, SetIsShow] = useState(true); // show các chức năng khác
   const [isShowLogOut, SetIsShowLogOut] = useState(false); // show dialog đăng xuát
   const dispatch = useDispatch();
+  const filePath = RNFetchBlob.fs.dirs.DownloadDir + '/file.pdf';
 
+
+  const [percentage, setPercentage] = React.useState(0);
+
+  const size = 50;
+  const strokeWidth = 2;
+  const radius = (size - strokeWidth) / 2;
+  const circum = radius * 2 * Math.PI;
+  const svgProgress = 100 - percentage;
+
+
+  const dowloadFile=async () => {
+    ReactNativeBlobUtil.config({
+      fileCache: true,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path: filePath,
+        description: 'Downloading file...',
+      },
+    })
+      .fetch('GET', "http://3.25.188.2/DOAN/linkFile/559591751_1711450438.docx")
+      .progress((received, total) => {
+        setPercentage(((received / total) * 100).toFixed(2))
+        // 更新进度条状态
+      })
+      .then((res) => {
+        console.log("nam")
+        console.log('File downloaded:', res.path());
+        setPercentage(100)
+        FileViewer.open(filePath, { showOpenWithDialog: true });
+        // 下载完成后执行的操作
+      })
+      .catch((err) => {
+        console.error('Download failed:', err);
+        // 下载失败后执行的操作
+      });
+
+  }
   const handleLogout=useCallback(()=>{
 
    dispatch(actionLogout())
 
   },[])
+
   const handleCloseLogout=useCallback(()=>{
     SetIsShowLogOut(false)
   },[])
@@ -132,13 +175,37 @@ export const PersonalScreen = React.memo(({navigation})=>{
 
 
 
-             <TouchableOpacity onPress={()=>{SetIsShowLogOut(true)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <TouchableOpacity onPress={()=>{dowloadFile()}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
                  <IconLogOut/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đăng xuất"}</Text>
              </TouchableOpacity>
-
            </View>
+        <Svg width={size} height={size}>
+          {/* Background Circle */}
+          <Circle
+            stroke="#D9D9D9"
+            fill="none"
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            strokeWidth={strokeWidth}
+          />
+          {/* Progress Circle */}
+          <Circle
+            stroke="#6699FF"
+            fill="none"
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            strokeDasharray={`${circum} ${circum}`}
+            strokeDashoffset={radius * Math.PI * 2 * (svgProgress / 100)}
+            strokeLinecap="round"
+            transform={`rotate(-90, ${size / 2}, ${size / 2})`}
+            strokeWidth={strokeWidth}
+          />
+        </Svg>
       </ScrollView>
+
       <DialogConfirmComponent visible={isShowLogOut} onConfirm={handleLogout} onClose={handleCloseLogout} content={"Bạn có chắc chắn đăng xuất khỏi ứng dụng ? Nhấn 'Đồng ý' để thực hiện đăng xuất "}   />
     </View>
   );
