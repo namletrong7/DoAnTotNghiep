@@ -1,5 +1,5 @@
 import {Platform, Text, TouchableOpacity, View} from "react-native";
-import {downloadFile} from "../../utils/downLoadFile";
+import { downloadFile, taiFile } from "../../utils/downLoadFile";
 import {baseUrlLinkFile} from "../../api/ConstBaseUrl";
 import RNFetchBlob from "rn-fetch-blob";
 import IconDownLoad from "../../assets/icons/IconDownLoad";
@@ -8,6 +8,9 @@ import IconPdf from "../../assets/icons/IconPdf";
 import IconDoc from "../../assets/icons/IconDoc";
 import IconXLS from "../../assets/icons/IconXLS";
 import IconFile from "../../assets/icons/IconFile";
+import { Circle, Svg } from "react-native-svg";
+import ReactNativeBlobUtil from "react-native-blob-util";
+import FileViewer from "react-native-file-viewer";
 
 /**
  * Created by TuanTQd on 21/03/2024
@@ -34,7 +37,17 @@ const RenderIcon = (props) => {
 
 };
  export  const RenderItemFile = React.memo((props) => {
-    return (
+   const [percentage, setPercentage] = React.useState(0);
+   const [isShowProgress, setIsShowProgress] = React.useState(false);
+   const size = 30;
+   const strokeWidth = 2;
+   const radius = (size - strokeWidth) / 2;
+   const circum = radius * 2 * Math.PI;
+   const svgProgress = 100 - percentage;
+   const filePathAndroid = RNFetchBlob.fs.dirs.DownloadDir+"/pmkma/" + props?.item?.fileName;
+   const filePathIOS = RNFetchBlob.fs.dirs.DocumentDir+"/pmkma/" + props?.item?.fileName;
+
+   return (
         <TouchableOpacity style={{
             marginTop: 10,
             alignItems: "center",
@@ -43,26 +56,48 @@ const RenderIcon = (props) => {
         }}
                           onPress={() => {
                               if (Platform.OS === 'android') {
-                                  downloadFile(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName);
-                              } else {
-                                  downloadFile(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName).then(res => {
-                                      RNFetchBlob.ios.previewDocument(res.path());
-                                  });
+                               taiFile(setIsShowProgress,filePathIOS, filePathAndroid,setPercentage,props?.item?.filePath)
                               }
                           }}>
 
             <View style={{
-                flex: 1, alignItems: "center",width:65, borderRadius: 10,
+                flex: 1, alignItems: "center",width:70, borderRadius: 10,
                 borderColor: "rgba(0,0,0,0.3)",borderWidth:1, paddingVertical: 10,
-                paddingHorizontal: 5,marginHorizontal:4
+                paddingHorizontal: 5,marginHorizontal:4, borderStyle:"dashed"
             }}>
                     <RenderIcon extension={props.item?.extension} />
                 <Text numberOfLines={3} style={{
                     fontSize: 12,
                     color: "black",
                     fontFamily: "OpenSans-Regular",
-                    flex:1
+                    flex:1,
+                  marginBottom:5,
                 }}>{props.item.fileName}</Text>
+              {isShowProgress?
+              <Svg width={size} height={size}>
+                {/* Background Circle */}
+                <Circle
+                  stroke="#D9D9D9"
+                  fill="none"
+                  cx={size / 2}
+                  cy={size / 2}
+                  r={radius}
+                  strokeWidth={strokeWidth}
+                />
+                {/* Progress Circle */}
+                <Circle
+                  stroke="#6699FF"
+                  fill="none"
+                  cx={size / 2}
+                  cy={size / 2}
+                  r={radius}
+                  strokeDasharray={`${circum} ${circum}`}
+                  strokeDashoffset={radius * Math.PI * 2 * (svgProgress / 100)}
+                  strokeLinecap="round"
+                  transform={`rotate(-90, ${size / 2}, ${size / 2})`}
+                  strokeWidth={strokeWidth}
+                />
+              </Svg>:null}
             </View>
         </TouchableOpacity>
     );

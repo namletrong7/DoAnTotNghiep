@@ -1,6 +1,9 @@
 import RNFetchBlob from "rn-fetch-blob";
 import {Platform} from "react-native";
 import {showMessage} from "react-native-flash-message";
+import ReactNativeBlobUtil from "react-native-blob-util";
+import { baseUrlLinkFile } from "../api/ConstBaseUrl";
+import FileViewer from "react-native-file-viewer";
 
 /**
  * Created by TuanTQd on 21/03/2024
@@ -9,9 +12,8 @@ import {showMessage} from "react-native-flash-message";
     // Get the app's cache directory
     const {config, fs} = RNFetchBlob;
     const cacheDir = fs.dirs.DownloadDir;
-
     const imagePath = `${cacheDir}/${fileName}`;
-
+  console.log(url)
     try {
         // Download the file and save it to the cache directory
         const configOptions = Platform.select({
@@ -47,4 +49,37 @@ import {showMessage} from "react-native-flash-message";
 
         return null;
     }
+};
+
+export const taiFile = async (setIsShowProgress,filePathIOS,filePathAndroid,setPercentage,url) => {
+  setIsShowProgress(true)
+  ReactNativeBlobUtil.config({
+    fileCache: true,
+    begin:{},
+    ios: {
+      fileCache: true,
+      path: filePathIOS,
+    },
+    addAndroidDownloads: {
+      useDownloadManager: true,
+      notification: true,
+      path: filePathAndroid,
+      description: 'Downloading file...',
+    },
+  })
+    .fetch('GET', baseUrlLinkFile+url)
+    .progress((received, total) => {
+      setPercentage(((received / total) * 100).toFixed(2))
+    })
+    .then((res) => {
+      setPercentage(100)
+      setIsShowProgress(false)
+      if(Platform.OS==='ios'){
+        FileViewer.open(filePathIOS, { showOpenWithDialog: true });
+      }
+    })
+    .catch((err) => {
+      setIsShowProgress(false)
+      return ;
+    });
 };

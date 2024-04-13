@@ -2,7 +2,7 @@ import Api from "../../../api/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { randomKeyComment } from "../../../utils/RandomKeyComment";
-import {firebase} from "@react-native-firebase/messaging";
+import messaging, {firebase} from "@react-native-firebase/messaging";
 
 
 /**
@@ -33,7 +33,7 @@ export function actionLogin(userName, passWord) {
 
                 }))
             }, 3000);
-                const token = await firebase.messaging().getToken();
+                const token = await messaging().getToken();
                 if (token){ console.log(token)}
                 else{
                     console.log("không láy dc token")
