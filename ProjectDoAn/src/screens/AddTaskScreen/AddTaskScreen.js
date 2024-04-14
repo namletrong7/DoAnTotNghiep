@@ -51,7 +51,7 @@ import HeaderComponent from "../../components/header/HeaderComponent";
 import { createListProjectDropDown } from "../../utils/CreateListDropDown";
 import { actionGetListUserProject } from "../../redux-store/actions/user";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
+export const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
 export const AddTaskScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
   const dataAllProject = useSelector(state => state.project.dataAllProject);

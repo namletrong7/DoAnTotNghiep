@@ -29,6 +29,7 @@ import UserPageScreen from "../screens/UserPageScreen/UserPageScreen";
 import WebViewScreen from "../screens/WebViewScreen/WebViewScreen";
 import messaging, {firebase} from '@react-native-firebase/messaging';
 import {showMessage} from "react-native-flash-message";
+import { AddFileAttachScreen } from "../screens/AddFileAttachScreen/AddFileAttachScreen";
 
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -106,11 +107,12 @@ export  const BottomHomeNavigation = React.memo(() => {
             tabBarItemStyle: {
               marginBottom: 7,
             },
-          })}
+          })
+        }
           safeAreaInsets={{
             bottom: 0,
           }}
-
+          animation='fade'
         >
           <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home"}}   />
           <Tab.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
@@ -162,8 +164,9 @@ export  const StackNavigate = React.memo(() => {
   })
   return (
     <Stack.Navigator screenOptions={{
-      headerShown: false
-    }}>
+      headerShown: false,
+    }}
+    >
       <Stack.Screen name="BottomHomeNavigation" component={BottomHomeNavigation} />
       <Stack.Screen name="DetailTaskScreen" component={DetailTaskScreen} />
       <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
@@ -172,6 +175,7 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="ViewImageScreen" component={ViewImageScreen} />
       <Stack.Screen name="UserPageScreen" component={UserPageScreen} />
       <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
+      <Stack.Screen name="AddFileAttachScreen" component={AddFileAttachScreen} />
     </Stack.Navigator>
   )
 })

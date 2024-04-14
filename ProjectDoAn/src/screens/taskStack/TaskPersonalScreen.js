@@ -17,37 +17,17 @@ import {
   Platform,
   VirtualizedList, Modal,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
+
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
 
-
-import ItemTask from "../../components/itemTask/ItemTask";
-import FastImage from "react-native-fast-image";
-import LottieView from "lottie-react-native";
-import IconPlus from "../../assets/icons/IconPlus";
-import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconArrowDown from "../../assets/icons/IconArrowDown";
-import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
-import BottomSheet, {BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
-import {useRef} from "react/index";
-import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
-import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
-import { actionGetAllProject } from "../../redux-store/actions/project";
-import {getColorBackgroundPriority, getColorPriority, getValuePriority} from "../../utils/GetPriority";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import IconBox from "../../assets/icons/IconBox";
 import IconDown from "../../assets/icons/IconDown";
-import IconMuiTenXuong from "../../assets/icons/IconMuiTenXuong";
 import {
-  actionGetAllTask,
-  actionGetAssignTask,
-  actionGetDetailTask,
-  actionGetMoreAllTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
+  actionGetAssignTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
 } from "../../redux-store/actions/task";
 import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
-import {FooterTask, FooterTaskk} from "./footerTask/FooterTask";
+import {FooterTask} from "./footerTask/FooterTask";
 import IconAssign from "../../assets/icons/IconAssign";
 import IconTarget from "../../assets/icons/IconTarget";
 import IconAll from "../../assets/icons/IconAll";
@@ -56,6 +36,7 @@ import IconClose from "../../assets/icons/IconClose";
 import IconSearch from "../../assets/icons/IconSearch";
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 import IconLoadMore from "../../assets/icons/IconLoadMorer";
+
 
 const TaskPersonalScreen = ({ navigation }) => {
 
@@ -142,6 +123,10 @@ const TaskPersonalScreen = ({ navigation }) => {
   }
 
   return (
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
         <StatusBar
@@ -230,6 +215,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
 
     </View>
+    </Animated.View>
   );
 };
 

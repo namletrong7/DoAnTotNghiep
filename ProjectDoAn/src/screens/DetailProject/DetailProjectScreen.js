@@ -8,20 +8,12 @@ import {
   TouchableWithoutFeedback,
   ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
-
-
-import ItemTask from "../../components/itemTask/ItemTask";
 import FastImage from "react-native-fast-image";
-import LottieView from "lottie-react-native";
-import IconPlus from "../../assets/icons/IconPlus";
+
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconArrowDown from "../../assets/icons/IconArrowDown";
-import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
+
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -29,19 +21,15 @@ import BottomSheet, {
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import {useRef} from "react/index";
-import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
-import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 import IconProject from "../../assets/icons/IconProject";
 import IconAddUser from "../../assets/icons/IconAddUser";
 import IconInfor from "../../assets/icons/IconInfor";
-import IconArrowLeft from "../../assets/icons/IconArrowLeft";
 import IconBack from "../../assets/icons/IconBack";
-import IconEdit from "../../assets/icons/IconEdit";
-import { showMessage } from "react-native-flash-message";
+
 import {  TopTabTask1 } from "./toptab/TopTabTask";
-import { dataPriority, getStateProject } from "../../utils/GetPriority";
-import { actionGetAllProject, actionGetDetailProject } from "../../redux-store/actions/project";
-import IconDown from "../../assets/icons/IconDown";
+import {  getStateProject } from "../../utils/GetPriority";
+import {  actionGetDetailProject } from "../../redux-store/actions/project";
 import {convertDateDB} from "../../utils/ConverPickerDate";
 import { BottomEditUser } from "./BottomEditUser";
 
@@ -99,6 +87,10 @@ const ItemUserMemer=(props)=>{
 
 
   return (
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
     <View style={{backgroundColor:"#F0F0F0", height:"100%"}}>
      <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight), backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
          <TouchableOpacity onPress={()=>{navigation.goBack()}}>
@@ -165,6 +157,7 @@ const ItemUserMemer=(props)=>{
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </View>
+    </Animated.View>
   );
 };
 

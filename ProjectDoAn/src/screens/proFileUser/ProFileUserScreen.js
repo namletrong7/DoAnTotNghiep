@@ -17,17 +17,13 @@ import FastImage from "react-native-fast-image";
 import { getValuePositionLevel } from "../../utils/GetValuePosition";
 import IconMessage from "../../assets/icons/IconMessage";
 import IconPhone from "../../assets/icons/IconPhone";
-import IconMail from "../../assets/icons/IconMail";
-import Toast from "react-native-toast-message";
+
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { actionGetProfileUser } from "../../redux-store/actions/user";
 import { ShimmerProfileUser } from "./shimmerProfileUser/ShimerProfileUser";
-import {
-  ShimmerEffectCommentComponent
-} from "../../components/shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import IconUser from "../../assets/icons/IconUser";
 import IconProfileUse from "../../assets/icons/IconProfileUse";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 
 
 const ProFileUserScreen = ({ navigation ,route }) => {
@@ -96,8 +92,11 @@ const ProFileUserScreen = ({ navigation ,route }) => {
   })
 
   return (
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
-      <FlashMessage position={"top"}  />
       <HeaderComponent title={"Thông tin nhân viên"} navigation={navigation} back/>
       <ScrollView contentContainerStyle={{marginHorizontal:20,marginTop:20}}
                   refreshControl={
@@ -143,6 +142,7 @@ const ProFileUserScreen = ({ navigation ,route }) => {
 
       </ScrollView>
     </View>
+    </Animated.View>
   );
 };
 

@@ -25,8 +25,9 @@ import {
   actionLogout,
 } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 
-import FlashMessage, { showMessage } from "react-native-flash-message"
+import  { showMessage } from "react-native-flash-message"
 
 import IconLogOut from "../../assets/icons/IconLogOut";
 import FastImage from "react-native-fast-image";
@@ -36,16 +37,11 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconNight from "../../assets/icons/IconNight";
 import IconLanguage from "../../assets/icons/IconLanguage";
 import IconComputer from "../../assets/icons/IconComputer";
-import IconInfo from "../../assets/icons/IconInfo";
-import { useFocusEffect } from "@react-navigation/native";
+import IconInfo from "../../assets/icons/IconInfo";;
 import IconKey from "../../assets/icons/IconKey";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
-import {PushNotify} from "../../utils/PushNotify";
-import axios from "axios";
-import RNFetchBlob from "rn-fetch-blob";
-import ReactNativeBlobUtil from "react-native-blob-util";
-import {Svg, Circle, Path} from 'react-native-svg';
-import FileViewer from "react-native-file-viewer";
+
+
 
 export const PersonalScreen = React.memo(({navigation})=>{
 
@@ -80,6 +76,10 @@ export const PersonalScreen = React.memo(({navigation})=>{
     });
   },[])
   return (
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
     <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}/>
       <ScrollView
@@ -145,6 +145,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
 
       <DialogConfirmComponent visible={isShowLogOut} onConfirm={handleLogout} onClose={handleCloseLogout} content={"Bạn có chắc chắn đăng xuất khỏi ứng dụng ? Nhấn 'Đồng ý' để thực hiện đăng xuất "}   />
     </View>
+    </Animated.View>
   );
 })
 
