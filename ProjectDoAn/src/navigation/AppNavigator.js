@@ -12,7 +12,6 @@ const AppNavigator = () => {
   return (
     <>
       {token ? (<StackNavigate />) : (<LoginNavigator />)}
-      <FlashMessage position="top" style={{height:Platform.OS==='ios'?100:90, borderBottomLeftRadius:10, borderBottomRightRadius:10, alignItems:"flex-end"}} />
     </>
   )
 }

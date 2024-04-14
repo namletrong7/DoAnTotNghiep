@@ -51,6 +51,7 @@ import DialogEditComment from "./DialogEditComment/DialogEditComment";;
 import IconAttachFile from "../../assets/icons/IconAttachFile";
 import { BottomEditUserTask } from "./BottomEditUserTask/BottomEditUserTask";
 import DialogChangContent from "../../components/changeConentComponent/ModalChangeContent";
+import DialogConfirmComponet from "../../components/DialogConfirmComponent/DialogConfirmComponet";
 
 
 
@@ -74,6 +75,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
   const [isVisibleProgress, setIsVisibleProgress] = useState(false);
   const [isVisibleEditComment, setIsVisibleEditComment] = useState(false);
+  const [isVisibleDeleteTask, setIsVisibleDeleteTask] = useState(false);  // comment duoc chon
   const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
   const refChangeActionTab = useRef(null);
   const refChangeActionComment = useRef(null);
@@ -111,6 +113,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   },[])
   const closeDialogEditComment=useCallback(()=>{
     setIsVisibleEditComment(false)
+  },[])
+  const closeDialogDeleteTask=useCallback(()=>{
+    setIsVisibleDeleteTask(false)
+  },[])
+  const openDialogDeleteTask=useCallback(()=>{
+    setIsVisibleDeleteTask(true)
   },[])
   const openDialogReport=useCallback(()=>{
         setIsVisibleReport(true)
@@ -318,11 +326,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
           <BottomEditUserTask bottomSheetRef ={refChangeEditUser} taskId={taskId} type={typeEditUser}  />
              <RenderActionComment dispatch={dispatch} commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard} openDialogEditComment={openDialogEditComment}  />
             <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
-            <RenderActionTask refChangeActionTab={refChangeActionTab} openBottomEditUser={openBottomEditUser}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress}   assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />
+            <RenderActionTask refChangeActionTab={refChangeActionTab} openBottomEditUser={openBottomEditUser}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress} onpenDialogDelete={openDialogDeleteTask}  assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>
       <DialogProgress  taskId={taskId} visible={isVisibleProgress} onClose={closeDialogProgress} />
+      <DialogConfirmComponet visible={isVisibleDeleteTask} onClose={closeDialogDeleteTask} content={"Bạn có chắc chắn xóa công việc này không"}/>
       <DialogEditComment   visible={isVisibleEditComment} onClose={closeDialogEditComment} dispatch={dispatch} comment={commentSelected} />
       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{ left: 0, right: 0, bottom:0,position:"absolute",backgroundColor:"#EEEEEE"}}>
           <SendCommentComponent taskId={taskId}/>

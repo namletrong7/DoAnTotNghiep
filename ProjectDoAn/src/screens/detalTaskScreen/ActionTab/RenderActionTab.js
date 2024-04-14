@@ -72,10 +72,10 @@ import IconDelete from "../../../assets/icons/IconDelete";
                                            height={25}/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Gia hạn xử lý"}</Text>
                         </View>
-                        <View style={{flexDirection:"row",marginTop:20}}>
+                        <TouchableOpacity onPress={props.onpenDialogDelete} style={{flexDirection:"row",marginTop:20}}>
                             <IconDelete />
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Xóa công việc"}</Text>
-                        </View>
+                        </TouchableOpacity>
 
                     </View>
                 </ScrollView>

@@ -46,7 +46,39 @@ const RenderIcon = (props) => {
    const svgProgress = 100 - percentage;
    const filePathAndroid = RNFetchBlob.fs.dirs.DownloadDir+"/pmkma/" + props?.item?.fileName;
    const filePathIOS = RNFetchBlob.fs.dirs.DocumentDir+"/pmkma/" + props?.item?.fileName;
+   const dowloadFile=async () => {
+     setIsShowProgress(true)
+     ReactNativeBlobUtil.config({
+       fileCache: true,
+       begin:{},
+       ios: {
+         fileCache: true,
+         path: filePathIOS,
+       },
+       addAndroidDownloads: {
+         useDownloadManager: true,
+         notification: true,
+         path: filePathAndroid,
+         description: 'Downloading file...',
+       },
+     })
+       .fetch('GET', baseUrlLinkFile+props?.item?.filePath)
+       .progress((received, total) => {
+         setPercentage(((received / total) * 100).toFixed(2))
+       })
+       .then((res) => {
+         setPercentage(100)
+         setIsShowProgress(false)
+         if(Platform.OS==='ios'){
+           FileViewer.open(filePath, { showOpenWithDialog: true });
+         }
+       })
+       .catch((err) => {
+         setIsShowProgress(false)
+         return ;
+       });
 
+   }
    return (
         <TouchableOpacity style={{
             marginTop: 10,
