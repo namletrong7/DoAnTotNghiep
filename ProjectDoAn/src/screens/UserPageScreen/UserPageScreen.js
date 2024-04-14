@@ -13,7 +13,6 @@ import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
 
-import ItemTask from "../../components/itemTask/ItemTask";
 import FastImage from "react-native-fast-image";
 
 import FlashMessage from "react-native-flash-message";
@@ -21,16 +20,11 @@ import { actionGetProfileUser } from "../../redux-store/actions/user";
 
 
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-
-import WebView from "react-native-webview";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 import LinearGradient from "react-native-linear-gradient";
-import {
-  ShimmerEffectCommentComponent
-} from "../../components/shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
-import { RenderItemFile } from "../../components/listFileAttachComponent/RenderItemFile";
+;
 import ImagePicker from "react-native-image-crop-picker";
-
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 
 const UserPageScreen = ({navigation , route}) => {
   const {userId}=route?.params
@@ -58,6 +52,10 @@ const chooseImage=()=>{
 }
 
   return (
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
     <View style={{backgroundColor:"white",height:'100%'}}>
       <FlashMessage position={"top"}  />
       <HeaderComponent title={"Trang cá nhân"}  navigation={navigation} back/>
@@ -142,6 +140,7 @@ const chooseImage=()=>{
 
       </ScrollView>
     </View>
+    </Animated.View>
   );
 };
 

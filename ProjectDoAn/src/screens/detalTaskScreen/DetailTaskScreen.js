@@ -18,7 +18,7 @@ import {
 } from "react-native";
 import { actionChangeTitleTask, } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
-
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import {
     getBackgroundStateTask,
     getColorBackgroundPriority,
@@ -52,6 +52,7 @@ import IconAttachFile from "../../assets/icons/IconAttachFile";
 import { BottomEditUserTask } from "./BottomEditUserTask/BottomEditUserTask";
 import DialogChangContent from "../../components/changeConentComponent/ModalChangeContent";
 import DialogConfirmComponet from "../../components/DialogConfirmComponent/DialogConfirmComponet";
+
 
 
 
@@ -172,6 +173,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     },[commentSelected])
 
   return (
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
     <View style={{height:"100%",backgroundColor:"#EEEEEE"}}>
         <SafeAreaView style={{height:StatusBar.currentHeight,backgroundColor:'white'}}>
             <StatusBar
@@ -185,7 +190,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </TouchableOpacity>
             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Chi tiết công việc"}</Text>
             <View  style={{ flexDirection:"row"}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
                 <IconAttachFile/>
               </TouchableOpacity>
 
@@ -338,7 +343,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       </KeyboardAvoidingView>
         <DialogChangContent visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
     </View>
-
+    </Animated.View>
   );
 })
 
