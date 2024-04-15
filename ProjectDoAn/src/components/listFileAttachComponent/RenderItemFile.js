@@ -43,6 +43,7 @@ const RenderIcon = (props) => {
    const circum = radius * 2 * Math.PI;
    const svgProgress = 100 - percentage;
    const filePath = RNFetchBlob.fs.dirs.DownloadDir+"/pmkma/" + props?.item?.fileName;
+   const filePathIOS = RNFetchBlob.fs.dirs.DocumentDir + props?.item?.fileName;
    return (
         <TouchableOpacity style={{
             marginTop: 10,
@@ -51,7 +52,7 @@ const RenderIcon = (props) => {
             flex: 1,
         }}
                           onPress={() => {
-                                  downloadFile(setIsShowProgress,filePath,setPercentage,props?.item?.filePath,props?.item?.fileName)
+                                  downloadFile(setIsShowProgress,filePath, filePathIOS,setPercentage,props?.item?.filePath,props?.item?.fileName)
                           }}>
 
             <View style={{

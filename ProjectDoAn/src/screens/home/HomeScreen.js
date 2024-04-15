@@ -60,27 +60,22 @@ const HomeScreen = ({ navigation }) => {
         <View style={{paddingHorizontal:10,marginBottom:"40%"}}>
           <View style={{marginVertical:10}}>
             <View style={{flexDirection:"row",justifyContent:"space-between",}}>
-              <Image
-                source={require('../../assets/images/logo.png')}
-                style={{  width: 200,
-                  height: 60,
-                  alignSelf:"flex-start" }}
-              />
+              <View style={{flexDirection:"row", flex:1}}>
+                <View>
+                  <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hello,"}</Text>
+                  <Text style={{fontSize:16, color:"black",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{(dataCurrentUser?.fullName)||'Vu thi thu ha'}</Text>
+                </View>
+                <LottieView style={{width:30, height:30, alignSelf:"center",marginLeft:-30,marginTop:-20}} source={require('../../assets/animation/cat.json')} autoPlay loop />
+              </View>
               <FastImage
-                style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
+                style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",alignSelf:"center"}}
                 source={{
                   uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
               }}
                 resizeMode={FastImage.resizeMode.stretch}/>
 
             </View>
-             <View style={{flexDirection:"row", }}>
-               <View>
-                 <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Hello,"}</Text>
-                 <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{(dataCurrentUser?.fullName)||'Vu thi thu ha'}</Text>
-               </View>
-               <LottieView style={{width:90, height:90, alignSelf:"center",marginLeft:-80,marginTop:-20}} source={require('../../assets/animation/cat.json')} autoPlay loop />
-             </View>
+
 
           </View>
           <Text style={{fontSize:20, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>

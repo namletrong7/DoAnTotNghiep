@@ -6,11 +6,11 @@ import FileViewer from "react-native-file-viewer";
 /**
  * Created by TuanTQd on 21/03/2024
  */
- export const downloadFile = async (setIsShowProgress,filePath,setPercentage,url,fileName) => {
+ export const downloadFile = async (setIsShowProgress,filePath,filePathIOS,setPercentage,url,fileName) => {
         const configOptions = Platform.select({
             ios: {
                 fileCache: true,
-                path: filePath,
+                path: filePathIOS,
                 appendExt: fileName.split('.').pop(),
             },
             android: {
@@ -32,7 +32,11 @@ import FileViewer from "react-native-file-viewer";
          }).then((res) => {
              setPercentage(100)
              setIsShowProgress(false)
-                 FileViewer.open(filePath, { showOpenWithDialog: true });
+             if(Platform.OS==='ios'){
+               FileViewer.open(filePathIOS, { showOpenWithDialog: true });
+             }else{
+               FileViewer.open(res.path(), { showOpenWithDialog: true });
+             }
 
          })
              .catch((err) => {
