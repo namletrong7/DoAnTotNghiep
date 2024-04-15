@@ -1,16 +1,14 @@
 import {Platform, Text, TouchableOpacity, View} from "react-native";
-import { downloadFile, taiFile } from "../../utils/downLoadFile";
-import {baseUrlLinkFile} from "../../api/ConstBaseUrl";
+import {checkFileExists, downloadFile} from "../../utils/downLoadFile";
 import RNFetchBlob from "rn-fetch-blob";
-import IconDownLoad from "../../assets/icons/IconDownLoad";
 import React from "react";
 import IconPdf from "../../assets/icons/IconPdf";
 import IconDoc from "../../assets/icons/IconDoc";
 import IconXLS from "../../assets/icons/IconXLS";
 import IconFile from "../../assets/icons/IconFile";
 import { Circle, Svg } from "react-native-svg";
-import ReactNativeBlobUtil from "react-native-blob-util";
 import FileViewer from "react-native-file-viewer";
+
 
 /**
  * Created by TuanTQd on 21/03/2024
@@ -44,41 +42,7 @@ const RenderIcon = (props) => {
    const radius = (size - strokeWidth) / 2;
    const circum = radius * 2 * Math.PI;
    const svgProgress = 100 - percentage;
-   const filePathAndroid = RNFetchBlob.fs.dirs.DownloadDir+"/pmkma/" + props?.item?.fileName;
-   const filePathIOS = RNFetchBlob.fs.dirs.DocumentDir+"/pmkma/" + props?.item?.fileName;
-   const dowloadFile=async () => {
-     setIsShowProgress(true)
-     ReactNativeBlobUtil.config({
-       fileCache: true,
-       begin:{},
-       ios: {
-         fileCache: true,
-         path: filePathIOS,
-       },
-       addAndroidDownloads: {
-         useDownloadManager: true,
-         notification: true,
-         path: filePathAndroid,
-         description: 'Downloading file...',
-       },
-     })
-       .fetch('GET', baseUrlLinkFile+props?.item?.filePath)
-       .progress((received, total) => {
-         setPercentage(((received / total) * 100).toFixed(2))
-       })
-       .then((res) => {
-         setPercentage(100)
-         setIsShowProgress(false)
-         if(Platform.OS==='ios'){
-           FileViewer.open(filePath, { showOpenWithDialog: true });
-         }
-       })
-       .catch((err) => {
-         setIsShowProgress(false)
-         return ;
-       });
-
-   }
+   const filePath = RNFetchBlob.fs.dirs.DownloadDir+"/pmkma/" + props?.item?.fileName;
    return (
         <TouchableOpacity style={{
             marginTop: 10,
@@ -87,9 +51,7 @@ const RenderIcon = (props) => {
             flex: 1,
         }}
                           onPress={() => {
-                              if (Platform.OS === 'android') {
-                               taiFile(setIsShowProgress,filePathIOS, filePathAndroid,setPercentage,props?.item?.filePath)
-                              }
+                                  downloadFile(setIsShowProgress,filePath,setPercentage,props?.item?.filePath,props?.item?.fileName)
                           }}>
 
             <View style={{
