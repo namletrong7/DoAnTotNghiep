@@ -21,6 +21,7 @@ import UserPageScreen from "./src/screens/UserPageScreen/UserPageScreen";
 import messaging from "@react-native-firebase/messaging";
 import FlashMessage from "react-native-flash-message";
 import { Platform } from "react-native";
+import SearchTaskScreen from "./src/screens/taskStack/SearchTaskScreen";
 
 
 

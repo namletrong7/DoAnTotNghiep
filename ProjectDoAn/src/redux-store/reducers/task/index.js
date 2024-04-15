@@ -22,7 +22,9 @@ const initialState = {
     dataTargetTask:[],
     isGetTaskDone:false,
     dataTaskDone:[],
-    isGetMoreAssignTask:false
+    isGetMoreAssignTask:false,
+    isSearchTask:false,
+    dataSearchTask:false,
 
 }
 const reducerTask = (state =initialState , action) => {
@@ -197,6 +199,16 @@ const reducerTask = (state =initialState , action) => {
                   comment.commentId !== action.data.commentId
                 ),
 
+            };
+        }
+        case 'GET_SEARCH_TASK': {
+            return { ...state,
+                dataSearchTask: action?.data
+            };
+        }
+        case 'RESET_SEARCH_TASK': {
+            return { ...state,
+                dataSearchTask: []
             };
         }
 

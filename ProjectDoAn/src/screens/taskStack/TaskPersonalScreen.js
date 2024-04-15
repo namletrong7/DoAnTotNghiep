@@ -55,7 +55,9 @@ const TaskPersonalScreen = ({ navigation }) => {
 
      dispatch(actionGetAssignTask())
      setLableTypeTask("Việc tôi giao")
-
+    return(()=>{
+      console.log("xin chào")
+    })
   },[])
 
   useEffect( () => {
@@ -142,7 +144,10 @@ const TaskPersonalScreen = ({ navigation }) => {
             <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
             <IconDown/>
           </View>
-          <IconSearch height={30} width={30}/>
+          <TouchableOpacity onPress={()=>{navigation.navigate("SearchTaskScreen")}}>
+            <IconSearch height={30} width={30}/>
+          </TouchableOpacity>
+
         </TouchableOpacity>
         <Modal
          animationType="fade"
