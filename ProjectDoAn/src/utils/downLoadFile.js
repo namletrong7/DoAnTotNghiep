@@ -27,9 +27,11 @@ import FileViewer from "react-native-file-viewer";
             },
         });
     setIsShowProgress(true)
-         RNFetchBlob.config(configOptions).fetch('GET', baseUrlLinkFile+url).progress((received, total) => {
+         RNFetchBlob.config(configOptions).fetch('GET', baseUrlLinkFile+url)
+           .progress((received, total) => {
              setPercentage(((received / total) * 100).toFixed(2))
-         }).then((res) => {
+         })
+           .then((res) => {
              setPercentage(100)
              setIsShowProgress(false)
              if(Platform.OS==='ios'){

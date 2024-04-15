@@ -30,6 +30,7 @@ import WebViewScreen from "../screens/WebViewScreen/WebViewScreen";
 import messaging, {firebase} from '@react-native-firebase/messaging';
 import {showMessage} from "react-native-flash-message";
 import { AddFileAttachScreen } from "../screens/AddFileAttachScreen/AddFileAttachScreen";
+import SearchTaskScreen from "../screens/taskStack/SearchTaskScreen";
 
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -176,6 +177,7 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="UserPageScreen" component={UserPageScreen} />
       <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
       <Stack.Screen name="AddFileAttachScreen" component={AddFileAttachScreen} />
+      <Stack.Screen name="SearchTaskScreen" component={SearchTaskScreen} />
     </Stack.Navigator>
   )
 })

@@ -23,7 +23,7 @@ import { ScrollView } from "react-native-gesture-handler";
 
 export const BottomEditUser=React.memo((props)=>{
   const {bottomSheetRef,renderBackdrop,dataUserChoose,snapPoints,projectId,handelCloseEditUser}= props
-  const [dataUser, setDataUser]=useState(dataUserChoose);
+  const [dataUser, setDataUser]=useState(()=>dataUserChoose);
   const [textSearch, settextSearch]=useState("");// tieeu de của project
   const dispatch  = useDispatch();
 

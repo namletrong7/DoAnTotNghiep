@@ -65,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
                   <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hello,"}</Text>
                   <Text style={{fontSize:16, color:"black",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{(dataCurrentUser?.fullName)||'Vu thi thu ha'}</Text>
                 </View>
-                <LottieView style={{width:30, height:30, alignSelf:"center",marginLeft:-30,marginTop:-20}} source={require('../../assets/animation/cat.json')} autoPlay loop />
+                <LottieView style={{width:30, height:30, alignSelf:"center",marginLeft:-30,marginTop:-5}} source={require('../../assets/animation/cat.json')} autoPlay loop />
               </View>
               <FastImage
                 style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",alignSelf:"center"}}

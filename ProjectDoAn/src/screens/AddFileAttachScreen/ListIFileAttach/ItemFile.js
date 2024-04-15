@@ -16,8 +16,8 @@ export const  ItemFile = React.memo((props) => {
         <Text numberOfLines={2} style={{marginTop:5,fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginHorizontal:5}}>{formatFileSize(props.item?.size)}</Text>
       </View>
 
-       <TouchableOpacity  onPress={()=>props.handleDelete(props.index)} style={{alignSelf:"center"}} >
-         <IconDelete  width={20} height={20}/>
+       <TouchableOpacity  onPress={()=>props.handleDelete(props.index)} style={{alignSelf:"center",backgroundColor:"#ceb6fc",width:30, height:30 , borderRadius:30/2,alignItems:'center',justifyContent:'center'}} >
+         <IconDelete  width={17} height={17}/>
        </TouchableOpacity>
 
     </View>

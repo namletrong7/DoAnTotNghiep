@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 // Tạo một instance của Axios với các cấu hình mặc định
-const Api = (isFormData) => {
+const Api = (isFormData:boolean) => {
 
     //Hàm tạo header
     const apiConfig = () => {
@@ -19,7 +19,7 @@ const Api = (isFormData) => {
         });
     }
     // Api test
-    const login=(userName,password)=> {
+    const login=(userName:string,password:string)=> {
         const apiInstance = apiConfig();
         return apiInstance.post("login.php",{
            userName:userName,
@@ -27,29 +27,29 @@ const Api = (isFormData) => {
         });
     }//-----------------------------------------------------
     // thêm api add task
-    const addTask=(body)=> {
+    const addTask=(body:any)=> {
         const apiInstance = apiConfig();
         return apiInstance.post("addTask.php",body);
     }
     // api get detail task
-   const getDetailTask=(taskId)=>{
+   const getDetailTask=(taskId:string)=>{
        const apiInstance = apiConfig();
        return apiInstance.get(`getDetailTask.php?taskId=${taskId}`);
    }
     // api láy file đính kèm của task
-    const getFileAttach=(taskId)=>{ // láy file đính kèm
+    const getFileAttach=(taskId:string)=>{ // láy file đính kèm
         const apiInstance = apiConfig();
         return apiInstance.get(`getAllFileAttach.php?taskId=${taskId}`);
     }
     // api láy file đính kèm của task
-    const getCommentTask=(taskId, offset)=>{  // lấy comment task
+    const getCommentTask=(taskId:string, offset:number)=>{  // lấy comment task
         const apiInstance = apiConfig();
         return apiInstance.post('getAllCommentTask.php',{
             taskId:taskId,
             offset:offset
         });
     }
-    const addCommentTask=(taskId, content, createUser)=>{  // thêm comment cho task
+    const addCommentTask=(taskId:string, content:string, createUser:number)=>{  // thêm comment cho task
         const apiInstance = apiConfig();
         return apiInstance.post('addComment.php',{
             taskId:taskId,
@@ -115,6 +115,13 @@ const Api = (isFormData) => {
         }
     });
   }
+  const searchTask=(text:string)=> {
+    return apiConfig().get('searchTask.php',{
+      params:{
+        textSearch:text
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -139,8 +146,8 @@ const Api = (isFormData) => {
       changeProgressTask,
       reportTask,
       getListUserOfProject,
-      editUserForTask
-
+      editUserForTask,
+     searchTask
     };
 };
 export default Api;

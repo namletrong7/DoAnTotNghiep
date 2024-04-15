@@ -69,14 +69,14 @@ export  const ItemTaskPersonal=React.memo(({item,gotoDetail})=>{
 
          <View style={{flexDirection:"row",alignSelf:"flex-start"}}>
            <FastImage
-               style={{ width: 20, height: 20,borderRadius: 20/2 ,overflow: "hidden"}}
+               style={{ width: 30, height: 30,borderRadius: 30/2 ,backgroundColor:'white',overflow: "hidden", borderWidth:1, borderColor:"#DDDDDD"}}
                source={{
                  uri: baseUrlAvatarUser+item?.avatarAssignUser
                }}
                resizeMode={FastImage.resizeMode.cover}
            />
            <FastImage
-               style={{ width: 20, height: 20,borderRadius: 20/2 ,overflow: "hidden",marginLeft:-7}}
+             style={{ width: 30, height: 30,backgroundColor:'white',borderRadius: 30/2 ,overflow: "hidden",marginLeft:-7,borderWidth:1, borderColor:"#DDDDDD"}}
                source={{
                  uri: baseUrlAvatarUser+item?.avatarTargetUser
                }}

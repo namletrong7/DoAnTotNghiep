@@ -724,6 +724,41 @@ export function actionDeleteComment(commentId) {
         });
     };
 }
+export function actionSearchTask(text) {
+    return async (dispatch, getState) => {
+        //     console.log("call task done")
+        dispatch(updateData({
+            isSearchTask :true
+        }))
+        try {
+            const response = await Api(false).searchTask(text)
+            if(response.data && response.data.status==200) {
+                await dispatch({
+                    type: "GET_SEARCH_TASK",
+                    data: response.data?.dataSearchTask
+                });
+            }
+                dispatch(updateData({
+                    isSearchTask :false
+                }))
+
+
+        } catch (error) {
+
+            dispatch(updateData({
+                isSearchTask :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 //--------------------------------------nghiêm túc
 
 
