@@ -193,17 +193,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               <TouchableOpacity onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
                 <IconAttachFile/>
               </TouchableOpacity>
-
-
-
-
-
               <TouchableOpacity onPress={openActionTab} style={{marginLeft:10}}>
                 <IconMenu/>
               </TouchableOpacity>
-
             </View>
-
         </View>
         <GestureHandlerRootView  style={{ borderRadius:16,flex:1}}>
           <ScrollView
