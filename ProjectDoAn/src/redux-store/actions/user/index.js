@@ -55,7 +55,6 @@ export function actionsearchUser(keyWord) {
     });
     try {
       const response = await Api(false).searchUser(keyWord);
-
       if(response.data && response?.data?.status==200){
         await   dispatch({
           type: "SEARCH_USER",
