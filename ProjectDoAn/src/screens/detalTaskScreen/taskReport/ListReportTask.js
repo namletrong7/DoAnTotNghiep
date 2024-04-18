@@ -18,6 +18,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import IconArrowDown from "../../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../../assets/icons/IconArrowLeft";
+import IconComment from "../../../assets/icons/IconComment";
+import IconAttachFile from "../../../assets/icons/IconAttachFile";
+import IconReport from "../../../assets/icons/IconReport";
+import RenderItemReportTask from "./RenderItemReportTask";
 
 
 export const ListReportTask = React.memo((props) => {
@@ -25,73 +29,21 @@ export const ListReportTask = React.memo((props) => {
   const dataReport = useSelector(state => state.task.detailTask.dataReport);
   const [seeAll, setSeeAll] = useState(true);
 
-    const RenderItemReport = (props) => {
-      const {item} = props
-      return (
-        <View style={{
-          marginTop: 10,
-          paddingTop: 10,
-          paddingBottom:20,
-          paddingHorizontal: 10,
-          borderRadius: 10,
-          backgroundColor: "#DDDDDD",
-          justifyContent: "flex-start",
 
-        }}>
-          <View style={{ flexDirection:"row" }}>
-            <Text numberOfLines={2} style={{
-              fontSize: 15,
-              color: "black",
-              fontFamily: "Roboto-Bold",
-              textAlign: "left",
-            }}>{props.item.fullName+":"} <Text numberOfLines={2} style={{
-              fontSize: 17,
-              color: item?.type==0?"#0066FF":"#00CC33",
-              fontFamily: "Roboto-Bold",
-              textAlign: "left",
-              marginHorizontal:10,
-              flexWrap:"wrap"
-            }}>{props.item.type==0?"Yêu cầu báo cáo tiến công việc":"Báo cáo tiến độ công việc"}</Text></Text>
-          </View>
-
-          <View style={{ flexDirection:"row", marginTop:10 }}>
-            <Text style={{
-              fontSize: 15,
-              color: "black",
-              fontFamily: "Roboto-Bold",
-              textAlign: "left",
-            }}>{"Ý kiến : "} <Text  style={{
-              fontSize: 15,
-              color: "black",
-              fontFamily: "Roboto-Italic",
-              textAlign: "left",
-              marginHorizontal:10,
-              flexWrap:"wrap"
-            }}>{item.content}</Text></Text>
-          </View>
-            {/*<RenderActionReport item={item}/>*/}
-
-
-        </View>
-      );
-    };
     return (
       <View style={styles.container}>
-
-        <TouchableOpacity style={{ flexDirection: "row", justifyContent: "space-between" }} onPress={() => {
-          setSeeAll(!seeAll);
-        }}>
-          <Text style={{ fontSize: 18, color: "black", fontFamily: "OpenSans-SemiBold" }}
-                numberOfLines={10}>{"Danh sách báo cáo"}</Text>
-          <View>
-            {seeAll ? <IconArrowDown /> : <IconArrowUp />}
+        <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSeeAll(!seeAll)} }>
+          <View style={{flexDirection:"row",alignItems:"center"}}>
+            <IconReport width={20} height={20}/>
+            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Báo cáo"}</Text>
           </View>
+          {seeAll? <IconArrowDown/>:<IconArrowUp/>}
         </TouchableOpacity>
         {seeAll ? (
           dataReport?.length > 0 ? <FlatList
               data={dataReport}
               scrollEnabled={false}
-              renderItem={({ item }) => <RenderItemReport item={item} />}
+              renderItem={({ item }) => <RenderItemReportTask item={item} />}
               keyExtractor={(item, index) => index.toString()}
             /> :
             <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}

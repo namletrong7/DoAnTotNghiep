@@ -42,10 +42,10 @@ const ItemProject = (props) => {
   function gotoDetailProjectScreen (item){
     props.navigation.navigate('DetailProjectScreen',{itemProject:item});
   }
-  const ItemUser=({item,index})=>{
+  const ItemUser=React.memo(({item,index})=>{
     return (
       <FastImage
-        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:index==0?0:-10}}
+        style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden",marginLeft:index==0?0:-10,borderWidth:1, borderColor:'white'}}
         source={{
           uri: (baseUrlAvatarUser+item?.avatarUser)||''
         }}
@@ -53,7 +53,7 @@ const ItemProject = (props) => {
 
       />
     )
-  }
+  })
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item)}}>
 
@@ -70,7 +70,7 @@ const ItemProject = (props) => {
             </View>
             {props?.item?.dataListUser.length>4&&
            <View
-              style={{width: 30,alignSelf:"flex-start",alignItems:'center',justifyContent:'center', height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:-10,backgroundColor:"##8e5eee"}}
+              style={{width: 25,alignSelf:"flex-start",alignItems:'center',justifyContent:'center', height: 25,borderRadius: 25/2 ,overflow: "hidden",marginLeft:-10,backgroundColor:"#A9A9A9"}}
             >
              <Text  style={{fontSize:13, color:"white",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{"+"+(props?.item?.dataListUser.length-4)}</Text>
 

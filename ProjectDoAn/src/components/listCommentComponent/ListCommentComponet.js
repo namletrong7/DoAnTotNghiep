@@ -30,6 +30,7 @@ import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import { useNavigation } from "@react-navigation/native";
 import ItemComment from "./ItemComment";
 import ItemTask from "../itemTask/ItemTask";
+import IconComment from "../../assets/icons/IconComment";
   const ListCommentComponent  =(props)=> {
     const dispatch = useDispatch();
     const navi = useNavigation();
@@ -50,10 +51,11 @@ import ItemTask from "../itemTask/ItemTask";
      return (
        <View style={styles.container}>
          <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSee(!see)} }>
-           <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Bình luận"}</Text>
-           <View>
-             {see? <IconArrowDown/>:<IconArrowUp/>}
+           <View style={{flexDirection:"row",alignItems:"center"}}>
+           <IconComment width={20} height={20}/>
+           <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Bình luận"}</Text>
            </View>
+             {see? <IconArrowDown/>:<IconArrowUp/>}
          </TouchableOpacity>
          {isGetComment?(<ShimmerEffectCommentComponent/>):
            <FlatList
@@ -76,7 +78,10 @@ import ItemTask from "../itemTask/ItemTask";
 const styles = StyleSheet.create({
   container: {
     display:"flex",
-    marginTop: 20,
+    marginTop: 10,
+    backgroundColor:"white",
+    padding:7,
+    borderRadius:8
   },
 
 });

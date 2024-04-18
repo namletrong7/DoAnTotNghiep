@@ -24,7 +24,7 @@ const ViewImageScreen = ({ navigation ,route }) => {
 
 
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <ImageZoom uri={baseUrlAvatarUser+imgageUrl} />
+        <ImageZoom uri={imgageUrl} />
       </GestureHandlerRootView>
 
     </View>

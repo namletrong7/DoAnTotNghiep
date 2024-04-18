@@ -37,6 +37,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import IconBack from "../../assets/icons/IconBack.js";
 import { isNumber } from "@notifee/react-native/dist/utils";
 import { ItemStaff } from "../../components/ItemStaff/ItemStaff.js";
+import { ListStaffSearch } from "./ListStaffSearch/ListStaffSearch.tsx";
+import { actionsearchUser } from "../../redux-store/actions/user";
 
 
  type propsType ={
@@ -46,97 +48,17 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
   const dispatch  = useDispatch();
   const [content, setContent] = useState<string | number>("");
   const [typeSearch, setTypeSearch] = useState<number>(1);
-  const dataSearchTask = useSelector(state => state.task?.dataSearchTask);
+  const dataSearchTask = useSelector((state:any) => state.task?.dataSearchTask);
 
-  const listUser=[
-    {
-      "userId": "0",
-      "userName": "anhvtd",
-      "firstName": "vũ thi ",
-      "lastName": "hà",
-      "fullName": "Vũ đình tuấn anh",
-      "email": "anhvtd@gmail.com",
-      "phoneNumber": "037356450",
-      "gender": "0",
-      "isActive": "0",
-      "passWord": "123456",
-      "createdByUserid": "1",
-      "avatarUser": "anhvtd.png",
-      "positionLevel": "3",
-      "birthDay": "2024-03-28 14:31:08",
-      "isAdmin": "1"
-    },
-    {
-      "userId": "1",
-      "userName": "namltc",
-      "firstName": "John",
-      "lastName": "Doe",
-      "fullName": "Lê Trọng Nam",
-      "email": "john.doe@example.com",
-      "phoneNumber": "123456789",
-      "gender": "1",
-      "isActive": "1",
-      "passWord": "password123",
-      "createdByUserid": "admin_user",
-      "avatarUser": "namltc.png",
-      "positionLevel": "2",
-      "birthDay": "1990-01-01 00:00:00",
-      "isAdmin": "1"
-    },
-    {
-      "userId": "2",
-      "userName": "sonntt",
-      "firstName": "John",
-      "lastName": "Doe",
-      "fullName": "Nguyễn Trần Thanh Sơn",
-      "email": "sonntt@KMA.com",
-      "phoneNumber": "123456789",
-      "gender": "1",
-      "isActive": "1",
-      "passWord": "123456a@",
-      "createdByUserid": "admin_user",
-      "avatarUser": "avatar.jpg",
-      "positionLevel": "2",
-      "birthDay": "1990-01-01 00:00:00",
-      "isAdmin": "1"
-    },
-    {
-      "userId": "3",
-      "userName": "hantk",
-      "firstName": "nguyễn thị kim ",
-      "lastName": "hà ",
-      "fullName": "nguyễn thị kim hà",
-      "email": "hantk@gmail.com",
-      "phoneNumber": "0337356550",
-      "gender": "1",
-      "isActive": "1",
-      "passWord": "123456",
-      "createdByUserid": "1",
-      "avatarUser": "avatar.jpg",
-      "positionLevel": "3",
-      "birthDay": "2024-03-28 14:31:08",
-      "isAdmin": "0"
-    },
-    {
-      "userId": "5",
-      "userName": "tienbv",
-      "firstName": "tien",
-      "lastName": "bui",
-      "fullName": "Bùi Văn Tiến",
-      "email": "sonntt@KMA.com",
-      "phoneNumber": "0337356550",
-      "gender": "0",
-      "isActive": "1",
-      "passWord": "123456",
-      "createdByUserid": "1",
-      "avatarUser": "tuananh.jpg",
-      "positionLevel": "0",
-      "birthDay": "2024-03-28 14:31:08",
-      "isAdmin": "0"
-    },]
+
   const handleSearchTask=(value:string):void=>{
             setContent(value)
-           dispatch(actionSearchTask(value))
+       if(typeSearch===1){
+         dispatch(actionSearchTask(value))
+       }else    if(typeSearch===2){
+         dispatch(actionsearchUser(value))
+       }
+
   }
   const ItemFilter=React.memo(({ title, type }: { title: string; type: number })=>{
     return(
@@ -150,15 +72,6 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
              type:"RESET_SEARCH_TASK"
              })
   }
-  // useEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       dispatch({
-  //         type:"RESET_SEARCH_TASK"
-  //       })
-  //     };
-  //   }, [])
-  // );
   return (
     <Animated.View
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
@@ -194,22 +107,15 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
           <ItemFilter title={"Dự án"} type={3}/>
           <ItemFilter title={"Phòng ban"} type={4}/>
         </ScrollView>
-        <ScrollView contentContainerStyle={{height:"100%"}}>
+        <ScrollView style={{height:"100%"}}>
           {(dataSearchTask?.length > 0 && typeSearch===1)?
           <FlatList
           data={dataSearchTask}
-          initialNumToRender={5}
           renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
           scrollEnabled={false}
           keyExtractor={item => item.taskId}
         />:null}
-          {(listUser?.length > 0 && typeSearch===2) &&
-            <FlatList
-              data={listUser}
-              renderItem={({item}) => <ItemStaff item={item} navigation={navigation}/>}
-              scrollEnabled={false}
-              keyExtractor={item => item.taskId}
-            />}
+         <ListStaffSearch type={typeSearch} navigation={navigation}/>
         </ScrollView>
       </View>
     </Animated.View>
