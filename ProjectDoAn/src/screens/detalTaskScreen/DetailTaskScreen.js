@@ -52,6 +52,9 @@ import IconAttachFile from "../../assets/icons/IconAttachFile";
 import { BottomEditUserTask } from "./BottomEditUserTask/BottomEditUserTask";
 import DialogChangContent from "../../components/changeConentComponent/ModalChangeContent";
 import DialogConfirmComponet from "../../components/DialogConfirmComponent/DialogConfirmComponet";
+import { ProgressTaskComponent } from "../../components/ProgressTaskComponent/ProgressTaskComponent";
+import IconContent from "../../assets/icons/ItemContent";
+import IconProhress from "../../assets/icons/IconProhress";
 
 
 
@@ -217,7 +220,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
              <View style={{flexDirection:"row",alignItems:'center',marginTop:10,justifyContent:"space-between"}}>
                <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",flexDirection:"row"}}>
-                 <Text style={{fontSize:15, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
+                 <View style={{width:10, height:10, borderRadius:10/2, backgroundColor:getColorPriority(dataDetailTask?.priority|| 0)}}/>
+                 <Text style={{fontSize:15,marginLeft:5, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
                  <IconArrowDown width={10} height={10}/>
                </TouchableOpacity>
                <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,borderRadius:16,paddingHorizontal:10,flexDirection:"row",justifyContent:'center'}}>
@@ -279,18 +283,15 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 </View>
 
               <ListReportTask assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} currenUser={2}/>
-              <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
-                <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
+              <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center"}}>
+                <IconProhress/>
+                <Text style={{fontSize:18,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
               </TouchableOpacity>
 
-              <View style={{flexDirection:"row",marginTop:0,alignSelf:"center",justifyContent:"center"}}>
-                <View style={{marginTop:20,backgroundColor:"#CCCCCC",height:10, borderRadius:50,width:screenWidth * 0.8}}>
-                  <View style={{flex:1,backgroundColor:"#4577ef",borderRadius:50,width:(dataDetailTask?.progress||0)+"%"}}></View>
-                </View>
-                <Text style={{fontSize:15, color:"#999999",fontFamily:"OpenSans-Regular",marginTop:9,marginLeft:10,alignSelf:"center"}} numberOfLines={2}>{(dataDetailTask?.progress||0)+"%"}</Text>
-              </View>
-              <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center",justifyContent:"space-between"}}>
-                <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
+              <ProgressTaskComponent progress={dataDetailTask?.progress} priority={dataDetailTask?.priority}/>
+              <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center"}}>
+                <IconContent/>
+                <Text style={{fontSize:18,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
               </TouchableOpacity>
               <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:7}}>
 

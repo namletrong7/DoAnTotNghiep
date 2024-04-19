@@ -5,25 +5,26 @@ import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 
 
  export const ItemStaff=React.memo((props)=>{
-   const {item}= props
+   const {item,navigation}= props
    return (
-     <TouchableOpacity  style={{flexDirection:"row",flex:1, marginHorizontal:5,marginVertical:2,paddingVertical:3, alignItems:'center'}}>
+     <TouchableOpacity  onPress={()=>{navigation.navigate("ProfileUser", { userId: item?.userId })}} style={{marginVertical:2,paddingVertical:3}}>
+       <View style={{flexDirection:"row",alignItems:'center',paddingHorizontal:10}}>
        <FastImage
-         style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden",marginLeft:3}}
+         style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",marginLeft:3}}
          source={{
            uri: (baseUrlAvatarUser+item?.avatarUser)||''
          }}
          resizeMode={FastImage.resizeMode.preload}
 
        />
-       <View style={{flex:0.9}}>
+       <View style={{flex:1}}>
          <Text style={{fontSize:15,flexWrap:"wrap", color:"black",  fontFamily: "OpenSans-SemiBold",marginLeft:5,flex:1}}>{item.fullName}</Text>
-         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{item.userName}</Text>
-         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"chuyên môn: Chuyên viên kê toán"}</Text>
-         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"phòng ban: Tài chinh ke toán"}</Text>
-         <View style={{height:1, backgroundColor:"gray"}}/>
+         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{item?.userName}</Text>
+         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"Chuyên môn: "+item?.jobtitleName}</Text>
+         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"phòng ban: "+ item?.departmentName}</Text>
        </View>
-
+       </View>
+       <View style={{height:1, backgroundColor:"gray",flex:1,marginVertical:4,opacity:0.4}}/>
      </TouchableOpacity>
    )
 })

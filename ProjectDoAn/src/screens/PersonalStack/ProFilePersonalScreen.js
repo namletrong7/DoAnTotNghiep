@@ -141,7 +141,7 @@ const ProFilePersonalScreen = ({ navigation ,route }) => {
       >
         <TouchableOpacity  onPress={()=>{setIsShowOptionAvatar(false)}} style={styles.modalContainer} >
           <View  style={styles.modalContent}>
-            <TouchableOpacity onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:dataCurrentUser?.avatarUser})}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:baseUrlAvatarUser+dataCurrentUser?.avatarUser})}}>
               <Text style={styles.textInfor}>{"Xem ảnh đại diện "}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{marginVertical:20}}>

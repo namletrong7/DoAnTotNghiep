@@ -724,7 +724,7 @@ export function actionDeleteComment(commentId) {
         });
     };
 }
-export function actionSearchTask(text) {
+export function actionSearchTask(text: string) {
     return async (dispatch, getState) => {
         //     console.log("call task done")
         dispatch(updateData({

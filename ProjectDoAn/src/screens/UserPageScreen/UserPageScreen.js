@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl, Pressable,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const UserPageScreen = ({navigation , route}) => {
   const [listImage, setListImage] = useState([]);
   const dataUser = useSelector(state => state.user?.dataProfileUser);
   const isGetProfileUser = useSelector(state => state.user?.isGetProfileUser);
-
+  const link="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/436200407_815315570624973_1781664654681842378_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=n4Htsj_wW_4Ab7Z64qG&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAdWUwE2Z-tSCAYn9RNJSiA_MyAEjhsICJZW-cDQG_N2Q&oe=6625A6B3"
   const handleGetProfileUser=useCallback(()=> {
     setRefreshing(true);
     dispatch(actionGetProfileUser(userId))
@@ -73,16 +73,19 @@ const chooseImage=()=>{
                                                       height={160}
                                                       LinearGradient={LinearGradient}>
               </ShimmerPlaceholder>):
-            <FastImage
-              style={{
-                width: "100%",
-                height: 160,
-              }}
-              source={{
-                uri: 'https://daotaolientuc.edu.vn/wp-content/uploads/2023/09/diem-chuan-hoc-vien-ky-thuat-mat-ma1.jpg'
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />}
+              <Pressable onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:link})}}>
+                <FastImage
+                  style={{
+                    width: "100%",
+                    height: 160,
+                  }}
+                  source={{
+                    uri: link
+                  }}
+                  resizeMode={FastImage.resizeMode.stretch}
+                />
+              </Pressable>
+            }
           </View>
 
      <View style={{marginLeft:20,
@@ -95,21 +98,25 @@ const chooseImage=()=>{
                                                height={100}
                                                LinearGradient={LinearGradient}>
          </ShimmerPlaceholder>):
-          <FastImage
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 100 / 2,
-              overflow: "hidden",
-              borderWidth:3,
-              backgroundColor:"white",
-              borderColor:"white",
-            }}
-            source={{
-              uri: (baseUrlAvatarUser+dataUser?.avatarUser)||'https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1712574436~exp=1712575036~hmac=45f0ec209d444e0275361139f242a77a592eab1547c026daedddafe25dd6fe72'
-            }}
-            resizeMode={FastImage.resizeMode.stretch}
-          />}
+           <Pressable onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:baseUrlAvatarUser+dataUser?.avatarUser})}}>
+
+           <FastImage
+               style={{
+                 width: 100,
+                 height: 100,
+                 borderRadius: 100 / 2,
+                 overflow: "hidden",
+                 borderWidth:3,
+                 backgroundColor:"white",
+                 borderColor:"white",
+               }}
+               source={{
+                 uri: (baseUrlAvatarUser+dataUser?.avatarUser)||'https://img.freepik.com/free-psd/3d-illustration-person_23-2149436192.jpg?w=740&t=st=1712574436~exp=1712575036~hmac=45f0ec209d444e0275361139f242a77a592eab1547c026daedddafe25dd6fe72'
+               }}
+               resizeMode={FastImage.resizeMode.stretch}
+             />
+           </Pressable>
+         }
      </View>
           <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginLeft:130,marginTop:-30}}>{dataUser?.fullName}</Text>
           <View style={{height:0.6,backgroundColor:"black",marginVertical:10}}/>

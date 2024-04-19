@@ -107,9 +107,8 @@ const ProFileUserScreen = ({ navigation ,route }) => {
                   }>
         <View>
           {isGetProfileUser?(<ShimmerProfileUser/>):
-
               <View>
-                <TouchableOpacity onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:dataUser?.avatarUser})}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate("ViewImageScreen",{imgageUrl:baseUrlAvatarUser+dataUser?.avatarUser})}}>
                   <FastImage
                     style={{
                       width: 100,
