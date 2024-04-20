@@ -4,10 +4,10 @@ import React from "react";
 
 const ProjectChartComponet = () => {
   const pieData = [
-    { value: 47, color: '#009FFF', gradientCenterColor: '#006DFF', focused: true, },
-    {value: 40, color: '#93FCF8', gradientCenterColor: '#3BE9DE'},
-    {value: 16, color: '#BDB2FA', gradientCenterColor: '#8F80F3'},
-    {value: 3, color: '#FFA5BA', gradientCenterColor: '#FF7F97'},
+    { value: 20, color: '#181818'},
+    {value: 40, color: '#4191df', focused: true},
+    {value: 16, color: '#ecae36'},
+    {value: 24, color: '#62c241', focused: true, },
   ];
 
   const renderDot = (color:string) => {
@@ -23,7 +23,6 @@ const ProjectChartComponet = () => {
       />
     );
   };
-
   const renderLegendComponent = () => {
     return (
       <>
@@ -39,13 +38,13 @@ const ProjectChartComponet = () => {
               flex:1,
               marginRight: 20,
             }}>
-            {renderDot('#006DFF')}
+            {renderDot('#181818')}
             <Text style={{color: 'black'}}>Chưa thực hiện: 47%</Text>
           </View>
           <View
             style={{flexDirection: 'row', alignItems: 'center'}}>
-            {renderDot('#8F80F3')}
-            <Text style={{color: 'black'}}>Chưa thực hiện: 16%</Text>
+            {renderDot('#4191df')}
+            <Text style={{color: 'black'}}>Đang thực hiện: 16%</Text>
           </View>
           <View
             style={{
@@ -54,13 +53,13 @@ const ProjectChartComponet = () => {
               flex:1,
               marginRight: 20,
             }}>
-            {renderDot('#3BE9DE')}
+            {renderDot('#ecae36')}
             <Text style={{color: 'black'}}>Tạm dừng: 40%</Text>
           </View>
           <View
             style={{flexDirection: 'row', alignItems: 'center'}}>
-            {renderDot('#FF7F97')}
-            <Text style={{color: 'black'}}>Đã kết thúc: 3%</Text>
+            {renderDot('#62c241')}
+            <Text style={{color: 'black'}}>Đã hoàn thành: 3%</Text>
           </View>
         </View>
       </>

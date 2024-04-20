@@ -20,10 +20,11 @@ import AppNavigator from "../../navigation/AppNavigator";
 import IconFlag from "../../assets/icons/IconArrowDown";
 import FastImage from 'react-native-fast-image'
 import {
+  getBackgroundStateProject,
   getColorBackgroundPriority,
-  getColorPriority, getFirstAndLastCharacters,
+  getColorPriority, getColorStateProject, getFirstAndLastCharacters,
   getRandomColor,
-  getState,
+  getState, getStateProject,
   getValuePriority,
 } from "../../utils/GetPriority";
 import IconCalendar from "../../assets/icons/IconCalendar";
@@ -58,8 +59,7 @@ const ItemProject = (props) => {
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item)}}>
 
          <Text numberOfLines={2} style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props?.item?.nameProject}</Text>
-         <View style={{marginVertical:10, flexDirection:"row", alignItems:"center",}}>
-          <View style={{flexDirection:"row",}}>
+         <View style={{marginVertical:5, flexDirection:"row", alignItems:"center",}}>
             <View  style={{alignSelf:'flex-start'}}>
               <FlatList
                 data={props?.item?.dataListUser.slice(0, 4)}
@@ -75,9 +75,10 @@ const ItemProject = (props) => {
              <Text  style={{fontSize:13, color:"white",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{"+"+(props?.item?.dataListUser.length-4)}</Text>
 
            </View>}
-          </View>
-
          </View>
+      <View style={{backgroundColor:getBackgroundStateProject(props?.item.state),alignSelf:'flex-start',padding:3,borderRadius:8,marginVertical:5}}>
+        <Text numberOfLines={2} style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{getStateProject(props?.item.state)}</Text>
+      </View>
          <View style={{flexDirection:"row", justifyContent:"space-between",}}>
            <View style={{flexDirection:"row",justifyContent:'center'}}>
              <IconLich/>

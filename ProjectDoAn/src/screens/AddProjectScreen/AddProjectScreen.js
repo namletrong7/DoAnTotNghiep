@@ -81,9 +81,9 @@ export const AddProjectScreen = React.memo(({navigation})=>{
   const [title, setTitle]=useState('');// tieeu de của project
   const [textSearch, settextSearch]=useState('');// tieeu de của project
 
-  const [startDay, setStartDay]=useState(converPickerDate(new Date()));//ngày băt đầu
+  const [startDay, setStartDay]=useState(moment(new Date()).format('YYYY-MM-DD'));//ngày băt đầu
   const [ngayBatDau, setNgayBatDau]=useState('');//ngày băt đầu
-  const [endDay, setEndDay]=useState(converPickerDate(new Date()));// ngày kết thuc
+  const [endDay, setEndDay]=useState(moment(new Date()).format('YYYY-MM-DD'));// ngày kết thuc
   const [ngayKetThuc, setngayKetThuc]=useState();// ngày kết thuc
 
   const [isShowStartDay, SetIsShowStartDay]=useState(false);//hiển thị picker chọn ngày bắt đầu
