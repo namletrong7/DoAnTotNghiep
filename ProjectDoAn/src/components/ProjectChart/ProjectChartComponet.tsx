@@ -28,23 +28,22 @@ const ProjectChartComponet = () => {
       <>
         <View
           style={{
-            justifyContent: 'center',
+            alignSelf:"flex-start",
             marginBottom: 10,
           }}>
+          <Text style={{color: 'black',fontSize:17,marginBottom:10}}>Tổng số : 8 dự án</Text>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              flex:1,
-              marginRight: 20,
             }}>
             {renderDot('#181818')}
-            <Text style={{color: 'black'}}>Chưa thực hiện: 47%</Text>
+            <Text style={{color: 'black'}}>Chưa thực hiện: 47</Text>
           </View>
           <View
-            style={{flexDirection: 'row', alignItems: 'center'}}>
+            style={{flexDirection: 'row', alignItems: 'center',marginTop:5}}>
             {renderDot('#4191df')}
-            <Text style={{color: 'black'}}>Đang thực hiện: 16%</Text>
+            <Text style={{color: 'black'}}>Đang thực hiện: 14</Text>
           </View>
           <View
             style={{
@@ -52,14 +51,15 @@ const ProjectChartComponet = () => {
               alignItems: 'center',
               flex:1,
               marginRight: 20,
+              marginTop:5
             }}>
             {renderDot('#ecae36')}
-            <Text style={{color: 'black'}}>Tạm dừng: 40%</Text>
+            <Text style={{color: 'black'}}>Tạm dừng: 40</Text>
           </View>
           <View
-            style={{flexDirection: 'row', alignItems: 'center'}}>
+            style={{flexDirection: 'row', alignItems: 'center',marginTop:5}}>
             {renderDot('#62c241')}
-            <Text style={{color: 'black'}}>Đã hoàn thành: 3%</Text>
+            <Text style={{color: 'black'}}>Đã hoàn thành: 3</Text>
           </View>
         </View>
       </>
