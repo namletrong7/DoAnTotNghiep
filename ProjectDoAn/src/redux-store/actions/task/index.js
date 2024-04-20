@@ -287,7 +287,7 @@ export function actionGetTaskToDoProject(projectId) {
                 type: "END_GET_TASK_PROJECT_TODO",
             });
         } catch (error) {
-            // Xử lý lỗi ở đây
+
 
             await   dispatch({  // bắt đầu
                 type: "END_GET_TASK_PROJECT_TODO",
@@ -724,7 +724,7 @@ export function actionDeleteComment(commentId) {
         });
     };
 }
-export function actionSearchTask(text: string) {
+export function actionSearchTask(text) {
     return async (dispatch, getState) => {
         //     console.log("call task done")
         dispatch(updateData({

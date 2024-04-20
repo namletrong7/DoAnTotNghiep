@@ -144,10 +144,6 @@ const TaskPersonalScreen = ({ navigation }) => {
             <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
             <IconDown/>
           </View>
-          <TouchableOpacity onPress={()=>{navigation.navigate("SearchTaskScreen")}}>
-            <IconSearch height={30} width={30}/>
-          </TouchableOpacity>
-
         </TouchableOpacity>
         <Modal
          animationType="fade"

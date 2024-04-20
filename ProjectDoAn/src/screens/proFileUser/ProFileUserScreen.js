@@ -48,8 +48,8 @@ const ProFileUserScreen = ({ navigation ,route }) => {
     return(
       <View style={{flexDirection:"row",alignItems:"center",marginTop:10,flex:1}}>
           <View style={{width:10, height:10, borderRadius:10/2, backgroundColor:"#3366CC",marginLeft:10}}/>
-          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10,flex:0.4}}>{props?.title || "số điện thoại"}</Text>
-          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:4,flex:0.6}}>{props?.content ||"0337356550"}</Text>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10,flex:0.4}}>{props?.title}</Text>
+          <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:4,flex:0.6}}>{props?.content}</Text>
       </View>
     )
    }
@@ -131,8 +131,8 @@ const ProFileUserScreen = ({ navigation ,route }) => {
                 <RenderContent title={"Email:"} content={dataUser?.email||''}/>
                 <Text style={{fontSize:16, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginTop:30}}>{"Chức vụ, phòng ban"}</Text>
                 <RenderContent title={"Chức vụ: "} content={getValuePositionLevel(dataUser?.positionLevel||0)}/>
-                <RenderContent title={"Phòng ban: "} content={dataUser?.departmentName||''}/>
-                <RenderContent title={"Chuyên môn: "} content={dataUser?.jobtitleName||''}/>
+                <RenderContent title={"Phòng ban: "} content={dataUser?.departmentName||'Chưa cập nhập'}/>
+                <RenderContent title={"Chuyên môn: "} content={dataUser?.jobtitleName||'Chưa cập nhập'}/>
               </View>}
 
 

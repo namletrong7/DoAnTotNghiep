@@ -30,7 +30,9 @@ import WebViewScreen from "../screens/WebViewScreen/WebViewScreen";
 import messaging, {firebase} from '@react-native-firebase/messaging';
 import {showMessage} from "react-native-flash-message";
 import { AddFileAttachScreen } from "../screens/AddFileAttachScreen/AddFileAttachScreen";
-import SearchTaskScreen from "../screens/taskStack/SearchTaskScreen";
+import IconSearch from "../assets/icons/IconSearch";
+import IconSearchFocus from "../assets/icons/IconSearchFocus";
+import SearchTaskScreen from "../screens/SearchStack/SearchTaskScreen";
 
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -54,7 +56,6 @@ export  const HomeStack = React.memo(() => {
       headerShown: false
     }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
     </Stack.Navigator>
   )
 })
@@ -72,6 +73,7 @@ export  const PersonalStack = React.memo(() => {
     </Stack.Navigator>
   )
 })
+
 export  const BottomHomeNavigation = React.memo(() => {
   const Tab = createBottomTabNavigator();
 
@@ -92,8 +94,8 @@ export  const BottomHomeNavigation = React.memo(() => {
               else if (route.name === "TaskPersonalScreen") {
                 iconName = focused ? <IconTaskFocus/> : <IconTaskUnFocus/>;
               }
-              else if (route.name === "ThongKe") {
-                  iconName = focused ? <IconThongKefocus/> : <IconThongKeUnfocus/>;
+              else if (route.name === "Search") {
+                  iconName = focused ? <IconSearchFocus /> : <IconSearch width={30} height={30}/>;
               }
               return  iconName
             },
@@ -117,7 +119,7 @@ export  const BottomHomeNavigation = React.memo(() => {
         >
           <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home"}}   />
           <Tab.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
-            <Tab.Screen name="ThongKe" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thống kê" }}   />
+          <Tab.Screen name="Search" component={SearchTaskScreen} options={{ headerShown: false,tabBarLabel:"Tìm kiếm" }}   />
           <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo" }}   />
           <Tab.Screen name="PersonalStack" component={PersonalStack} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />
         </Tab.Navigator>
@@ -177,7 +179,7 @@ export  const StackNavigate = React.memo(() => {
       <Stack.Screen name="UserPageScreen" component={UserPageScreen} />
       <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
       <Stack.Screen name="AddFileAttachScreen" component={AddFileAttachScreen} />
-      <Stack.Screen name="SearchTaskScreen" component={SearchTaskScreen} />
+      <Stack.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
     </Stack.Navigator>
   )
 })

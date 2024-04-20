@@ -20,8 +20,8 @@ import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
        <View style={{flex:1}}>
          <Text style={{fontSize:15,flexWrap:"wrap", color:"black",  fontFamily: "OpenSans-SemiBold",marginLeft:5,flex:1}}>{item.fullName}</Text>
          <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{item?.userName}</Text>
-         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"Chuyên môn: "+item?.jobtitleName}</Text>
-         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"phòng ban: "+ item?.departmentName}</Text>
+         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"Chuyên môn: "+(item?.jobtitleName||'Chưa cập nhập')}</Text>
+         <Text style={{fontSize:15,flexWrap:"wrap", color:"black",   fontFamily: "OpenSans-Regular",marginLeft:5,flex:1,marginTop:3}}>{"phòng ban: "+ (item?.departmentName||'Chưa cập nhập')}</Text>
        </View>
        </View>
        <View style={{height:1, backgroundColor:"gray",flex:1,marginVertical:4,opacity:0.4}}/>

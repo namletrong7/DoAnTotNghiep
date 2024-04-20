@@ -4,7 +4,9 @@ const initialState = {
     isGetDetailProject:false,
     dataDetailProject:{},
     isAddProject:false,
-    isTest:'nam'
+    isTest:'nam',
+    dataSearchProject:[],
+    isSearchProject:false,
 
 }
 const reducerProject = (state =initialState , action) => {
@@ -31,6 +33,11 @@ const reducerProject = (state =initialState , action) => {
         case 'GET_ALL_PROJECT': {
             return { ...state,
                 dataAllProject: action.data
+            };
+        }
+        case 'GET_SEARCH_PROJECT': {
+            return { ...state,
+                dataSearchProject: action.data
             };
         }
 

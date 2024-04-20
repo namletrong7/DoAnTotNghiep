@@ -8,19 +8,13 @@ import {
   FlatList,
   SafeAreaView, ScrollView,
   StyleSheet,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
+
   View,
 } from "react-native";
-import IconXLS from "../../../assets/icons/IconXLS";
-import IconX from "../../../assets/icons/IconX";
-import IconFile from "../../../assets/icons/IconFile";
-import IconFileSmall from "../../../assets/icons/IconFileSmall";
-import { ItemFile } from "./ItemFile";
-import { ItemStaff } from "../../../components/ItemStaff/ItemStaff.js";
-import { useSelector } from "react-redux";
 
+import { useSelector } from "react-redux";
+import { ItemStaff } from "../../components/ItemStaff/ItemStaff.js";
+import Animated, {  SlideInRight, SlideOutLeft} from "react-native-reanimated";
 type props={
   type:number;
   navigation:any
@@ -28,17 +22,24 @@ type props={
 export  const ListStaffSearch:React.FC<props> =React.memo(({type,navigation}) =>{
 
   const dataUserSearch = useSelector((state:any) => state.user.dataUserSearch);
-
+   useEffect(()=>{
+     console.log("mout lại tìm kiesm nhân vien")
+   },[])
     return (
+      <Animated.View
+        entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+        style={{ flex: 1}}
+      >
       <View style={styles.container}>
         {type===2?
         <FlatList
               data={dataUserSearch}
               scrollEnabled={false}
-              renderItem={({item, index})=><ItemStaff item={item} navigation={navigation}/>}
-              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item})=><ItemStaff item={item} navigation={navigation}></ItemStaff>}
+              keyExtractor={item => item.userId }
             />:null}
       </View>
+      </Animated.View>
     );
   }
 )
