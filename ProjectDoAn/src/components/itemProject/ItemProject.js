@@ -98,7 +98,7 @@ const ItemProject = (props) => {
 };
 const styles = StyleSheet.create({
   container: {
-   flex:1,
+    display:"flex",
     marginHorizontal:10,
     backgroundColor:"white",
     borderRadius:7,

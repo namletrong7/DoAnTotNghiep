@@ -10,7 +10,8 @@ import { Text, View } from "react-native";
       paddingBottom:20,
       paddingHorizontal: 10,
       borderRadius: 10,
-      backgroundColor: "#DDDDDD",
+      borderColor: "white",
+      borderWidth:1.5,
       justifyContent: "flex-start",
 
     }}>
@@ -35,12 +36,10 @@ import { Text, View } from "react-native";
           fontSize: 14,
           color: "black",
           fontFamily: "Roboto-Bold",
-          textAlign: "left",
         }}>{"Ý kiến : "} <Text  style={{
           fontSize: 15,
           color: "black",
           fontFamily: "OpenSans-Regular",
-          textAlign: "left",
           marginHorizontal:10,
           flexWrap:"wrap"
         }}>{item.content}</Text></Text>

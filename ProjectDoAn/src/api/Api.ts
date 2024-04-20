@@ -122,6 +122,13 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  const searchProject=(text:string)=> {
+    return apiConfig().get('searchProject.php',{
+      params:{
+        textSearch:text
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -147,7 +154,8 @@ const Api = (isFormData:boolean) => {
       reportTask,
       getListUserOfProject,
       editUserForTask,
-     searchTask
+     searchTask,
+      searchProject
     };
 };
 export default Api;

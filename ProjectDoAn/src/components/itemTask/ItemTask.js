@@ -70,7 +70,7 @@ const ItemTask = (props) => {
           <FastImage
             style={[styles.imageStyle,{marginLeft:-7}]}
             source={{
-              uri: baseUrlAvatarUser+props.item?.avatarAssignUser
+              uri: baseUrlAvatarUser+props.item?.avatarTargetUser
             }}
             resizeMode={FastImage.resizeMode.cover}
           />

@@ -135,7 +135,42 @@ export function actionAddProject(body) {
     };
 }
 
+export function actionSearchProject(text) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isSearchProject :true,
+            dataSearchProject:[]
+        }))
+        try {
+            const response = await Api(false).searchProject(text)
+            console.log(response.data?.dataProjectSearch)
+            if(response.data && response.data.status==200) {
+                await dispatch({
+                    type: "GET_SEARCH_PROJECT",
+                    data: response.data?.dataProjectSearch
+                });
+            }
+            dispatch(updateData({
+                isSearchProject :false
+            }))
 
+
+        } catch (error) {
+
+            dispatch(updateData({
+                isSearchProject :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 
 export default {
     actionGetAllProject
