@@ -49,9 +49,6 @@ export const BottomEditUserTask:React.FC = React.memo((props:any) => {
         },
         []
     );
-    useEffect(()=>{
-      console.log("mout lai")
-    },[])
   const handleEditUser = useCallback(async (): Promise<void> => {
     bottomSheetRef.current.dismiss();
       await dispatch(actionEditUserForTask(type, taskId, userSelected?.userId));

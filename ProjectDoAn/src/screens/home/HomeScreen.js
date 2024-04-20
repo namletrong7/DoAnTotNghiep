@@ -30,6 +30,7 @@ import { actionGetAllProject } from "../../redux-store/actions/project";
 import IconLogoProject from "../../assets/icons/IconLogoProject";
 import IconTaskFocus from "../../assets/icons/IconTaskFocus";
 import IconSum from "../../assets/icons/IconSum";
+import ProjectChartComponet from "../../components/ProjectChart/ProjectChartComponet";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -79,6 +80,7 @@ const HomeScreen = ({ navigation }) => {
 
           </View>
           <Text style={{fontSize:20, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>
+            <ProjectChartComponet/>
               <FlatList
                 data={dataAllProject}
                 renderItem={({item}) => <ItemProject item={item} navigation = {navigation} />}
