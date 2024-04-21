@@ -2,7 +2,9 @@
 const initialState = {
   token:null,
     isLoginSuccess: false,
-    dataCurrentUser:{}
+    dataCurrentUser:{},
+    dataNumProject:{},
+    dataNumTask:{}
 };
 const reducerAuth = (state = initialState, action) => {
     let newState = { ...state };

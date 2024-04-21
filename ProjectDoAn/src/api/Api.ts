@@ -129,6 +129,13 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  const getOverView=(userId:number)=>{
+    return apiConfig().get('getOverView.php',{
+      params:{
+        userId:userId
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -155,7 +162,8 @@ const Api = (isFormData:boolean) => {
       getListUserOfProject,
       editUserForTask,
      searchTask,
-      searchProject
+      searchProject,
+      getOverView
     };
 };
 export default Api;

@@ -213,8 +213,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             showsVerticalScrollIndicator={false}>
             {isGetDetailTask?<LoadingComponent title={"Đang load chi tiết công việc"}/>:
             <View>
-            <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{flexDirection:"row", justifyContent:"center",marginTop:15}}>
-              <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailTask?.title|| ''}</Text>
+            <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{ justifyContent:"center",marginTop:15,alignItems:'center'}}>
+              <Text style={{fontSize:20, color:"black",fontFamily:"OpenSans-SemiBold",textAlign:"center"}}>{dataDetailTask?.title|| ''}</Text>
               <IconEdit/>
             </TouchableOpacity>
 
