@@ -36,6 +36,8 @@ import IconClose from "../../assets/icons/IconClose";
 import IconSearch from "../../assets/icons/IconSearch";
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 import IconLoadMore from "../../assets/icons/IconLoadMorer";
+import { PieChart } from "react-native-gifted-charts";
+import TaskChart from "../../components/TaskChart/TaskChart";
 
 
 const TaskPersonalScreen = ({ navigation }) => {
@@ -123,6 +125,7 @@ const TaskPersonalScreen = ({ navigation }) => {
         break;
     }
   }
+  // tổng số nhiệm vụ : đang làm, hoàn thành, đã hết hạn xử lý
 
   return (
     <Animated.View
@@ -200,13 +203,13 @@ const TaskPersonalScreen = ({ navigation }) => {
         </Modal>
       </SafeAreaView>
           <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"25%"}}>
+            <TaskChart/>
             {currentTask?.length>0?
             (currentTask.map((item, index) => (
               <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} key={item.taskId} />
             ))):
               <EmptyTask/>
       }
-
             {isGetMoreAssignTask&&<FooterTask/>}
             <TouchableOpacity style={{flexDirection:"row",marginTop:10}} onPress={()=>{loadMore()}}>
               <IconLoadMore/>

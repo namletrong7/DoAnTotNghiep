@@ -26,6 +26,7 @@ export function actionLogin(userName, passWord) {
                     isLoginSuccess: true,
                     dataCurrentUser:response.data.dataCurrentUser
                 }))
+             await   dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
             setTimeout(() => {
                 dispatch(updateData({
                     token: 'asdasdasdasdasdasd',
@@ -39,23 +40,33 @@ export function actionLogin(userName, passWord) {
                     console.log("không láy dc token")
                 }
         }
-            else{
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
+                type: "warning",
+                duration: 3000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
+    };
+}
+// lấy thông tin overView
+export function actionGetOverView(userId) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).getOverView(userId);
+            console.log(response.data)
+            if (response.data.status==200 && response){
                 dispatch(updateData({
-                    token: null,
-                    isLoginSuccess: false,
+                    dataNumProject: response.data?.dataNumProject,
+                    dataNumTask:response.data?.dataNumTask
                 }))
-                showMessage({
-                    message: "Đăng nhập thất bại vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu ",
-                    type: "danger",
-                    duration: 3000,
-                    icon: { icon: "danger", position: 'left' }
-                });
+            }else{
+                return ;
             }
         } catch (error) {
-            dispatch(updateData({
-                token: null,
-                isLoginSuccess: false,
-            }))
             showMessage({
                 message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
                 type: "warning",
