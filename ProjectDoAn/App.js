@@ -27,7 +27,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <FilterTaskScreen
+          <AppNavigator
           />
           <FlashMessage position="top" style={{height:100,  alignItems:"flex-end"}} />
         </NavigationContainer>

@@ -1,3 +1,5 @@
+import { actionGetTargetTaskByEndDay } from "../../actions/task";
+
 const initialState = {
     isLoadingAddTask: false ,
     isGetDetailTask:false,
@@ -25,6 +27,7 @@ const initialState = {
     isGetMoreAssignTask:false,
     isSearchTask:false,
     dataSearchTask:false,
+    dataTargetTaskByEndDay:[]
 
 }
 const reducerTask = (state =initialState , action) => {
@@ -209,6 +212,11 @@ const reducerTask = (state =initialState , action) => {
         case 'RESET_SEARCH_TASK': {
             return { ...state,
                 dataSearchTask: []
+            };
+        }
+        case 'GET_TARGET_TASK_BY_END': {
+            return { ...state,
+                dataTargetTaskByEndDay: action?.data
             };
         }
 
