@@ -9,6 +9,7 @@ import {requestStoragePermission, requestUserPermission} from "./src/utils/getPe
 import AppNavigator from "./src/navigation/AppNavigator";
 
 import FlashMessage from "react-native-flash-message";
+import FilterTaskScreen from "./src/screens/taskStack/FilterTaskScreen";
 
 
 
@@ -26,7 +27,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <AppNavigator
+          <FilterTaskScreen
           />
           <FlashMessage position="top" style={{height:100,  alignItems:"flex-end"}} />
         </NavigationContainer>

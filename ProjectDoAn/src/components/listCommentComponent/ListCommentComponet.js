@@ -55,7 +55,6 @@ import IconComment from "../../assets/icons/IconComment";
            <IconComment width={20} height={20}/>
            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Bình luận"}</Text>
            </View>
-             {see? <IconArrowDown/>:<IconArrowUp/>}
          </TouchableOpacity>
          {isGetComment?(<ShimmerEffectCommentComponent/>):
            <FlatList

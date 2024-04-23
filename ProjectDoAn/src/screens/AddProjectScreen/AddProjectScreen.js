@@ -138,8 +138,8 @@ export const AddProjectScreen = React.memo(({navigation})=>{
   const handleAddProject=async () => {
     await dispatch(actionAddProject({
       "nameProject":title,
-      "startDay":ngayBatDau,
-      "endDay":ngayKetThuc,
+      "startDay":"2024-03-01",
+      "endDay":"2024-03-01",
       "createUser":dataCurrentUser.userId,
       "state":stateProject,
       "projectUser":dataUserChoose
