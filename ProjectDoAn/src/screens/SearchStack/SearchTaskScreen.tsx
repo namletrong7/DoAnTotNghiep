@@ -68,7 +68,7 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
       style={{ flex: 1}}
     >
       <View style={{backgroundColor:"#F0F0F0",height:'100%',paddingBottom:"20%"}}>
-        <SafeAreaView style={{height:StatusBar.currentHeight,backgroundColor:'black'}}>
+        <SafeAreaView style={{height:StatusBar.currentHeight,backgroundColor:'white'}}>
           <StatusBar
             translucent
             backgroundColor={'black'}
