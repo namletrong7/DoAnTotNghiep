@@ -15,7 +15,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Platform,
-  VirtualizedList, Modal,
+  VirtualizedList, Modal, RefreshControl,
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,7 @@ import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRigh
 import IconBox from "../../assets/icons/IconBox";
 import IconDown from "../../assets/icons/IconDown";
 import {
-  actionGetAssignTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
+  actionGetAssignTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTargetTaskByEndDay, actionGetTaskDone,
 } from "../../redux-store/actions/task";
 import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
 import {FooterTask} from "./footerTask/FooterTask";
@@ -42,17 +42,48 @@ import IconCalendar from "../../assets/icons/IconCalendar";
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
 import IconCam from "../../assets/icons/IconCam";
 import moment from "moment";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import fontAwesome5Pro from "react-native-vector-icons/FontAwesome5Pro";
+import ItemTask from "../../components/itemTask/ItemTask";
+import LoadingComponent from "../../components/loadingComponent/LoadingComponent";
 
 
 const FilterTaskScreen = ({ navigation }) => {
 
-  const dataAssignTask = useSelector(state => state.task.dataAssignTask);
+  const dataTargetTaskByEndDay = useSelector(state => state.task.dataTargetTaskByEndDay);
   const [startDay, setStartDay]=useState('');//ngày băt đầu
   const [endDay, setEndDay]=useState('');// ngày kết thuc
 
-  const isHermes = () => global.HermesInternal
-  console.log(isHermes)
+  const [isShowStartDay, setIsShowStartDay]=useState(false);
+  const [isShowEndDay, setIsShowEndDay]=useState(false);
+  const dispatch = useDispatch();
 
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = () => {
+    setRefreshing(true); // Đặt trạng thái là đang làm mới
+    dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
+    setRefreshing(false);
+  };
+  const handleShowStartDay=()=>{
+      setIsShowStartDay(true)
+  }
+  const handleShowEndDay=()=>{
+    setIsShowEndDay(true)
+  }
+  const handleHideStartDay=()=>{
+    setIsShowStartDay(false)
+  }
+  const handleHideEndDay=()=>{
+    setIsShowEndDay(false)
+  }
+  const handleConfirmStartDay=(date)=>{
+    setStartDay(moment(date).format('YYYY-MM-DD'));
+    setIsShowStartDay(false)
+  }
+  const handleConfirmEndDay=(date)=>{
+    setEndDay(moment(date).format('YYYY-MM-DD'));
+    setIsShowEndDay(false)
+  }
   useEffect(()=>{
     // Lấy ngày hiện tại
     const currentDate = new Date();
@@ -65,9 +96,12 @@ const FilterTaskScreen = ({ navigation }) => {
     const lastDayOfWeek = new Date(currentDate);
     lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
     setEndDay(moment(lastDayOfWeek).format('YYYY-MM-DD'))
+    dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
   },[])
 
-
+  const handleGetTask=()=>{
+    dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
+  }
 
 
   return (
@@ -84,40 +118,59 @@ const FilterTaskScreen = ({ navigation }) => {
       </View>
 
       <SafeAreaView style={{width:'100%'}}>
-          <View style={{flexDirection:"row",marginRight:20,alignItems:'center',marginTop:5,marginLeft:5}}>
+          <View style={{flexDirection:"row",marginRight:20,alignItems:'center',marginTop:5,marginLeft:10}}>
             <IconCalendar/>
             <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{"Làm tuần này"}</Text>
           </View>
-
-        <View style={{marginLeft:5}}>
-          <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular" }}>{"Chọn thời gian:"}</Text>
-          <View style={{flexDirection:"row",borderColor:"gray",borderWidth:1,borderRadius:7,alignItems:'center',alignSelf:"flex-start",paddingHorizontal:5,width:'90%',justifyContent:'space-around',marginTop:10}}>
-            <View style={{flexDirection:"row",alignItems:'center'}}>
-              <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular" }}>{startDay}</Text>
-            </View>
-            <IconArrowRight/>
-            <View style={{flexDirection:"row",alignItems:'center'}}>
-              <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular" }}>{endDay}</Text>
-            </View>
-            <IconCalendar/>
-          </View>
-
-        </View>
+          <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular",marginLeft:10,marginTop:10 }}>{"Chọn thời gian:"}</Text>
       </SafeAreaView>
-          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"20%"}}>
-            {dataAssignTask?.length>0?
-                (dataAssignTask.map((item, index) => (
-                    <ItemTaskPersonal item={item} key={item.taskId} />
-                ))):
-                <EmptyTask/>
-            }
-            <TouchableOpacity style={{flexDirection:"row",marginTop:10}}>
-              <IconLoadMore/>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:5, fontFamily: "OpenSans-Regular" }}>{"Nhấn để tải thêm task..."}</Text>
-            </TouchableOpacity>
-         </ScrollView>
+          <View style={{paddingHorizontal:10,marginTop:10,marginBottom:"20%",flex:1}}>
+            <FlatList
+              ListHeaderComponent={ <View style={{marginLeft:5,flexDirection:'row',paddingHorizontal:5,alignItems:'center',marginTop:10}}>
+                <View style={{flexDirection:"row",borderColor:"gray",borderWidth:1,borderRadius:7,alignItems:'center',paddingHorizontal:5,width:'80%',justifyContent:'space-around'}}>
+                  <TouchableOpacity onPress={handleShowStartDay} style={{flexDirection:"row",alignItems:'center'}}>
+                    <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular" }}>{startDay}</Text>
+                  </TouchableOpacity>
+                  <IconArrowRight/>
+                  <TouchableOpacity onPress={handleShowEndDay} style={{flexDirection:"row",alignItems:'center'}}>
+                    <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular" }}>{endDay}</Text>
+                  </TouchableOpacity>
+                </View>
 
+                <TouchableOpacity onPress={handleGetTask} style={{borderRadius:7, borderWidth:1, borderColor:"#0099FF",flex:1,paddingVertical:7,marginHorizontal:4,alignItems:'center',justifyContent:'center'}}>
+                  <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular" }}>{"Lọc"}</Text>
+                </TouchableOpacity>
 
+              </View>}
+              data={dataTargetTaskByEndDay}
+              initialNumToRender={5}
+              renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
+              scrollEnabled={true}
+              keyExtractor={item => item.taskId}
+              onEndReached={()=>{console.log("load them")}} // Bắt sự kiện load more
+              onEndReachedThreshold={0.1}
+              ListEmptyComponent={<EmptyTask/>}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={handleRefresh}
+                />
+              }
+            />
+         </View>
+
+      <DateTimePicker
+        isVisible={isShowStartDay}
+        mode="date"
+        onCancel={handleHideStartDay}
+       onConfirm={handleConfirmStartDay}
+      />
+      <DateTimePicker
+        isVisible={isShowEndDay}
+        mode="date"
+        onCancel={handleHideEndDay}
+         onConfirm={handleConfirmEndDay}
+      />
     </View>
     </Animated.View>
   );

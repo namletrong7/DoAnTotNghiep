@@ -38,6 +38,8 @@ import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 import IconLoadMore from "../../assets/icons/IconLoadMorer";
 import { PieChart } from "react-native-gifted-charts";
 import TaskChart from "../../components/TaskChart/TaskChart";
+import IconCalendar from "../../assets/icons/IconCalendar";
+import IconDoubleDown from "../../assets/icons/IconDoubleDown";
 
 
 const TaskPersonalScreen = ({ navigation }) => {
@@ -144,9 +146,9 @@ const TaskPersonalScreen = ({ navigation }) => {
         <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,justifyContent:'space-between'}}>
           <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
-            <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
-            <IconDown/>
+            <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
           </View>
+          <IconDoubleDown/>
         </TouchableOpacity>
         <Modal
          animationType="fade"
@@ -196,6 +198,12 @@ const TaskPersonalScreen = ({ navigation }) => {
                 >
                   <IconDone/>
                   <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navigation.navigate("FilterTaskScreen")}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconCalendar/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc cần xử lý tuần này "}</Text>
                 </TouchableOpacity>
               </View>
             </View>

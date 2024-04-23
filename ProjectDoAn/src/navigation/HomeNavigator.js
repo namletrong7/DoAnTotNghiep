@@ -33,6 +33,7 @@ import { AddFileAttachScreen } from "../screens/AddFileAttachScreen/AddFileAttac
 import IconSearch from "../assets/icons/IconSearch";
 import IconSearchFocus from "../assets/icons/IconSearchFocus";
 import SearchTaskScreen from "../screens/SearchStack/SearchTaskScreen";
+import FilterTaskScreen from "../screens/taskStack/FilterTaskScreen";
 
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -74,6 +75,20 @@ export  const PersonalStack = React.memo(() => {
   )
 })
 
+// stack này bao gồm màn hình thóng kế task , màn hình lọc task theo tuần
+export  const TaskPersonalStack = React.memo(() => {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} />
+      <Stack.Screen name="FilterTaskScreen" component={FilterTaskScreen} />
+    </Stack.Navigator>
+  )
+})
+
 export  const BottomHomeNavigation = React.memo(() => {
   const Tab = createBottomTabNavigator();
 
@@ -91,7 +106,7 @@ export  const BottomHomeNavigation = React.memo(() => {
               else if (route.name === "PersonalStack") {
                 iconName = focused ? <IconUserFocus/> : <IconUserUnFocus/>;
               }
-              else if (route.name === "TaskPersonalScreen") {
+              else if (route.name === "TaskPersonalStack") {
                 iconName = focused ? <IconTaskFocus/> : <IconTaskUnFocus/>;
               }
               else if (route.name === "Search") {
@@ -118,7 +133,7 @@ export  const BottomHomeNavigation = React.memo(() => {
           animation='fade'
         >
           <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home"}}   />
-          <Tab.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} options={{ headerShown: false,tabBarLabel:"Task" }} />
+          <Tab.Screen name="TaskPersonalStack" component={TaskPersonalStack} options={{ headerShown: false,tabBarLabel:"Task" }} />
           <Tab.Screen name="Search" component={SearchTaskScreen} options={{ headerShown: false,tabBarLabel:"Tìm kiếm" }}   />
           <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo" }}   />
           <Tab.Screen name="PersonalStack" component={PersonalStack} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />

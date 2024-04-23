@@ -759,6 +759,42 @@ export function actionSearchTask(text) {
 
     };
 }
+export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
+    return async (dispatch, getState) => {
+        const userId=getState().auth.dataCurrentUser?.userId
+        // dispatch(updateData({
+        //     isSearchTask :true
+        // }))
+        try {
+            const response = await Api(false).getTargetTaskByEndDay(offset,userId,startDay,endDay)
+            console.log(response.data.dataListTask?.length)
+            if(response.data && response.data.status==200) {
+                await dispatch({
+                    type: "GET_TARGET_TASK_BY_END",
+                    data: response.data?.dataListTask
+                });
+            }
+            // dispatch(updateData({
+            //     isSearchTask :false
+            // }))
+
+
+        } catch (error) {
+            //
+            // dispatch(updateData({
+            //     isSearchTask :false
+            //
+            // }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 //--------------------------------------nghiêm túc
 
 

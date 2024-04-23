@@ -10,7 +10,7 @@ const Api = (isFormData:boolean) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.1.110:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 // Thêm các headers khác nếu cần thiết
@@ -136,6 +136,17 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  // Api lấy công việc mik xử lý có hạn nằm mà nằm trong khoảng thời gian
+  const getTargetTaskByEndDay=(offset:number,userId:number,startDay:string,endDay:string)=>{
+    return apiConfig().get('getTargetTaskByEndDay.php',{
+      params:{
+        offset:offset,
+        targetUser:userId,
+        startDay:startDay,
+        endDay:endDay,
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -163,7 +174,8 @@ const Api = (isFormData:boolean) => {
       editUserForTask,
      searchTask,
       searchProject,
-      getOverView
+      getOverView,
+      getTargetTaskByEndDay
     };
 };
 export default Api;
