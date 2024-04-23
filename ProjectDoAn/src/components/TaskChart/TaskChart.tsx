@@ -1,12 +1,14 @@
 import { PieChart } from "react-native-gifted-charts";
 import { Text, View } from "react-native";
 import React from "react";
+import {useSelector} from "react-redux";
 
 const TaskChart = () => {
+    const dataNumTask = useSelector(state => state.auth.dataNumTask);
   const pieData = [
-    { value: 20, color: '#7FFFD4', focused: true},
-    {value: 24, color: '#836FFF' },
-    { value: 20, color: '#CD853F'},
+    { value:  (dataNumTask?.numTaskDone / dataNumTask?.totalTask) * 100, color: '#7FFFD4', focused: true},
+    {value:  (dataNumTask?.numTaskDoing / dataNumTask?.totalTask) * 100, color: '#836FFF' },
+    { value:  (dataNumTask?.numTaskOutDate / dataNumTask?.totalTask) * 100, color: '#CD853F'},
   ];
 
   const renderDot = (color:string) => {
@@ -24,8 +26,8 @@ const TaskChart = () => {
   };
   const renderLegendComponent = () => {
     return (
-      <View style={{marginLeft:20}}>
-        <Text style={{color: 'black',fontSize:15,marginBottom:10,flex:1}}>Bạn có tổng số : 50 công việc</Text>
+      <View style={{marginLeft:10,flex:1}}>
+        <Text style={{color: 'black',fontSize:15,marginBottom:10,flexWrap:"wrap"}}>{"Bạn có tổng số: "+dataNumTask?.totalTask+" công việc"}</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -33,7 +35,7 @@ const TaskChart = () => {
             marginRight: 20,
           }}>
           {renderDot('#7FFFD4')}
-          <Text style={{color: 'black'}}>Đã hoàn thành: 20</Text>
+          <Text style={{color: 'black'}}>{"Đã hoàn thành: "+dataNumTask?.numTaskDone}</Text>
         </View>
         <View
           style={{
@@ -43,7 +45,7 @@ const TaskChart = () => {
             marginVertical:10
           }}>
           {renderDot('#836FFF')}
-          <Text style={{color: 'black'}}>Đang làm: 20</Text>
+          <Text style={{color: 'black'}}>{"Đang làm: "+dataNumTask?.numTaskDoing}</Text>
         </View>
         <View
           style={{
@@ -52,7 +54,7 @@ const TaskChart = () => {
             marginRight: 20,
           }}>
           {renderDot('#CD853F')}
-          <Text style={{color: 'black'}}>Quá hạn xử lý: 20</Text>
+          <Text style={{color: 'black'}}>{"Quá hạn xử lý: "+dataNumTask?.numTaskOutDate}</Text>
         </View>
       </View>
     );
@@ -74,14 +76,14 @@ const TaskChart = () => {
             showGradient
             sectionAutoFocus
             radius={50}
-            innerRadius={35}
+            innerRadius={40}
             innerCircleColor={'#232B5D'}
             centerLabelComponent={() => {
               return (
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Text
-                    style={{fontSize: 13, color: 'white', fontWeight: 'bold'}}>
-                    47%
+                    style={{fontSize: 10, color: 'white', fontWeight: 'bold'}}>
+                      {((dataNumTask?.numTaskDone / dataNumTask?.totalTask) * 100)+"%"}
                   </Text>
                   <Text style={{fontSize: 10, color: 'white'}}>Đã hoàn thành</Text>
                 </View>

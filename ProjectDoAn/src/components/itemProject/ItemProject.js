@@ -58,7 +58,7 @@ const ItemProject = (props) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailProjectScreen(props.item)}}>
 
-         <Text numberOfLines={2} style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{props?.item?.nameProject}</Text>
+         <Text numberOfLines={2} style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{props?.item?.nameProject}</Text>
          <View style={{marginVertical:5, flexDirection:"row", alignItems:"center",}}>
             <View  style={{alignSelf:'flex-start'}}>
               <FlatList
@@ -77,17 +77,17 @@ const ItemProject = (props) => {
            </View>}
          </View>
       <View style={{backgroundColor:getBackgroundStateProject(props?.item.state),alignSelf:'flex-start',padding:3,borderRadius:8,marginVertical:5}}>
-        <Text numberOfLines={2} style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{getStateProject(props?.item.state)}</Text>
+        <Text numberOfLines={2} style={{fontSize:12, color:"black",fontFamily:"OpenSans-Regular"}}>{getStateProject(props?.item.state)}</Text>
       </View>
          <View style={{flexDirection:"row", justifyContent:"space-between",}}>
-           <View style={{flexDirection:"row",justifyContent:'center'}}>
+           <View style={{flexDirection:"row",alignItems:'center'}}>
              <IconLich/>
-             <Text style={{fontSize:15, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{convertDateDB(props?.item?.endDay)}</Text>
+             <Text style={{fontSize:13, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{convertDateDB(props?.item?.endDay)}</Text>
            </View>
 
-           <View style={{flexDirection:"row"}}>
+           <View style={{flexDirection:"row",alignItems:'center'}}>
                <IconCheck/>
-             <Text style={{fontSize:15, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{(props?.item?.totalTask)+" Công việc"}</Text>
+             <Text style={{fontSize:13, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{(props?.item?.totalTask)+" Công việc"}</Text>
            </View>
 
          </View>

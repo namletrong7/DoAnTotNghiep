@@ -143,7 +143,6 @@ export function actionSearchProject(text) {
         }))
         try {
             const response = await Api(false).searchProject(text)
-            console.log(response.data?.dataProjectSearch)
             if(response.data && response.data.status==200) {
                 await dispatch({
                     type: "GET_SEARCH_PROJECT",

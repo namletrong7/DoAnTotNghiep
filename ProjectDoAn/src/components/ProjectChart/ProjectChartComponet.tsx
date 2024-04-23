@@ -1,13 +1,16 @@
 import { PieChart } from "react-native-gifted-charts";
 import { Text, View } from "react-native";
 import React from "react";
+import {useSelector} from "react-redux";
 
 const ProjectChartComponet = () => {
-  const pieData = [
-    { value: 20, color: '#181818'},
-    {value: 40, color: '#4191df', focused: true},
-    {value: 16, color: '#ecae36'},
-    {value: 24, color: '#62c241', focused: true, },
+    const dataNumProject = useSelector(state => state.auth.dataNumProject);
+
+    const pieData = [
+    { value: (dataNumProject?.numProjectUnfulfilled / dataNumProject?.totalProject) * 100, color: '#181818'},
+    {value: (dataNumProject?.numProjectDoing / dataNumProject?.totalProject) * 100, color: '#4191df'},
+    {value: (dataNumProject?.numProjectPause / dataNumProject?.totalProject) * 100, color: '#ecae36'},
+    {value: (dataNumProject?.numProjectDone / dataNumProject?.totalProject) * 100, color: '#62c241', focused: true, }
   ];
 
   const renderDot = (color:string) => {
@@ -28,22 +31,23 @@ const ProjectChartComponet = () => {
       <>
         <View
           style={{
-            alignSelf:"flex-start",
             marginBottom: 10,
+             flex:1,
+              marginStart:10,
           }}>
-          <Text style={{color: 'black',fontSize:17,marginBottom:10}}>Tổng số : 8 dự án</Text>
+          <Text style={{color: 'black',fontSize:15,marginBottom:10,flexWrap:'wrap'}}>{'Tổng số: '+dataNumProject?.totalProject+' dự án'}</Text>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
             {renderDot('#181818')}
-            <Text style={{color: 'black'}}>Chưa thực hiện: 47</Text>
+            <Text style={{color: 'black'}}>{'Chưa thực hiện: '+dataNumProject?.numProjectUnfulfilled}</Text>
           </View>
           <View
             style={{flexDirection: 'row', alignItems: 'center',marginTop:5}}>
             {renderDot('#4191df')}
-            <Text style={{color: 'black'}}>Đang thực hiện: 14</Text>
+            <Text style={{color: 'black'}}>{'Đang thực hiện: '+dataNumProject?.numProjectDoing }</Text>
           </View>
           <View
             style={{
@@ -54,12 +58,12 @@ const ProjectChartComponet = () => {
               marginTop:5
             }}>
             {renderDot('#ecae36')}
-            <Text style={{color: 'black'}}>Tạm dừng: 40</Text>
+            <Text style={{color: 'black'}}>{'Tạm dừng: '+dataNumProject?.numProjectPause}</Text>
           </View>
           <View
             style={{flexDirection: 'row', alignItems: 'center',marginTop:5}}>
             {renderDot('#62c241')}
-            <Text style={{color: 'black'}}>Đã hoàn thành: 3</Text>
+            <Text style={{color: 'black'}}>{"Hoàn thành: "+dataNumProject?.numProjectDone}</Text>
           </View>
         </View>
       </>
@@ -78,7 +82,7 @@ const ProjectChartComponet = () => {
           style={{fontSize: 15, color: 'black', fontWeight: 'bold'}}>
           Tiến độ thực hiện các dự án
         </Text>
-        <View style={{padding: 20, alignItems: 'center',flexDirection:'row',justifyContent:'space-between'}}>
+        <View style={{padding: 5, alignItems: 'center',flexDirection:'row',justifyContent:'space-around'}}>
           <PieChart
             data={pieData}
             donut
@@ -91,7 +95,7 @@ const ProjectChartComponet = () => {
               return (
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Text
-                    style={{fontSize: 13, color: 'white', fontWeight: 'bold'}}>
+                    style={{fontSize: 10, color: 'white', fontWeight: 'bold'}}>
                     47%
                   </Text>
                   <Text style={{fontSize: 10, color: 'white'}}>Đã hoàn thành</Text>
