@@ -29,8 +29,9 @@ function HeaderComponent (props) {
   const rendeHeaderLeft = () => (
     <>
       <View
-        style={[styles.backgroundImage, { backgroundColor: '#6699FF' }]}
+        style={[styles.backgroundImage, { backgroundColor: '#EEEEEE' }]}
       />
+        <StatusBar backgroundColor="#000000" />
       <TouchableOpacity
         style={{ fontWeight: 'bold', color: '#ffffff', position: 'absolute', bottom: 0, left: 2, padding: 10, }}
         onPress={() => props.navigation.goBack()}

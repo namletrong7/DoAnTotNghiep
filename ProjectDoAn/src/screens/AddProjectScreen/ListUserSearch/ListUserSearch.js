@@ -10,7 +10,6 @@ import {
 
 } from "react-native";
 import { ItemUserSearch } from "./ItemUserSearch";
-import ItemProject from "../../../components/itemProject/ItemProject";
 import { useSelector } from "react-redux";
 
 
