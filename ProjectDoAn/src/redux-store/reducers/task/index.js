@@ -27,7 +27,8 @@ const initialState = {
     isGetMoreAssignTask:false,
     isSearchTask:false,
     dataSearchTask:false,
-    dataTargetTaskByEndDay:[]
+    dataTargetTaskByEndDay:[],
+    isFilterTask:false,
 
 }
 const reducerTask = (state =initialState , action) => {

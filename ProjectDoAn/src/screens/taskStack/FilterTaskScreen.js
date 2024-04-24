@@ -51,6 +51,7 @@ import LoadingComponent from "../../components/loadingComponent/LoadingComponent
 const FilterTaskScreen = ({ navigation }) => {
 
   const dataTargetTaskByEndDay = useSelector(state => state.task.dataTargetTaskByEndDay);
+  const isFilterTask = useSelector(state => state.task.isFilterTask);
   const [startDay, setStartDay]=useState('1');//ngày băt đầu
   const [endDay, setEndDay]=useState('1');// ngày kết thuc
 
@@ -127,7 +128,7 @@ const FilterTaskScreen = ({ navigation }) => {
           </View>
           <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular",marginLeft:10,marginTop:10 }}>{"Chọn thời gian:"}</Text>
       </SafeAreaView>
-          <View style={{paddingHorizontal:10,marginTop:10,marginBottom:"20%",flex:1}}>
+          <View style={{marginTop:10,paddingBottom:"50%",justifyContent:'center'}}>
             <FlatList
               ListHeaderComponent={ <View style={{marginLeft:5,flexDirection:'row',paddingHorizontal:5,alignItems:'center',marginTop:10}}>
                 <View style={{flexDirection:"row",borderColor:"gray",borderWidth:1,borderRadius:7,alignItems:'center',paddingHorizontal:5,width:'80%',justifyContent:'space-around'}}>
@@ -160,6 +161,10 @@ const FilterTaskScreen = ({ navigation }) => {
                 />
               }
             />
+            {isFilterTask?
+            <View style={{position:'absolute',width:'100%',alignSelf:'center'}}>
+              <ActivityIndicator size="large" color="#4577ef" />
+            </View>:null}
          </View>
 
       <DateTimePicker
