@@ -58,10 +58,7 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import IconClose2 from "../../assets/icons/IconClose2";
 import IconSearch from "../../assets/icons/IconSearch";
-import SendCommentComponent from "../../components/sendComentComponet/SendCommentComponent";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconUnTick from "../../assets/icons/IconUnTick";
-import IconTick from "../../assets/icons/IconTick";
+
 import ListUserChoose from "./ListUserChoose/ListUserChoose";
 import ListUserSearch from "./ListUserSearch/ListUserSearch";
 import { checkMember } from "./Utils/CheckMember";

@@ -13,7 +13,8 @@ import {
 } from "react-native";
 import Animated, {  SlideInRight, SlideOutLeft} from "react-native-reanimated";
 import { useSelector } from "react-redux";
-import ItemProject from "../../components/itemProject/ItemProject.js";
+import ItemProjectVertical from "../../components/itemProject/ItemProjectVertical";
+
 
 type props={
   type:number;
@@ -32,7 +33,7 @@ export  const ListProjectSearch:React.FC<props> =React.memo(({type,navigation}) 
         <FlatList
               data={dataSearchProject}
               scrollEnabled={false}
-              renderItem={({item, index})=><ItemProject item={item} navigation={navigation}/>}
+              renderItem={({item, index})=><ItemProjectVertical item={item} navigation={navigation}/>}
               keyExtractor={item => item.projectId}
             />:null}
       </View>

@@ -222,21 +222,21 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
   return (
     <View>
-      <HeaderComponent title={"Thêm công việc mới"} navigation={navigation} back/>
+      <HeaderComponent title={"Tạo công việc"} navigation={navigation} back/>
       <KeyboardAwareScrollView
         style={styles.container}
         scrollEnabled={true}
         keyboardShouldPersistTaps="handled">
 
          <View style={{marginHorizontal:15,paddingBottom:'50%'}}>
-          <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={50}/>
+          <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={45}/>
            <DropDownMenu data={createListProjectDropDown(dataAllProject)} value={valueProjectId} title={"Chọn project của bạn"} onSelectItem = {onSelectProjectId} label={"Nhấn để chọn project"}/>
-           <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên của công việc"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
+           <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
            <View  style={{marginTop:15,marginBottom:15}}>
-             <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold" }}>{"Người xử lý chính *"}</Text>
-             <TouchableOpacity onPress={()=>{setIsShowModalUser(true)}} style={{flexDirection:"row", borderRadius: 10, borderColor: "#4577ef", borderWidth:0.5,height:60,marginTop:10, alignItems:"center"}}>
+             <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{"Người xử lý chính *"}</Text>
+             <TouchableOpacity onPress={()=>{setIsShowModalUser(true)}} style={{flexDirection:"row", borderRadius: 10, backgroundColor: "#DDDDDD",height:50,marginTop:10, alignItems:"center"}}>
                <FastImage
-                 style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",marginLeft:20}}
+                 style={{ width: 35, height: 35,borderRadius: 35/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",marginLeft:20}}
                  source={{
                    uri: baseUrlAvatarUser+targetUser.avatarUser
                  }}
@@ -244,7 +244,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
                />
                <Text style={{
-                 fontSize: 15,
+                 fontSize: 14,
                  marginLeft:20,
                  color: "black",
                  fontFamily: "OpenSans-SemiBold",

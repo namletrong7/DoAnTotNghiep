@@ -762,9 +762,9 @@ export function actionSearchTask(text) {
 export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
     return async (dispatch, getState) => {
         const userId=getState().auth.dataCurrentUser?.userId
-        // dispatch(updateData({
-        //     isSearchTask :true
-        // }))
+        dispatch(updateData({
+            isFilterTask :true
+        }))
         try {
             const response = await Api(false).getTargetTaskByEndDay(offset,userId,startDay,endDay)
             console.log(response.data.dataListTask?.length)
@@ -774,17 +774,17 @@ export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
                     data: response.data?.dataListTask
                 });
             }
-            // dispatch(updateData({
-            //     isSearchTask :false
-            // }))
+            dispatch(updateData({
+                isFilterTask :false
+            }))
 
 
         } catch (error) {
-            //
-            // dispatch(updateData({
-            //     isSearchTask :false
-            //
-            // }))
+
+            dispatch(updateData({
+                isFilterTask :false
+
+            }))
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",

@@ -8,29 +8,19 @@ import {
   TouchableWithoutFeedback,
   ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, Platform,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
+
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
 
-
-import ItemTask from "../../components/itemTask/ItemTask";
 import FastImage from "react-native-fast-image";
 import LottieView from "lottie-react-native";
 import IconPlus from "../../assets/icons/IconPlus";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconArrowDown from "../../assets/icons/IconArrowDown";
-import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
-import BottomSheet, {BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
-import {useRef} from "react/index";
-import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
-import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
 import { actionGetAllProject } from "../../redux-store/actions/project";
-import IconLogoProject from "../../assets/icons/IconLogoProject";
-import IconTaskFocus from "../../assets/icons/IconTaskFocus";
 import IconSum from "../../assets/icons/IconSum";
 import ProjectChartComponet from "../../components/ProjectChart/ProjectChartComponet";
+import ItemProjectVertical from "../../components/itemProject/ItemProjectVertical";
+import ItemProjectHorizontal from "../../components/itemProject/ItemProjectHorizontal";
+import IconArrowRight from "../../assets/icons/IconArrowRigth";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -79,15 +69,21 @@ const HomeScreen = ({ navigation }) => {
 
 
           </View>
-          <Text style={{fontSize:20, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>
             <ProjectChartComponet/>
+          <View style={{flexDirection:'row', justifyContent:'space-between' }}>
+            <Text style={{fontSize:14, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>
+            <TouchableOpacity style={{flexDirection:'row', justifyContent:'space-between',alignItems:'center' }}>
+              <Text style={{fontSize:14, color:"#6699FF",fontFamily:"Roboto-Bold"}}>{'Tất cả'}</Text>
+              <IconArrowRight width={20} height={20}/>
+            </TouchableOpacity>
+          </View>
               <FlatList
                 data={dataAllProject}
-                renderItem={({item}) => <ItemProject item={item} navigation = {navigation} />}
-                scrollEnabled={false}
+                horizontal={true}
+                renderItem={({item}) => <ItemProjectHorizontal item={item} navigation = {navigation} />}
+                scrollEnabled={true}
                 keyExtractor={item => item.projectId}
               />
-
         </View>
       </ScrollView>
       </SafeAreaView>
