@@ -64,7 +64,7 @@ export function actionGetDetailTask(taskId) {
         try {
             const response = await Api(false).getDetailTask(taskId);
 
-
+          console.log(response.data)
 
 
             if(response.data && response.data.status==200){

@@ -128,7 +128,7 @@ const FilterTaskScreen = ({ navigation }) => {
           </View>
           <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular",marginLeft:10,marginTop:10 }}>{"Chọn thời gian:"}</Text>
       </SafeAreaView>
-          <View style={{marginTop:10,paddingBottom:"50%",justifyContent:'center'}}>
+          <View style={{marginTop:10,paddingBottom:"40%",justifyContent:'center'}}>
             <FlatList
               ListHeaderComponent={ <View style={{marginLeft:5,flexDirection:'row',paddingHorizontal:5,alignItems:'center',marginTop:10}}>
                 <View style={{flexDirection:"row",borderColor:"gray",borderWidth:1,borderRadius:7,alignItems:'center',paddingHorizontal:5,width:'80%',justifyContent:'space-around'}}>
