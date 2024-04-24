@@ -761,6 +761,7 @@ export function actionSearchTask(text) {
 }
 export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
     return async (dispatch, getState) => {
+        console.log(startDay,endDay)
         const userId=getState().auth.dataCurrentUser?.userId
         // dispatch(updateData({
         //     isSearchTask :true

@@ -51,8 +51,8 @@ import LoadingComponent from "../../components/loadingComponent/LoadingComponent
 const FilterTaskScreen = ({ navigation }) => {
 
   const dataTargetTaskByEndDay = useSelector(state => state.task.dataTargetTaskByEndDay);
-  const [startDay, setStartDay]=useState('');//ngày băt đầu
-  const [endDay, setEndDay]=useState('');// ngày kết thuc
+  const [startDay, setStartDay]=useState('1');//ngày băt đầu
+  const [endDay, setEndDay]=useState('1');// ngày kết thuc
 
   const [isShowStartDay, setIsShowStartDay]=useState(false);
   const [isShowEndDay, setIsShowEndDay]=useState(false);
@@ -85,24 +85,27 @@ const FilterTaskScreen = ({ navigation }) => {
     setIsShowEndDay(false)
   }
   useEffect(()=>{
-    // Lấy ngày hiện tại
-    const currentDate = new Date();
-
-// Lấy ngày đầu tiên của tuần (Thứ 2)
-    const firstDayOfWeek = new Date(currentDate);
-    firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
-    setStartDay(moment(firstDayOfWeek).format('YYYY-MM-DD'))
-// Lấy ngày cuối cùng của tuần (Chủ nhật)
-    const lastDayOfWeek = new Date(currentDate);
-    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
-    setEndDay(moment(lastDayOfWeek).format('YYYY-MM-DD'))
-    dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
+       handlegetWee()
   },[])
 
   const handleGetTask=()=>{
     dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
   }
+ const handlegetWee=async () => {
+   // Lấy ngày hiện tại
+   const currentDate = new Date();
 
+// Lấy ngày đầu tiên của tuần (Thứ 2)
+   const firstDayOfWeek = new Date(currentDate);
+   firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+   await setStartDay(moment(firstDayOfWeek).format('YYYY-MM-DD'))
+// Lấy ngày cuối cùng của tuần (Chủ nhật)
+   const lastDayOfWeek = new Date(currentDate);
+   lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+   await setEndDay(moment(lastDayOfWeek).format('YYYY-MM-DD'))
+   console.log(firstDayOfWeek, lastDayOfWeek)
+   dispatch(actionGetTargetTaskByEndDay(0, firstDayOfWeek, lastDayOfWeek))
+ }
 
   return (
     <Animated.View
@@ -143,7 +146,7 @@ const FilterTaskScreen = ({ navigation }) => {
 
               </View>}
               data={dataTargetTaskByEndDay}
-              initialNumToRender={5}
+              initialNumToRender={3}
               renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
               scrollEnabled={true}
               keyExtractor={item => item.taskId}
