@@ -58,40 +58,40 @@ const Api = (isFormData:boolean) => {
 
         });
     }
-    const getProfileUser=(userId)=>{  // láy thông tin của 1 user
+    const getProfileUser=(userId:any)=>{  // láy thông tin của 1 user
         const apiInstance = apiConfig();
         return apiInstance.get(`getProfileUser.php?userId=${userId}`);
     }
-  const getAllProject=(userId)=>{  // api láy tất cả project của 1 user
+  const getAllProject=(userId:any)=>{  // api láy tất cả project của 1 user
     const apiInstance = apiConfig();
     return apiInstance.get(`getProjectUser.php?userId=${userId}`);
   }
-  const getDetailProject=(projectId)=>{ // apo lấy chi tiết project
+  const getDetailProject=(projectId:string)=>{ // apo lấy chi tiết project
     const apiInstance = apiConfig();
     return apiInstance.get(`getDetailProject.php?projectId=${projectId}`);
   }
-  const getListTaskProject=(projectId,state)=>{ // api lấy danh sách của 1 project
+  const getListTaskProject=(projectId:string,state:number)=>{ // api lấy danh sách của 1 project
     return apiConfig().get(`getListTaskProject.php?projectId=${projectId}&state=${state}`);
   }
-  const getAllTask=(offset)=>{  /// api lasy tat ca cac task
+  const getAllTask=(offset:number)=>{  /// api lasy tat ca cac task
     return apiConfig().get(`getAllTask.php?offset=${offset}`);
   }
     const getAssignTask=(assignUser:number,offset:number)=>{ // api lấy danh sách cong việc tôi giao
         return apiConfig().get(`getAssignTask.php?assignUser=${assignUser}&offset=${offset}`);
     }
-    const getTargetTask=(targetUser,offset)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
+    const getTargetTask=(targetUser:number,offset:number)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
         return apiConfig().get(`getTargetTask.php?targetUser=${targetUser}&offset=${offset}`);
     }
-    const getTaskDone=(targetUser,offset)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
+    const getTaskDone=(targetUser:number,offset:number)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
         return apiConfig().get(`getTaskDone.php?targetUser=${targetUser}&offset=${offset}`);
     }
-  const searchUser=(text)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
+  const searchUser=(text:string)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
     return apiConfig().get(`searchUser.php?textSearch=${text}`);
   }
-  const addProject=(body)=> {
+  const addProject=(body:any)=> {
     return apiConfig().post("addProject.php",body);
   }
-  const editUserOfProject=(body)=> {
+  const editUserOfProject=(body:any)=> {
     return apiConfig().post("editUserOfProject.php",body);
   }
   const changePriorityTask=(priority, taskId)=> {
@@ -147,6 +147,22 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  const addCheckList=(taskId:string, content:string, createUser:number)=>{  // theem checkId cho task
+    return apiConfig().post('addCheckList.php',{
+      taskId:taskId,
+      content:content,
+      createUser:createUser
+    });
+  }
+  // Api điều chỉnh trạng thái của checklist
+  const setStatusCheckList=(status:number,checkId:string)=>{
+    return apiConfig().get('setStatusCheckList.php',{
+      params:{
+        status:status,
+        checkId:checkId,
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -175,7 +191,9 @@ const Api = (isFormData:boolean) => {
      searchTask,
       searchProject,
       getOverView,
-      getTargetTaskByEndDay
+      getTargetTaskByEndDay,
+      addCheckList,
+      setStatusCheckList
     };
 };
 export default Api;
