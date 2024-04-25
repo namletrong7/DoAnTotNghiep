@@ -82,6 +82,10 @@ const ItemProjectHorizontal = (props) => {
              <IconLich/>
              <Text style={{fontSize:13, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{convertDateDB(props?.item?.endDay)}</Text>
            </View>
+      <View style={{flexDirection:"row",alignItems:'center',marginTop:5}}>
+        <IconCheck/>
+        <Text style={{fontSize:13, color:"#7B7B85",fontFamily:"OpenSans-Regular",marginLeft:5}}>{(props?.item?.totalTask)+" Công việc"}</Text>
+      </View>
     </TouchableOpacity>
   );
 };

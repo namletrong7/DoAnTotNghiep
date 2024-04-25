@@ -55,6 +55,7 @@ import DialogConfirmComponet from "../../components/DialogConfirmComponent/Dialo
 import { ProgressTaskComponent } from "../../components/ProgressTaskComponent/ProgressTaskComponent";
 import IconContent from "../../assets/icons/ItemContent";
 import IconProhress from "../../assets/icons/IconProhress";
+import { ListCheckList } from "./CheckList/ListCheckList";
 
 
 
@@ -318,6 +319,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
         </View>
             </View>}
+            <ListCheckList taskId={taskId}/>
             <ListFileAttachComponent taskId={taskId}/>
             <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
 
