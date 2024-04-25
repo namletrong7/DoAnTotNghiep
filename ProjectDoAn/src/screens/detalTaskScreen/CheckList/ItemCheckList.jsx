@@ -6,21 +6,23 @@ import IconUnTick from "../../../assets/icons/IconUnTick";
 import FastImage from "react-native-fast-image";
 import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
 import IconTickGreen from "../../../assets/icons/IconTickGreen";
+import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
 
-const ItemCheckList = (props) => {
-  const { item } = props;
+ export const ItemCheckList = React.memo((props) => {
+  const { item ,dispatch} = props;
   const [status, setStatus] = useState(0);
 
   useEffect(()=>{
        setStatus(item.status)
   },[item.status])
-  const handleTich=()=>{
-     if(status==0){
-       setStatus(1)
-     }
-     else if(status==1){
-       setStatus(0)
-     }
+  const handleChangeStatus=async () => {
+    if (status == 0) {
+      setStatus(1)
+      await dispatch(actionSetStatusCheckList(1, item.checkId))
+    } else if (status == 1) {
+      setStatus(0)
+      await dispatch(actionSetStatusCheckList(0, item.checkId))
+    }
   }
   return (
     <View style={{
@@ -33,9 +35,8 @@ const ItemCheckList = (props) => {
 
     }}>
       <View style={{ flexDirection: "row" ,flex:1,marginRight:20}}>
-        <TouchableOpacity onPress={handleTich}>
+        <TouchableOpacity onPress={handleChangeStatus}>
           {status==0?<IconUnTick/>:<IconTickGreen/>}
-
         </TouchableOpacity>
         <Text  style={{
           fontSize: 15,
@@ -56,5 +57,4 @@ const ItemCheckList = (props) => {
       />
     </View>
   );
-};
-export default React.memo(ItemCheckList);
+});

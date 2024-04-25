@@ -800,23 +800,70 @@ export function actionAddCheckList(taskId,content) {
     return async (dispatch, getState) => {
         let userId= getState().auth.dataCurrentUser?.userId
         let avatar=getState().auth.dataCurrentUser?.avatarUser
-        dispatch({
-            type: "ADD_CHECKLIST",
-            data:
-                {
-                    "checkId": "1",
-                    "taskId": taskId,
-                    "creatUser": userId,
-                    "status": 0,
-                    "content":content,
-                    "avatarUser": avatar
-                }
+        try {
+            const response = await Api(false).addCheckList(taskId,content,userId);
+            if(response.data && response.data.status==200){
+                await      dispatch({
+                    type: "ADD_CHECKLIST",
+                    data:
+                      {
+                          "checkId":response.data?.lastCheckId,
+                          "taskId": taskId,
+                          "creatUser": userId,
+                          "status": 0,
+                          "content":content,
+                          "avatarUser": avatar
+                      }
 
-        });
+                });
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 1000,
+                    icon: { icon: "success", position: 'left' }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
 
     };
 }
+// set trạng thái checklist
+export function actionSetStatusCheckList(status,checkId) {
+    return async (dispatch, getState) => {
+        let userId= getState().auth.dataCurrentUser?.userId
+        let avatar=getState().auth.dataCurrentUser?.avatarUser
+        try {
+            const response = await Api(false).setStatusCheckList(status,checkId);
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 1000,
+                    icon: { icon: "success", position: 'left' }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
 
+
+    };
+}
 
 
 export default {

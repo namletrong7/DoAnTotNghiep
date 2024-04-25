@@ -63,6 +63,7 @@ const reducerTask = (state =initialState , action) => {
         case 'GET_DETAIL_TASK': {
             return { ...state,
                 detailTask: action.data.dataDetailTask,
+                dataCheckList:action.data.dataDetailTask.dataCheckList,
                 isGetDetailTask:false
             };
         }

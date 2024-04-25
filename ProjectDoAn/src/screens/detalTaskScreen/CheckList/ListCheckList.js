@@ -18,20 +18,20 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import IconArrowDown from "../../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../../assets/icons/IconArrowLeft";;
-import ItemCheckList from "./ItemCheckList";
 import IconSub from "../../../assets/icons/IconSub";
 import IconSubTask from "../../../assets/icons/IconSubTask";
 import IconPlus from "../../../assets/icons/IconPlus";
 import InputCheckList from "./InputCheckList";
 import SendCommentComponent from "../../../components/sendComentComponet/SendCommentComponent";
+import { ItemCheckList } from "./ItemCheckList";
 
 
 export const ListCheckList = React.memo(({taskId}) => {
 
-  // const dataReport = useSelector(state => state.task.detailTask.dataReport);
-    const dataCheckList = useSelector(state => state.task.dataCheckList);
-  const [seeAll, setSeeAll] = useState(true);
 
+  const dataCheckList = useSelector(state => state.task.dataCheckList);
+  const [seeAll, setSeeAll] = useState(true);
+  const dispatch = useDispatch();
 
 
     return (
@@ -47,7 +47,7 @@ export const ListCheckList = React.memo(({taskId}) => {
          <FlatList
               data={dataCheckList}
               scrollEnabled={false}
-              renderItem={({ item }) => <ItemCheckList item={item} />}
+              renderItem={({ item }) => <ItemCheckList dispatch ={dispatch} item={item} />}
               keyExtractor={(item, index) => index.toString()}
             />
         ) : null}
