@@ -33,13 +33,13 @@ import IconTarget from "../../assets/icons/IconTarget";
 import IconAll from "../../assets/icons/IconAll";
 import IconDone from "../../assets/icons/IconDone";
 import IconClose from "../../assets/icons/IconClose";
-import IconSearch from "../../assets/icons/IconSearch";
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 import IconLoadMore from "../../assets/icons/IconLoadMorer";
-import { PieChart } from "react-native-gifted-charts";
 import TaskChart from "../../components/TaskChart/TaskChart";
 import IconCalendar from "../../assets/icons/IconCalendar";
 import IconDoubleDown from "../../assets/icons/IconDoubleDown";
+import {BoardTask} from "./BoardTask/BoardTask";
+
 
 
 const TaskPersonalScreen = ({ navigation }) => {
@@ -212,6 +212,7 @@ const TaskPersonalScreen = ({ navigation }) => {
       </SafeAreaView>
           <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"25%"}}>
             <TaskChart/>
+            <BoardTask/>
             {currentTask?.length>0?
             (currentTask.map((item, index) => (
               <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} key={item.taskId} />

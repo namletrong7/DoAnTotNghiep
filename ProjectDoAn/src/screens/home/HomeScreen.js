@@ -21,6 +21,7 @@ import ProjectChartComponet from "../../components/ProjectChart/ProjectChartComp
 import ItemProjectVertical from "../../components/itemProject/ItemProjectVertical";
 import ItemProjectHorizontal from "../../components/itemProject/ItemProjectHorizontal";
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
+import IconSayhi from "../../assets/icons/IconSayhi";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -51,19 +52,20 @@ const HomeScreen = ({ navigation }) => {
         <View style={{paddingHorizontal:10,marginBottom:"40%"}}>
           <View style={{marginVertical:10}}>
             <View style={{flexDirection:"row",justifyContent:"space-between",}}>
+              <FastImage
+                  style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",alignSelf:"center"}}
+                  source={{
+                    uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
+                  }}
+                  resizeMode={FastImage.resizeMode.stretch}/>
               <View style={{flexDirection:"row", flex:1}}>
                 <View>
                   <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hello,"}</Text>
                   <Text style={{fontSize:16, color:"black",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{(dataCurrentUser?.fullName)||'Vu thi thu ha'}</Text>
                 </View>
-                <LottieView style={{width:30, height:30, alignSelf:"center",marginLeft:-30,marginTop:-5}} source={require('../../assets/animation/cat.json')} autoPlay loop />
+                <IconSayhi/>
               </View>
-              <FastImage
-                style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",alignSelf:"center"}}
-                source={{
-                  uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
-              }}
-                resizeMode={FastImage.resizeMode.stretch}/>
+
 
             </View>
 

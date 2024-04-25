@@ -54,9 +54,8 @@ export const ListCheckList = React.memo(({taskId}) => {
         {dataCheckList?.length==0&&
         <Text style={{fontSize: 14, color: "black", fontFamily: "OpenSans-Regular",alignSelf:'center', marginTop: 15}}
               numberOfLines={10}>{"không có check list nào"}</Text>}
-          <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding'>
               <InputCheckList taskId={taskId}/>
-          </KeyboardAvoidingView>
+
 
       </View>
     );

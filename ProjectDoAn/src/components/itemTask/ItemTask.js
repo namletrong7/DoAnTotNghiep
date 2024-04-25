@@ -27,6 +27,7 @@ import ItemComment from "../listCommentComponent/ItemComment";
 import IconComment from "../../assets/icons/IconComment";
 import RenderHtml from "react-native-render-html";
 import { ProgressTaskComponent } from "../ProgressTaskComponent/ProgressTaskComponent";
+import {RenderWarningDate} from "../../utils/ConverPickerDate";
 
 
 const ItemTask = (props) => {
@@ -85,15 +86,15 @@ const ItemTask = (props) => {
             <Text style={styles.textStyleQuantity}>{"10"}</Text>
           </View>
         </View>
-
       </View>
+        {RenderWarningDate(props.item.endDay)}
     </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
   container: {
    display:"flex",
-    marginHorizontal:10,
+    marginHorizontal:5,
     backgroundColor:"white",
     borderRadius:7,
     paddingVertical:10,
