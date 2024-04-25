@@ -4,14 +4,14 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
-  FlatList,
-  SafeAreaView, ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
+    Dimensions,
+    FlatList, KeyboardAvoidingView,
+    SafeAreaView, ScrollView,
+    StyleSheet,
+    Text, TextInput,
+    TouchableOpacity,
+    useWindowDimensions,
+    View,
 } from "react-native";
 
 
@@ -21,36 +21,22 @@ import IconArrowUp from "../../../assets/icons/IconArrowLeft";;
 import ItemCheckList from "./ItemCheckList";
 import IconSub from "../../../assets/icons/IconSub";
 import IconSubTask from "../../../assets/icons/IconSubTask";
+import IconPlus from "../../../assets/icons/IconPlus";
+import InputCheckList from "./InputCheckList";
+import SendCommentComponent from "../../../components/sendComentComponet/SendCommentComponent";
 
 
-export const ListCheckList = React.memo((props) => {
+export const ListCheckList = React.memo(({taskId}) => {
 
   // const dataReport = useSelector(state => state.task.detailTask.dataReport);
-
-  const data= [
-    {
-      "checkId": "2",
-      "taskId": "vjkdbjbv",
-      "creatUser": "0",
-      "status": "1",
-      "content": "kiểm tra nội dung",
-      "avatarUser": "anhvtd.png"
-    },
-    {
-      "checkId": "1",
-      "taskId": "tasksdkjvbkbv",
-      "creatUser": "0",
-      "status": "1",
-      "content": "kiểm tra tài khoản",
-      "avatarUser": "anhvtd.png"
-    }
-  ]
+    const dataCheckList = useSelector(state => state.task.dataCheckList);
   const [seeAll, setSeeAll] = useState(true);
+
 
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSeeAll(!seeAll)} }>
+        <TouchableOpacity style={styles.header} onPress= {() => {setSeeAll(!seeAll)} }>
           <View style={{flexDirection:"row",alignItems:"center"}}>
             <IconSubTask />
             <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"CheckList"}</Text>
@@ -58,15 +44,18 @@ export const ListCheckList = React.memo((props) => {
           {seeAll? <IconArrowDown/>:<IconArrowUp/>}
         </TouchableOpacity>
         {seeAll ? (
-          data?.length > 0 ? <FlatList
-              data={data}
+         <FlatList
+              data={dataCheckList}
               scrollEnabled={false}
               renderItem={({ item }) => <ItemCheckList item={item} />}
               keyExtractor={(item, index) => index.toString()}
-            /> :
-            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
-                  numberOfLines={10}>{"Không có báo cáo nào cho công việc này"}</Text>
+            />
         ) : null}
+        {dataCheckList?.length==0&&
+        <Text style={{fontSize: 14, color: "black", fontFamily: "OpenSans-Regular",alignSelf:'center', marginTop: 15}}
+              numberOfLines={10}>{"không có check list nào"}</Text>}
+              <InputCheckList taskId={taskId}/>
+
 
       </View>
     );
@@ -77,6 +66,9 @@ const styles = StyleSheet.create({
     display: "flex",
     marginTop: 19,
   },
+  header:{
+    flexDirection:"row",justifyContent:"space-between"
+  }
 
 });
 

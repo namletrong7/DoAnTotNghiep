@@ -3,8 +3,8 @@ import Svg, { SvgProps, Path, Circle } from "react-native-svg";
 
 const IconUnTick = (props) => (
   <Svg
-    width={23}
-    height={23}
+    width={22}
+    height={22}
     viewBox="0 0 48 48"
     xmlns="http://www.w3.org/2000/svg"
     {...props}

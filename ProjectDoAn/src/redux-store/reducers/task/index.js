@@ -29,6 +29,7 @@ const initialState = {
     dataSearchTask:false,
     dataTargetTaskByEndDay:[],
     isFilterTask:false,
+    dataCheckList:[],
 
 }
 const reducerTask = (state =initialState , action) => {
@@ -220,7 +221,12 @@ const reducerTask = (state =initialState , action) => {
                 dataTargetTaskByEndDay: action?.data
             };
         }
-
+        case 'ADD_CHECKLIST': {
+            const updatedCheckList = [action.data, ...state.dataCheckList];
+            return { ...state,
+                dataCheckList:  updatedCheckList
+            };
+        }
         default:
             return state
     }

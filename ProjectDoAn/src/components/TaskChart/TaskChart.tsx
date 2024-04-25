@@ -45,7 +45,7 @@ const TaskChart = () => {
             marginVertical:10
           }}>
           {renderDot('#836FFF')}
-          <Text style={{color: 'black'}}>{"Đang làm: "+dataNumTask?.numTaskDoing}</Text>
+          <Text style={{color: 'black'}}>{"Đang xử lý: "+dataNumTask?.numTaskDoing}</Text>
         </View>
         <View
           style={{
