@@ -5,6 +5,7 @@ import IconUnlike from "../../../assets/icons/IconUnlike";
 import IconUnTick from "../../../assets/icons/IconUnTick";
 import FastImage from "react-native-fast-image";
 import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
+import IconTickGreen from "../../../assets/icons/IconTickGreen";
 
 const ItemCheckList = (props) => {
   const { item } = props;
@@ -27,11 +28,13 @@ const ItemCheckList = (props) => {
       marginLeft:10,
       marginVertical:5,
       justifyContent: "space-between",
+        flex:1,
+        alignItems:'center'
 
     }}>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row" ,flex:1,marginRight:20}}>
         <TouchableOpacity onPress={handleTich}>
-          {status==0?<IconUnTick/>:<IconTick/>}
+          {status==0?<IconUnTick/>:<IconTickGreen/>}
 
         </TouchableOpacity>
         <Text  style={{
@@ -39,11 +42,12 @@ const ItemCheckList = (props) => {
           color: "black",
           fontFamily: "OpenSans-Regular",
           marginHorizontal:10,
-          flexWrap:"wrap"
+          flexWrap:"wrap",
+            textDecorationLine: status==1?"line-through":"none"
         }}>{item.content}</Text>
       </View>
       <FastImage
-        style={{ width: 25, height: 25,borderRadius: 25/2 ,overflow: "hidden"}}
+        style={{ width: 20, height: 20,borderRadius: 20/2 ,overflow: "hidden"}}
         source={{
           uri: (baseUrlAvatarUser+item?.avatarUser)||''
         }}

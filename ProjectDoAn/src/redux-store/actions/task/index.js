@@ -795,7 +795,27 @@ export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
 
     };
 }
-//--------------------------------------nghiêm túc
+/// action them checkList cho task
+export function actionAddCheckList(taskId,content) {
+    return async (dispatch, getState) => {
+        let userId= getState().auth.dataCurrentUser?.userId
+        let avatar=getState().auth.dataCurrentUser?.avatarUser
+        dispatch({
+            type: "ADD_CHECKLIST",
+            data:
+                {
+                    "checkId": "1",
+                    "taskId": taskId,
+                    "creatUser": userId,
+                    "status": 0,
+                    "content":content,
+                    "avatarUser": avatar
+                }
+
+        });
+
+    };
+}
 
 
 

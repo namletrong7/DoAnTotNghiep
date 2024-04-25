@@ -337,7 +337,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{ left: 0, right: 0, bottom:0,position:"absolute",backgroundColor:"#EEEEEE"}}>
           <SendCommentComponent taskId={taskId}/>
       </KeyboardAvoidingView>
-        <DialogChangContent visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
+        <DialogChangContent taskId={taskId} visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
     </View>
     </Animated.View>
   );
