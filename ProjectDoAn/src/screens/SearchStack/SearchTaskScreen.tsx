@@ -27,7 +27,7 @@ import { ListStaffSearch } from "./ListStaffSearch.tsx";
 import { ListTaskSearch } from "./ListTaskSearch.tsx";
 import { ListProjectSearch } from "./ListProjectSearch.tsx";
 import { actionSearchProject } from "../../redux-store/actions/project";
-
+import LinearGradient from "react-native-linear-gradient";
 
 
  type propsType ={
@@ -67,14 +67,14 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
-      <View style={{backgroundColor:"#F0F0F0",height:'100%',paddingBottom:"20%"}}>
-        <SafeAreaView style={{height:StatusBar.currentHeight,backgroundColor:'white'}}>
+      <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{backgroundColor:"#F0F0F0",height:'100%',paddingBottom:"20%"}}>
+        <SafeAreaView style={{height:StatusBar.currentHeight}}>
           <StatusBar
             translucent
             backgroundColor={'black'}
           />
         </SafeAreaView>
-        <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{flexDirection:"row", backgroundColor:"white", paddingHorizontal:10, justifyContent:"space-between",alignItems:"center",display:'flex'}}>
+        <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding' style={{flexDirection:"row", paddingHorizontal:10, justifyContent:"space-between",alignItems:"center",display:'flex'}}>
           <TouchableOpacity onPress={()=>{navigation.goBack()}}>
             <IconBack/>
           </TouchableOpacity>
@@ -90,7 +90,7 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
               </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={{backgroundColor:"white",alignItems:'center',paddingHorizontal:10,height:50}}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={{alignItems:'center',paddingHorizontal:10,height:50}}>
           <Text style={{ fontSize: 13, color: "#148eff", fontFamily: "OpenSans-SemiBold"}}>{"Tìm kiếm theo : "}</Text>
           <ItemFilter title={"Công việc"} type={1}/>
           <ItemFilter title={"Nhân viên"} type={2}/>
@@ -103,7 +103,7 @@ const SearchTaskScreen : React.FC<propsType>= ({ navigation  }) => {
           <ListProjectSearch type={typeSearch} navigation={navigation}/>
 
         </ScrollView>
-      </View>
+      </LinearGradient>
     </Animated.View>
   );
 };

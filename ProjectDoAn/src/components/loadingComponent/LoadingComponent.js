@@ -30,11 +30,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 13,
     height:"800",
-    backgroundColor: "#EEEEEE",
   },
   modalContent: {
     marginTop: "40%",
-    backgroundColor: "#EEEEEE",
     width: "100%",
    alignItems:'center'
   },
