@@ -81,9 +81,9 @@ const HomeScreen = ({ navigation }) => {
           </View>
               <FlatList
                 data={dataAllProject}
-                horizontal={true}
-                renderItem={({item}) => <ItemProjectHorizontal item={item} navigation = {navigation} />}
-                scrollEnabled={true}
+                horizontal={false}
+                renderItem={({item}) => <ItemProjectVertical item={item} navigation = {navigation} />}
+                scrollEnabled={false}
                 keyExtractor={item => item.projectId}
               />
         </View>

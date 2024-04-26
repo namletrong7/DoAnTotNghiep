@@ -839,8 +839,6 @@ export function actionAddCheckList(taskId,content) {
 // set trạng thái checklist
 export function actionSetStatusCheckList(status,checkId) {
     return async (dispatch, getState) => {
-        let userId= getState().auth.dataCurrentUser?.userId
-        let avatar=getState().auth.dataCurrentUser?.avatarUser
         try {
             const response = await Api(false).setStatusCheckList(status,checkId);
             if(response.data && response.data.status==200){
