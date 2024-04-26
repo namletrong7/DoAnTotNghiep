@@ -56,6 +56,8 @@ import { ProgressTaskComponent } from "../../components/ProgressTaskComponent/Pr
 import IconContent from "../../assets/icons/ItemContent";
 import IconProhress from "../../assets/icons/IconProhress";
 import { ListCheckList } from "./CheckList/ListCheckList";
+import IconBookMark from "../../assets/icons/IconBookMark";
+import IconUnBookMark from "../../assets/icons/IconUnBookMark";
 
 
 
@@ -66,6 +68,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const { taskId } = route?.params || "T001";
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
+  const [isBookMark, setisBookMark] = useState(false);
   // láy data detail task từ  reducer có dược
   const dataDetailTask = useSelector(state => state.task.detailTask);
   const isGetDetailTask = useSelector(state => state.task.isGetDetailTask);
@@ -194,6 +197,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </TouchableOpacity>
             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Chi tiết công việc"}</Text>
             <View  style={{ flexDirection:"row"}}>
+              <TouchableOpacity style={{marginRight:5}} onPress={()=>{setisBookMark(!isBookMark)}}>
+                {isBookMark?<IconBookMark/>:<IconUnBookMark/>}
+              </TouchableOpacity>
               <TouchableOpacity onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
                 <IconAttachFile/>
               </TouchableOpacity>
