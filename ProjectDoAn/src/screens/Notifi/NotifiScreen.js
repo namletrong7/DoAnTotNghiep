@@ -21,6 +21,7 @@ import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import IconBell from "../../assets/icons/IconBell";
 import { getTypeNotifi } from "../../utils/GetPriority";
 import IconBack from "../../assets/icons/IconBack";
+import LinearGradient from "react-native-linear-gradient";
 
 const NotifiScreen = ({ navigation }) => {
 
@@ -123,7 +124,7 @@ const NotifiScreen = ({ navigation }) => {
     const {item, navigation} = props
     return(
       <TouchableOpacity onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
-        paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"#F0F0F0"}}>
+        paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"transparent"}}>
         <FastImage
           style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
           source={{
@@ -148,16 +149,14 @@ const NotifiScreen = ({ navigation }) => {
   return (
     <View style={{height:'100%',backgroundColor:"#F0F0F0"}}>
       <HeaderComponent title={"THÔNG BÁO"} navigation={navigation}/>
-      <ScrollView>
-        <View style={{}}>
+        <LinearGradient  colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1}} >
           <FlatList
             data={fakeDataListTask}
             renderItem={({item}) => <ItemNotfi item={item} navigation = {navigation} />}
-            scrollEnabled={false}
+            scrollEnabled={true}
             keyExtractor={item => item.notifyUserId}
           />
-        </View>
-      </ScrollView>
+        </LinearGradient>
     </View>
   );
 };

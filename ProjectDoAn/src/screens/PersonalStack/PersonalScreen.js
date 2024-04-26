@@ -40,6 +40,7 @@ import IconComputer from "../../assets/icons/IconComputer";
 import IconInfo from "../../assets/icons/IconInfo";;
 import IconKey from "../../assets/icons/IconKey";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
+import LinearGradient from "react-native-linear-gradient";
 
 
 
@@ -80,7 +81,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
-    <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+    <LinearGradient   colors={['#e3efdd', '#faeeca', '#deedda']}  style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}/>
       <ScrollView
         contentContainerStyle={{padding:15, }}
@@ -144,7 +145,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
       </ScrollView>
 
       <DialogConfirmComponent visible={isShowLogOut} onConfirm={handleLogout} onClose={handleCloseLogout} content={"Bạn có chắc chắn đăng xuất khỏi ứng dụng ? Nhấn 'Đồng ý' để thực hiện đăng xuất "}   />
-    </View>
+    </LinearGradient>
     </Animated.View>
   );
 })

@@ -58,6 +58,7 @@ import IconProhress from "../../assets/icons/IconProhress";
 import { ListCheckList } from "./CheckList/ListCheckList";
 import IconBookMark from "../../assets/icons/IconBookMark";
 import IconUnBookMark from "../../assets/icons/IconUnBookMark";
+import LinearGradient from "react-native-linear-gradient";
 
 
 
@@ -181,17 +182,17 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   return (
     <Animated.View
-      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      entering={SlideInRight.duration(1000)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
-    <View style={{height:"100%",backgroundColor:"#EEEEEE"}}>
+    <LinearGradient  colors={['#e3efdd', '#faeeca', '#deedda']} style={{height:"100%",backgroundColor:"#EEEEEE"}}>
         <SafeAreaView style={{height:StatusBar.currentHeight,backgroundColor:'white'}}>
             <StatusBar
                 translucent
                 backgroundColor={'black'}
             />
         </SafeAreaView>
-        <View style={{flexDirection:"row", backgroundColor:"white", paddingHorizontal:10,height:50, justifyContent:"space-between",alignItems:"center",display:'flex'}}>
+        <View style={{flexDirection:"row", paddingHorizontal:10,height:50, justifyContent:"space-between",alignItems:"center",display:'flex'}}>
             <TouchableOpacity onPress={()=>{navigation.goBack()}}>
                 <IconBack/>
             </TouchableOpacity>
@@ -344,7 +345,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
           <SendCommentComponent taskId={taskId}/>
       </KeyboardAvoidingView>
         <DialogChangContent taskId={taskId} visible={isShowChangeConent} onClose = {()=>{setIsShowChangeConent(false)}} onEdit={changTitleTask}/>
-    </View>
+    </LinearGradient>
     </Animated.View>
   );
 })

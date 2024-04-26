@@ -22,6 +22,7 @@ import ItemProjectVertical from "../../components/itemProject/ItemProjectVertica
 import ItemProjectHorizontal from "../../components/itemProject/ItemProjectHorizontal";
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
 import IconSayhi from "../../assets/icons/IconSayhi";
+import LinearGradient from "react-native-linear-gradient";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -40,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
 
 
   return (
-    <View style={{backgroundColor:"#F0F0F0",flex:1}}>
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{height:"100%"}}>
       <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
         <StatusBar
           translucent
@@ -49,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <SafeAreaView>
       <ScrollView>
-        <View style={{paddingHorizontal:10,marginBottom:"40%"}}>
+        <View  style={{paddingHorizontal:10,paddingBottom:"40%",height:"100%"}}>
           <View style={{marginVertical:10}}>
             <View style={{flexDirection:"row",justifyContent:"space-between",}}>
               <FastImage
@@ -81,9 +82,9 @@ const HomeScreen = ({ navigation }) => {
           </View>
               <FlatList
                 data={dataAllProject}
-                horizontal={true}
-                renderItem={({item}) => <ItemProjectHorizontal item={item} navigation = {navigation} />}
-                scrollEnabled={true}
+                horizontal={false}
+                renderItem={({item}) => <ItemProjectVertical item={item} navigation = {navigation} />}
+                scrollEnabled={false}
                 keyExtractor={item => item.projectId}
               />
         </View>
@@ -104,7 +105,7 @@ const HomeScreen = ({ navigation }) => {
         <IconPlus/>
       </TouchableOpacity>
 
-    </View>
+    </LinearGradient>
   );
 };
 

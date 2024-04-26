@@ -39,6 +39,7 @@ import TaskChart from "../../components/TaskChart/TaskChart";
 import IconCalendar from "../../assets/icons/IconCalendar";
 import IconDoubleDown from "../../assets/icons/IconDoubleDown";
 import {BoardTask} from "./BoardTask/BoardTask";
+import LinearGradient from "react-native-linear-gradient";
 
 
 
@@ -134,7 +135,7 @@ const TaskPersonalScreen = ({ navigation }) => {
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
-    <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+    <LinearGradient   colors={['#e3efdd', '#faeeca', '#deedda']} style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
         <StatusBar
           translucent
@@ -227,7 +228,7 @@ const TaskPersonalScreen = ({ navigation }) => {
          </ScrollView>
 
 
-    </View>
+    </LinearGradient>
     </Animated.View>
   );
 };

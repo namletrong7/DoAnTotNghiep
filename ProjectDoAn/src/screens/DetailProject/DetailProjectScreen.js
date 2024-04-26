@@ -32,6 +32,7 @@ import {  getStateProject } from "../../utils/GetPriority";
 import {  actionGetDetailProject } from "../../redux-store/actions/project";
 import {convertDateDB} from "../../utils/ConverPickerDate";
 import { BottomEditUser } from "./BottomEditUser";
+import LinearGradient from "react-native-linear-gradient";
 
 
 
@@ -113,9 +114,9 @@ const ItemUserMemer=(props)=>{
 
 
       <GestureHandlerRootView  style={{ borderRadius:16,  display:"flex"}}>
-          <View style={{height:"100%"}}>
+          <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{height:"100%"}}>
                <TopTabTask1 projectId={itemProject?.projectId}/>
-          </View>
+          </LinearGradient>
         <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
         <BottomSheetModalProvider>
           <BottomSheetModal

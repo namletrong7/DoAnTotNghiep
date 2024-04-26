@@ -46,6 +46,7 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import fontAwesome5Pro from "react-native-vector-icons/FontAwesome5Pro";
 import ItemTask from "../../components/itemTask/ItemTask";
 import LoadingComponent from "../../components/loadingComponent/LoadingComponent";
+import LinearGradient from "react-native-linear-gradient";
 
 
 const FilterTaskScreen = ({ navigation }) => {
@@ -113,7 +114,7 @@ const FilterTaskScreen = ({ navigation }) => {
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
-    <View style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+    <LinearGradient  colors={['#e3efdd', '#faeeca', '#deedda']}  style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
         <StatusBar
           translucent
@@ -179,7 +180,7 @@ const FilterTaskScreen = ({ navigation }) => {
         onCancel={handleHideEndDay}
          onConfirm={handleConfirmEndDay}
       />
-    </View>
+    </LinearGradient>
     </Animated.View>
   );
 };
