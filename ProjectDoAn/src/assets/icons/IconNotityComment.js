@@ -3,8 +3,8 @@ import Svg, { SvgProps, Path } from "react-native-svg"
 
 const IconNotityComment = (props) => (
   <Svg
-    width={10}
-    height={10}
+    width={15}
+    height={15}
     viewBox="0 0 32 32"
     xmlns="http://www.w3.org/2000/svg"
     {...props}

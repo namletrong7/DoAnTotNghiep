@@ -13,32 +13,38 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
   const {item, navigation,dispatch} = props
    const handleItemNotifi = useCallback((item) => {
      navigation.navigate('DetailTask_Notifi', { taskId: item?.taskId });
-     dispatch(actionSetIsReadNotify(item?.notifyId))
+     if(item.isRead==0) // chưa đọc
+     {
+       dispatch(actionSetIsReadNotify(item?.notifyId))
+     }else{
+       return ;
+     }
+
    }, [item]);
    const RenderIconNotity=({type})=>{
      if(type==10){
        return(
-         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00CD00", borderRadius:16,padding:3}}>
+         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00CD00", borderRadius:16,padding:5}}>
            <IconNotityComment/>
          </View>
        )
 
      }else if(type >= 1 && type <= 3){
        return (
-         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#F0F8FF", borderRadius:16,padding:3}}>
-           <IconEdit2 width={10} height={10}/>
+         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#F0F8FF", borderRadius:16,padding:5}}>
+           <IconEdit2 width={15} height={15}/>
          </View>
        )
      } else if(type == 6 || type==7 ){
        return (
-         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00F5FF", borderRadius:16,padding:3}}>
-           <IconReport width={10} height={10}/>
+         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00F5FF", borderRadius:16,padding:5}}>
+           <IconReport width={15} height={15}/>
          </View>
        )
      }
      else{
        return (
-         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#FFCC00", borderRadius:16,padding:3}}>
+         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#FFCC00", borderRadius:16,padding:5}}>
            <IconBell/>
          </View>
        )
@@ -50,7 +56,7 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
       paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"transparent"}}>
       <View>
         <FastImage
-          style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden"}}
+          style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden"}}
           source={{
             uri:  (baseUrlAvatarUser+props.item?.avatarCreateUser)||''
 

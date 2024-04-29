@@ -182,6 +182,14 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  const setHasReadNotify=(reciverUser:number,notifyId:string)=>{
+    return apiConfig().get('setHasReadNotify.php',{
+      params:{
+        reciverUser:reciverUser,
+        notifyId:notifyId
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -213,7 +221,8 @@ const Api = (isFormData:boolean) => {
       getTargetTaskByEndDay,
       addCheckList,
       setStatusCheckList,
-      getListNotify
+      getListNotify,
+      setHasReadNotify
     };
 };
 export default Api;
