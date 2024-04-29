@@ -82,3 +82,30 @@ export function getNewDate(){
   }
 
 }
+ export const getTimeDifference = (timeNotify) => {
+   const currentTime = new Date(); // Lấy thời gian hiện tại
+   const notifyTime = new Date(timeNotify); // Chuyển đổi thời gian từ dữ liệu timeNotify
+
+   const timeDifference = currentTime - notifyTime; // Tính khoảng cách thời gian
+
+   const millisecondsInMinute = 60 * 1000; // Số mili giây trong một phút
+   const minutesDifference = timeDifference / millisecondsInMinute; // Chuyển đổi khoảng cách thời gian sang phút
+
+   if (minutesDifference < 60) {
+     // Nếu khoảng cách thời gian nhỏ hơn 1 giờ
+     return `${Math.floor(minutesDifference)} phút trước`;
+   } else if (minutesDifference < 24 * 60) {
+     // Nếu khoảng cách thời gian lớn hơn 1 giờ nhưng nhỏ hơn 24 giờ
+     const hoursDifference = Math.floor(minutesDifference / 60); // Chuyển đổi khoảng cách thời gian sang giờ
+     return `${hoursDifference} giờ trước`;
+   } else {
+     // Nếu khoảng cách thời gian lớn hơn hoặc bằng 24 giờ
+     const formattedTime = notifyTime.toLocaleString('vi-VN', {
+       day: 'numeric',
+       month: 'numeric',
+       hour: 'numeric',
+       minute: 'numeric',
+     });
+     return `Lúc ${formattedTime}`;
+   }
+};
