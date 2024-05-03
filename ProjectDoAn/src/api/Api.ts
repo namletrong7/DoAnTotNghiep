@@ -10,7 +10,7 @@ const Api = (isFormData:boolean) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.0.108:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 // Thêm các headers khác nếu cần thiết
@@ -94,11 +94,23 @@ const Api = (isFormData:boolean) => {
   const editUserOfProject=(body:any)=> {
     return apiConfig().post("editUserOfProject.php",body);
   }
-  const changePriorityTask=(priority, taskId)=> {
-    return apiConfig().get(`changePriorityTask.php?priority=${priority}&taskId=${taskId}`);
+  const changePriorityTask=(priority, taskId,createUser)=> {
+    return apiConfig().get(`changePriorityTask.php`,{
+      params: {
+        priority: priority,
+        taskId: taskId,
+        createUser: createUser
+      }
+      });
   }
-  const changeProgressTask=(progress:number, taskId:any)=> {
-    return apiConfig().get(`changeProgressTask.php?progress=${progress}&taskId=${taskId}`);
+  const changeProgressTask=(progress:number, taskId:any,userId:any)=> {
+    return apiConfig().get(`changeProgressTask.php`,{
+      params:{
+        progress: progress,
+        taskId: taskId,
+        createUser: userId
+      }
+    });
   }
   const reportTask=(body)=> {
     return apiConfig().post("reportTask.php",body);
@@ -163,6 +175,21 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  const getListNotify=(reciverUser:number)=>{
+    return apiConfig().get('getNotify.php',{
+      params:{
+        reciverUser:reciverUser,
+      }
+    });
+  }
+  const setHasReadNotify=(reciverUser:number,notifyId:string)=>{
+    return apiConfig().get('setHasReadNotify.php',{
+      params:{
+        reciverUser:reciverUser,
+        notifyId:notifyId
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -193,7 +220,9 @@ const Api = (isFormData:boolean) => {
       getOverView,
       getTargetTaskByEndDay,
       addCheckList,
-      setStatusCheckList
+      setStatusCheckList,
+      getListNotify,
+      setHasReadNotify
     };
 };
 export default Api;

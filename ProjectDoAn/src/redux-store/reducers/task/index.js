@@ -30,6 +30,7 @@ const initialState = {
     dataTargetTaskByEndDay:[],
     isFilterTask:false,
     dataCheckList:[],
+    dataListNotify:[]
 
 }
 const reducerTask = (state =initialState , action) => {
@@ -226,6 +227,15 @@ const reducerTask = (state =initialState , action) => {
             const updatedCheckList = [action.data, ...state.dataCheckList];
             return { ...state,
                 dataCheckList:  updatedCheckList
+            };
+        }
+        case 'SET_IS_READ_NOTIFY': {
+            return { ...state,
+                dataListNotify: state.dataListNotify.map(item =>
+                  item.notifyId === action.data.notifyId
+                    ? { ...item, isRead: 1 }
+                    : item
+                ),
             };
         }
         default:

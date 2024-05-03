@@ -92,8 +92,8 @@ const ItemUserMemer=(props)=>{
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
-    <View style={{backgroundColor:"#F0F0F0", height:"100%"}}>
-     <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight), backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{ height:"100%"}}>
+     <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight), paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
          <TouchableOpacity onPress={()=>{navigation.goBack()}}>
            <IconBack/>
          </TouchableOpacity>
@@ -114,9 +114,9 @@ const ItemUserMemer=(props)=>{
 
 
       <GestureHandlerRootView  style={{ borderRadius:16,  display:"flex"}}>
-          <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{height:"100%"}}>
+          <View  style={{height:"100%"}}>
                <TopTabTask1 projectId={itemProject?.projectId}/>
-          </LinearGradient>
+          </View>
         <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
         <BottomSheetModalProvider>
           <BottomSheetModal
@@ -157,7 +157,7 @@ const ItemUserMemer=(props)=>{
           </BottomSheetModal>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
-    </View>
+    </LinearGradient>
     </Animated.View>
   );
 };

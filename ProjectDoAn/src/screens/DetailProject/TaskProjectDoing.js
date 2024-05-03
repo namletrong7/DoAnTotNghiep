@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionGetDetailProject } from "../../redux-store/actions/project";
 import { actionGetTaskDoingProject, actionGetTaskToDoProject } from "../../redux-store/actions/task";
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
+import LinearGradient from "react-native-linear-gradient";
 
 const TaskProjectDoing = ({navigation,route}) => {
   const { projectId } = route?.params;
@@ -25,7 +26,7 @@ const TaskProjectDoing = ({navigation,route}) => {
 
   },[])
   return (
-    <View style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
       {isGetTaskProjectDoing ? <ActivityIndicator size="large" color="#4577ef"/>:
           (dataListTaskProjectDoing?.length > 0 ?
               (<FlatList
@@ -37,7 +38,7 @@ const TaskProjectDoing = ({navigation,route}) => {
               />) : (<EmptyTask/>))
 
       }
-</View>
+</LinearGradient>
   );
 };
 

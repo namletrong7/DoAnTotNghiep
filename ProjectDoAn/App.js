@@ -10,16 +10,24 @@ import AppNavigator from "./src/navigation/AppNavigator";
 
 import FlashMessage from "react-native-flash-message";
 import FilterTaskScreen from "./src/screens/taskStack/FilterTaskScreen";
+import SplashScreen from "./src/screens/SplashScreen";
 
 
 
 
 const App = () => {
+  const [isShow, setIsShow] = useState(true);
   useEffect(()=>{
     // yêu cầu quyền đọc ghi file
     requestUserPermission()
     requestStoragePermission()
 
+    const timerId = setTimeout(() => {
+      setIsShow(false)
+    }, 3000);
+
+
+    return () => clearTimeout(timerId);
   },[])
 
 
@@ -27,8 +35,10 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <AppNavigator
-          />
+          {
+            isShow?<SplashScreen/>:    <AppNavigator/>
+          }
+
           <FlashMessage position="top" style={{height:100,  alignItems:"flex-end"}} />
         </NavigationContainer>
       </PersistGate>

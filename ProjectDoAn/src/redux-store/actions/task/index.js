@@ -606,8 +606,11 @@ export function actionGetTaskDone() {
 }
 export function actionChangePriorityTask(priority,taskId) {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
+        const userId=getState().auth.dataCurrentUser?.userId
+
+
         try {
-            const response = await Api(false).changePriorityTask(priority,taskId)
+            const response = await Api(false).changePriorityTask(priority,taskId,userId)
             console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
@@ -639,8 +642,9 @@ export function actionChangePriorityTask(priority,taskId) {  // action lấy ds 
 }
 export function actionChangeProgressTask(progress,taskId) {
     return async (dispatch, getState) => {
+        const userId=getState().auth.dataCurrentUser?.userId
         try {
-            const response = await Api(false).changeProgressTask(progress,taskId)
+            const response = await Api(false).changeProgressTask(progress,taskId,userId)
             console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
@@ -863,7 +867,56 @@ export function actionSetStatusCheckList(status,checkId) {
     };
 }
 
+export function actionGetListNotify() {
+    return async (dispatch, getState) => {
+        let userId = getState().auth.dataCurrentUser?.userId
+        try {
+            const response = await Api(false).getListNotify(userId);
 
+            console.log(response.data?.dataListNotify)
+            if (response.data && response.data.status == 200) {
+                dispatch(updateData({
+                    dataListNotify: response.data?.dataListNotify
+                }))
+
+            }
+        } catch (error) {
+            console.log(error)
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
+    }
+}
+export function actionSetIsReadNotify(notifyId) {
+    return async (dispatch, getState) => {
+        await dispatch({
+            type: "SET_IS_READ_NOTIFY",
+            data: {
+                notifyId:notifyId,
+            }
+        });
+        let userId = getState().auth.dataCurrentUser?.userId
+        try {
+            const response = await Api(false).setHasReadNotify(userId,notifyId);
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    }
+}
 export default {
     actionAddTask,
     actionGetDetailTask,

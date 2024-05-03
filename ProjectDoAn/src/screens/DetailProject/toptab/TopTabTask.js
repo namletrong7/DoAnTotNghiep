@@ -16,9 +16,9 @@ export const TopTabTask1=React.memo((props)=> {
       screenOptions={{
         tabBarStyle: styles.containerStyle,
         tabBarIndicatorStyle: styles.indicator,
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: '#1388f4',
         tabBarLabelStyle:{fontSize:15},
-        tabBarInactiveTintColor: '#f5f5f5',
+        tabBarInactiveTintColor: 'black',
       }}
     >
       <TopNavigator.Screen
@@ -60,17 +60,17 @@ export const TopTabTask1=React.memo((props)=> {
 const styles = StyleSheet.create({
 
   indicator: {
-    backgroundColor: 'white',
+    backgroundColor: '#c7e4ff',
     position: 'absolute',
     zIndex: -1,
     bottom: '15%',
-    borderRadius:5,
+    borderRadius:40,
     height: '70%',
   },
   containerStyle: {
-    backgroundColor: 'black',
     width: '100%',
     height:"60",
+    backgroundColor:"transparent",
     alignSelf: 'center',
   },
 });
