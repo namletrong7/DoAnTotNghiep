@@ -191,8 +191,9 @@ export function actionGetListUserProject(projectId) {
 }
 export function actionEditUserForTask(type , taskId, userId) {
   return async (dispatch, getState) => {
+    let createUser = getState().auth.dataCurrentUser?.userId
       try {
-        const response = await Api(false).editUserForTask(type,taskId, userId );
+        const response = await Api(false).editUserForTask(type,taskId, userId,createUser );
 
         if(response.data && response.data.status==200){
           showMessage({
