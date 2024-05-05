@@ -118,12 +118,13 @@ const Api = (isFormData:boolean) => {
   const getListUserOfProject=(projectId)=> {
     return apiConfig().post(`getUserProject.php?projectId=${projectId}`);
   }
-  const editUserForTask=(type:number, taskId:string,userId:any)=> {
+  const editUserForTask=(type:number, taskId:string,userId:any,createUser:number)=> {
     return apiConfig().get('editUserTask.php',{
         params:{
           userId: userId,
           taskId: taskId,
-          type: type
+          type: type,
+          createUser:createUser
         }
     });
   }
@@ -190,6 +191,16 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  const changeDayTask=(taskId:string,type:number, createUser:number, day:any)=>{
+    return apiConfig().get('changeDayTask.php',{
+      params:{
+        taskId:taskId,
+        type:type,
+        createUser:createUser,
+        day:day
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -222,7 +233,8 @@ const Api = (isFormData:boolean) => {
       addCheckList,
       setStatusCheckList,
       getListNotify,
-      setHasReadNotify
+      setHasReadNotify,
+      changeDayTask
     };
 };
 export default Api;

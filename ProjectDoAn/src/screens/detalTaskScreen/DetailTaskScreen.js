@@ -31,7 +31,7 @@ import SendCommentComponent from "../../components/sendComentComponet/SendCommen
 import { ListFileAttachComponent } from "../../components/listFileAttachComponent/ListFileAttachComponent";
 import IconEdit from "../../assets/icons/IconEdit";
 import LoadingComponent from "../../components/loadingComponent/LoadingComponent";
-import { actionGetDetailTask } from "../../redux-store/actions/task";
+import { actionChangeDayTask, actionGetDetailTask } from "../../redux-store/actions/task";
 
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import { ListReportTask } from "./taskReport/ListReportTask";
@@ -59,6 +59,8 @@ import { ListCheckList } from "./CheckList/ListCheckList";
 import IconBookMark from "../../assets/icons/IconBookMark";
 import IconUnBookMark from "../../assets/icons/IconUnBookMark";
 import LinearGradient from "react-native-linear-gradient";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment/moment";
 
 
 
@@ -90,6 +92,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const refChangeActionComment = useRef(null);
   const refChangeEditUser = useRef(null); // hiern thị bottom sheet thya dỏi user
   const [typeEditUser, setTypeEditUser] = useState(0); // type cho bottom chỉnh sửa user giao hay xử lý
+  const [isVisibleChangeDay, setIsVisibleChangeDay] = useState(false);  // hiển thị dialog chỉnh sửa ngay bat đâu v ngày kết thúc của task
+  const [typeChangeDay, setTypeChangeDay] = useState(0);  // xác định xem thay đổi ngày bát đầu hay ngày kết thúc của công việc
 
   const handelOpenChangePriority = useCallback(() => {// hàm mở ra bottom sheet thay doi proority
     refChangePriority.current?.present();
@@ -164,7 +168,17 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       refChangeEditUser.current?.present();
       refChangeActionTab.current?.dismiss()
     },[])
-
+  const openChangeDay=useCallback((type)=>{
+    setTypeChangeDay(type)
+   setIsVisibleChangeDay(true)
+  },[])
+  const closeChangeDay=useCallback(()=>{
+    setIsVisibleChangeDay(false)
+  },[])
+  const handleChangeDayTask=useCallback((date)=>{
+   dispatch(actionChangeDayTask(taskId,typeChangeDay,moment(date).format('YYYY-MM-DD')))
+    setIsVisibleChangeDay(false)
+  },[taskId, typeChangeDay])
    const changTitleTask=useCallback(async (newTitle) => {
      showMessage({
        message: "Chỉnh sửa tiêu đề thành công",
@@ -175,6 +189,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
      await dispatch(actionChangeTitleTask(newTitle))
      setIsShowChangeConent(false)
    },[actionChangeTitleTask])
+
     const copyToClipboard =useCallback(()=>{
         Clipboard.setString(commentSelected?.content);
         refChangeActionComment.current?.dismiss()
@@ -331,10 +346,16 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
 
           </ScrollView>
+          <DateTimePicker
+            isVisible={isVisibleChangeDay}
+            mode="date"
+            onCancel={closeChangeDay}
+            onConfirm={handleChangeDayTask}
+          />
           <BottomEditUserTask bottomSheetRef ={refChangeEditUser} taskId={taskId} type={typeEditUser}  />
              <RenderActionComment dispatch={dispatch} commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard} openDialogEditComment={openDialogEditComment}  />
             <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
-            <RenderActionTask refChangeActionTab={refChangeActionTab} openBottomEditUser={openBottomEditUser}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress} onpenDialogDelete={openDialogDeleteTask}  assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} />
+            <RenderActionTask refChangeActionTab={refChangeActionTab} openBottomEditUser={openBottomEditUser}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress} onpenDialogDelete={openDialogDeleteTask}  assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} openChangeDay={openChangeDay} />
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>

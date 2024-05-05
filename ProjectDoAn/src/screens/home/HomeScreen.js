@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView>
         <View  style={{paddingHorizontal:10,paddingBottom:"40%",height:"100%"}}>
           <View style={{marginVertical:10}}>
-            <View style={{flexDirection:"row",justifyContent:"space-between",}}>
+            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
               <FastImage
                   style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",alignSelf:"center"}}
                   source={{
@@ -62,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
               <View style={{flexDirection:"row", flex:1}}>
                 <View>
                   <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hello,"}</Text>
-                  <Text style={{fontSize:16, color:"black",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{(dataCurrentUser?.fullName)||'Vu thi thu ha'}</Text>
+                  <Text style={{fontSize:16, color:"black",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{(dataCurrentUser?.fullName)||''}</Text>
                 </View>
                 <IconSayhi/>
               </View>

@@ -31,20 +31,20 @@ const TaskProjectToDo = ({navigation,route}) => {
     setRefreshing(false);
   };
   return (
-    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center", alignItems:'center'}}>
       {isGetTaskProjectTodo ? <ActivityIndicator size="large" color="#4577ef"/>:
-          (dataListTaskProjectTodo?.length > 0 ?
               (<FlatList
                   data={dataListTaskProjectTodo}
                   renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
                   scrollEnabled={true}
                   keyExtractor={item => item.taskId}
+                  ListEmptyComponent={<EmptyTask/>}
                   refreshControl={
                     <RefreshControl
                       refreshing={refreshing}
                       onRefresh={handleRefresh}
                     />}
-              />) : (<EmptyTask/>)
+              />
           )
 
       }

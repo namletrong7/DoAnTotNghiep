@@ -62,16 +62,16 @@ import IconDelete from "../../../assets/icons/IconDelete";
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Thay đổi người xử lý"}</Text>
                         </TouchableOpacity>
 
-                        <View style={{flexDirection:"row",marginTop:20}}>
+                        <TouchableOpacity onPress={()=>{props.openChangeDay(0)}} style={{flexDirection:"row",marginTop:20}}>
                             <IconCalendar  width={25}
                                            height={25}/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Thay đổi ngày bắt đầu"}</Text>
-                        </View>
-                        <View style={{flexDirection:"row",marginTop:20}}>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{props.openChangeDay(1)}} style={{flexDirection:"row",marginTop:20}}>
                             <IconCalendar  width={25}
                                            height={25}/>
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Gia hạn xử lý"}</Text>
-                        </View>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={props.onpenDialogDelete} style={{flexDirection:"row",marginTop:20}}>
                             <IconDelete />
                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{"Xóa công việc"}</Text>

@@ -28,6 +28,7 @@ import IconComment from "../../assets/icons/IconComment";
 import RenderHtml from "react-native-render-html";
 import { ProgressTaskComponent } from "../ProgressTaskComponent/ProgressTaskComponent";
 import {RenderWarningDate} from "../../utils/ConverPickerDate";
+import IconHeart from "../../assets/icons/IconHeart";
 
 
 const ItemTask = (props) => {
@@ -35,7 +36,7 @@ const ItemTask = (props) => {
   // render ra priority của  task
   const RenderPriority = () => {
         return(
-              <View style={{padding:8, borderRadius:16, backgroundColor:getColorBackgroundPriority(props.item.priority),paddingHorizontal:14,marginLeft:40,flexDirection:"row",alignItems:'center'}}>
+              <View style={{padding:5, borderRadius:16, backgroundColor:getColorBackgroundPriority(props.item.priority),paddingHorizontal:12,marginLeft:40,flexDirection:"row",alignItems:'center'}}>
                 <View style={{width:10, height:10, borderRadius:10/2, backgroundColor:getColorPriority(props.item.priority)}}/>
                 <Text style={{fontSize:15,marginLeft:5, color:getColorPriority(props.item.priority),fontFamily:"OpenSans-Regular"}}>{getValuePriority(props.item.priority)}</Text>
               </View>
@@ -47,7 +48,7 @@ const ItemTask = (props) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen(props.item.taskId)}}>
-      <View style={{flexDirection:'row'}}>
+      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
          <View style={styles.containerEndDay}>
              <IconCalendar/>
              <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props.item?.endDay}</Text>

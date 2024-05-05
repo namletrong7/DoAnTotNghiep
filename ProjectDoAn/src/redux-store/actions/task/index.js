@@ -873,7 +873,7 @@ export function actionGetListNotify() {
         try {
             const response = await Api(false).getListNotify(userId);
 
-            console.log(response.data?.dataListNotify)
+           // console.log(response.data?.dataListNotify)
             if (response.data && response.data.status == 200) {
                 dispatch(updateData({
                     dataListNotify: response.data?.dataListNotify
@@ -904,9 +904,38 @@ export function actionSetIsReadNotify(notifyId) {
         let userId = getState().auth.dataCurrentUser?.userId
         try {
             const response = await Api(false).setHasReadNotify(userId,notifyId);
-            console.log(response.data)
+       //     console.log(response.data)
         } catch (error) {
-            console.log(error)
+           // console.log(error)
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    }
+}
+
+export function actionChangeDayTask(taskId,type, day) {
+    console.log(taskId,type,day)
+    return async (dispatch, getState) => {
+        console.log(taskId,type,day)
+        let userId = getState().auth.dataCurrentUser?.userId
+        try {
+            const response = await Api(false).changeDayTask(taskId,type,userId,day);
+            if (response.data && response.data.status == 200) {
+                showMessage({
+                    message: response.data?.message,
+                    type: "success",
+                    duration: 1000,
+                    icon: { icon: "success", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            // console.log(error)
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
