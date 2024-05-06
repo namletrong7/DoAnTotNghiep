@@ -10,7 +10,7 @@ const Api = (isFormData:boolean) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.1.108:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 // Thêm các headers khác nếu cần thiết
@@ -201,6 +201,24 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
+  // Api đăng ký token cho thiết bị đẻ nhận thông báo
+  const registerDeviceTokenFCM=(idDevice:string,user:number, token:string)=>{
+    return apiConfig().get('registerDeviceTokenFCM.php',{
+      params:{
+        idDevice:idDevice,
+        user:user,
+        token:token
+      }
+    });
+  }
+  // api hủy token nhận thông báo
+  const deleteDevicetokenFCM=(idDevice:string)=>{
+    return apiConfig().get('deleteDevicetokenFCM.php',{
+      params:{
+        idDevice:idDevice,
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -234,7 +252,9 @@ const Api = (isFormData:boolean) => {
       setStatusCheckList,
       getListNotify,
       setHasReadNotify,
-      changeDayTask
+      changeDayTask,
+      registerDeviceTokenFCM,
+      deleteDevicetokenFCM
     };
 };
 export default Api;

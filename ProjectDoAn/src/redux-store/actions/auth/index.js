@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { randomKeyComment } from "../../../utils/RandomKeyComment";
 import messaging, {firebase} from "@react-native-firebase/messaging";
+import DeviceInfo from "react-native-device-info";
 
 
 /**
@@ -32,16 +33,8 @@ export function actionLogin(userName, passWord) {
                     token: 'asdasdasdasdasdasd',
                 }))
             }, 3000);
-                const token = await messaging().getToken();
-                if (token){
-                     console.log(token)
-                    dispatch(updateData({
-                    tokenFCM: token,
-                }))
-                }
-                else{
-                    console.log("không láy dc token")
-                }
+                await messaging().registerDeviceForRemoteMessages()
+                await   dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
         }
         } catch (error) {
             showMessage({
@@ -81,6 +74,25 @@ export function actionGetOverView(userId) {
 
     };
 }
+// gọi Api đk token nhận thông báo
+export function actionRegisterTokenFCM(user) {
+    return async (dispatch, getState) => {
+        try {
+            const idDevice = await DeviceInfo.getUniqueId();
+            const tokenFCM = await messaging().getToken();
+            const response = await Api(false).registerDeviceTokenFCM(idDevice, user, tokenFCM);
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
+                type: "warning",
+                duration: 3000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
+    };
+}
 // api login
 export function actionLogout() {
     return async (dispatch, getState) => {
@@ -96,8 +108,18 @@ export function actionLogout() {
         await   dispatch({
             type: "RESET_PROJECT",
         });
-
-
+        await messaging().deleteToken();
+        const idDevice = await DeviceInfo.getUniqueId();
+        try {
+            const response = await Api(false).deleteDevicetokenFCM(idDevice);
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
+                type: "warning",
+                duration: 3000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
     };
 }
 export default {
