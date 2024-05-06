@@ -1,6 +1,7 @@
 
 const initialState = {
-  token:null,
+    token:null,
+    tokenFCM:'',
     isLoginSuccess: false,
     dataCurrentUser:{},
     dataNumProject:{},

@@ -30,12 +30,15 @@ export function actionLogin(userName, passWord) {
             setTimeout(() => {
                 dispatch(updateData({
                     token: 'asdasdasdasdasdasd',
-                    isLoginSuccess: false,
-
                 }))
             }, 3000);
                 const token = await messaging().getToken();
-                if (token){ console.log(token)}
+                if (token){
+                     console.log(token)
+                    dispatch(updateData({
+                    tokenFCM: token,
+                }))
+                }
                 else{
                     console.log("không láy dc token")
                 }

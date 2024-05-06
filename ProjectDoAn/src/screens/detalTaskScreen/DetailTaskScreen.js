@@ -201,7 +201,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
       style={{ flex: 1}}
     >
     <LinearGradient  colors={['#e3efdd', '#faeeca', '#deedda']} style={{height:"100%",backgroundColor:"#EEEEEE"}}>
-        <SafeAreaView style={{height:StatusBar.currentHeight,backgroundColor:'white'}}>
+        <SafeAreaView style={{height:StatusBar.currentHeight}}>
             <StatusBar
                 translucent
                 backgroundColor={'black'}
