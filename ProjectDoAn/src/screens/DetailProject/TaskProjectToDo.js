@@ -31,7 +31,7 @@ const TaskProjectToDo = ({navigation,route}) => {
     setRefreshing(false);
   };
   return (
-    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center", alignItems:'center'}}>
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
       {isGetTaskProjectTodo ? <ActivityIndicator size="large" color="#4577ef"/>:
               (<FlatList
                   data={dataListTaskProjectTodo}

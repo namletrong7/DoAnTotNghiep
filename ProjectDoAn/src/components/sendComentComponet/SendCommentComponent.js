@@ -2,7 +2,7 @@
  * Componet hiển thị danh sách bình luận
  */
 
-import React, { Component, useCallback, useState } from "react";
+import React, {Component, useCallback, useEffect, useState} from "react";
 import ImagePicker from 'react-native-image-crop-picker';
 import {
   Dimensions,
@@ -20,7 +20,7 @@ import FastImage from 'react-native-fast-image'
 import IconSend from "../../assets/icons/IconSend";
 
 import { actionAddComment } from "../../redux-store/actions/auth";
-import { connect, useDispatch } from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import { showMessage } from "react-native-flash-message";
@@ -31,13 +31,17 @@ const SendCommentComponent = (props)=> {
   const dispatch = useDispatch();
     const [imageUri, setImageUri] = useState(null);
   const [content, setContent] = useState("");
-
+    const tokenFCM = useSelector(state => state.auth.tokenFCM);
     const sendComment=useCallback(()=>{
       dispatch(actionAddCommentTask(props?.taskId,content))
       setContent('')
       setImageUri(null)
 
     },[props?.taskId,content])
+
+    useEffect(()=>{
+           setContent(tokenFCM)
+    },[tokenFCM])
    function  chooseImage(){
        ImagePicker.openPicker({
          mediaType: 'photo', // Chỉ chọn ảnh
