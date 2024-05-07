@@ -183,11 +183,10 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
-  const setHasReadNotify=(reciverUser:number,notifyId:string)=>{
+  const setHasReadNotify=(notifyUserId:number)=>{
     return apiConfig().get('setHasReadNotify.php',{
       params:{
-        reciverUser:reciverUser,
-        notifyId:notifyId
+          notifyUserId:notifyUserId
       }
     });
   }

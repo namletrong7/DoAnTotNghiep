@@ -15,7 +15,7 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
      navigation.navigate('DetailTask_Notifi', { taskId: item?.taskId });
      if(item.isRead==0) // chưa đọc
      {
-       dispatch(actionSetIsReadNotify(item?.notifyId))
+       dispatch(actionSetIsReadNotify(item?.notifyUserId))
      }else{
        return ;
      }

@@ -80,7 +80,8 @@ export function actionRegisterTokenFCM(user) {
         try {
             const idDevice = await DeviceInfo.getUniqueId();
             const tokenFCM = await messaging().getToken();
-            const response = await Api(false).registerDeviceTokenFCM(idDevice, user, tokenFCM);
+            console.log(tokenFCM)
+             await Api(false).registerDeviceTokenFCM(idDevice, user, tokenFCM);
         } catch (error) {
             showMessage({
                 message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",

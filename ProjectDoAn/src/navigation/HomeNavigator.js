@@ -146,7 +146,7 @@ export  const StackNavigate = React.memo(() => {
   const Stack = createNativeStackNavigator();
   useEffect(()=>{
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log("có thông báo mới")
+      console.log(remoteMessage)
       showMessage({
         message: "Có thông báo mới",
         type: "success",
@@ -173,12 +173,13 @@ export  const StackNavigate = React.memo(() => {
     if (remoteMessage) {
       console.log('Notification opened app:', remoteMessage);
       // Xử lý hành động từ thông báo ở đây
-      navi.navigate("DetailTaskScreen",{taskId:"T001"});
+      navi.navigate("DetailTaskScreen",{taskId:remoteMessage.data?.id});
     }
   });
   // nhasn vao thong bao thi mo app
   messaging().onNotificationOpenedApp(messaging=>{
-    navi.navigate("DetailTaskScreen",{taskId:"T001"});
+    console.log('Notification opened app:', messaging);
+    navi.navigate("DetailTaskScreen",{taskId:messaging.data?.id});
   })
   return (
     <Stack.Navigator screenOptions={{

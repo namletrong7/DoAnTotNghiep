@@ -232,7 +232,7 @@ const reducerTask = (state =initialState , action) => {
         case 'SET_IS_READ_NOTIFY': {
             return { ...state,
                 dataListNotify: state.dataListNotify.map(item =>
-                  item.notifyId === action.data.notifyId
+                  item.notifyUserId === action.data.notifyUserId
                     ? { ...item, isRead: 1 }
                     : item
                 ),

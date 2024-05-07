@@ -31,17 +31,12 @@ const SendCommentComponent = (props)=> {
   const dispatch = useDispatch();
     const [imageUri, setImageUri] = useState(null);
   const [content, setContent] = useState("");
-    const tokenFCM = useSelector(state => state.auth.tokenFCM);
     const sendComment=useCallback(()=>{
       dispatch(actionAddCommentTask(props?.taskId,content))
       setContent('')
       setImageUri(null)
 
     },[props?.taskId,content])
-
-    useEffect(()=>{
-           setContent(tokenFCM)
-    },[tokenFCM])
    function  chooseImage(){
        ImagePicker.openPicker({
          mediaType: 'photo', // Chỉ chọn ảnh
