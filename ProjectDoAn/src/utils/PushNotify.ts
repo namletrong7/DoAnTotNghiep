@@ -1,11 +1,10 @@
 import notifee, {RepeatFrequency, TriggerType} from "@notifee/react-native";
-import {getRandomColor} from "./GetPriority";
 import {randomKeyComment} from "./RandomKeyComment";
 
-export   const PushNotify =()=>{
 
-    async  function displayNotify() {
-        await notifee.requestPermission()
+   const PushNotify =()=>{
+
+    async  function displayNotify(idNotify:string,title:string, body:any,data:any ) {
         const channelId = await notifee.createChannel({
             id: randomKeyComment().toString(),
             name: 'Custom Channel',
@@ -23,12 +22,13 @@ export   const PushNotify =()=>{
         };
 
      const notify=   await notifee.displayNotification({
-                id: "1",
-                title:"ccc",
-                body: "fffffffff",
+                id: idNotify,
+                title:title,
+                body: body,
                 android: {
                     channelId,
                 },
+               data:data
             },
 
         );
@@ -40,3 +40,4 @@ export   const PushNotify =()=>{
         displayNotify
   }
 }
+export default PushNotify;

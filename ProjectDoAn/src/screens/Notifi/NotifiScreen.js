@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, RefreshControl,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, RefreshControl, ActivityIndicator,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +35,7 @@ const NotifiScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const dataListNotify = useSelector(state => state.task?.dataListNotify);
-
+  const isGetNotify = useSelector(state => state.task?.isGetNotify);
   useEffect(()=>{
     dispatch(actionGetListNotify())
   },[])
@@ -64,6 +64,11 @@ const NotifiScreen = ({ navigation }) => {
                 onRefresh={handleRefresh}
               />}
           />
+          {isGetNotify?
+          <View style={{position:"absolute", flex:1,alignSelf:"center",height:'100%',justifyContent:'center'}}>
+            <ActivityIndicator size="large" color="#4577ef" />
+          </View>:null}
+
         </LinearGradient>
     </View>
   );

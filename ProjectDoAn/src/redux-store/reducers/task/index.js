@@ -30,7 +30,8 @@ const initialState = {
     dataTargetTaskByEndDay:[],
     isFilterTask:false,
     dataCheckList:[],
-    dataListNotify:[]
+    dataListNotify:[],
+    isGetNotify:false,
 
 }
 const reducerTask = (state =initialState , action) => {

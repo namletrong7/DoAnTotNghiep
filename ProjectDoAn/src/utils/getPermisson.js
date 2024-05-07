@@ -39,7 +39,7 @@ export async function requestStoragePermission() {
 export async function requestUserPermission() {
     if (Platform.OS === 'android' && Platform.Version >= 33) {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-
+        await notifee.requestPermission();
         /* Bkav TuanTQd: Xin quyền Notify trên Android 13 Tham khảo https://notifee.app/react-native/docs/ios/permissions */
         const settings = await notifee.requestPermission();
     } else {
