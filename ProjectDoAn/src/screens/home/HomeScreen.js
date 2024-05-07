@@ -23,6 +23,7 @@ import ItemProjectHorizontal from "../../components/itemProject/ItemProjectHoriz
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
 import IconSayhi from "../../assets/icons/IconSayhi";
 import LinearGradient from "react-native-linear-gradient";
+import messaging from "@react-native-firebase/messaging";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -35,7 +36,17 @@ const HomeScreen = ({ navigation }) => {
       dispatch(actionGetAllProject())
   },[])
 
+  const helo= async () => {
+    try {
+       await messaging().onTokenRefresh((newToken)=>{
+        console.log(newToken)
+      });
 
+    }catch (e){
+      console.log(e)
+    }
+
+  }
 
 
 
