@@ -56,7 +56,8 @@ const NotifiScreen = ({ navigation }) => {
             data={dataListNotify}
             renderItem={({item}) => <ItemNotify item={item} navigation = {navigation} dispatch={dispatch} />}
             scrollEnabled={true}
-            keyExtractor={item => item.notifyId}
+            initialNumToRender={10}
+            keyExtractor={item => item.notifyUserId}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

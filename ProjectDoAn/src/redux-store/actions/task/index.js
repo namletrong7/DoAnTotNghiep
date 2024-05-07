@@ -873,7 +873,7 @@ export function actionGetListNotify() {
         try {
             const response = await Api(false).getListNotify(userId);
 
-           // console.log(response.data?.dataListNotify)
+          console.log(response.data?.dataListNotify)
             if (response.data && response.data.status == 200) {
                 dispatch(updateData({
                     dataListNotify: response.data?.dataListNotify
@@ -893,17 +893,17 @@ export function actionGetListNotify() {
 
     }
 }
-export function actionSetIsReadNotify(notifyId) {
+export function actionSetIsReadNotify(notifyUserId) {
     return async (dispatch, getState) => {
         await dispatch({
             type: "SET_IS_READ_NOTIFY",
             data: {
-                notifyId:notifyId,
+                notifyUserId:notifyUserId,
             }
         });
-        let userId = getState().auth.dataCurrentUser?.userId
+
         try {
-            const response = await Api(false).setHasReadNotify(userId,notifyId);
+   await Api(false).setHasReadNotify(notifyUserId);
        //     console.log(response.data)
         } catch (error) {
            // console.log(error)
