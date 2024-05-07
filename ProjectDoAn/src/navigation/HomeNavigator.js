@@ -154,33 +154,24 @@ export  const StackNavigate = React.memo(() => {
         icon: { icon: "success", position: 'left' }
       });
     });
+    // hành khi nhấn vào thông báo mà app đã bị kill rồi
+    messaging().getInitialNotification().then(remoteMessage => {
+      if (remoteMessage) {
+        console.log('Notification opened app:', remoteMessage);
+        // Xử lý hành động từ thông báo ở đây
+        navi.navigate("DetailTaskScreen",{taskId:remoteMessage.data?.id});
+      }
+    });
+    // nhasn vao thong bao thi mo app
+    messaging().onNotificationOpenedApp(messaging=>{
+      console.log('Notification opened app:', messaging);
+      navi.navigate("DetailTaskScreen",{taskId:messaging.data?.id});
+    })
     return unsubscribe
   },[])
-  // khi nhấn vào thông báo mà app đang chạy nền
-  // messaging().setBackgroundMessageHandler(async remoteMessage => {
-  //   console.log("nhận thông báo ở chế độ nền")
-  //   showMessage({
-  //     message: "Có thông báo mới",
-  //     type: "success",
-  //     duration: 3000,
-  //     icon: { icon: "success", position: 'left' }
-  //   });
-  //   navi.navigate(  'AddProjectScreen' );
-  //
-  // });
-  // hành khi nhấn vào thông báo mà app đã bị kill rồi
-  messaging().getInitialNotification().then(remoteMessage => {
-    if (remoteMessage) {
-      console.log('Notification opened app:', remoteMessage);
-      // Xử lý hành động từ thông báo ở đây
-      navi.navigate("DetailTaskScreen",{taskId:remoteMessage.data?.id});
-    }
-  });
-  // nhasn vao thong bao thi mo app
-  messaging().onNotificationOpenedApp(messaging=>{
-    console.log('Notification opened app:', messaging);
-    navi.navigate("DetailTaskScreen",{taskId:messaging.data?.id});
-  })
+
+
+
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,
