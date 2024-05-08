@@ -36,7 +36,7 @@ import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
     }}>
       <View style={{ flexDirection: "row" ,flex:1,marginRight:20}}>
         <TouchableOpacity onPress={handleChangeStatus}>
-          {status==0?<IconUnTick/>:<IconTickGreen/>}
+          {status==0?<IconUnTick/>:<IconTick/>}
         </TouchableOpacity>
         <Text  style={{
           fontSize: 15,
