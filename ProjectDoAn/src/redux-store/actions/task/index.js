@@ -869,6 +869,9 @@ export function actionSetStatusCheckList(status,checkId) {
 
 export function actionGetListNotify() {
     return async (dispatch, getState) => {
+        dispatch(updateData({
+            isGetNotify: true
+        }))
         let userId = getState().auth.dataCurrentUser?.userId
         try {
             const response = await Api(false).getListNotify(userId);
@@ -876,10 +879,13 @@ export function actionGetListNotify() {
           console.log(response.data?.dataListNotify)
             if (response.data && response.data.status == 200) {
                 dispatch(updateData({
-                    dataListNotify: response.data?.dataListNotify
+                    dataListNotify: response.data?.dataListNotify,
                 }))
 
             }
+            dispatch(updateData({
+                isGetNotify: false
+            }))
         } catch (error) {
             console.log(error)
             showMessage({

@@ -34,6 +34,10 @@ import IconSearch from "../assets/icons/IconSearch";
 import IconSearchFocus from "../assets/icons/IconSearchFocus";
 import SearchTaskScreen from "../screens/SearchStack/SearchTaskScreen";
 import FilterTaskScreen from "../screens/taskStack/FilterTaskScreen";
+import notifee, { AndroidImportance } from "@notifee/react-native";
+import pushNotify from "../utils/PushNotify";
+import PushNotify from "../utils/PushNotify";
+
 
 export  const NotifiStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -141,35 +145,36 @@ export  const BottomHomeNavigation = React.memo(() => {
 
   )
 })
-export  const StackNavigate = React.memo(() => {
+export  const StackNavigate = React.memo( () => {
   const navi = useNavigation();
   const Stack = createNativeStackNavigator();
-  useEffect(()=>{
+  const channelId =  notifee.createChannel({
+    id: 'important',
+    name: 'Important Notifications',
+    importance: AndroidImportance.HIGH,
+  });
+  useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log(remoteMessage)
-      showMessage({
-        message: "Có thông báo mới",
-        type: "success",
-        duration: 3000,
-        icon: { icon: "success", position: 'left' }
-      });
+      await PushNotify().displayNotify(remoteMessage.messageId,remoteMessage.notification?.title,remoteMessage.notification?.body,remoteMessage.data)
+
+
     });
     // hành khi nhấn vào thông báo mà app đã bị kill rồi
     messaging().getInitialNotification().then(remoteMessage => {
       if (remoteMessage) {
         console.log('Notification opened app:', remoteMessage);
         // Xử lý hành động từ thông báo ở đây
-        navi.navigate("DetailTaskScreen",{taskId:remoteMessage.data?.id});
+        navi.navigate("DetailTaskScreen", { taskId: remoteMessage.data?.id });
       }
     });
     // nhasn vao thong bao thi mo app
-    messaging().onNotificationOpenedApp(messaging=>{
+    messaging().onNotificationOpenedApp(messaging => {
       console.log('Notification opened app:', messaging);
-      navi.navigate("DetailTaskScreen",{taskId:messaging.data?.id});
+      navi.navigate("DetailTaskScreen", { taskId: messaging.data?.id });
     })
     return unsubscribe
-  },[])
-
+  }, [])
 
 
   return (
