@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import {Pressable, Text, TouchableOpacity, View} from "react-native";
 import FastImage from "react-native-fast-image";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import React, { useCallback } from "react";
@@ -52,7 +52,7 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
 
    }
   return(
-    <TouchableOpacity onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
+    <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
       paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"transparent"}}>
       <View>
         <FastImage
@@ -74,6 +74,6 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
         <Text style={{fontSize:13,flexWrap:"wrap", color:"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
 
       </View>
-    </TouchableOpacity>
+    </Pressable>
   )
 })

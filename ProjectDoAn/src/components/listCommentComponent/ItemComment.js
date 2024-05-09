@@ -78,7 +78,7 @@ const ItemComment = ({item,navigation,openActionComment}) => {
         </View>
       </View>
      <Pressable onPress={handleLike} style={{alignSelf:'center',marginLeft:10}}>
-       {isLike?<IconLike/>:<IconUnLike/>}
+       {isLike?<IconLike background={'#5e91ff'} />:<IconLike  background={'#DDDDDD'} />}
      </Pressable>
 
     </TouchableOpacity>
