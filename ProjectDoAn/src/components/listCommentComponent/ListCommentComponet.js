@@ -37,7 +37,6 @@ import IconComment from "../../assets/icons/IconComment";
     const [see, setSee] = useState(true);// mảng chứa các file dc chọn
     const isGetComment = useSelector(state => state.task.isGetComment);
     const dataCommentTask = useSelector(state => state.task.dataCommentTask);
-
     const isGetMoreComment = useSelector(state => state.task.isGetMoreComment);
 
 

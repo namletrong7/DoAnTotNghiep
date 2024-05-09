@@ -5,14 +5,15 @@
 import React, {Component, useCallback, useEffect, useState} from "react";
 import ImagePicker from 'react-native-image-crop-picker';
 import {
-  Dimensions,
-  FlatList, Image, KeyboardAvoidingView, Platform,
-  SafeAreaView,
-  StyleSheet,
-  Text, TextInput,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
+    ActivityIndicator,
+    Dimensions,
+    FlatList, Image, KeyboardAvoidingView, Platform,
+    SafeAreaView,
+    StyleSheet,
+    Text, TextInput,
+    TouchableOpacity,
+    useWindowDimensions,
+    View,
 } from "react-native";
 
 
@@ -28,8 +29,9 @@ import { actionAddCommentTask } from "../../redux-store/actions/task";
 import IconCam from "../../assets/icons/IconCam";
 import IconClose from "../../assets/icons/IconClose";
 const SendCommentComponent = (props)=> {
-  const dispatch = useDispatch();
+     const dispatch = useDispatch();
     const [imageUri, setImageUri] = useState(null);
+    const isAddComment = useSelector(state => state.task?.isAddComment);
   const [content, setContent] = useState("");
     const sendComment=useCallback(()=>{
       dispatch(actionAddCommentTask(props?.taskId,content))
@@ -69,11 +71,12 @@ const SendCommentComponent = (props)=> {
                         value={content}
                     />
                 </View>
+                {isAddComment?<ActivityIndicator size='small' color="#0066FF" />:
                 <TouchableOpacity onPress={() => {
                     sendComment()
                 }}>
                     <IconSend />
-                </TouchableOpacity>
+                </TouchableOpacity> }
             </View>
         </SafeAreaView>
 

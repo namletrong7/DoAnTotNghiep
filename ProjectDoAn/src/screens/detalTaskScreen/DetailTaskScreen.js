@@ -55,12 +55,13 @@ import DialogConfirmComponet from "../../components/DialogConfirmComponent/Dialo
 import { ProgressTaskComponent } from "../../components/ProgressTaskComponent/ProgressTaskComponent";
 import IconContent from "../../assets/icons/ItemContent";
 import IconProhress from "../../assets/icons/IconProhress";
-import { ListCheckList } from "./CheckList/ListCheckList";
 import IconBookMark from "../../assets/icons/IconBookMark";
 import IconUnBookMark from "../../assets/icons/IconUnBookMark";
 import LinearGradient from "react-native-linear-gradient";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment/moment";
+import ListCheckList from "./CheckList/ListCheckList";
+
 
 
 
