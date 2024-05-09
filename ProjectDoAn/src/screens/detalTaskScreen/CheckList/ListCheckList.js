@@ -18,21 +18,18 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import IconArrowDown from "../../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../../assets/icons/IconArrowLeft";;
-import IconSub from "../../../assets/icons/IconSub";
 import IconSubTask from "../../../assets/icons/IconSubTask";
-import IconPlus from "../../../assets/icons/IconPlus";
 import InputCheckList from "./InputCheckList";
-import SendCommentComponent from "../../../components/sendComentComponet/SendCommentComponent";
-import { ItemCheckList } from "./ItemCheckList";
+import ItemCheckList from "./ItemCheckList";
 
 
-export const ListCheckList = React.memo(({taskId}) => {
+const ListCheckList = ({taskId}) => {
 
 
   const dataCheckList = useSelector(state => state.task.dataCheckList);
   const [seeAll, setSeeAll] = useState(true);
   const dispatch = useDispatch();
-
+ console.log('rendlaij list check list')
 
     return (
       <View style={styles.container}>
@@ -59,8 +56,8 @@ export const ListCheckList = React.memo(({taskId}) => {
 
       </View>
     );
-  },
-);
+  };
+
 const styles = StyleSheet.create({
   container: {
     display: "flex",
@@ -72,4 +69,4 @@ const styles = StyleSheet.create({
 
 });
 
-// export default React.memo(ListFileAttachComponent);
+ export default React.memo(ListCheckList);

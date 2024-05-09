@@ -4,10 +4,10 @@
 /**
  * Componet hiển thị nội dung từng ngày họp cụ thể
  */
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Dimensions,
-  FlatList,
+  FlatList, Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -28,6 +28,11 @@ import IconUnLike from "../../assets/icons/IconUnlike";
 
 
 const ItemComment = ({item,navigation,openActionComment}) => {
+  const [isLike, setIsLinke] = useState(false);
+  console.log('reder lai cm')
+  const handleLike=useCallback(()=>{
+      setIsLinke(!isLike)
+  },[isLike])
   return (
     <TouchableOpacity style={{ marginTop: 20, flexDirection: "row", flex: 1 }} onLongPress={()=>{openActionComment(item)}} >
       <TouchableOpacity onPress={() => {
@@ -72,9 +77,9 @@ const ItemComment = ({item,navigation,openActionComment}) => {
           }}>{item?.content}</Text>
         </View>
       </View>
-     <TouchableOpacity style={{alignSelf:'center',marginLeft:10}}>
-       <IconUnLike/>
-     </TouchableOpacity>
+     <Pressable onPress={handleLike} style={{alignSelf:'center',marginLeft:10}}>
+       {isLike?<IconLike/>:<IconUnLike/>}
+     </Pressable>
 
     </TouchableOpacity>
   )

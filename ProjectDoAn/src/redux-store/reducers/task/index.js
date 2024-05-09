@@ -32,7 +32,7 @@ const initialState = {
     dataCheckList:[],
     dataListNotify:[],
     isGetNotify:false,
-
+    isAddComment:false,
 }
 const reducerTask = (state =initialState , action) => {
     switch (action.type) {
@@ -135,7 +135,7 @@ const reducerTask = (state =initialState , action) => {
         }
       // kết thúc lấy comment task
         case 'ADD_COMMENT_TASK': {
-            const updatedComments = [action.data, ...state.dataCommentTask];
+            const updatedComments = [...state.dataCommentTask,action.data];
             return { ...state,
                 dataCommentTask:  updatedComments
             };
@@ -228,6 +228,15 @@ const reducerTask = (state =initialState , action) => {
             const updatedCheckList = [action.data, ...state.dataCheckList];
             return { ...state,
                 dataCheckList:  updatedCheckList
+            };
+        }
+        case 'SET_CHECK_LIST': {
+            return { ...state,
+                dataCheckList: state.dataCheckList.map(item =>
+                    item.checkId === action.data.checkId
+                        ? { ...item, status: action.data?.status }
+                        : item
+                ),
             };
         }
         case 'SET_IS_READ_NOTIFY': {

@@ -8,21 +8,10 @@ import { baseUrlAvatarUser } from "../../../api/ConstBaseUrl";
 import IconTickGreen from "../../../assets/icons/IconTickGreen";
 import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
 
- export const ItemCheckList = React.memo((props) => {
+const ItemCheckList = (props) => {
   const { item ,dispatch} = props;
-  const [status, setStatus] = useState(0);
-
-  useEffect(()=>{
-       setStatus(item.status)
-  },[item.status])
   const handleChangeStatus=async () => {
-    if (status == 0) {
-      setStatus(1)
-      await dispatch(actionSetStatusCheckList(1, item.checkId))
-    } else if (status == 1) {
-      setStatus(0)
-      await dispatch(actionSetStatusCheckList(0, item.checkId))
-    }
+      await dispatch(actionSetStatusCheckList(item.status == 0?1:0, item.checkId))
   }
   return (
     <View style={{
@@ -36,7 +25,7 @@ import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
     }}>
       <View style={{ flexDirection: "row" ,flex:1,marginRight:20}}>
         <TouchableOpacity onPress={handleChangeStatus}>
-          {status==0?<IconUnTick/>:<IconTick/>}
+          {item.status==0?<IconUnTick/>:<IconTick/>}
         </TouchableOpacity>
         <Text  style={{
           fontSize: 15,
@@ -44,7 +33,7 @@ import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
           fontFamily: "OpenSans-Regular",
           marginHorizontal:10,
           flexWrap:"wrap",
-            textDecorationLine: status==1?"line-through":"none"
+            textDecorationLine: item.status==1?"line-through":"none"
         }}>{item.content}</Text>
       </View>
       <FastImage
@@ -57,4 +46,5 @@ import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
       />
     </View>
   );
-});
+}
+export default React.memo(ItemCheckList);
