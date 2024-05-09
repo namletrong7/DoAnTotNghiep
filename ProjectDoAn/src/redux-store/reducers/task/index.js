@@ -225,7 +225,7 @@ const reducerTask = (state =initialState , action) => {
             };
         }
         case 'ADD_CHECKLIST': {
-            const updatedCheckList = [action.data, ...state.dataCheckList];
+            const updatedCheckList = [action.data,...state.dataCheckList ];
             return { ...state,
                 dataCheckList:  updatedCheckList
             };

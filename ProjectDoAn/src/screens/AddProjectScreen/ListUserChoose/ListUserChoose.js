@@ -18,7 +18,7 @@ const ListUserChoose = ({dataUserChoose,handleItem}) => {
     renderItem={({item}) => <ItemUserChoose item={item} handleItem={handleItem}  />}
     scrollEnabled={false}
     horizontal={false}
-    numColumns={2}
+    numColumns={4}
     keyExtractor={item => item.userId}
   />
   )
