@@ -231,10 +231,11 @@ export function actionAddCommentTask(taskId,content) {
         let userId= getState().auth.dataCurrentUser?.userId
         let avatar=getState().auth.dataCurrentUser?.avatarUser
         let fullName=getState().auth.dataCurrentUser?.fullName
+        dispatch(updateData({
+            isAddComment :true
+        }))
         try {
             const response = await Api(false).addCommentTask(taskId,content,userId);
-
-
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "ADD_COMMENT_TASK",
@@ -255,8 +256,13 @@ export function actionAddCommentTask(taskId,content) {
                     icon: { icon: "success", position: 'left' }
                 });
             }
+            dispatch(updateData({
+                isAddComment :false
+            }))
         } catch (error) {
-            console.log(error)
+            dispatch(updateData({
+                isAddComment :false
+            }))
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
@@ -843,6 +849,13 @@ export function actionAddCheckList(taskId,content) {
 // set trạng thái checklist
 export function actionSetStatusCheckList(status,checkId) {
     return async (dispatch, getState) => {
+         dispatch({
+            type: "SET_CHECK_LIST",
+            data: {
+                checkId:checkId,
+                status:status,
+            }
+        });
         try {
             const response = await Api(false).setStatusCheckList(status,checkId);
             if(response.data && response.data.status==200){
