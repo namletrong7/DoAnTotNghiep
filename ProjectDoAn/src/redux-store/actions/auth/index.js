@@ -37,6 +37,7 @@ export function actionLogin(userName, passWord) {
                 await   dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
         }
         } catch (error) {
+       //     console.log(error)
             showMessage({
                 message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
                 type: "warning",
@@ -53,7 +54,7 @@ export function actionGetOverView(userId) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).getOverView(userId);
-            console.log(response.data)
+   //         console.log(response.data)
             if (response.data.status==200 && response){
                 dispatch(updateData({
                     dataNumProject: response.data?.dataNumProject,
@@ -80,7 +81,7 @@ export function actionRegisterTokenFCM(user) {
         try {
             const idDevice = await DeviceInfo.getUniqueId();
             const tokenFCM = await messaging().getToken();
-            console.log(tokenFCM)
+      //      console.log(tokenFCM)
              await Api(false).registerDeviceTokenFCM(idDevice, user, tokenFCM);
         } catch (error) {
             showMessage({

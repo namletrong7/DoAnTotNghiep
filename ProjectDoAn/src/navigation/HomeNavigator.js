@@ -155,7 +155,7 @@ export  const StackNavigate = React.memo( () => {
   });
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage)
+    //  console.log(remoteMessage)
       await PushNotify().displayNotify(remoteMessage.messageId,remoteMessage.notification?.title,remoteMessage.notification?.body,remoteMessage.data)
 
 
@@ -163,14 +163,14 @@ export  const StackNavigate = React.memo( () => {
     // hành khi nhấn vào thông báo mà app đã bị kill rồi
     messaging().getInitialNotification().then(remoteMessage => {
       if (remoteMessage) {
-        console.log('Notification opened app:', remoteMessage);
+  //      console.log('Notification opened app:', remoteMessage);
         // Xử lý hành động từ thông báo ở đây
         navi.navigate("DetailTaskScreen", { taskId: remoteMessage.data?.id });
       }
     });
     // nhasn vao thong bao thi mo app
     messaging().onNotificationOpenedApp(messaging => {
-      console.log('Notification opened app:', messaging);
+    //  console.log('Notification opened app:', messaging);
       navi.navigate("DetailTaskScreen", { taskId: messaging.data?.id });
     })
     return unsubscribe

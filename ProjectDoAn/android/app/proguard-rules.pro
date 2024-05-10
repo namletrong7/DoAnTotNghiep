@@ -20,3 +20,5 @@
   *;
 }
 -keep class com.google.android.gms.common.** {*;}
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }

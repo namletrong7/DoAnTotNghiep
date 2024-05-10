@@ -29,7 +29,7 @@ export async function requestStoragePermission() {
             await firebase.messaging().requestPermission();
         } catch (error) {
             // User has rejected permissions
-            console.log('quyền bị từ chối');
+          //  console.log('quyền bị từ chối');
         }
 
     }

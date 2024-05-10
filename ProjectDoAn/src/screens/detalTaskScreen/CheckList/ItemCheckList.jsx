@@ -10,7 +10,7 @@ import { actionSetStatusCheckList } from "../../../redux-store/actions/task";
 
 const ItemCheckList = (props) => {
   const { item ,dispatch} = props;
-  console.log('render item check list: ', item)
+  //console.log('render item check list: ', item)
   const handleChangeStatus=async () => {
       await dispatch(actionSetStatusCheckList(item.status == 0?1:0, item.checkId))
   }

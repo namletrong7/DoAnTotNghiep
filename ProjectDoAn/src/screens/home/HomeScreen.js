@@ -39,11 +39,11 @@ const HomeScreen = ({ navigation }) => {
   const helo= async () => {
     try {
        await messaging().onTokenRefresh((newToken)=>{
-        console.log(newToken)
+ //       console.log(newToken)
       });
 
     }catch (e){
-      console.log(e)
+ //     console.log(e)
     }
 
   }

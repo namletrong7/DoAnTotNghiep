@@ -22,9 +22,6 @@ type props={
 export  const ListStaffSearch:React.FC<props> =React.memo(({type,navigation}) =>{
 
   const dataUserSearch = useSelector((state:any) => state.user.dataUserSearch);
-   useEffect(()=>{
-     console.log("mout lại tìm kiesm nhân vien")
-   },[])
     return (
       <Animated.View
         entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}

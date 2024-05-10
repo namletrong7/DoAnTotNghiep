@@ -64,7 +64,7 @@ export function actionGetDetailTask(taskId) {
         try {
             const response = await Api(false).getDetailTask(taskId);
 
-          console.log(response.data)
+        //  console.log(response.data)
 
 
             if(response.data && response.data.status==200){
@@ -102,9 +102,7 @@ export function actionGetFileAttach(taskId) {
         });
         try {
             const response = await Api(false).getFileAttach(taskId);
-
-
-
+            console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_FILE_ATTACH",
@@ -489,7 +487,7 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
             try {
                 const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
                 if (response.data && response.data.status == 200) {
-
+          //      console.log(response.data?.dataListTask.length)
                     if(response.data?.dataListTask?.length>0){
                         await dispatch({
                             type: "GET_MORE_ASSIGN_TASK",
@@ -530,6 +528,10 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
                 });
             }
         }else{
+        //    console.log(getState().task.isGetMoreAssignTask ,getState().task.isGetAssignTask)
+        //     dispatch(updateData({
+        //         isGetMoreAssignTask: false
+        //     }))
             return;
         }
 
@@ -617,7 +619,7 @@ export function actionChangePriorityTask(priority,taskId) {  // action lấy ds 
 
         try {
             const response = await Api(false).changePriorityTask(priority,taskId,userId)
-            console.log(response)
+      //      console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -651,7 +653,7 @@ export function actionChangeProgressTask(progress,taskId) {
         const userId=getState().auth.dataCurrentUser?.userId
         try {
             const response = await Api(false).changeProgressTask(progress,taskId,userId)
-            console.log(response)
+       //     console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -684,7 +686,7 @@ export function actionReportTask(body) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).reportTask(body)
-            console.log(response.data)
+          //  console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -777,7 +779,7 @@ export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
         }))
         try {
             const response = await Api(false).getTargetTaskByEndDay(offset,userId,startDay,endDay)
-            console.log(response.data.dataListTask?.length)
+        //    console.log(response.data.dataListTask?.length)
             if(response.data && response.data.status==200) {
                 await dispatch({
                     type: "GET_TARGET_TASK_BY_END",
@@ -834,7 +836,7 @@ export function actionAddCheckList(taskId,content) {
                 });
             }
         } catch (error) {
-            console.log(error)
+        //    console.log(error)
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
@@ -867,7 +869,7 @@ export function actionSetStatusCheckList(status,checkId) {
                 });
             }
         } catch (error) {
-            console.log(error)
+        //    console.log(error)
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
@@ -889,7 +891,7 @@ export function actionGetListNotify() {
         try {
             const response = await Api(false).getListNotify(userId);
 
-          console.log(response.data?.dataListNotify)
+        //  console.log(response.data?.dataListNotify)
             if (response.data && response.data.status == 200) {
                 dispatch(updateData({
                     dataListNotify: response.data?.dataListNotify,
@@ -900,7 +902,9 @@ export function actionGetListNotify() {
                 isGetNotify: false
             }))
         } catch (error) {
-            console.log(error)
+            dispatch(updateData({
+                isGetNotify: false
+            }))
             showMessage({
                 message: "Lỗi mạng",
                 type: "danger",
@@ -923,7 +927,7 @@ export function actionSetIsReadNotify(notifyUserId) {
 
         try {
    await Api(false).setHasReadNotify(notifyUserId);
-       //     console.log(response.data)
+       //     /(response.data)
         } catch (error) {
            // console.log(error)
             showMessage({
@@ -938,9 +942,9 @@ export function actionSetIsReadNotify(notifyUserId) {
 }
 
 export function actionChangeDayTask(taskId,type, day) {
-    console.log(taskId,type,day)
+  //  console.log(taskId,type,day)
     return async (dispatch, getState) => {
-        console.log(taskId,type,day)
+   //     console.log(taskId,type,day)
         let userId = getState().auth.dataCurrentUser?.userId
         try {
             const response = await Api(false).changeDayTask(taskId,type,userId,day);

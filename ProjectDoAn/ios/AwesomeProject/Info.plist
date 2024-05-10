@@ -25,20 +25,20 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
-    <dict>
-         <key>NSExceptionDomains</key>
-         <dict>
-             <key>NSExceptionAllowsInsecureHTTPLoads</key>
-             <true/>
-         <key>localhost</key>
-         <dict>
-             <key>NSExceptionAllowsInsecureHTTPLoads</key>
-             <true/>
-         </dict>
-         </dict>
-         <key>NSAllowsArbitraryLoads</key>
-         <true/>
-    </dict>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>NSExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Sử dụng camera để scan tài liệu bản giấy, gửi hình ảnh khi chat, cập nhật avatar, ...</string>
 	<key>NSDocumentsFolderUsageDescription</key>

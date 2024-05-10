@@ -46,7 +46,7 @@ const chooseImage=()=>{
     compressImageQuality: 0.4,
     multiple:true
   }).then(image => {
-    console.log(image)
+  //  console.log(image)
     setListImage(image);
   });
 }
