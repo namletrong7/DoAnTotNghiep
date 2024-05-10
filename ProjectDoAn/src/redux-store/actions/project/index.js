@@ -101,7 +101,7 @@ export function actionAddProject(body) {
         }))
         try {
             const response = await Api(false).addProject(body);
-           console.log(response.data)
+     //      console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,

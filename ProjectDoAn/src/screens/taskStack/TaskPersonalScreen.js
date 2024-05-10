@@ -61,7 +61,7 @@ const TaskPersonalScreen = ({ navigation }) => {
      dispatch(actionGetAssignTask())
      setLableTypeTask("Việc tôi giao")
     return(()=>{
-      console.log("xin chào")
+ //     console.log("xin chào")
     })
   },[])
 

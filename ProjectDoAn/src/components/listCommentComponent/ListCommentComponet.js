@@ -60,7 +60,7 @@ import IconComment from "../../assets/icons/IconComment";
               data={dataCommentTask}
               initialNumToRender={5}
               renderItem={({item}) => <ItemComment item={item} navigation={navi}  openActionComment={props.openActionComment}/>}
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item) => item.commentId}
               scrollEnabled={false}
             />
          }

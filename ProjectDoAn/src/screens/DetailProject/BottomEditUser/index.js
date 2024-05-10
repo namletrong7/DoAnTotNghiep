@@ -56,7 +56,7 @@ export const BottomEditUser=React.memo((props)=>{
     setDataUser(updatedData);
   }, [dataUser, setDataUser]);
   const handleEditUserProject = useCallback(async () => {
-    console.log(dataUser, dataUserChoose.length)
+ //   console.log(dataUser, dataUserChoose.length)
     if (dataUser === dataUserChoose) {
       showMessage({
         message: "Thành viên dự án không có thay đổi gì so với ban đầu vui lòng kiểm tra lại ",

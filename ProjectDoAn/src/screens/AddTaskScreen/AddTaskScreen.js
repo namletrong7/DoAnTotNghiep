@@ -79,7 +79,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   const richTextHandle = (descriptionText) => {
     if (descriptionText) {
       setDescHTML(descriptionText);
-      console.log(descriptionText)
+   //   console.log(descriptionText)
     } else {
       setDescHTML(<div></div>);
     }
@@ -145,7 +145,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
          const result = await DocumentPicker.pick({
            type: [DocumentPicker.types.allFiles], // Chọn tất cả các loại file
          });
-         console.log(result)
+    //     console.log(result)
          // setPickedFile((prevFiles) => [...prevFiles, ...result]);
          if (result[0].size >= MaxFileSize) {
            showMessage({

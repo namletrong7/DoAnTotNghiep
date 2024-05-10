@@ -105,7 +105,7 @@ const FilterTaskScreen = ({ navigation }) => {
    const lastDayOfWeek = new Date(currentDate);
    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
    await setEndDay(moment(lastDayOfWeek).format('YYYY-MM-DD'))
-   console.log(firstDayOfWeek, lastDayOfWeek)
+   //console.log(firstDayOfWeek, lastDayOfWeek)
    dispatch(actionGetTargetTaskByEndDay(0, firstDayOfWeek, lastDayOfWeek))
  }
 

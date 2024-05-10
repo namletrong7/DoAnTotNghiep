@@ -149,7 +149,7 @@ const ItemUserMemer=React.memo((props)=>{
                   renderItem={({item}) => <ItemUserMemer item={item}  />}
                   scrollEnabled={false}
                   horizontal={false}
-                  numColumns={2}
+                  numColumns={3}
                   keyExtractor={item => item.userId}
                 />
               </View>

@@ -9,7 +9,7 @@ import { checkMember } from "../Utils/CheckMember";
 
  export const ItemUserSearch=React.memo((props)=>{
    const {item,handleChooseUser,dataUserChoose}= props
-   console.log('render lại item user tìm kiếm')
+   //console.log('render lại item user tìm kiếm')
    return (
      <TouchableOpacity onPress={()=>{handleChooseUser(item)}} style={{flexDirection:"row",flex:1, marginHorizontal:5,marginVertical:2,paddingVertical:3, alignItems:'center'}}>
        <FastImage
