@@ -61,39 +61,39 @@ const FilterTaskScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const [refreshing, setRefreshing] = useState(false);
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     setRefreshing(true); // Đặt trạng thái là đang làm mới
     dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
     setRefreshing(false);
-  };
-  const handleShowStartDay=()=>{
+  },[startDay,endDay]);
+  const handleShowStartDay=useCallback(()=>{
       setIsShowStartDay(true)
-  }
-  const handleShowEndDay=()=>{
+  },[])
+  const handleShowEndDay=useCallback(()=>{
     setIsShowEndDay(true)
-  }
-  const handleHideStartDay=()=>{
+  },[])
+  const handleHideStartDay=useCallback(()=>{
     setIsShowStartDay(false)
-  }
-  const handleHideEndDay=()=>{
+  },[])
+  const handleHideEndDay=useCallback(()=>{
     setIsShowEndDay(false)
-  }
-  const handleConfirmStartDay=(date)=>{
+  },[])
+  const handleConfirmStartDay=useCallback((date)=>{
     setStartDay(moment(date).format('YYYY-MM-DD'));
     setIsShowStartDay(false)
-  }
-  const handleConfirmEndDay=(date)=>{
+  },[])
+  const handleConfirmEndDay=useCallback((date)=>{
     setEndDay(moment(date).format('YYYY-MM-DD'));
     setIsShowEndDay(false)
-  }
+  },[])
   useEffect(()=>{
        handlegetWee()
   },[])
 
-  const handleGetTask=()=>{
+  const handleGetTask=useCallback(()=>{
     dispatch(actionGetTargetTaskByEndDay(0,startDay,endDay))
-  }
- const handlegetWee=async () => {
+  },[startDay,endDay])
+ const handlegetWee=useCallback(async () => {
    // Lấy ngày hiện tại
    const currentDate = new Date();
 
@@ -107,7 +107,7 @@ const FilterTaskScreen = ({ navigation }) => {
    await setEndDay(moment(lastDayOfWeek).format('YYYY-MM-DD'))
    //console.log(firstDayOfWeek, lastDayOfWeek)
    dispatch(actionGetTargetTaskByEndDay(0, firstDayOfWeek, lastDayOfWeek))
- }
+ },[])
 
   return (
     <Animated.View
