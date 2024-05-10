@@ -69,12 +69,12 @@ const DetailProjectScreen = ({ navigation ,route}) => {
   const handelCloseEditUser = useCallback(() => {
     bottomEditUserRef.current?.dismiss();
   }, [bottomEditUserRef]);
-const ItemUserMemer=(props)=>{
+const ItemUserMemer=React.memo((props)=>{
     const {item}= props
   return (
-    <View style={{flexDirection:"row", borderRadius:14, backgroundColor:"#DDDDDD", flex:0.5, marginHorizontal:10,marginVertical:5,paddingVertical:5, alignItems:'center'}}>
+    <View style={{ borderRadius:14, flex:0.5, marginHorizontal:10,marginVertical:5, alignItems:'center'}}>
       <FastImage
-        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:3}}
+        style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",marginLeft:3}}
         source={{
           uri: (baseUrlAvatarUser+item?.avatarUser)||''
         }}
@@ -84,7 +84,7 @@ const ItemUserMemer=(props)=>{
       <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{item.fullName}</Text>
     </View>
   )
-}
+})
 
 
   return (

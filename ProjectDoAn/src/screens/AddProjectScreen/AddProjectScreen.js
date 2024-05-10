@@ -2,7 +2,7 @@
  * Màn hình thêm task mới
  */
 
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   actions,
   RichEditor,
@@ -108,16 +108,16 @@ export const AddProjectScreen = React.memo(({navigation})=>{
 
 
 
-  const handleChooseUser=(itemCheck)=> {  // hàm nhấn vào để chọn user trong ds tìm kiếm
+  const handleChooseUser=useCallback((itemCheck)=> {  // hàm nhấn vào để chọn user trong ds tìm kiếm
     if (checkMember(itemCheck, dataUserChoose)) { // nếu đã nằm trong ds dc chọn
       const newDataUserChoose = dataUserChoose.filter(item => item.userName !== itemCheck.userName);
       SetdataUserChoose(newDataUserChoose);
     } else { // nếu người đó chưa nằm trong  danh sách được chọn
       SetdataUserChoose([...dataUserChoose, itemCheck])
     }
-  }
+  },[dataUserChoose])
   // hàm xóa user đã chọn
-  const handleDeleleUser=(userId)=>{
+  const handleDeleleUser=useCallback((userId)=>{
     // Tạo một bản sao của danh sách
     const updatedData = [...dataUserChoose];
     const index = updatedData.findIndex(user => user.userId === userId);
@@ -126,7 +126,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
     }
     // Cập nhật state để kích thích việc render lại
     SetdataUserChoose(updatedData);
-  }
+  },[dataUserChoose,])
 
   const handleSearchUser=value=>{
     settextSearch(value)

@@ -29,7 +29,7 @@ const ListCheckList = ({taskId}) => {
   const dataCheckList = useSelector(state => state.task.dataCheckList);
   const [seeAll, setSeeAll] = useState(true);
   const dispatch = useDispatch();
- console.log('rendlaij list check list')
+
 
     return (
       <View style={styles.container}>
@@ -45,7 +45,7 @@ const ListCheckList = ({taskId}) => {
               data={dataCheckList}
               scrollEnabled={false}
               renderItem={({ item }) => <ItemCheckList dispatch ={dispatch} item={item} />}
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item) => item.checkId}
             />
         ) : null}
         {dataCheckList?.length==0&&

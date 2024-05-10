@@ -19,7 +19,6 @@ const ListUserSearch = ({dataUserChoose,handleChooseUser}) => {
 
   return(
     <View>
-      {isSearchUser?(  <ActivityIndicator size="large" color="#4577ef" />):
 
   <FlatList
     data={dataUserSearch}
@@ -27,8 +26,7 @@ const ListUserSearch = ({dataUserChoose,handleChooseUser}) => {
     scrollEnabled={false}
     keyExtractor={item => item.userId}
   />
-}
-
+      {isSearchUser?  <ActivityIndicator size="large" color="#4577ef" style={{position:"absolute", justifyContent:'center', alignSelf:'center'}}/>:null}
     </View>
   )
 };

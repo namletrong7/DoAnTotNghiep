@@ -56,9 +56,10 @@ const RenderIcon = (props) => {
                           }}>
 
             <View style={{
-                flex: 1, alignItems: "center",width:70, borderRadius: 10,
-                borderColor: "rgba(0,0,0,0.3)",borderWidth:1, paddingVertical: 10,
-                paddingHorizontal: 5,marginHorizontal:4, borderStyle:"dashed"
+                flex: 1, alignItems: "center",width:150, borderRadius: 10,
+                borderColor: "#1E90FF",borderWidth:1, paddingVertical: 10,
+                paddingHorizontal: 5,marginHorizontal:4, borderStyle:"dashed",
+              flexDirection:'row'
             }}>
                     <RenderIcon extension={props.item?.extension} />
                 <Text numberOfLines={3} style={{
