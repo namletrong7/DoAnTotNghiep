@@ -229,6 +229,7 @@ export function actionAddCommentTask(taskId,content) {
         let userId= getState().auth.dataCurrentUser?.userId
         let avatar=getState().auth.dataCurrentUser?.avatarUser
         let fullName=getState().auth.dataCurrentUser?.fullName
+        console.log(getState().task.dataCommentTask)
         dispatch(updateData({
             isAddComment :true
         }))

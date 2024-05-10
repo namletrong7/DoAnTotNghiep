@@ -1,0 +1,127 @@
+.cart {
+  padding-top: 130px;
+  width: 70%;
+  margin: 0 auto 40px;
+}
+
+.table {
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mt50 {
+  margin-top: 50px;
+}
+
+td {
+  text-align: center;
+}
+
+.imgSp{
+  width: 15%;
+}
+
+.nameSp {
+  width: 30%;
+}
+
+.priceSp {
+  width: 20%;
+}
+
+.quantitySp {
+  width: 15%;
+}
+
+.intoMoneySp {
+  width: 20%;
+}
+
+.deleteSp {
+  width: 10%;
+}
+
+.img {
+  cursor: pointer;
+  width: 70%;
+}
+
+.delete {
+  font-size: 20px;
+  color: red;
+}
+
+.itemSp {
+  padding-left: 20px;
+  text-align: left;
+}
+
+.nameItemSp {
+  font-weight: 800;
+  color: #0f8eb6;
+  cursor: pointer;
+}
+
+.colorItemSp {
+  font-weight: 700;
+}
+
+.textQuantity {
+  margin: 0 5px;
+  width: 20%;
+  text-align: center;
+}
+
+.continueBuy {
+  text-align: center;
+  color: white;
+  height: 20px;
+  border-radius: 10px;
+  font-weight: 800;
+  padding: 20px 50px;
+  background-color: red;
+}
+
+.sumMoney {
+  border-radius: 10px;
+  border: 1px solid #eeeeee;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.textSumMoney {
+  font-weight: 700;
+  padding: 20px;
+}
+
+.btnSummit {
+  color: white;
+  text-align: center;
+  margin-top: 30px;
+  border-radius: 10px;
+  font-weight: 800;
+  padding: 20px 50px;
+  background-color: red;
+}
+
+.textListCartNone {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  background: linear-gradient(#f6fada, #f3e287);
+  border-radius: 10px;
+  padding: 20px 0;
+}
