@@ -23,7 +23,7 @@ export function actionAddTask(body) {
         });
         try {
             const response = await Api(true).addTask(body);
-
+      //     console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -32,6 +32,13 @@ export function actionAddTask(body) {
                     icon: { icon: "success", position: 'left' }
                 });
 
+            }else if(response?.data?.message){
+                showMessage({
+                    message: response.data.message,
+                    type: "warning",
+                    duration: 3000,
+                    icon: { icon: "warning", position: 'left' }
+                });
             }
                 dispatch({
                     type: "END_ADD_TASK",

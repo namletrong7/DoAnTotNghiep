@@ -64,6 +64,7 @@
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-modals": "^0.22.3",
     "react-native-pager-view": "^6.2.3",
+    "react-native-paper": "^5.12.3",
     "react-native-pell-rich-editor": "^1.9.0",
     "react-native-permissions": "^4.1.4",
     "react-native-reanimated": "^3.6.1",

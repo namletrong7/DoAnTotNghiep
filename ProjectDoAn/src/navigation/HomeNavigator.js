@@ -136,11 +136,11 @@ export  const BottomHomeNavigation = React.memo(() => {
           }}
           animation='fade'
         >
-          <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home"}}   />
-          <Tab.Screen name="TaskPersonalStack" component={TaskPersonalStack} options={{ headerShown: false,tabBarLabel:"Task" }} />
-          <Tab.Screen name="Search" component={SearchTaskScreen} options={{ headerShown: false,tabBarLabel:"Tìm kiếm" }}   />
-          <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo" }}   />
-          <Tab.Screen name="PersonalStack" component={PersonalStack} options={{ headerShown: false,tabBarLabel:"Cá nhân" }} />
+          <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home",tabBarShowLabel:false}}   />
+          <Tab.Screen name="TaskPersonalStack" component={TaskPersonalStack} options={{ headerShown: false,tabBarLabel:"Task",tabBarShowLabel:false }} />
+          <Tab.Screen name="Search" component={SearchTaskScreen} options={{ headerShown: false,tabBarLabel:"Tìm kiếm",tabBarShowLabel:false }}   />
+          <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo",tabBarShowLabel:false }}   />
+          <Tab.Screen name="PersonalStack" component={PersonalStack} options={{ headerShown: false,tabBarLabel:"Cá nhân" ,tabBarShowLabel:false}} />
         </Tab.Navigator>
 
   )
@@ -198,10 +198,6 @@ export  const StackNavigate = React.memo( () => {
 const styles = StyleSheet.create({
   tabContainer: {
     position: 'absolute',
-    width: '90%',
-    borderRadius: 12,
-    left: '5%',
-    bottom: 20,
     backgroundColor: 'white',
     height: 60,
   },
