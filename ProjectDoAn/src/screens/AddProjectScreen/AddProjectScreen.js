@@ -2,73 +2,37 @@
  * Màn hình thêm task mới
  */
 
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actions,
-  RichEditor,
-  RichToolbar,
-} from "react-native-pell-rich-editor";
+import React, {  useCallback, useState } from "react";
 
 import moment from 'moment';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  ActivityIndicator,
-  ImageBackground,
-  Dimensions,
-  Image,
   SafeAreaView,
-  FlatList,
   TextInput,
-  ScrollView,
   KeyboardAvoidingView,
-  PermissionsAndroid,
-  StatusBar, Platform, Modal,
+  Platform,
 } from "react-native";
 
-
-import  { showMessage } from "react-native-flash-message"
-import {TextInputComponent} from "../../components/InputComponent/TextInputComponent"
-import {DatePickerComponent} from "../../components/InputComponent/DatePickerComponet"
 import { converPickerDate } from "../../utils/ConverPickerDate";
-import { Dropdown } from 'react-native-element-dropdown';
-import { DropDownMenu } from "../../components/DropDownMenu/DropDownMenu";
-import IconUpload from "../../assets/icons/IconUpload";
-
-import { ListFileAttach } from "./ListIFileAttach/ListFileAttach";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
-import FastImage from "react-native-fast-image";
 import { useDispatch, useSelector } from "react-redux";
-
+import Modal from 'react-native-modal'
 import {
-  dataPriority,
   getBackgroundStateProject,
   getColorStateProject,
   getStateProject,
 } from "../../utils/GetPriority";
 import HeaderComponent from "../../components/header/HeaderComponent";
-import { createListProjectDropDown } from "../../utils/CreateListDropDown";
 import IconLogoProject from "../../assets/icons/IconLogoProject";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
-import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import IconClose2 from "../../assets/icons/IconClose2";
 import IconSearch from "../../assets/icons/IconSearch";
-
 import ListUserChoose from "./ListUserChoose/ListUserChoose";
 import ListUserSearch from "./ListUserSearch/ListUserSearch";
 import { checkMember } from "./Utils/CheckMember";
 import { actionsearchUser } from "../../redux-store/actions/user";
-import IconBox from "../../assets/icons/IconBox";
-import IconClose from "../../assets/icons/IconClose";
-import IconAssign from "../../assets/icons/IconAssign";
-import IconTarget from "../../assets/icons/IconTarget";
-import IconAll from "../../assets/icons/IconAll";
-import IconDone from "../../assets/icons/IconDone";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { actionAddProject } from "../../redux-store/actions/project";
 import ModalLoadingAddProject from "./ModalLoading/ModalLoading";
@@ -260,12 +224,23 @@ export const AddProjectScreen = React.memo(({navigation})=>{
         </View>
       </KeyboardAwareScrollView>
       <Modal
+          onBackdropPress={()=>{SetIsChooseState(false)}}
+          onBackButtonPress={()=>{SetIsChooseState(false)}}
         animationType="slide"
+          swipeDirection='down'
+          onSwipeComplete={()=>{SetIsChooseState(!isChooseState)}}
+          animationIn={"bounceInUp"}
+          animationOut={"bounceOutDown"}
+          animationInTiming={900}
+          animationOutTiming={500}
+          backdropTransitionInTiming={1000}
+          backdropTransitionOutTiming={500}
         transparent={true}
         visible={isChooseState}
+          style={{  justifyContent: "flex-end",
+            margin: 0,}}
       >
-        <TouchableOpacity onPress={()=>{SetIsChooseState(false)}} style={styles.modalContainer} >
-          <View  style={styles.modalContent}>
+        <View  style={styles.modalContainer} >
             <Text style={{
               fontSize: 20,
               alignSelf:'center',
@@ -300,9 +275,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
                 fontFamily: "OpenSans-Regular",
               }}>{getStateProject(3)} </Text>
             </TouchableOpacity>
-
-          </View>
-        </TouchableOpacity>
+        </View>
       </Modal>
       <DateTimePicker
         isVisible={isShowStartDay}
@@ -365,9 +338,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   modalContainer: {
-    height:"100%",
-    alignItems: 'center',
-    backgroundColor:'rgba(0,0,0,0.5)',
+    backgroundColor: "white",
+    paddingTop: 12,
+    paddingHorizontal: 12,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    height: '35%',
+    paddingBottom: 20,
   },
   modalContent: {
     backgroundColor: 'white',
