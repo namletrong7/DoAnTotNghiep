@@ -21,32 +21,22 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
-import IconBox from "../../assets/icons/IconBox";
-import IconDown from "../../assets/icons/IconDown";
+
 import {
-  actionGetAssignTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTargetTaskByEndDay, actionGetTaskDone,
+ actionGetTargetTaskByEndDay
 } from "../../redux-store/actions/task";
-import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
-import {FooterTask} from "./footerTask/FooterTask";
-import IconAssign from "../../assets/icons/IconAssign";
-import IconTarget from "../../assets/icons/IconTarget";
-import IconAll from "../../assets/icons/IconAll";
-import IconDone from "../../assets/icons/IconDone";
-import IconClose from "../../assets/icons/IconClose";
-import IconSearch from "../../assets/icons/IconSearch";
+
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
-import IconLoadMore from "../../assets/icons/IconLoadMorer";
-import { PieChart } from "react-native-gifted-charts";
-import TaskChart from "../../components/TaskChart/TaskChart";
+
 import IconCalendar from "../../assets/icons/IconCalendar";
 import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconCam from "../../assets/icons/IconCam";
+
 import moment from "moment";
 import DateTimePicker from "react-native-modal-datetime-picker";
-import fontAwesome5Pro from "react-native-vector-icons/FontAwesome5Pro";
+
 import ItemTask from "../../components/itemTask/ItemTask";
-import LoadingComponent from "../../components/loadingComponent/LoadingComponent";
 import LinearGradient from "react-native-linear-gradient";
+import LottieView from "lottie-react-native";
 
 
 const FilterTaskScreen = ({ navigation }) => {
@@ -163,9 +153,7 @@ const FilterTaskScreen = ({ navigation }) => {
               }
             />
             {isFilterTask?
-            <View style={{position:'absolute',width:'100%',alignSelf:'center'}}>
-              <ActivityIndicator size="large" color="#4577ef" />
-            </View>:null}
+                <LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />:null}
          </View>
 
       <DateTimePicker

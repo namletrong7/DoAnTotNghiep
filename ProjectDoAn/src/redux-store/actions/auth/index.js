@@ -42,7 +42,7 @@ export function actionLogin(userName, passWord) {
                 message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
                 type: "warning",
                 duration: 3000,
-                icon: { icon: "danger", position: 'left' }
+                icon: {icon: "danger", position: 'left'}
             });
         }
 

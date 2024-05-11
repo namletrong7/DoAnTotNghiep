@@ -62,6 +62,8 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment/moment";
 import ListCheckList from "./CheckList/ListCheckList";
 
+import LottieView from "lottie-react-native";
+
 
 
 
@@ -235,7 +237,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               />
             }
             showsVerticalScrollIndicator={false}>
-            {isGetDetailTask?<LoadingComponent title={"Đang load chi tiết công việc"}/>:
+            {isGetDetailTask?<LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />
+              :
             <View>
             <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{ justifyContent:"center",marginTop:15,alignItems:'center'}}>
               <Text style={{fontSize:20, color:"black",fontFamily:"OpenSans-SemiBold",textAlign:"center"}}>{dataDetailTask?.title|| ''}</Text>
