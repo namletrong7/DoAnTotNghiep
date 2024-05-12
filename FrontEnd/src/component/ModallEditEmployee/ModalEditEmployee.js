@@ -71,24 +71,24 @@ import {baseUrlAvatarUser, baseUrlLinkFile} from "../../api/ConstBaseUrl";
 
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>First Name</div>
-                                       <input className={cx('input')}  />
+                                       <input  value={firstName} onChange={(e)=>{setfirstName(e.target.value)}} className={cx('input')}  />
                                    </div>
                                </div>
 
 
                                 <div className={cx('itemInput')}>
                                     <div className={cx('textInput')}>Last name</div>
-                                    <input className={cx('input')} />
+                                    <input value={lastName} onChange={(e)=>{setlastName(e.target.value)}} className={cx('input')} />
                                 </div>
 
                                 <div className={cx('itemInput')}>
                                     <div className={cx('textInput')}>Email</div>
-                                    <input className={cx('input')} />
+                                    <input value={email} onChange={(e)=>{setEmail(e.target.value)}} className={cx('input')} />
                                 </div>
 
                                 <div className={cx('itemInput')}>
                                     <div className={cx('textInput')}>Số điện thoại</div>
-                                    <input className={cx('input')} onChange={(value)=>{console.log(value)}} />
+                                    <input value={phoneNumber} onChange={(e)=>{setPhoneNumber(e.target.value)}} className={cx('input')} onChange={(value)=>{console.log(value)}} />
                                 </div>
 
                                 <div style={{marginBottom:16}}>
