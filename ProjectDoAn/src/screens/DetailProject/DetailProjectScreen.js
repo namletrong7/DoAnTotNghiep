@@ -38,7 +38,7 @@ import LinearGradient from "react-native-linear-gradient";
 
 
 const DetailProjectScreen = ({ navigation ,route}) => {
-   const {itemProject} =  route?.params
+   const {itemProject, projectId} =  route?.params
   const dispatch  = useDispatch();
   const snapPoints = useMemo(() => ['50%', "80%",'99%'], []);
   const bottomSheetRef = useRef(null);  // cho bottom thoong tin project
@@ -46,7 +46,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
 
   const dataDetailProject = useSelector(state => state.project?.dataDetailProject);
   useEffect(()=>{
-    dispatch(actionGetDetailProject(itemProject.projectId))
+    dispatch(actionGetDetailProject(itemProject?.projectId || projectId))
   },[])
 
 
@@ -99,8 +99,8 @@ const ItemUserMemer=React.memo((props)=>{
          </TouchableOpacity>
           <IconProject/>
            <View style={{justifyContent:"flex-start", flex:0.7}}>
-             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{itemProject?.nameProject}</Text>
-             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{getStateProject(itemProject?.state)}</Text>
+             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{itemProject?.nameProject || dataDetailProject?.nameProject}</Text>
+             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{getStateProject(itemProject?.state || dataDetailProject?.state)}</Text>
            </View>
        <View style={{flexDirection:"row", justifyContent:"space-between",display:"flex", height:'100%', alignItems:"center", flex:0.25}}>
          <TouchableOpacity onPress={()=>{handelOpenEditUser()}} >
@@ -115,9 +115,9 @@ const ItemUserMemer=React.memo((props)=>{
 
       <GestureHandlerRootView  style={{ borderRadius:16,  display:"flex"}}>
           <View  style={{height:"100%"}}>
-               <TopTabTask1 projectId={itemProject?.projectId}/>
+               <TopTabTask1 projectId={itemProject?.projectId || projectId}/>
           </View>
-        <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
+        <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId || projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
         <BottomSheetModalProvider>
           <BottomSheetModal
               ref={bottomSheetRef}

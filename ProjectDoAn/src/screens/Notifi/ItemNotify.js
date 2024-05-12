@@ -8,11 +8,17 @@ import IconReport from "../../assets/icons/IconReport";
 import IconBell from "../../assets/icons/IconBell";
 import { actionSetIsReadNotify } from "../../redux-store/actions/task";
 import { getTimeDifference } from "../../utils/ConverPickerDate";
+import IconPeople from "../../assets/icons/IconPeople";
 
  export const ItemNotify = React.memo((props)=>{
   const {item, navigation,dispatch} = props
    const handleItemNotifi = useCallback((item) => {
-     navigation.navigate('DetailTask_Notifi', { taskId: item?.taskId });
+     if(item?.type<11){
+       navigation.navigate('DetailTask_Notifi', { taskId: item?.taskId });
+     }else {
+       navigation.navigate('DetailProjectScreen', { projectId:item?.projectId });
+     }
+
      if(item.isRead==0) // chưa đọc
      {
        dispatch(actionSetIsReadNotify(item?.notifyUserId))
@@ -39,6 +45,12 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
        return (
          <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00F5FF", borderRadius:16,padding:5}}>
            <IconReport width={15} height={15}/>
+         </View>
+       )
+     }else if(type == 11 ){
+       return (
+         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#5030E5", borderRadius:16,padding:5}}>
+           <IconPeople width={15} height={15}/>
          </View>
        )
      }
@@ -69,10 +81,9 @@ import { getTimeDifference } from "../../utils/ConverPickerDate";
       <View style={{marginLeft:10,flex:0.98}}>
         <Text numberOfLines={4} style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item.fullNameCreate+" "}
           <Text style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular"}}>{item.content+" "}</Text>
-          <Text style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item.titleTask}</Text>
+          <Text style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item?.type<11?item?.titleTask:item?.nameProject}</Text>
         </Text>
         <Text style={{fontSize:13,flexWrap:"wrap", color:"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
-
       </View>
     </Pressable>
   )
