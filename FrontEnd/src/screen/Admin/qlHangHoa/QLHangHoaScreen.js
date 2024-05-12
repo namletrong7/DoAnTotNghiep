@@ -37,15 +37,6 @@ function QLHangHoaScreen (props) {
             priceBuy: 26000000,
             priceSell: 26500000,
             type: 'Iphone 14',
-        },
-        {
-            idProduct: 'IP13',
-            nameProduct: 'Apple iPhone 13Pro Max - 256GB - 99% Like New',
-            imgProduct: 'https://bizweb.dktcdn.net/100/112/815/products/3qu436-compressed-151f18c2-3346-4113-a925-0b8876c26d1e.jpg?v=1703477493057',
-            colorProduct: 'Titan',
-            priceBuy: 25000000,
-            priceSell: 25500000,
-            type: 'Iphone 13',
         }
     ]
 

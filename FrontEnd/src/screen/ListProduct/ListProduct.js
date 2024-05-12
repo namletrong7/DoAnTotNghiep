@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styles from './ListProduct.modules.scss';
 import classNames from "classnames/bind";
-import CategoryList from "../../component/categoryList/CategoryList";
 import ItemProduct from "../../component/itemProduct/ItemProduct";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -29,7 +28,6 @@ function ListProduct(props) {
     return (
         <div className={cx('listProduct')}>
             <div className={cx('categoryLists')}>
-                <CategoryList />
             </div>
 
             <div className={cx('listCategoryProduct')}>

@@ -15,7 +15,7 @@ import CartScreen from "../../screen/cart/CartScreen";
 import {useDispatch, useSelector} from "react-redux";
 import UserInformationScreen from "../../screen/UserInformationScreen/UserInformationScreen";
 import AddressInformationScreen from "../../screen/UserInformationScreen/AddressInformationScreen";
-import {actionLogout} from "../../redux-store/action/actionAuthen";
+import {actionLogout} from "../../redux-store/action/actionEmployee";
 import PayScreen from "../../screen/pay/PayScreen";
 import ShoppingGuideScreen from "../../screen/categoryLists/ShoppingGuideScreen";
 import CommitmentToQualityScreen from "../../screen/categoryLists/CommitmentToQualityScreen";

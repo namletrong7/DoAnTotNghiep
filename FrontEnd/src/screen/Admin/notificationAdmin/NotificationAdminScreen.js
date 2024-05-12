@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import styles from './NotificationAdminScreen.module.scss';
 import classNames from "classnames/bind";
 
@@ -11,7 +11,9 @@ function NotificationAdminScreen (props) {
     const handleSearch = (e) => {
         setTextSearch(e.target.value)
     }
-
+    useLayoutEffect(()=>{
+        console.log('tập trung vào man hinh thong bao lan dau')
+    },[])
     return (
         <div className={cx('NotificationAdminScreen')}>
             <div className={cx('Header')}>

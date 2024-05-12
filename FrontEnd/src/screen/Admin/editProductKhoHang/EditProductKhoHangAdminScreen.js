@@ -100,25 +100,6 @@ function EditProductKhoHangAdminScreen (props) {
                 </div>
 
                 <div className={cx('w50pt')}>
-                    {!editSanPham && (<div className={cx('itemInput')}>
-                        <div className={cx('textInput')}>Giá nhập sản phẩm (đ)</div>
-                        <input className={cx('input')} type={'number'} onChange={handlePriceImportProduct}
-                               value={priceImportProduct}/>
-                    </div>)}
-
-                    {!editSanPham && (<div className={cx('itemInput')}>
-                        <div className={cx('textInput')}>Số lượng nhập</div>
-                        <input className={cx('input')} type={'number'} onChange={handleQuantityImportProduct}
-                               value={quantityImportProduct}/>
-                    </div>)}
-
-                    {editSanPham && (
-                        <div className={cx('itemInput')}>
-                            <div className={cx('textInput')}>Giá bán sản phẩm (đ)</div>
-                            <input className={cx('input')} type={'number'} onChange={handlePriceSellProduct} value={priceSellProduct} />
-                        </div>
-                    )}
-
                     <div className={cx('itemInput')}>
                         <div className={cx('textInput')}>Ngày nhập sản phẩm</div>
                         <input type={'datetime-local'} className={cx('input')} onChange={handleDateImportProduct} value={dateImportProduct} />

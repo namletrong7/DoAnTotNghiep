@@ -3,17 +3,15 @@ import styles from './HeaderAdmin.module.scss';
 import classNames from "classnames/bind";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 import NoPage from "../../screen/noPage/NoPage";
-import HomeAdminScreen from "../../screen/Admin/home/HomeAdminScreen";
 import {useDispatch} from "react-redux";
-import {actionLogout} from "../../redux-store/action/actionAuthen";
-import QLUserScreen from "../../screen/Admin/qlUser/QLUserScreen";
-import QLHangHoaScreen from "../../screen/Admin/qlHangHoa/QLHangHoaScreen";
+import {actionLogout} from "../../redux-store/action/actionEmployee";
 import QLKhoHangScreen from "../../screen/Admin/qlKhoHang/QLKhoHangScreen";
 import NotificationAdminScreen from "../../screen/Admin/notificationAdmin/NotificationAdminScreen";
 import BillAdminScreen from "../../screen/Admin/bill/BillAdminScreen";
 import DetailBillAdminScreen from "../../screen/Admin/detailBill/DetailBillAdminScreen";
 import EditProductKhoHangAdminScreen from "../../screen/Admin/editProductKhoHang/EditProductKhoHangAdminScreen";
 import DetailUserAdminScreen from "../../screen/Admin/detailUserAdmin/DetailUserAdminScreen";
+import EmployeeManagerScreen from "../../screen/Admin/Employee/EmployeeManagerScreen";
 
 const cx = classNames.bind(styles);
 
@@ -29,29 +27,27 @@ function HeaderAdmin () {
         <Router>
             <div id='headerAdmin' className={cx('headerAdmin')} >
                 <ul className={cx('headerAdminList')} >
-                    <Link to="/" className={cx('link')}>
-                        <img src={require('../../assets/img/logoWeb.png')} alt="Logo" className={cx('logo')} />
-                    </Link>
 
                     <li className={cx('item')} >
-                        <Link to="/" className={cx('flex')}>
-                            <i className={cx('bx bx-line-chart', 'iconArrowR')}></i>
-                            <div className={cx('colorW')}>Tổng quan</div>
-                        </Link>
-                    </li>
-
-                    <li className={cx('item')} >
-                        <Link to="/admin/QLHangHoaScreen" className={cx('flex')}>
+                        <Link to="/admin/EmployeeManagerScreen" className={cx('flex')}>
                             <i className={cx('bx bx-purchase-tag', 'iconArrowR')}></i>
-                            <div className={cx('colorW')}>Sản phẩm</div>
+                            <div className={cx('colorW')}>Quản Lý Nhân Viên</div>
                             <i className={cx('bx bx-chevron-right', 'iconArrowR')} />
                         </Link>
                     </li>
 
                     <li className={cx('item')} >
-                        <Link to="/admin/QLUserScreen" className={cx('flex')}>
+                        <Link to="/admin/EmployeeManagerScreen" className={cx('flex')}>
+                            <i className={cx('bx bx-purchase-tag', 'iconArrowR')}></i>
+                            <div className={cx('colorW')}>Quản Lý Phòng Ban</div>
+                            <i className={cx('bx bx-chevron-right', 'iconArrowR')} />
+                        </Link>
+                    </li>
+
+                    <li className={cx('item')} >
+                        <Link onClick={()=>{console.log("nam test")}} to="/admin/QLUserScreen" className={cx('flex')}>
                             <i className={cx('bx bx-user-circle', 'iconArrowR')}></i>
-                            <div className={cx('colorW')}>Khách hàng</div>
+                            <div className={cx('colorW')}>Quản Lý Chuyên Môn</div>
                             <i className={cx('bx bx-chevron-right', 'iconArrowR')} />
                         </Link>
                     </li>
@@ -73,7 +69,7 @@ function HeaderAdmin () {
                     </li>
 
                     <li className={cx('item')} >
-                        <Link to="/admin/NotificationAdminScreen" className={cx('flex')}>
+                        <Link onClick={()=>{dispatch(actionLogout())}} to="/admin/NotificationAdminScreen" className={cx('flex')}>
                             <i className={cx('bx bx-bell', 'iconArrowR')}></i>
                             <div className={cx('colorW')}>Thông báo</div>
                             <div className={cx('numberNotification')}>( 10 )</div>
@@ -90,9 +86,8 @@ function HeaderAdmin () {
             </div>
 
             <Routes>
-                <Route path="/" element={<HomeAdminScreen />} />
-                <Route path="/admin/QLUserScreen" element={<QLUserScreen />} />
-                <Route path="/admin/QLHangHoaScreen" element={<QLHangHoaScreen />} />
+                <Route path="/admin/EmployeeManagerScreen" element={<EmployeeManagerScreen />} />
+                <Route path="/admin/EmployeeManagerScreen" element={<EmployeeManagerScreen />} />
                 <Route path="/admin/QLKhoHangScreen" element={<QLKhoHangScreen />} />
                 <Route path="/admin/NotificationAdminScreen" element={<NotificationAdminScreen />} />
                 <Route path="/admin/BillAdminScreen" element={<BillAdminScreen />} />

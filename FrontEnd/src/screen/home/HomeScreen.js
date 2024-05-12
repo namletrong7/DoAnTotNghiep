@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import styles from "./HomeScreen.modules.scss";
-import CategoryHomeScreen from "../../component/categoryHomeScreen/CategoryHomeScreen";
+
 
 const cx = classNames.bind(styles);
 
@@ -328,7 +328,6 @@ function HomeScreen(params) {
             <div className={cx('category')}>
                 {listCategory.map(item => (
                     <div className={cx('category')}>
-                        <CategoryHomeScreen data={item} />
                     </div>
                 ))}
             </div>

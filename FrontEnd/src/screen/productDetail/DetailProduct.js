@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import styles from './DetailProduct.module.scss';
 import classNames from "classnames/bind";
-import CategoryList from "../../component/categoryList/CategoryList";
 import {formatPrice} from "../../unitl";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -175,9 +174,6 @@ function DetailProduct (props) {
                 </div>
             </div>
 
-            <div className={cx('CategoryList')}>
-                <CategoryList />
-            </div>
         </div>
     )
 }
