@@ -1,24 +1,22 @@
 const INITIAL_STATE = {
-    isLogin: false,
-    admin: false,
-    token: '',
-    userName: '',
-    decodeToken: '',
+    dataListEmployee:[],
+
 };
 
-const reducerAuth = (state = INITIAL_STATE, action) => {
+const reducerEmployee = (state = INITIAL_STATE, action) => {
     let newState = { ...state };
     switch (action.type) {
         case 'UPDATE_DATA': {
             let data = action.data || {};
             return { ...newState, ...data };
         }
-        case 'RESET_AUTH':{
+        case 'RESET_EMPLOYEE_REDUCER':{
             return INITIAL_STATE;
         }
         default:
             return state
     }
+    return state;
 };
 
-export default reducerAuth;
+export default reducerEmployee;

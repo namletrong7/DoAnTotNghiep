@@ -37,6 +37,8 @@ import FilterTaskScreen from "../screens/taskStack/FilterTaskScreen";
 import notifee, { AndroidImportance } from "@notifee/react-native";
 import pushNotify from "../utils/PushNotify";
 import PushNotify from "../utils/PushNotify";
+import { useDispatch } from "react-redux";
+import { actionGetListNotify } from "../redux-store/actions/task";
 
 
 export  const NotifiStack = React.memo(() => {
@@ -147,6 +149,7 @@ export  const BottomHomeNavigation = React.memo(() => {
 })
 export  const StackNavigate = React.memo( () => {
   const navi = useNavigation();
+  const dispatch = useDispatch();
   const Stack = createNativeStackNavigator();
   const channelId =  notifee.createChannel({
     id: 'important',
@@ -157,7 +160,7 @@ export  const StackNavigate = React.memo( () => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
     //  console.log(remoteMessage)
       await PushNotify().displayNotify(remoteMessage.messageId,remoteMessage.notification?.title,remoteMessage.notification?.body,remoteMessage.data)
-
+      dispatch(actionGetListNotify())
 
     });
     // hành khi nhấn vào thông báo mà app đã bị kill rồi

@@ -92,17 +92,21 @@ export function actionsearchUser(keyWord) {
 
   };
 }
-export function actionEditUserProject(body,projectId) {
+export function actionEditUserProject(projectId,dataUser) {
   return async (dispatch, getState) => {
-    if(!getState().user.isEditUserProject){
-
-
       await   dispatch({
         type: "START_EDIT_USER_PROJECT",
       });
+    let userId= getState().auth.dataCurrentUser?.userId
       try {
-        const response = await Api(false).editUserOfProject(body);
-       console.log(response.data)
+        const response = await Api(false).editUserOfProject(
+        {
+          "projectId": projectId,
+          "listUser": dataUser,
+           'createUser':userId ,
+        }
+        );
+       // console.log(response.data)
         if(response.data && response.data.status==200){
          await dispatch(actionGetDetailProject(projectId))
           await   dispatch({
@@ -139,11 +143,6 @@ export function actionEditUserProject(body,projectId) {
           icon: { icon: "danger", position: 'left' }
         });
       }
-    }
-    else{
-      return ;
-    }
-
   };
 }
 export function actionGetListUserProject(projectId) {

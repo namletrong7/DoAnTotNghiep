@@ -132,7 +132,7 @@ function DetailBillAdminScreen ({ route, props }) {
                     </div>
 
                     <div className={cx('itemB')}>
-                        <div className={cx('textH', 'bold')}>Trạng thái đơn hàng</div>
+                        <div className={cx('textH', 'bold')}>Trạng thái đơn hàng </div>
                         <div className={cx('flex')}>
                             <div className={cx('bold')}>
                                 Đơn vị vận chuyển:

@@ -55,6 +55,7 @@ export const BottomEditUser=React.memo((props)=>{
     // Cập nhật state để kích thích việc render lại
     setDataUser(updatedData);
   }, [dataUser, setDataUser]);
+
   const handleEditUserProject = useCallback(async () => {
  //   console.log(dataUser, dataUserChoose.length)
     if (dataUser === dataUserChoose) {
@@ -66,10 +67,7 @@ export const BottomEditUser=React.memo((props)=>{
       });
       return;
     } else {
-      await dispatch(actionEditUserProject({
-        "projectId": projectId,
-        "listUser": dataUser
-      }, projectId))
+      await dispatch(actionEditUserProject(projectId,dataUser))
     }
     handelCloseEditUser()
   }, [dataUser, dataUserChoose, projectId, dispatch, handelCloseEditUser]);
