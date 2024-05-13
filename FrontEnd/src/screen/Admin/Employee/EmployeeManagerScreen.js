@@ -1,5 +1,5 @@
-import React, {useCallback, useMemo, useState} from "react";
-import styles from './EmployeeManager.module.css';
+import React, {useCallback, useEffect, useMemo, useState} from "react";
+import styles from './EmployeeManager.module.scss';
 import classNames from "classnames/bind";
 import {formatPrice} from "../../../unitl";
 import {useNavigate} from "react-router-dom";
@@ -13,7 +13,11 @@ import {Player} from "@lottiefiles/react-lottie-player";
 import reducerEmployee from "../../../redux-store/reducer/reducerEmployee";
 import {actionLogout} from "../../../redux-store/action/actionEmployee";
 import {toast} from "react-toastify";
+import {ModalComfirm} from "../../../component/ModalConfirm/ModalComfirm";
+import axios from "axios";
 import {ModalEditEmployee} from "../../../component/ModallEditEmployee/ModalEditEmployee";
+import {LoadingComponent} from "../../../component/LoadingComponent/LoadingComponent";
+
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +25,7 @@ const cx = classNames.bind(styles);
 
 function EmployeeManagerScreen (props) {
     const  [isShowModalEditUser , setIsShowModalEditUser] = useState(false);
+    const  [isShowModalDeleteEmployee , setIsShowModalDeleteEmployee] = useState(false);
     const  [itemSelected , setItemSelected] = useState({});
     const dataListTypeProduct = [
         {
@@ -344,15 +349,37 @@ function EmployeeManagerScreen (props) {
     const onCloseEditEmployee=useCallback(()=>{
         setIsShowModalEditUser(false)
     },[])
+    const onCloseModalDeleteEmployee=useCallback(()=>{
+        setIsShowModalDeleteEmployee(false)
+    },[])
 
     const showToast = () => {
         toast.success("successful");
     };
-    const handleEditEmployee=useCallback((item)=>{
-        setItemSelected(item)
+    const handleOpenEditEmployee=useCallback(async (item) => {
+        await setItemSelected(item)
         setIsShowModalEditUser(true)
     },[])
-    // modal hiển thị edit thông tin nhân viên
+    const handleOpenModalDeleteEmployee=useCallback(async (item) => {
+        await setItemSelected(item)
+        setIsShowModalDeleteEmployee(true)
+    },[])
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://3.25.188.2/DOAN/getDetailTask.php?taskId=T001', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials:false
+            });
+       console.log(response.data)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+  useEffect(()=>{
+       fetchData()
+  },[])
     return (
         <div className={cx('QLHangHoaScreen')}>
             <div className={cx('fixed')}>
@@ -393,7 +420,7 @@ function EmployeeManagerScreen (props) {
                             <th>Chuyên môn</th>
                             <th>phòng ban</th>
                             <th>Chức vụ</th>
-                            <th style={{width:100}}></th>
+                            <th style={{width:100}}>Thao tác</th>
                         </tr>
                         </thead>
 
@@ -431,9 +458,9 @@ function EmployeeManagerScreen (props) {
                                     <div className={styles.nameProduct}>{getValuePositionLevel(item?.positionLevel)}</div>
                                 </td>
                                 <td className={cx('iconList')}>
-                                    <i className={cx('bx bx-show-alt', 'iconShow')} onClick={() => handleToEditProductKhoHangAdminScreen(item)}></i>
-                                    <i className={cx('bx bxs-pencil', 'iconEdit')} onClick={()=>{handleEditEmployee(item)}}></i>
-                                    <i className={cx('bx bx-trash', 'iconTrash')}></i>
+                                    <i className={cx('bx bx-show-alt', 'iconShow')}></i>
+                                    <i className={cx('bx bxs-pencil', 'iconEdit')} onClick={()=>{handleOpenEditEmployee(item)}}></i>
+                                    <i className={cx('bx bx-trash', 'iconTrash')}  onClick={() => handleOpenModalDeleteEmployee(item)}></i>
                                 </td>
                             </tr>
                         ))}
@@ -443,10 +470,11 @@ function EmployeeManagerScreen (props) {
 
             </div>
             <ModalEditEmployee item={itemSelected} isShowModalEditUser={isShowModalEditUser} onClose={onCloseEditEmployee}/>
-
+            <ModalComfirm content={"Bạn có đồng ý xóa nhân viên: "+itemSelected?.userName} onClose={onCloseModalDeleteEmployee} isVisible={isShowModalDeleteEmployee}/>
+             <LoadingComponent/>
         </div>
     )
 }
 
 
-export default EmployeeManagerScreen;
+export default React.memo(EmployeeManagerScreen);
