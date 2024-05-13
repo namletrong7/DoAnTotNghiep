@@ -1,45 +1,30 @@
 import axios from 'axios';
 
-const Api = (token, username) => {
+const Api = () => {
     const api = axios.create({
-        baseURL: 'http://localhost:8080/api/v1',
+        baseURL: 'http://192.168.1.108:8080/DOAN/API_WEB/',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token || ''}`,
-            'x-client-username': username,
         },
         timeout: 20000,
     });
 
-    // api get token
-    const getTokenLogin =(username, password) => {
-        return api.post('/account/login', {
-            "username": username,
-            "password": password
-        });
+    // api lấy danh sách nhân viên
+    const getListEmployee=()=> {
+        return api.get("getListEmployee.php");
+    }
+    // api lấy danh sách phòng ban
+    const getDepartMent=()=> {
+        return api.get("getDepartMent.php");
+    }
+    // api lấy danh sách chuyên môn
+    const getJobtitle=()=> {
+        return api.get("getJobtitle.php");
     }
 
-    const register = (fullName, username, password, email, sdt, date ) => {
-        return api.post('/account/register', {
-            "fullName": fullName,
-            "username": username,
-            "password": password,
-            "email": email,
-            "sdt": sdt,
-            "role": "USER",
-            "date": date,
-            "gender": "male"
-        })
-    }
-
-    const getListTypeProducts = (pageNumber, sortBy, type, categoryId) => {
-        return api.get(`/product/allProductSpu?pageNumber=${pageNumber}&pageSize=8&sortBy=${sortBy}&type=${type}&categoryId=${categoryId}`)
-    }
 
     return {
-        getTokenLogin,
-        register,
-        getListTypeProducts,
+        getListEmployee,getDepartMent,getJobtitle
     };
 };
 
