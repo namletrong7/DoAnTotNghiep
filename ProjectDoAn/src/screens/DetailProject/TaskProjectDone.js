@@ -1,6 +1,6 @@
 // MyScreen1.js
-import React, { useEffect, useMemo, useRef } from "react";
-import {View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator} from "react-native";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { View, Text, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, RefreshControl } from "react-native";
 import renderer from "react-test-renderer";
 import ItemTask from "../../components/itemTask/ItemTask";
 import IconMessage from "../../assets/icons/IconMessage";
@@ -18,27 +18,38 @@ import {
 } from "../../redux-store/actions/task";
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 import LinearGradient from "react-native-linear-gradient";
+import LottieView from "lottie-react-native";
 
 const TaskProjectDone = ({navigation,route}) => {
   const { projectId } = route?.params;
   const dispatch  = useDispatch();
   const dataListTaskProjectDone = useSelector(state => state.task.dataListTaskProjectDone);
   const isGetTaskProjectDone = useSelector(state => state.task?.isGetTaskProjectDone);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(()=>{
     dispatch(actionGetTaskDoneProject(projectId))
-
   },[])
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true); // Đặt trạng thái là đang làm mới
+    dispatch(actionGetTaskDoneProject(projectId))
+    setRefreshing(false);
+  },[projectId]);
   return (
     <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
-      {isGetTaskProjectDone ? <ActivityIndicator size="large" color="#4577ef"/>:
-          (dataListTaskProjectDone?.length > 0 ?
+      {isGetTaskProjectDone ? <LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />:
               (<FlatList
                   data={dataListTaskProjectDone}
                   initialNumToRender={5}
                   renderItem={({item}) => <ItemTask item={item} navigation={navigation}/>}
                   scrollEnabled={true}
+                  ListEmptyComponent={<EmptyTask/>}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={handleRefresh}
+                    />}
                   keyExtractor={item => item.taskId}
-              />) : (<EmptyTask/>))
+              />)
 
       }
     </LinearGradient>
