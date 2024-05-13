@@ -21,4 +21,4 @@ const IconClose = (props) => (
     </svg>
 )
 
-export default IconClose
+export default React.memo(IconClose)
