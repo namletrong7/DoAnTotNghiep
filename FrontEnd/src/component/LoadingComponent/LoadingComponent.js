@@ -7,7 +7,7 @@ import {Player} from "@lottiefiles/react-lottie-player";
         <Player
             autoplay
             loop
-            src="/src/assets/animation/loading.json"
+            src={require("../../assets/animation/loading.json")}
             style={{ height: '300px', width: '300px' }}
         />
     )

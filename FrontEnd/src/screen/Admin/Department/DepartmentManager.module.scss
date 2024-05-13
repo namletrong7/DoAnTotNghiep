@@ -1,0 +1,165 @@
+.QLHangHoaScreen {
+  padding: 20px 4% 30px 22%;
+  color: #454545;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.relative {
+  padding-top: 50px;
+  position: relative;
+}
+
+.fixed {
+  top: 0px;
+  padding-top: 20px;
+  width: 82%;
+  position: fixed;
+  background-color: white;
+  z-index: 10;
+  min-height: 15%;
+}
+
+.body {
+  padding-top: 10%;
+  height: 1000px;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.addSp {
+  bottom: 10px;
+  right: 10%;
+  color: white;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background-color: #05b2e9;
+  position: absolute;
+}
+
+.headerQl {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.iconMenu {
+  margin-right: 10px;
+  font-size: 22px;
+}
+
+.iconSearch {
+  font-size: 20px;
+  padding: 5px 12px;
+  border-left: 1px solid #a3a1a1;
+}
+
+.searchUser {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.borderSearch {
+  border: 1px solid #a3a1a1;
+  width: 40%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.searchInput {
+  width: 90%;
+  font-size: 18px;
+  padding: 6px 15px;
+  border-radius: 10px;
+  border: none;
+}
+
+.iconList {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.iconShow {
+  color: #e5ae09;
+  margin-right: 10px;
+}
+
+.iconEdit {
+  color: blue;
+  margin-right: 10px;
+}
+
+.iconTrash {
+  color: red;
+}
+
+.selectListProduct {
+  position: absolute;
+  bottom: 10px;
+  width: 20%;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  color: #313030;
+}
+.w50pt {
+  width: 50%;
+}
+.tableKH {
+  width: 100%;
+}
+
+.imgProduct {
+  width: 8%;
+  margin-right: 15px;
+}
+.itemInput {
+  line-height: 26px;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.textInput {
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 80%;
+  color: #454545;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid #cccccc;
+}
+
+.selectImg {
+  width: 100%;
+}
+.nameProduct {
+  display: flex;
+  font-weight: 500;
+  text-align: left;
+}
+.modalBackground{
+  width: 100vw;
+  height: 100vw;
+  background-color: rgba(0,0,0,0.3);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.modalContent{
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  border-radius: 10px;
+}

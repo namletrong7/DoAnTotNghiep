@@ -17,6 +17,7 @@ import {ModalComfirm} from "../../../component/ModalConfirm/ModalComfirm";
 import axios from "axios";
 import {ModalEditEmployee} from "../../../component/ModallEditEmployee/ModalEditEmployee";
 import {LoadingComponent} from "../../../component/LoadingComponent/LoadingComponent";
+import Api from "../../../api";
 
 
 const cx = classNames.bind(styles);
@@ -366,12 +367,7 @@ function EmployeeManagerScreen (props) {
     },[])
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://3.25.188.2/DOAN/getDetailTask.php?taskId=T001', {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials:false
-            });
+            const response = await Api().getListEmployee()
        console.log(response.data)
         } catch (error) {
             console.error('Error fetching data:', error);

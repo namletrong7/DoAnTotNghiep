@@ -12,6 +12,7 @@ import DetailBillAdminScreen from "../../screen/Admin/detailBill/DetailBillAdmin
 import EditProductKhoHangAdminScreen from "../../screen/Admin/editProductKhoHang/EditProductKhoHangAdminScreen";
 import DetailUserAdminScreen from "../../screen/Admin/detailUserAdmin/DetailUserAdminScreen";
 import EmployeeManagerScreen from "../../screen/Admin/Employee/EmployeeManagerScreen";
+import DepartmentManagerScreen from "../../screen/Admin/Department/DepartmentManagerScreen";
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +38,7 @@ function HeaderAdmin () {
                     </li>
 
                     <li className={cx('item')} >
-                        <Link to="/admin/EmployeeManagerScreen" className={cx('flex')}>
+                        <Link to="/admin/DepartmentManagerScreen" className={cx('flex')}>
                             <i className={cx('bx bx-purchase-tag', 'iconArrowR')}></i>
                             <div className={cx('colorW')}>Quản Lý Phòng Ban</div>
                             <i className={cx('bx bx-chevron-right', 'iconArrowR')} />
@@ -87,7 +88,7 @@ function HeaderAdmin () {
 
             <Routes>
                 <Route path="/admin/EmployeeManagerScreen" element={<EmployeeManagerScreen />} />
-                <Route path="/admin/EmployeeManagerScreen" element={<EmployeeManagerScreen />} />
+                <Route path="/admin/DepartmentManagerScreen" element={<DepartmentManagerScreen />} />
                 <Route path="/admin/QLKhoHangScreen" element={<QLKhoHangScreen />} />
                 <Route path="/admin/NotificationAdminScreen" element={<NotificationAdminScreen />} />
                 <Route path="/admin/BillAdminScreen" element={<BillAdminScreen />} />
