@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 import styles from "./style.module.scss";
 import { useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {actionRegister} from "../../redux-store/action/actionEmployee";
 
 const cx = classNames.bind(styles)
 
@@ -48,7 +47,7 @@ function RegisterScreen(props) {
         setReenterPassword(e.target.value);
     }
     const handleRegister = () => {
-        dispatch(actionRegister(username, email, password, sdt))
+     //   dispatch(actionRegister(username, email, password, sdt))
     }
 
     return (

@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+    isGetListEmployee:false,
     dataListEmployee:[],
 
 };
@@ -6,11 +7,11 @@ const INITIAL_STATE = {
 const reducerEmployee = (state = INITIAL_STATE, action) => {
     let newState = { ...state };
     switch (action.type) {
-        case 'UPDATE_DATA': {
+        case 'UPDATE_DATA_EMPLOYEE_REDUCER': {
             let data = action.data || {};
             return { ...newState, ...data };
         }
-        case 'RESET_EMPLOYEE_REDUCER':{
+        case 'RESET_REDUCER_EMPLOYEE':{
             return INITIAL_STATE;
         }
         default:

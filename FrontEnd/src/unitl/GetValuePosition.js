@@ -14,11 +14,11 @@ export  function getValuePositionLevel(level){
     name: 'Giám đốc',
   },
    {
-     id: 3,
+     id: 2,
      name: 'Trưởng phòng',
    },
    {
-     id: 4,
+     id: 3,
      name: 'Nhân viên',
    }
 ]

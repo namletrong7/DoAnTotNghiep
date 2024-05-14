@@ -11,7 +11,7 @@ import IconClose from "../../../assets/icon/IconClose";
 import {Player} from "@lottiefiles/react-lottie-player";
 
 import reducerEmployee from "../../../redux-store/reducer/reducerEmployee";
-import {actionLogout} from "../../../redux-store/action/actionEmployee";
+import {actionGetListEmployee, actionLogout} from "../../../redux-store/action/actionEmployee";
 import {toast} from "react-toastify";
 import {ModalComfirm} from "../../../component/ModalConfirm/ModalComfirm";
 import axios from "axios";
@@ -38,299 +38,13 @@ function EmployeeManagerScreen (props) {
             name: 'iPhone 12',
         }
     ]
-    const dataListEmployee = useMemo(()=>[
-        {
-            "userId": "1",
-            "userName": "namltc",
-            "firstName": "John",
-            "lastName": "Doe",
-            "fullName": "Lê Trọng Nam",
-            "email": "john.doe@example.com",
-            "phoneNumber": "123456789",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "password123",
-            "createdByUserid": "admin_user",
-            "avatarUser": "namltc.png",
-            "positionLevel": "2",
-            "birthDay": "1990-01-01 00:00:00",
-            "isAdmin": "1",
-            "jobtitleName": "Chuyên viên phân tích dữ liệu",
-            "departmentName": "Phòng phát triển hệ thống"
-        },
-        {
-            "userId": "2",
-            "userName": "sonntt",
-            "firstName": "John",
-            "lastName": "Doe",
-            "fullName": "Nguyễn Trần Thanh Sơn",
-            "email": "sonntt@KMA.com",
-            "phoneNumber": "123456789",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "123456a@",
-            "createdByUserid": "admin_user",
-            "avatarUser": "avatar.jpg",
-            "positionLevel": "2",
-            "birthDay": "1990-01-01 00:00:00",
-            "isAdmin": "1",
-            "jobtitleName": "Chuyên viên phân tích dữ liệu",
-            "departmentName": "Phòng hành chính nhân sự"
-        },
-        {
-            "userId": "3",
-            "userName": "hantk",
-            "firstName": "nguyễn thị kim ",
-            "lastName": "hà ",
-            "fullName": "nguyễn thị kim hà",
-            "email": "hantk@gmail.com",
-            "phoneNumber": "0337356550",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "avatar.jpg",
-            "positionLevel": "3",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "0",
-            "jobtitleName": "Sales Representative",
-            "departmentName": "Phòng phát triển hệ thống"
-        },
-        {
-            "userId": "0",
-            "userName": "anhvtd",
-            "firstName": "vũ thi ",
-            "lastName": "hà",
-            "fullName": "Vũ đình tuấn anh",
-            "email": "anhvtd@gmail.com",
-            "phoneNumber": "037356450",
-            "gender": "0",
-            "isActive": "0",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "anhvtd.png",
-            "positionLevel": "3",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "1",
-            "jobtitleName": "Chuyên viên phân tích dữ liệu",
-            "departmentName": "Phòng phát triển hệ thống"
-        },
-        {
-            "userId": "5",
-            "userName": "tienbv",
-            "firstName": "tien",
-            "lastName": "bui",
-            "fullName": "Bùi Văn Tiến",
-            "email": "sonntt@KMA.com",
-            "phoneNumber": "0337356550",
-            "gender": "0",
-            "isActive": "1",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "tuananh.jpg",
-            "positionLevel": "0",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "0",
-            "jobtitleName": "Sales Representative",
-            "departmentName": "Phòng hành chính nhân sự"
-        },
-        {
-            "userId": "6",
-            "userName": "anhptp",
-            "firstName": "vũ thi ",
-            "lastName": "hà",
-            "fullName": "phạm thị phương anh",
-            "email": "anhvtd@gmail.com",
-            "phoneNumber": "037356450",
-            "gender": "0",
-            "isActive": "0",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "anhvtd.png",
-            "positionLevel": "3",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "1",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "7",
-            "userName": "DucNgV",
-            "firstName": "John",
-            "lastName": "Doe",
-            "fullName": "nguyễn văn Đức",
-            "email": "john.doe@example.com",
-            "phoneNumber": "123456789",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "password123",
-            "createdByUserid": "admin_user",
-            "avatarUser": "namltc.png",
-            "positionLevel": "2",
-            "birthDay": "1990-01-01 00:00:00",
-            "isAdmin": "1",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "8",
-            "userName": "ThơmTT",
-            "firstName": "John",
-            "lastName": "Doe",
-            "fullName": "Tạ thị thơm",
-            "email": "sonntt@KMA.com",
-            "phoneNumber": "123456789",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "123456a@",
-            "createdByUserid": "admin_user",
-            "avatarUser": "avatar.jpg",
-            "positionLevel": "2",
-            "birthDay": "1990-01-01 00:00:00",
-            "isAdmin": "1",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "9",
-            "userName": "HuongHT",
-            "firstName": "nguyễn thị kim ",
-            "lastName": "hà ",
-            "fullName": "Hoàng thị hường",
-            "email": "hantk@gmail.com",
-            "phoneNumber": "0337356550",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "avatar.jpg",
-            "positionLevel": "3",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "0",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "10",
-            "userName": "NhiNT",
-            "firstName": "tien",
-            "lastName": "bui",
-            "fullName": "nguyễn thị nhị",
-            "email": "sonntt@KMA.com",
-            "phoneNumber": "0337356550",
-            "gender": "0",
-            "isActive": "1",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "tuananh.jpg",
-            "positionLevel": "0",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "0",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "11",
-            "userName": "AnhTT",
-            "firstName": "vũ thi ",
-            "lastName": "hà",
-            "fullName": "trịnh thị anh",
-            "email": "anhvtd@gmail.com",
-            "phoneNumber": "037356450",
-            "gender": "0",
-            "isActive": "0",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "anhvtd.png",
-            "positionLevel": "3",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "1",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "12",
-            "userName": "DungVT",
-            "firstName": "John",
-            "lastName": "Doe",
-            "fullName": "vương thị dung",
-            "email": "john.doe@example.com",
-            "phoneNumber": "123456789",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "password123",
-            "createdByUserid": "admin_user",
-            "avatarUser": "namltc.png",
-            "positionLevel": "2",
-            "birthDay": "1990-01-01 00:00:00",
-            "isAdmin": "1",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "13",
-            "userName": "GiangVT",
-            "firstName": "John",
-            "lastName": "Doe",
-            "fullName": "Vũ thị giang",
-            "email": "sonntt@KMA.com",
-            "phoneNumber": "123456789",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "123456a@",
-            "createdByUserid": "admin_user",
-            "avatarUser": "avatar.jpg",
-            "positionLevel": "2",
-            "birthDay": "1990-01-01 00:00:00",
-            "isAdmin": "1",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "14",
-            "userName": "LinhNV",
-            "firstName": "nguyễn thị kim ",
-            "lastName": "hà ",
-            "fullName": "nguyễn văn linh",
-            "email": "hantk@gmail.com",
-            "phoneNumber": "0337356550",
-            "gender": "1",
-            "isActive": "1",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "avatar.jpg",
-            "positionLevel": "3",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "0",
-            "jobtitleName": null,
-            "departmentName": null
-        },
-        {
-            "userId": "15",
-            "userName": "ThaoLTp",
-            "firstName": "tien",
-            "lastName": "bui",
-            "fullName": "Lại Thi Phương Thảo",
-            "email": "sonntt@KMA.com",
-            "phoneNumber": "0337356550",
-            "gender": "0",
-            "isActive": "1",
-            "passWord": "123456",
-            "createdByUserid": "1",
-            "avatarUser": "tuananh.jpg",
-            "positionLevel": "0",
-            "birthDay": "2024-03-28 14:31:08",
-            "isAdmin": "0",
-            "jobtitleName": null,
-            "departmentName": null
-        }
-    ],[])
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [textSearch, setTextSearch] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    const dataList = useSelector(state => state.reducerEmployee.dataListEmployee);
+    const dataListEmployee = useSelector(state => state.reducerEmployee?.dataListEmployee);
+    const isGetListEmployee = useSelector(state => state.reducerEmployee?.isGetListEmployee);
 
     const handleSearch = (e) => {
         setTextSearch(e.target.value)
@@ -365,13 +79,8 @@ function EmployeeManagerScreen (props) {
         await setItemSelected(item)
         setIsShowModalDeleteEmployee(true)
     },[])
-    const fetchData = async () => {
-        try {
-            const response = await Api().getListEmployee()
-       console.log(response.data)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+    const fetchData =  () => {
+      dispatch(actionGetListEmployee())
     };
   useEffect(()=>{
        fetchData()
@@ -403,6 +112,7 @@ function EmployeeManagerScreen (props) {
             </div>
             <div className={cx('body')}>
                 <div className={cx('relative')}>
+                    {isGetListEmployee?  <LoadingComponent/>:
                     <table border="1" cellPadding="1" cellSpacing="1" className={cx('tableKH')}>
                         <thead>
                         <tr>
@@ -419,6 +129,7 @@ function EmployeeManagerScreen (props) {
                             <th style={{width:100}}>Thao tác</th>
                         </tr>
                         </thead>
+
 
                         <tbody>
                         {dataListEmployee.map(item => (
@@ -461,13 +172,13 @@ function EmployeeManagerScreen (props) {
                             </tr>
                         ))}
                         </tbody>
-                    </table>
+                    </table>}
                 </div>
 
             </div>
             <ModalEditEmployee item={itemSelected} isShowModalEditUser={isShowModalEditUser} onClose={onCloseEditEmployee}/>
             <ModalComfirm content={"Bạn có đồng ý xóa nhân viên: "+itemSelected?.userName} onClose={onCloseModalDeleteEmployee} isVisible={isShowModalDeleteEmployee}/>
-             <LoadingComponent/>
+
         </div>
     )
 }

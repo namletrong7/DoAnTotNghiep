@@ -6,13 +6,7 @@ export function updateData(data) {
         data
     }
 }
-export  function actionLogout(){
-    return async (dispatch, getState) => {
-        dispatch({
-            type:"RESET_EMPLOYEE_REDUCER"
-        })
-    }
-}
+
 export function actionLogin (username, password, nextToScreen) {
     return async (dispatch, getState) => {
         try {
@@ -42,41 +36,29 @@ export function actionLogin (username, password, nextToScreen) {
     };
 }
 
-export function actionRegister (username, password, date) {
+export function actionGetListEmployee () {
     return async (dispatch, getState) => {
         try {
-            const response = await Api().getTokenLogin(username, password, date);
-            console.log(response.data);
-            if (response && response.data){
-                alert("Đăng ký thành công!");
-            } else {
-                alert("Đăng ký thất bại!");
-            }
-        } catch (error) {
-            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
             dispatch(updateData({
-                token: '',
+                isGetListEmployee: true,
             }))
+            const response = await Api().getListEmployee();
+            if(response.data && response.data.status==200){
+                dispatch(updateData({
+                    dataListEmployee: response.data?.dataListEmployee
+                }))
+            }
+            dispatch(updateData({
+                isGetListEmployee: false,
+            }))
+        } catch (error) {
+            dispatch(updateData({
+                isGetListEmployee: false,
+            }))
+            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
         }
     };
 }
 
-// export function actionLogout () {
-//     return (dispatch, getState) => {
-//         try {
-//             dispatch(updateData({
-//                 isLogin: false,
-//                 admin: false,
-//                 userName: '',
-//                 token: '',
-//             }))
-//         } catch (error) {
-//             alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
-//             dispatch(updateData({
-//                 token: '',
-//             }))
-//         }
-//     };
-// }
 
 

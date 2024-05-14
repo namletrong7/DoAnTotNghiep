@@ -1,16 +1,16 @@
 const INITIAL_STATE = {
-    listCart: [],
-    quantityCart: 0,
+    isGetListJobtitle: false ,
+    dataListJobtitle:[]
 };
 
-const reducerCart = (state = INITIAL_STATE, action) => {
+const reducerJobtitle = (state = INITIAL_STATE, action) => {
     let newState = { ...state };
     switch (action.type) {
-        case 'UPDATE_DATA': {
+        case 'UPDATE_DATA_JOBTITLE_REDUCER': {
             let data = action.data || {};
             return { ...newState, ...data };
         }
-        case 'RESET_CART':{
+        case 'RESET_REDUCER_JOBTITLE':{
             return INITIAL_STATE;
         }
         default:
@@ -18,4 +18,4 @@ const reducerCart = (state = INITIAL_STATE, action) => {
     }
 };
 
-export default reducerCart;
+export default reducerJobtitle;
