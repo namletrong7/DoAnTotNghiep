@@ -10,7 +10,7 @@ import { Text, View } from "react-native";
       paddingBottom:20,
       paddingHorizontal: 10,
       borderRadius: 10,
-      borderColor: "white",
+      borderColor: "#DDDDDD",
       borderWidth:1.5,
       justifyContent: "flex-start",
 
@@ -22,13 +22,12 @@ import { Text, View } from "react-native";
           fontFamily: "Roboto-Bold",
           textAlign: "left",
         }}>{props.item.fullName+":"} <Text numberOfLines={2} style={{
-          fontSize: 15,
+          fontSize: 14,
           color: item?.type==0?"#0066FF":"#00CC33",
-          fontFamily: "OpenSans-Regular",
+          fontFamily: "Roboto-Bold",
           textAlign: "left",
-          marginHorizontal:10,
           flexWrap:"wrap"
-        }}>{props.item.type==0?"Yêu cầu báo cáo tiến công việc":"Báo cáo tiến độ công việc"}</Text></Text>
+        }}>{props.item.type==0?"Yêu cầu báo cáo công việc":"Báo cáo công việc"}</Text></Text>
       </View>
 
       <View style={{ flexDirection:"row", marginTop:10 }}>
@@ -37,7 +36,7 @@ import { Text, View } from "react-native";
           color: "black",
           fontFamily: "Roboto-Bold",
         }}>{"Ý kiến : "} <Text  style={{
-          fontSize: 15,
+          fontSize: 14,
           color: "black",
           fontFamily: "OpenSans-Regular",
           marginHorizontal:10,
