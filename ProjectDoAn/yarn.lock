@@ -1772,10 +1772,10 @@
   dependencies:
     "invariant" "^2.2.4"
 
-"@react-native-community/netinfo@^11.2.1":
-  "integrity" "sha512-mR9iqUi0GzuC8ut+goI/lLkgG+a2OViI1mjSdXHKZnkfdJVjHblyWX3xoA8GE4GH8X4r0X/PNM3Vvyf2FH9mVg=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-11.3.0.tgz"
-  "version" "11.3.0"
+"@react-native-community/netinfo@^11.3.2":
+  "integrity" "sha512-YsaS3Dutnzqd1BEoeC+DEcuNJedYRkN6Ef3kftT5Sm8ExnCF94C/nl4laNxuvFli3+Jz8Df3jO25Jn8A9S0h4w=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-11.3.2.tgz"
+  "version" "11.3.2"
 
 "@react-native-firebase/app@^19.1.2", "@react-native-firebase/app@19.1.2":
   "integrity" "sha512-5PJSbsdl6xvWq+V5/MfmeLWkpf1tcIheP6UYHgIy8p/mfsQRQIzUSDD7MMKdJqSQOrjdu91hWGdDvnRIdk+f1g=="

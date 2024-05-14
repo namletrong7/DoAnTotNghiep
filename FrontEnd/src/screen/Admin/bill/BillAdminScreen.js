@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from './BillAdminScreen.module.scss';
 import classNames from "classnames/bind";
 import {formatDay, formatPrice} from "../../../unitl";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
 const cx = classNames.bind(styles);
@@ -42,7 +42,7 @@ function BillAdminScreen (props) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const location = useLocation();
     const [textSearch, setTextSearch] = useState('');
 
     const handleSearch = (e) => {
@@ -52,7 +52,9 @@ function BillAdminScreen (props) {
     const handleDetailBill = (bill) => {
         navigate(`/admin/DetailBillAdminScreen/${bill.id}`);
     }
-
+   useEffect(()=>{
+       console.log(location.taskId)
+   },[])
     return (
         <div className={cx('BillAdminScreen')}>
             <div className={cx('Header')}>

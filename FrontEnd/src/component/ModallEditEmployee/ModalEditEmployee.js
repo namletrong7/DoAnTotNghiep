@@ -2,12 +2,13 @@ import IconClose from "../../assets/icon/IconClose";
 import React, {useEffect, useState} from "react";
 import classNames from "classnames/bind";
 import styles from './ModalEditEmployee.module.scss'
-import {dataListPosititon} from "../../unitl/GetValuePosition";
+import {dataListPosititon, getValuePositionLevel} from "../../unitl/GetValuePosition";
 import {baseUrlAvatarUser, baseUrlLinkFile} from "../../api/ConstBaseUrl";
 import IconSwitchOn from "../../assets/icon/IconSwitchOn";
 import IconSwitchOff from "../../assets/icon/IconSwitchOff";
 import {isVisible} from "@testing-library/user-event/dist/utils";
 import {Player} from "@lottiefiles/react-lottie-player";
+import {useSelector} from "react-redux";
 
  export const ModalEditEmployee=React.memo((props)=>{
     const {item, isShowModalEditUser, onClose} = props
@@ -17,10 +18,14 @@ import {Player} from "@lottiefiles/react-lottie-player";
      const [lastName, setlastName] = useState('');
      const [email, setEmail] = useState('');
      const [phoneNumber, setPhoneNumber] = useState('');
-     const [isAdmin, setIsAdmin] = useState(0);
-     const [isActive, setIsActive] = useState(0);
+     const [isAdmin, setIsAdmin] = useState(null);
+     const [isActive, setIsActive] = useState(null);
+     const [jobTitleId, setJobTitleId] = useState(null);
+     const [departmentId, setDepartmentId] = useState(null);
+     const [positionLevel, setPositionLevel] = useState(null);
      const [image, setImage] = useState(null)
-
+     const dataListDepartment = useSelector(state => state.reducerDepartment?.dataListDepartment);
+     const dataListJobtitle = useSelector(state => state.reducerJobtitle?.dataListJobtitle);
      const onImageChange = (event) => {
          if (event.target.files && event.target.files[0]) {
              setImage(URL.createObjectURL(event.target.files[0]));
@@ -37,6 +42,9 @@ import {Player} from "@lottiefiles/react-lottie-player";
          setImage(baseUrlAvatarUser+item?.avatarUser)
          setIsActive(item?.isActive)
          setIsAdmin(item?.isAdmin)
+         setJobTitleId(item?.jobtitleId)
+         setDepartmentId(item?.departmentId)
+         setPositionLevel(item?.positionLevel)
      },[item,isShowModalEditUser])
     const handleSetAdmin=()=>{
          setIsAdmin(!isAdmin)
@@ -103,7 +111,7 @@ import {Player} from "@lottiefiles/react-lottie-player";
                                    </div>
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>Chức vụ</div>
-                                       <select style={style.dropDown}>
+                                       <select value={positionLevel}  onChange={e=>{setPositionLevel(e.target.value)}} style={style.dropDown}>
                                            {dataListPosititon.map(item => (
                                                <option value={item.id} >{item.name}</option>
                                            ))}
@@ -116,17 +124,17 @@ import {Player} from "@lottiefiles/react-lottie-player";
                                 <div className={cx('rowInput')}>
                                     <div className={cx('itemInput')}>
                                         <div className={cx('textInput')}>Phòng ban</div>
-                                        <select style={style.dropDown}>
-                                            {dataListPosititon.map(item => (
-                                                <option value={item.id} >{item.name}</option>
+                                        <select value={departmentId} onChange={(e)=>{setDepartmentId(e.target.value)}} style={style.dropDown}>
+                                            {dataListDepartment.map(item => (
+                                                <option value={item?.departmentId} >{item?.departmentName}</option>
                                             ))}
                                         </select>
                                     </div>
                                     <div className={cx('itemInput')}>
                                         <div className={cx('textInput')}>Chuyên môn</div>
-                                        <select style={style.dropDown}>
-                                            {dataListPosititon.map(item => (
-                                                <option value={item.id} >{item.name}</option>
+                                        <select  value={jobTitleId} onChange={(e)=>{setJobTitleId(e.target.value)}} style={style.dropDown}>
+                                            {dataListJobtitle.map(item => (
+                                                <option value={item?.jobtitleId} >{item?.jobtitleName}</option>
                                             ))}
                                         </select>
                                     </div>

@@ -210,7 +210,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 backgroundColor={'black'}
             />
         </SafeAreaView>
-        <View style={{flexDirection:"row", paddingHorizontal:10,height:50, justifyContent:"space-between",alignItems:"center",display:'flex'}}>
+        <View style={{flexDirection:"row", paddingHorizontal:4,height:50, justifyContent:"space-between",alignItems:"center",display:'flex'}}>
             <TouchableOpacity onPress={()=>{navigation.goBack()}}>
                 <IconBack/>
             </TouchableOpacity>
@@ -229,7 +229,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         </View>
         <GestureHandlerRootView  style={{ borderRadius:16,flex:1}}>
           <ScrollView
-            contentContainerStyle={{paddingHorizontal:15,paddingBottom:200}}
+            contentContainerStyle={{paddingHorizontal:5,paddingBottom:200}}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

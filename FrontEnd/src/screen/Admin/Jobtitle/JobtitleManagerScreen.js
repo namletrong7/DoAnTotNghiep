@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from "react";
-import styles from './DepartmentManager.module.scss';
+import styles from './JobtitleManager.module.scss';
 import classNames from "classnames/bind";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,24 +12,27 @@ import {ModalComfirm} from "../../../component/ModalConfirm/ModalComfirm";
 import {ModalAddDepartment} from "../../../component/ModalAddDepartment/ModalAddDepartment";
 import {ModalEditDepartment} from "../../../component/ModalEditDepartment/ModalEditDepartment";
 import {actionGetListDepartment} from "../../../redux-store/action/actionDepartment";
+import {actionGetListJobtitle} from "../../../redux-store/action/actionJobtitle";
+import {ModalEditJobtitle} from "../../../component/ModalEditJobtitle/ModalEditJobtitle";
+import {ModalAddJobtitle} from "../../../component/ModalAddJobtitle/ModalAddJobtitle";
 
 
 const cx = classNames.bind(styles);
 
 
 
-function DepartmentManagerScreen (props) {
-    const  [isShowModalEditDepartment , setIsShowModalEditDepartment] = useState(false);
-    const  [isShowModalDeleteDepartment , setIsShowModalDeleteDepartment] = useState(false);
-    const  [isShowModalAddDepartment , setIsShowModalAddDepartment] = useState(false);
+function JobtitleManagerScreen (props) {
+    const  [isShowModalEditJobtitle , setIsShowModalEditJobtitle] = useState(false);
+    const  [isShowModalDeleteJobtitle , setIsShowModalDeleteJobtitle] = useState(false);
+    const  [isShowModalAddJobtitle , setIsShowModalAddJobtitle] = useState(false);
     const  [itemSelected , setItemSelected] = useState({});
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [textSearch, setTextSearch] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    const isGetDepartment = useSelector(state => state.reducerDepartment?.isGetDepartment);
-    const dataListDepartment = useSelector(state => state.reducerDepartment?.dataListDepartment);
-    console.log(dataListDepartment)
+    const isGetListJobtitle = useSelector(state => state.reducerJobtitle?.isGetListJobtitle);
+    const dataListJobtitle = useSelector(state => state.reducerJobtitle?.dataListJobtitle);
+    console.log(dataListJobtitle)
     const handleSearch = (e) => {
         setTextSearch(e.target.value)
     }
@@ -45,38 +48,41 @@ function DepartmentManagerScreen (props) {
             state: { editSanPham },
         });
     }
-    const onCloseEditEmployee=useCallback(()=>{
-        setIsShowModalEditDepartment(false)
-    },[])
-    const onCloseModalDeletedepartment=useCallback(()=>{
-        setIsShowModalDeleteDepartment(false)
+
+    const onCloseModalDeleteJobtitle=useCallback(()=>{
+        setIsShowModalDeleteJobtitle(false)
     },[])
 
     const showToast = () => {
         toast.success("successful");
     };
-    const handleOpenEditDepartment=useCallback(async (item) => {
+    const handleOpenEditJobtitle=useCallback(async (item) => {
         await setItemSelected(item)
         console.log(item)
-        setIsShowModalEditDepartment(true)
+        setIsShowModalEditJobtitle(true)
     },[])
-    const handleCloseEditDepartment=useCallback( () => {
-        setIsShowModalEditDepartment(false)
+    const handleCloseEditJobtitle=useCallback( () => {
+        setIsShowModalEditJobtitle(false)
     },[])
-    const handleOpenModalDeleteDepartment=useCallback(async (item) => {
+    const handleOpenModalDeleteJobtitle=useCallback(async (item) => {
         await setItemSelected(item)
-        setIsShowModalDeleteDepartment(true)
+        setIsShowModalDeleteJobtitle(true)
     },[])
-    const handleOpenAddDepartment=useCallback( () => {
-        setIsShowModalAddDepartment(true)
+
+
+    const handleOpenAddJobtitle=useCallback( () => {
+        setIsShowModalAddJobtitle(true)
     },[])
-    const handleCloseAddDepartment=useCallback( () => {
-        setIsShowModalAddDepartment(false)
+    const handleCloseAddJobtitle=useCallback( () => {
+        setIsShowModalAddJobtitle(false)
     },[])
     const fetchData = async () => {
-  //    dispatch(actionGetListDepartment())
-        console.log(dataListDepartment)
+      dispatch(actionGetListJobtitle())
+       // console.log('mout lai man hinh chuyen mon')
     };
+    const gotoBillAdminScrenn = ()=>{
+        navigate('/admin/BillAdminScreen',{taskId:'T001'})
+    }
   useEffect(()=>{
        fetchData()
   },[])
@@ -96,33 +102,33 @@ function DepartmentManagerScreen (props) {
                 </div>
 
 
-                <div onClick={handleOpenAddDepartment} className={cx('btn', 'addSp')}>Thêm phòng ban</div>
+                <div onClick={gotoBillAdminScrenn} className={cx('btn', 'addSp')}>Thêm chuyên môn</div>
             </div>
             <div className={cx('body')}>
-                {isGetDepartment?<LoadingComponent/>:
+                {isGetListJobtitle?<LoadingComponent/>:
                 <div className={cx('relative')}>
                     <table border="1" cellPadding="1" cellSpacing="1" className={cx('tableKH')}>
                         <thead>
                         <tr>
                             <th>STT</th>
-                            <th>Tên phòng ban</th>
+                            <th>Tên chuyên môn</th>
                             <th style={{width:100}}>Thao tác</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        {dataListDepartment?.map((item,index) => (
+                        {dataListJobtitle?.map((item,index) => (
                             <tr>
                                 <td>
                                     <div className={styles.nameProduct}>{index}</div>
                                 </td>
                                 <td>
-                                    <div className={styles.nameProduct}>{item?.departmentName}</div>
+                                    <div className={styles.nameProduct}>{item?.jobtitleName}</div>
                                 </td>
                                 <td className={cx('iconList')}>
                                     <i className={cx('bx bx-show-alt', 'iconShow')}></i>
-                                    <i className={cx('bx bxs-pencil', 'iconEdit')} onClick={()=>{handleOpenEditDepartment(item)}}></i>
-                                    <i className={cx('bx bx-trash', 'iconTrash')}  onClick={() => handleOpenModalDeleteDepartment(item)}></i>
+                                    <i className={cx('bx bxs-pencil', 'iconEdit')} onClick={()=>{handleOpenEditJobtitle(item)}}></i>
+                                    <i className={cx('bx bx-trash', 'iconTrash')}  onClick={() => handleOpenModalDeleteJobtitle(item)}></i>
                                 </td>
                             </tr>
                         ))}
@@ -131,9 +137,9 @@ function DepartmentManagerScreen (props) {
                 </div>}
 
             </div>
-            <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.departmentName} onClose={onCloseModalDeletedepartment} isVisible={isShowModalDeleteDepartment}/>
-             <ModalAddDepartment isVisible={isShowModalAddDepartment} onClose={handleCloseAddDepartment}/>
-             <ModalEditDepartment item={itemSelected} isVisible={isShowModalEditDepartment} onClose={handleCloseEditDepartment}/>
+            <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.jobtitleName} onClose={onCloseModalDeleteJobtitle} isVisible={isShowModalDeleteJobtitle}/>
+             <ModalAddJobtitle isVisible={isShowModalAddJobtitle} onClose={handleCloseAddJobtitle}/>
+             <ModalEditJobtitle item={itemSelected} isVisible={isShowModalEditJobtitle} onClose={handleCloseEditJobtitle}/>
 
 
         </div>
@@ -141,4 +147,4 @@ function DepartmentManagerScreen (props) {
 }
 
 
-export default React.memo(DepartmentManagerScreen);
+export default React.memo(JobtitleManagerScreen);

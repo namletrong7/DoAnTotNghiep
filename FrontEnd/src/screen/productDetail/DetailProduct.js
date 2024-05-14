@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import {formatPrice} from "../../unitl";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {actionAddProduct} from "../../redux-store/action/actionCart";
+
 
 const cx = classNames.bind(styles);
 
@@ -57,8 +57,7 @@ function DetailProduct (props) {
     const [selectedOption, setSelectedOption] = useState('');
     const [quantity, setQuantity] = useState(1);
 
-    const listCart = useSelector(state => state.reducerCart.listCart);
-    const isLogin = useSelector(state => state.reducerAuth.isLogin);
+
 
     const handleImg = (index) => {
         setIndexImg(index);
@@ -84,12 +83,12 @@ function DetailProduct (props) {
     };
 
     const handleBuy = () => {
-        if(isLogin) {
-            listCart.push(dataDetailProduct);
-            dispatch(actionAddProduct(listCart))
-        } else {
-            navigate('/screen/authen/LoginScreen');
-        }
+        // if(isLogin) {
+        //     listCart.push(dataDetailProduct);
+        //     dispatch(actionAddProduct(listCart))
+        // } else {
+        //     navigate('/screen/authen/LoginScreen');
+        // }
     }
 
     return (

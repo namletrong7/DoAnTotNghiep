@@ -46,7 +46,7 @@ export const ListReportTask = React.memo((props) => {
               renderItem={({ item }) => <RenderItemReportTask item={item} />}
               keyExtractor={(item, index) => index.toString()}
             /> :
-            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
+            <Text style={{ fontSize: 14, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
                   numberOfLines={10}>{"Không có báo cáo nào cho công việc này"}</Text>
         ) : null}
 
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     marginTop: 19,
+    backgroundColor:"white",
+    padding:7,
+    borderRadius:7
   },
 
 });
