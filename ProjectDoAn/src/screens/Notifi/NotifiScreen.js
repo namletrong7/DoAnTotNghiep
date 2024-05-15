@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, RefreshControl, ActivityIndicator,
 } from "react-native";
 import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,143 +21,55 @@ import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import IconBell from "../../assets/icons/IconBell";
 import { getTypeNotifi } from "../../utils/GetPriority";
 import IconBack from "../../assets/icons/IconBack";
+import LinearGradient from "react-native-linear-gradient";
+import { actionGetListNotify, actionGetTaskToDoProject } from "../../redux-store/actions/task";
+import IconComment from "../../assets/icons/IconComment";
+import IconNotityComment from "../../assets/icons/IconNotityComment";
+import IconEdit from "../../assets/icons/IconEdit";
+import IconEdit2 from "../../assets/icons/IconEdit2";
+import IconReport from "../../assets/icons/IconReport";
+import { ItemNotify } from "./ItemNotify";
 
 const NotifiScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
-
-  var fakeDataListTask = [
-    {
-      "notifyUserId":1,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":0,
-      "createrUser":0,
-      "avatarCreateUser":"tuananh.jpg",  "fullNameCreate":"Lê trọng Nam",
-      "type":1,   "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
-
-    },
-    {
-      "notifyUserId":2,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":0,
-      "createrUser":0,
-      "avatarCreateUser":"tuananh.jpg",  "fullNameCreate":"Lê trọng Nam",
-      "type":1,   "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
+  const [refreshing, setRefreshing] = useState(false);
+  const dataListNotify = useSelector(state => state.task?.dataListNotify);
+  const isGetNotify = useSelector(state => state.task?.isGetNotify);
+  useEffect(()=>{
+    dispatch(actionGetListNotify())
+  },[])
+  const handleRefresh = () => {
+    setRefreshing(true); // Đặt trạng thái là đang làm mới
+    dispatch(actionGetListNotify())
+    setRefreshing(false);
+  };
 
 
-    },
-    {
-      "notifyUserId":3,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":0,
-      "createrUser":1,
-      "avatarCreateUser":"tuananh.jpg",  "fullNameCreate":"Lê trọng Nam",
-      "type":1,   "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
-    },
 
-    {
-      "notifyUserId":4,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":0,
-      "createrUser":0,
-      "avatarCreateUser":"tuananh.jpg",  "fullNameCreate":"Lê trọng Nam",
-      "type":3,
-      "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
-
-    },
-    {
-      "notifyUserId":12,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":0,
-      "createrUser":0,
-      "avatarCreateUser":"tuananh.jpg",  "fullNameCreate":"Lê trọng Nam",
-      "type":4,
-      "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
-    },
-    {
-      "notifyUserId":66,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":1,
-      "createrUser":0,
-      "avatarCreateUser":"tuananh.jpg",  "fullNameCreate":"Lê trọng Nam",
-      "type":6,
-      "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
-    },
-    {
-      "notifyUserId":67,
-      "reciverUser":1,
-      "notifyId":"abcccc",
-      "isRead":1,
-      "createrUser":0,
-      "avatarCreateUser":"tuananh.jpg",
-      "fullNameCreate":"Lê trọng Nam",
-      "type":5,
-      "taskId":"T001",
-      "titleTask":"Tieu de của task T001",
-      "timeNotify":"10/08/2001"
-    },
-
-  ];
-  const handleItemNotifi=(item)=>{
-    navigation.navigate('DetailTask_Notifi',{taskId:item?.taskId})
-  }
-  const ItemNotfi = (props)=>{
-    const {item, navigation} = props
-    return(
-      <TouchableOpacity onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
-        paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"#F0F0F0"}}>
-        <FastImage
-          style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
-          source={{
-            uri:  (baseUrlAvatarUser+props.item?.avatarCreateUser)||''
-
-          }}
-          resizeMode={FastImage.resizeMode.stretch}
-        />
-        <View style={{alignSelf:"flex-end",marginLeft:-20,backgroundColor:"#FFCC00", borderRadius:16,padding:3}}>
-           <IconBell/>
-        </View>
-        <View style={{marginLeft:10,flex:0.98}}>
-          <Text style={{fontSize:15,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item.fullNameCreate+" "}
-            <Text style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular"}}>{getTypeNotifi(item.type)+" "}</Text>
-            <Text style={{fontSize:15,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item.titleTask}</Text>
-          </Text>
-        </View>
-      </TouchableOpacity>
-    )
-  }
 
   return (
     <View style={{height:'100%',backgroundColor:"#F0F0F0"}}>
       <HeaderComponent title={"THÔNG BÁO"} navigation={navigation}/>
-      <ScrollView>
-        <View style={{}}>
+        <LinearGradient  colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1,paddingBottom:'20%'}} >
           <FlatList
-            data={fakeDataListTask}
-            renderItem={({item}) => <ItemNotfi item={item} navigation = {navigation} />}
-            scrollEnabled={false}
+            data={dataListNotify}
+            renderItem={({item}) => <ItemNotify item={item} navigation = {navigation} dispatch={dispatch} />}
+            scrollEnabled={true}
+            initialNumToRender={10}
             keyExtractor={item => item.notifyUserId}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+              />}
           />
-        </View>
-      </ScrollView>
+          {isGetNotify?
+          <View style={{position:"absolute", flex:1,alignSelf:"center",height:'100%',justifyContent:'center'}}>
+            <ActivityIndicator size="large" color="#4577ef" />
+          </View>:null}
+
+        </LinearGradient>
     </View>
   );
 };

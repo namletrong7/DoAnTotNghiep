@@ -1,14 +1,26 @@
 /*
 *   Component hiển thị cho phép báo cáo tiến độ hoặc yêu cầu báo
 * */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 import IconSub from "../../../assets/icons/IconSub";
 import IconSum from "../../../assets/icons/IconSum";
+import { useDispatch } from "react-redux";
+import { actionChangePriorityTask, actionChangeProgressTask } from "../../../redux-store/actions/task";
 
-const DialogReport = ({ visible ,onClose}) => {
+const DialogReport = ({ visible ,onClose,taskId}) => {
+  const dispatch = useDispatch();
+
   const [progress, setProgress] = useState(0);
+  const handleChangePriorityTask = useCallback(async () => {
+    try {
+      await dispatch(actionChangeProgressTask(progress, taskId));
+      onClose();
+    } catch (error) {
+      console.error('Error changing priority of task:', error);
+    }
+  }, [ progress, taskId, onClose]);
   return (
     <Modal
       animationType="slide"
@@ -38,7 +50,7 @@ const DialogReport = ({ visible ,onClose}) => {
                   <Text style={{fontSize:16, color:"#0663b0",fontFamily:"OpenSans-SemiBold"}}>{"Hủy bỏ"}</Text>
                 </TouchableOpacity>
             <View style={{width:15}}/>
-            <TouchableOpacity  style={{flex:0.5,alignItems:"center",backgroundColor:"#009eac",height:'100%',justifyContent:"center",borderRadius:14}}>
+            <TouchableOpacity  onPress={handleChangePriorityTask} style={{flex:0.5,alignItems:"center",backgroundColor:"#009eac",height:'100%',justifyContent:"center",borderRadius:14}}>
               <Text style={{fontSize:16, color:"white",fontFamily:"OpenSans-SemiBold"}}>{"Cập nhập"}</Text>
             </TouchableOpacity>
           </View>

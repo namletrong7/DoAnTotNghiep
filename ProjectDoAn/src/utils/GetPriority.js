@@ -24,17 +24,34 @@ export  function getColorBackgroundPriority(Priority){
   return Priority?colorBackgroundPriority[Priority]:"#d4eacc";
 }
 // render ra state cua nhiệm vụ bao
-var stateList = ["Cần làm","Đang làm","Hoàn thành"]
+var stateTask = ["Cần làm","Đang làm","Hoàn thành"]
 export  function getState(state){
-  return state?stateList[state]:"Cần làm";
+  return state?stateTask[state]:"Cần làm";
 }
-
-
-var listTypeNotifi = ["Đã tạo công việc mới","Đã yêu cầu báo cáo tiến độ trong ",
-  "Đã báo cáo tiến độ trong","Đã bình luận vào bài viết","Đã chỉnh sửa thông tin công việc: ","Đã thêm bạn vào công việc: ",
-"Đã hoàn thành công việc"]
-export  function getTypeNotifi(type){
-  return listTypeNotifi?listTypeNotifi[type]:"Thông báo";
+// render ra mau chu state cua nhiệm vụ bao
+var colorTextStateTask = ["#2986ff","#fa7d52","#5f33e1"]
+export  function getColorTextStateTask(state){
+    return state?colorTextStateTask[state]:"#2986ff";
+}
+// render ra backgroun mau chu state cua nhiệm vụ bao
+var backgroundStateTask = ["#e3f3ff","#fee8e1","#e0dcf1"]
+export  function getBackgroundStateTask(state){
+    return state?backgroundStateTask[state]:"#e3f3ff";
+}
+// render ra state cua project   0-Chưa thực hiện 1-Đang thực hiện 2-tạm Dừng 3-Đã kêt thúc
+var stateProject = ["Chưa thực hiện","Đang thực hiện","Tạm dừng","Đã kết thúc"]
+export  function getStateProject(state){
+  return state?stateProject[state]:"Chưa thực hiện";
+}
+//lấy background của trạng thái dự án
+var backgroundColorStateProject = ["#d9d9d9","#dbedfd","#fdf3db","#e5f6dd"]
+export  function getBackgroundStateProject(state){
+  return state?backgroundColorStateProject[state]:"#d9d9d9";
+}
+//lấy màu của text của trạng thái dự án
+var textColorStateProject = ["#181818","#4191df","#ecae36","#62c241"]
+export  function getColorStateProject(state){
+  return state?textColorStateProject[state]:"#181818";
 }
 
 

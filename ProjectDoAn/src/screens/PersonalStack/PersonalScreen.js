@@ -2,7 +2,7 @@
  * Màn hình cá nhân của user đang đăng nhập đưa vào bottomtab
  */
 
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -25,8 +25,9 @@ import {
   actionLogout,
 } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 
-import FlashMessage, { showMessage } from "react-native-flash-message"
+import  { showMessage } from "react-native-flash-message"
 
 import IconLogOut from "../../assets/icons/IconLogOut";
 import FastImage from "react-native-fast-image";
@@ -36,10 +37,10 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconNight from "../../assets/icons/IconNight";
 import IconLanguage from "../../assets/icons/IconLanguage";
 import IconComputer from "../../assets/icons/IconComputer";
-import IconInfo from "../../assets/icons/IconInfo";
-import { useFocusEffect } from "@react-navigation/native";
+import IconInfo from "../../assets/icons/IconInfo";;
 import IconKey from "../../assets/icons/IconKey";
 import DialogConfirmComponent from "../../components/DialogConfirmComponent/DialogConfirmComponet";
+import LinearGradient from "react-native-linear-gradient";
 
 
 
@@ -50,33 +51,38 @@ export const PersonalScreen = React.memo(({navigation})=>{
   const [isShowLogOut, SetIsShowLogOut] = useState(false); // show dialog đăng xuát
   const dispatch = useDispatch();
 
-  const handleLogout=()=>{
+  const handleLogout=useCallback(()=>{
 
    dispatch(actionLogout())
 
-  }
-  const handleCloseLogout=()=>{
+  },[])
+
+  const handleCloseLogout=useCallback(()=>{
     SetIsShowLogOut(false)
-  }
-  const show=()=>{
+  },[])
+  const show=useCallback(()=>{
     showMessage({
       message: "Tính năng đang được phát triển",
       type: "warning",
       duration: 3000,
       icon: { icon: "warning", position: 'left' }
     });
-  }
-  const showInfo=()=>{
+  },[])
+  const showInfo=useCallback(()=>{
     showMessage({
       message: "Phiên bản 1.0.0",
       type: "warning",
       duration: 3000,
       icon: { icon: "warning", position: 'left' }
     });
-  }
+  },[])
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",paddingTop:StatusBar.currentHeight,height:'100%'}}>
-
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
+    <LinearGradient   colors={['#e3efdd', '#faeeca', '#deedda']}  style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+      <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}/>
       <ScrollView
         contentContainerStyle={{padding:15, }}
         showsVerticalScrollIndicator={false}>
@@ -84,25 +90,25 @@ export const PersonalScreen = React.memo(({navigation})=>{
                <View>
                    <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"Cá nhân bạn"}</Text>
                </View>
-             <TouchableOpacity style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <TouchableOpacity onPress={()=>{navigation.navigate("ProFilePersonalScreen")}} style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
                <FastImage
                  style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
                  source={{
                    uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
                  }}
                  resizeMode={FastImage.resizeMode.stretch}/>
-               <View>
+               <View style={{flex:1}}>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{dataCurrentUser?.fullName||'Họ và tên'}</Text>
                  <Text style={{ fontSize: 14, color: "#999999",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Xem thông tin chi tiết của bạn"}</Text>
                </View>
 
              </TouchableOpacity>
-             <TouchableOpacity onPress={()=>{SetIsShow(!isShow)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
-               <IconSetting/>
-               <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Cài đặt & Quyền riêng tư "}</Text>
-               <View style={{marginLeft:'15%'}}>
-                 <IconArrowDown/>
+             <TouchableOpacity onPress={()=>{SetIsShow(!isShow)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16,justifyContent:'space-between'}}>
+               <View style={{flexDirection:"row"}}>
+                 <IconSetting/>
+                 <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Cài đặt & Quyền riêng tư "}</Text>
                </View>
+               <IconArrowDown/>
              </TouchableOpacity>
 
              {isShow?(
@@ -135,11 +141,12 @@ export const PersonalScreen = React.memo(({navigation})=>{
                  <IconLogOut/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đăng xuất"}</Text>
              </TouchableOpacity>
-
            </View>
       </ScrollView>
+
       <DialogConfirmComponent visible={isShowLogOut} onConfirm={handleLogout} onClose={handleCloseLogout} content={"Bạn có chắc chắn đăng xuất khỏi ứng dụng ? Nhấn 'Đồng ý' để thực hiện đăng xuất "}   />
-    </SafeAreaView>
+    </LinearGradient>
+    </Animated.View>
   );
 })
 

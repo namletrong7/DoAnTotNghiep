@@ -49,7 +49,9 @@ import ModalLoading from "./ModalLoading/ModalLoading";
 import { dataPriority } from "../../utils/GetPriority";
 import HeaderComponent from "../../components/header/HeaderComponent";
 import { createListProjectDropDown } from "../../utils/CreateListDropDown";
-const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
+import { actionGetListUserProject } from "../../redux-store/actions/user";
+import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
+export const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
 export const AddTaskScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
   const dataAllProject = useSelector(state => state.project.dataAllProject);
@@ -73,12 +75,13 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   const richText = useRef();
-  const [descHTML, setDescHTML] = useState("");
+  const [descHTML, setDescHTML] = useState( '<div></div>');
   const richTextHandle = (descriptionText) => {
     if (descriptionText) {
       setDescHTML(descriptionText);
+   //   console.log(descriptionText)
     } else {
-      setDescHTML("");
+      setDescHTML(<div></div>);
     }
   };
    // hàm mở lại picker chon ngày bắt đầu
@@ -117,104 +120,15 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
 
   // hàm chọn value cho project Id dc chọn
-  const onSelectProjectId=item=>{
-         setValueProjectId(item.value)
-
+  const onSelectProjectId=async item => {
+    setValueProjectId(item.value)
+    await dispatch(actionGetListUserProject(item.value))
   }
   const onSelectPriority=item=>{
     setValuePriority(item.value)
 
   }
 
-  const UserProject=useMemo(()=>{
-    return [
-      {
-        "userId": "1",
-        "userName": "namltc",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "John Doe",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "avatar.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "avatar.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "avatar.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "anh.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      },
-      {
-        "userId": "2",
-        "userName": "john_doe",
-        "firstName": "John",
-        "lastName": "Doe",
-        "fullName": "vanptt",
-        "email": "john.doe@example.com",
-        "phoneNumber": "123456789",
-        "gender": "1",
-        "isActive": "1",
-        "passWord": "password123",
-        "createdByUserid": "admin_user",
-        "avatarUser": "anh.jpg",
-        "positionLevel": "2",
-        "birthDay": "1990-01-01 00:00:00",
-        "isAdmin": "1"
-      }
-    ]
-  })
 // hàm hõ trợ láy ra các file từ điện thoại
   const pickDocument = async () => {
      if(pickedFile.length>=5){
@@ -231,7 +145,8 @@ export const AddTaskScreen = React.memo(({navigation})=>{
          const result = await DocumentPicker.pick({
            type: [DocumentPicker.types.allFiles], // Chọn tất cả các loại file
          });
-
+    //     console.log(result)
+         // setPickedFile((prevFiles) => [...prevFiles, ...result]);
          if (result[0].size >= MaxFileSize) {
            showMessage({
              message: "Vui lòng chọn file có kích thước nhỏ hơn 10MB ",
@@ -307,29 +222,29 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
   return (
     <View>
-      <HeaderComponent title={"Thêm công việc mới"} navigation={navigation} back/>
+      <HeaderComponent title={"Tạo công việc"} navigation={navigation} back/>
       <KeyboardAwareScrollView
         style={styles.container}
         scrollEnabled={true}
         keyboardShouldPersistTaps="handled">
 
          <View style={{marginHorizontal:15,paddingBottom:'50%'}}>
-          <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={50}/>
+          <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={45}/>
            <DropDownMenu data={createListProjectDropDown(dataAllProject)} value={valueProjectId} title={"Chọn project của bạn"} onSelectItem = {onSelectProjectId} label={"Nhấn để chọn project"}/>
-           <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên của công việc"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
+           <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
            <View  style={{marginTop:15,marginBottom:15}}>
-             <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold" }}>{"Người xử lý chính *"}</Text>
-             <TouchableOpacity onPress={()=>{setIsShowModalUser(true)}} style={{flexDirection:"row", borderRadius: 10, borderColor: "#4577ef", borderWidth:0.5,height:60,marginTop:10, alignItems:"center"}}>
+             <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{"Người xử lý chính *"}</Text>
+             <TouchableOpacity onPress={()=>{setIsShowModalUser(true)}} style={{flexDirection:"row", borderRadius: 10, backgroundColor: "#DDDDDD",height:50,marginTop:10, alignItems:"center"}}>
                <FastImage
-                 style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",marginLeft:20}}
+                 style={{ width: 35, height: 35,borderRadius: 35/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF",marginLeft:20}}
                  source={{
-                   uri: "http://192.168.1.109:8080/DOAN/avatarUser/"+targetUser.avatarUser
+                   uri: baseUrlAvatarUser+targetUser.avatarUser
                  }}
                  resizeMode={FastImage.resizeMode.stretch}
 
                />
                <Text style={{
-                 fontSize: 15,
+                 fontSize: 14,
                  marginLeft:20,
                  color: "black",
                  fontFamily: "OpenSans-SemiBold",
@@ -341,9 +256,11 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
 
            <ListFileAttach dataFilePicker={pickedFile} handleDelete = {handleDeleteItemFile}/>
-            <TouchableOpacity  onPress={()=>{pickDocument()}} style={{alignItems:"center", justifyContent:"center", marginTop:15}}>
-              <IconUpload/>
-             <Text style={{fontSize:15, color:"#4577ef",fontFamily:"OpenSans-SemiBold",marginRight:10}}>{"Nhấn để chọn file"}</Text>
+            <TouchableOpacity  onPress={()=>{pickDocument()}} style={{alignItems:"center", justifyContent:"center", marginTop:15, borderColor:"#148eff",borderWidth:1,borderRadius:8, borderStyle:"dashed",padding:10}}>
+              <View style={{width:70,height:70,borderRadius:25, backgroundColor:"#c7e4ff",alignItems:"center",justifyContent:'center'}}>
+                <IconUpload />
+              </View>
+             <Text style={{fontSize:15, color:"#148eff",fontFamily:"OpenSans-SemiBold",marginRight:10}}>{"Nhấn để chọn file đính kèm"}</Text>
            </TouchableOpacity>
            <View style={styles.richTextContainer}>
              <RichEditor
@@ -378,7 +295,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
              />
            </View>
            {/*<TextInputComponent textInput={content} setTextInput={setContent} title={"Nội dung công việc *"} placeHolder={"Nhập nội dung công việc "} height={150}/>*/}
-           <ModalUserProject visible={isShowModalUser} data={UserProject} onClose={onCloseUser} handleItem={handelItemUser}/>
+           <ModalUserProject targetUser={targetUser} visible={isShowModalUser} onClose={onCloseUser} handleItem={handelItemUser}/>
            <TouchableOpacity onPress={()=>{addTask()}} style={{height:60, borderRadius:17, backgroundColor:"#4577ef", marginTop:30,alignItems:'center', justifyContent:'center'}}>
              <Text style={{
                fontSize: 17,

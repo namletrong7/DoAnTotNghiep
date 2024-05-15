@@ -1,12 +1,28 @@
 /*
 *   Component hiển thị cho phép báo cáo tiến độ hoặc yêu cầu báo
 * */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from "react";
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import { rgbaColor } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
+import { actionReportTask } from "../../../redux-store/actions/task";
 
-const DialogReport = ({ visible,title, onClose, type }) => {
+const DialogReport = ({ visible,title, onClose, type,taskId ,dispatch,userId}) => {
   const [content, setContent] = useState("");
+
+  const handleReportTask = useCallback(async () => {
+    try {
+      await dispatch(actionReportTask({
+        taskId: taskId,
+        createUser: userId,
+        content: content,
+        typeTask: type
+      }));
+      setContent('');
+      onClose();
+    } catch (error) {
+      console.error('Error reporting task:', error);
+    }
+  }, [  taskId, userId, content, type]);
   return (
     <Modal
       animationType="slide"
@@ -32,7 +48,7 @@ const DialogReport = ({ visible,title, onClose, type }) => {
                   <Text style={{fontSize:16, color:"#0663b0",fontFamily:"OpenSans-SemiBold"}}>{"Hủy bỏ"}</Text>
                 </TouchableOpacity>
             <View style={{width:15}}/>
-            <TouchableOpacity  style={{flex:0.5,alignItems:"center",backgroundColor:"#009eac",height:'100%',justifyContent:"center",borderRadius:14}}>
+            <TouchableOpacity onPress={handleReportTask} style={{flex:0.5,alignItems:"center",backgroundColor:"#009eac",height:'100%',justifyContent:"center",borderRadius:14}}>
               <Text style={{fontSize:16, color:"white",fontFamily:"OpenSans-SemiBold"}}>{"Đồng ý"}</Text>
             </TouchableOpacity>
           </View>

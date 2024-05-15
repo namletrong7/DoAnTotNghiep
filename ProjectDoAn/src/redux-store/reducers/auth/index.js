@@ -1,8 +1,10 @@
 
 const initialState = {
-  token:null,
+    token:null,
     isLoginSuccess: false,
-    dataCurrentUser:{}
+    dataCurrentUser:{},
+    dataNumProject:{},
+    dataNumTask:{}
 };
 const reducerAuth = (state = initialState, action) => {
     let newState = { ...state };
@@ -50,6 +52,6 @@ const reducerAuth = (state = initialState, action) => {
         default:
             return state
     }
-
+    return state
 }
 export default reducerAuth

@@ -6,87 +6,117 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, Platform,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
+
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
 
-
-import ItemTask from "../../components/itemTask/ItemTask";
 import FastImage from "react-native-fast-image";
 import LottieView from "lottie-react-native";
 import IconPlus from "../../assets/icons/IconPlus";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconArrowDown from "../../assets/icons/IconArrowDown";
-import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
-import BottomSheet, {BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
-import {useRef} from "react/index";
-import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
-import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
 import { actionGetAllProject } from "../../redux-store/actions/project";
+import IconSum from "../../assets/icons/IconSum";
+import ProjectChartComponet from "../../components/ProjectChart/ProjectChartComponet";
+import ItemProjectVertical from "../../components/itemProject/ItemProjectVertical";
+import ItemProjectHorizontal from "../../components/itemProject/ItemProjectHorizontal";
+import IconArrowRight from "../../assets/icons/IconArrowRigth";
+import IconSayhi from "../../assets/icons/IconSayhi";
+import LinearGradient from "react-native-linear-gradient";
+import messaging from "@react-native-firebase/messaging";
+
 
 const HomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   const dataAllProject = useSelector(state => state.project.dataAllProject);
+  const [isShowMoreAdd, setIsShowMoreAdd]=useState(false);// show thêm lựa chọn thêm projet hay công việc
   useEffect(()=>{
       dispatch(actionGetAllProject())
   },[])
 
+  const helo= async () => {
+    try {
+       await messaging().onTokenRefresh((newToken)=>{
+ //       console.log(newToken)
+      });
 
+    }catch (e){
+ //     console.log(e)
+    }
+
+  }
 
 
 
 
   return (
-    <SafeAreaView style={{backgroundColor:"#F0F0F0",paddingTop:StatusBar.currentHeight, flex:1}}>
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{height:"100%"}}>
+      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
+        <StatusBar
+          translucent
+          backgroundColor={'transparent'}
+        />
+      </View>
+      <SafeAreaView>
       <ScrollView>
-        <View style={{paddingHorizontal:10}}>
-          <View style={{marginVertical:10,}}>
-            <View style={{flexDirection:"row",justifyContent:"space-between",}}>
-              <Image
-                source={require('../../assets/images/logo.png')}
-                style={{  width: 200,
-                  height: 60,
-                  alignSelf:"flex-start" }}
-              />
+        <View  style={{paddingHorizontal:10,paddingBottom:"40%",height:"100%"}}>
+          <View style={{marginVertical:10}}>
+            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
               <FastImage
-                style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
-                source={{
-                  uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
-              }}
-                resizeMode={FastImage.resizeMode.stretch}/>
+                  style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",alignSelf:"center"}}
+                  source={{
+                    uri: (baseUrlAvatarUser+dataCurrentUser?.avatarUser)||'https://raw.githubusercontent.com/gist/vinhjaxt/fa4208fd6902dd8b2f4d944fa6e7f2af/raw/454f58aeac4fdeb459476eae7128dc6ff57df25f/logo-hvktmm.png'
+                  }}
+                  resizeMode={FastImage.resizeMode.stretch}/>
+              <View style={{flexDirection:"row", flex:1}}>
+                <View>
+                  <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{"Hello,"}</Text>
+                  <Text style={{fontSize:16, color:"black",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{(dataCurrentUser?.fullName)||''}</Text>
+                </View>
+                <IconSayhi/>
+              </View>
+
 
             </View>
-             <View style={{flexDirection:"row", }}>
-               <View>
-                 <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Hello,"}</Text>
-                 <Text style={{fontSize:30, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{(dataCurrentUser?.fullName)||'Vu thi thu ha'}</Text>
-               </View>
-               <LottieView style={{width:90, height:90, alignSelf:"center",marginLeft:-80,marginTop:-20}} source={require('../../assets/animation/cat.json')} autoPlay loop />
-             </View>
+
 
           </View>
-          <Text style={{fontSize:20, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>
+            <ProjectChartComponet/>
+          <View style={{flexDirection:'row', justifyContent:'space-between' }}>
+            <Text style={{fontSize:14, color:"black",fontFamily:"Roboto-Bold",marginVertical:5}}>{'Dự án bạn tham gia'}</Text>
+            <TouchableOpacity style={{flexDirection:'row', justifyContent:'space-between',alignItems:'center' }}>
+              <Text style={{fontSize:14, color:"#6699FF",fontFamily:"Roboto-Bold"}}>{'Tất cả'}</Text>
+              <IconArrowRight width={20} height={20}/>
+            </TouchableOpacity>
+          </View>
               <FlatList
                 data={dataAllProject}
-                renderItem={({item}) => <ItemProject item={item} navigation = {navigation} />}
+                horizontal={false}
+                renderItem={({item}) => <ItemProjectVertical item={item} navigation = {navigation} />}
                 scrollEnabled={false}
                 keyExtractor={item => item.projectId}
               />
-
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
-         <IconPlus/>
+      </SafeAreaView>
+      {isShowMoreAdd&&
+      <View style={{position:"absolute",right:20, bottom:170, width:140}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate("AddProjectScreen")}} style={{justifyContent:'flex-start', alignItems:'center', paddingVertical:5, borderRadius:15, backgroundColor:"#e5f6dd",flexDirection:"row"}}>
+          <IconSum height={25} width={25}/>
+          <Text style={{fontSize:15, color:"#62c241",fontFamily:"Roboto-Bold",marginLeft:5,}}>{"Tạo dự án"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'flex-start',marginTop:10, alignItems:'center',paddingVertical:5, borderRadius:15, backgroundColor:"#dbedfd",flexDirection:"row"}}>
+          <IconSum height={25} width={25}/>
+          <Text style={{fontSize:15, color:"#4191df",fontFamily:"Roboto-Bold",marginLeft:5,flex:1}}>{"Tạo công việc"}</Text>
+        </TouchableOpacity>
+      </View>}
+      <TouchableOpacity onPress={()=>{setIsShowMoreAdd(!isShowMoreAdd)}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:100, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>
+        <IconPlus/>
       </TouchableOpacity>
 
-
-    </SafeAreaView>
+    </LinearGradient>
   );
 };
 

@@ -3,8 +3,8 @@ import Svg, { SvgProps, Path, Defs, RadialGradient, Stop } from "react-native-sv
 
 const IconBell = (props) => (
   <Svg
-    width={14}
-    height={14}
+    width={15}
+    height={15}
     viewBox="-2 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

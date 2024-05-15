@@ -1,3 +1,5 @@
+import { actionGetTargetTaskByEndDay } from "../../actions/task";
+
 const initialState = {
     isLoadingAddTask: false ,
     isGetDetailTask:false,
@@ -22,8 +24,15 @@ const initialState = {
     dataTargetTask:[],
     isGetTaskDone:false,
     dataTaskDone:[],
-    isGetMoreAssignTask:false
-
+    isGetMoreAssignTask:false,
+    isSearchTask:false,
+    dataSearchTask:false,
+    dataTargetTaskByEndDay:[],
+    isFilterTask:false,
+    dataCheckList:[],
+    dataListNotify:[],
+    isGetNotify:false,
+    isAddComment:false,
 }
 const reducerTask = (state =initialState , action) => {
     switch (action.type) {
@@ -55,7 +64,9 @@ const reducerTask = (state =initialState , action) => {
         // láy dc detailtask
         case 'GET_DETAIL_TASK': {
             return { ...state,
-                detailTask: action.data.dataDetailTask
+                detailTask: action.data.dataDetailTask,
+                dataCheckList:action.data.dataDetailTask.dataCheckList,
+                isGetDetailTask:false
             };
         }
         // kết thúc detailtask
@@ -74,7 +85,8 @@ const reducerTask = (state =initialState , action) => {
       // láy dc file đính kèm
         case 'GET_FILE_ATTACH': {
             return { ...state,
-                dataFileAttach: action.data.fileAttach
+                dataFileAttach: action.data.fileAttach,
+                isGetFileAttach:false
             };
         }
       // kết thúc lấy file đính kèm
@@ -123,7 +135,7 @@ const reducerTask = (state =initialState , action) => {
         }
       // kết thúc lấy comment task
         case 'ADD_COMMENT_TASK': {
-            const updatedComments = [action.data, ...state.dataCommentTask];
+            const updatedComments = [...state.dataCommentTask,action.data];
             return { ...state,
                 dataCommentTask:  updatedComments
             };
@@ -180,9 +192,66 @@ const reducerTask = (state =initialState , action) => {
                 isGetMoreAssignTask: false
             };
         }
+        case 'EDIT_COMMENT': {
+            return { ...state,
+                dataCommentTask: state.dataCommentTask.map(comment =>
+                  comment.commentId === action.data.commentId
+                    ? { ...comment, content: action.data.content }
+                    : comment
+                ),
+            };
+        }
+        case 'DELETE_COMMENT': {
+            return { ...state,
+                dataCommentTask:state.dataCommentTask.filter(comment =>
+                  comment.commentId !== action.data.commentId
+                ),
+
+            };
+        }
+        case 'GET_SEARCH_TASK': {
+            return { ...state,
+                dataSearchTask: action?.data
+            };
+        }
+        case 'RESET_SEARCH_TASK': {
+            return { ...state,
+                dataSearchTask: []
+            };
+        }
+        case 'GET_TARGET_TASK_BY_END': {
+            return { ...state,
+                dataTargetTaskByEndDay: action?.data
+            };
+        }
+        case 'ADD_CHECKLIST': {
+            const updatedCheckList = [action.data,...state.dataCheckList ];
+            return { ...state,
+                dataCheckList:  updatedCheckList
+            };
+        }
+        case 'SET_CHECK_LIST': {
+            return { ...state,
+                dataCheckList: state.dataCheckList.map(item =>
+                    item.checkId === action.data.checkId
+                        ? { ...item, status: action.data?.status }
+                        : item
+                ),
+            };
+        }
+        case 'SET_IS_READ_NOTIFY': {
+            return { ...state,
+                dataListNotify: state.dataListNotify.map(item =>
+                  item.notifyUserId === action.data.notifyUserId
+                    ? { ...item, isRead: 1 }
+                    : item
+                ),
+            };
+        }
         default:
             return state
     }
+    return state
 
 }
 export default reducerTask

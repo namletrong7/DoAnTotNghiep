@@ -6,15 +6,11 @@ export const DropDownMenu =React.memo((props)=> {
 
   return (
     <View style={{marginTop:10}}>
-      <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold" }}>{props.title}</Text>
-
-
-
+      <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold" }}>{props.title}</Text>
       <Dropdown
         style={{
           height: 50,
-          borderColor: '#4577ef',
-          borderWidth: 0.5,
+          backgroundColor: '#DDDDDD',
           borderRadius: 8,
           paddingHorizontal: 8,
           marginTop:10

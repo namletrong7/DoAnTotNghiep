@@ -2,17 +2,18 @@
  * Componet hiển thị danh sách bình luận
  */
 
-import React, { Component, useState } from "react";
+import React, {Component, useCallback, useEffect, useState} from "react";
 import ImagePicker from 'react-native-image-crop-picker';
 import {
-  Dimensions,
-  FlatList, Image, KeyboardAvoidingView, Platform,
-  SafeAreaView,
-  StyleSheet,
-  Text, TextInput,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
+    ActivityIndicator,
+    Dimensions,
+    FlatList, Image, KeyboardAvoidingView, Platform,
+    SafeAreaView,
+    StyleSheet,
+    Text, TextInput,
+    TouchableOpacity,
+    useWindowDimensions,
+    View,
 } from "react-native";
 
 
@@ -20,7 +21,7 @@ import FastImage from 'react-native-fast-image'
 import IconSend from "../../assets/icons/IconSend";
 
 import { actionAddComment } from "../../redux-store/actions/auth";
-import { connect, useDispatch } from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import IconArrowDown from "../../assets/icons/IconArrowDown";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import { showMessage } from "react-native-flash-message";
@@ -28,22 +29,22 @@ import { actionAddCommentTask } from "../../redux-store/actions/task";
 import IconCam from "../../assets/icons/IconCam";
 import IconClose from "../../assets/icons/IconClose";
 const SendCommentComponent = (props)=> {
-  const dispatch = useDispatch();
+     const dispatch = useDispatch();
     const [imageUri, setImageUri] = useState(null);
+    const isAddComment = useSelector(state => state.task?.isAddComment);
   const [content, setContent] = useState("");
-
-    const sendComment=()=>{
-      dispatch(actionAddCommentTask(props.taskId,content))
+    const sendComment=useCallback(()=>{
+      dispatch(actionAddCommentTask(props?.taskId,content))
       setContent('')
       setImageUri(null)
 
-    }
+    },[props?.taskId,content])
    function  chooseImage(){
        ImagePicker.openPicker({
          mediaType: 'photo', // Chỉ chọn ảnh
          compressImageQuality: 0.4,
        }).then(image => {
-         console.log(image)
+   //      console.log(image)
            setImageUri(image.path);
        });
    }
@@ -70,11 +71,12 @@ const SendCommentComponent = (props)=> {
                         value={content}
                     />
                 </View>
+                {isAddComment?<ActivityIndicator size='small' color="#0066FF" />:
                 <TouchableOpacity onPress={() => {
                     sendComment()
                 }}>
                     <IconSend />
-                </TouchableOpacity>
+                </TouchableOpacity> }
             </View>
         </SafeAreaView>
 

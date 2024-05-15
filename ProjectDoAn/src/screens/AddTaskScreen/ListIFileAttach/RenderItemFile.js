@@ -5,10 +5,10 @@ import React from "react";
 
 export const  RenderItemFile = React.memo((props) => {
   return(
-    <TouchableOpacity onPress={()=>props.handleDelete(props.index)} style={{marginTop: 5,paddingVertical:5,paddingHorizontal:5, borderRadius:20, backgroundColor:"#CCCCCC",flexDirection:"row", alignItems:"center",justifyContent:"space-around",flex:0.5,height:50,marginRight:5}}>
-      <IconFileSmall/>
-      <Text style={{marginLeft:10,flex:0.9,fontSize:13, color:"black",fontFamily:"OpenSans-SemiBold",marginRight:10, }}>{props.item.name}</Text>
-      <IconX/>
+    <TouchableOpacity onPress={()=>props.handleDelete(props.index)} style={{marginTop: 5, borderRadius:10,paddingVertical:2, borderWidth:1,borderColor:"#168cfa", alignItems:"center",height:90,width:70,marginRight:5}}>
+        <IconX height={15} width={15} style={{alignSelf:"flex-end"}}/>
+        <IconFileSmall/>
+      <Text numberOfLines={3} style={{fontSize:10, color:"black",fontFamily:"OpenSans-Regular",marginHorizontal:5}}>{props.item?.name}</Text>
     </TouchableOpacity>
   )
 })

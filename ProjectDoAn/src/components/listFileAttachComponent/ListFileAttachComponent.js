@@ -33,6 +33,9 @@ import { baseUrlLinkFile } from "../../api/ConstBaseUrl";
 import { showMessage } from "react-native-flash-message";
 import {downloadFile} from "../../utils/downLoadFile";
 import {RenderItemFile} from "./RenderItemFile";
+import IconComment from "../../assets/icons/IconComment";
+import IconAttach from "../../assets/icons/IconAttach";
+import IconAttachFile from "../../assets/icons/IconAttachFile";
 
 
 export const ListFileAttachComponent = React.memo((props) => {
@@ -87,19 +90,19 @@ export const ListFileAttachComponent = React.memo((props) => {
     return (
       <View style={styles.container}>
 
-        <TouchableOpacity style={{ flexDirection: "row", justifyContent: "space-between" }} onPress={() => {
-          setSeeAll(!seeAll);
-        }}>
-          <Text style={{ fontSize: 18, color: "black", fontFamily: "OpenSans-SemiBold" }}
-                numberOfLines={10}>{"File đính kèm"}</Text>
-          <View>
-            {seeAll ? <IconArrowDown /> : <IconArrowUp />}
+        <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSeeAll(!seeAll)} }>
+          <View style={{flexDirection:"row",alignItems:"center"}}>
+            <IconAttachFile width={20} height={20}/>
+            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Tệp đính kèm"}</Text>
           </View>
+          {seeAll? <IconArrowDown/>:<IconArrowUp/>}
         </TouchableOpacity>
         {seeAll ? (
           dataListFileTask?.length > 0 ? <FlatList
               data={dataListFileTask}
-              scrollEnabled={false}
+              scrollEnabled={true}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => <RenderItemFile item={item} />}
               keyExtractor={(item, index) => index.toString()}
             /> :
@@ -113,8 +116,11 @@ export const ListFileAttachComponent = React.memo((props) => {
 );
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    marginTop: 19,
+    display:"flex",
+    marginTop: 10,
+    backgroundColor:"white",
+    padding:7,
+    borderRadius:8
   },
 
 });

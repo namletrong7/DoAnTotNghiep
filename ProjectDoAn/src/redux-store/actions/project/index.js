@@ -2,7 +2,7 @@ import Api from "../../../api/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { randomKeyComment } from "../../../utils/RandomKeyComment";
-import { getNewDate } from "../../../utils/ConverPickerDate";
+
 
 /**
  * Created by NamLTC on 29/01/2024
@@ -57,6 +57,7 @@ export function actionGetAllProject() {
 
     };
 }
+
 export function actionGetDetailProject(projectId) {
     return async (dispatch, getState) => {
         dispatch(updateData({
@@ -93,9 +94,82 @@ export function actionGetDetailProject(projectId) {
 
     };
 }
-//
+export function actionAddProject(body) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isAddProject:true
+        }))
+        try {
+            const response = await Api(false).addProject(body);
+     //      console.log(response.data)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 1500,
+                    icon: { icon: "success", position: 'left' }
+                });
+                dispatch(updateData({
+                    isAddProject:false
+                }))
+            }else{
+                dispatch(updateData({
+                    isAddProject:false
+                }))
+            }
 
 
+        } catch (error) {
+
+            dispatch(updateData({
+                isAddProject:false
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+
+export function actionSearchProject(text) {
+    return async (dispatch, getState) => {
+        dispatch(updateData({
+            isSearchProject :true,
+            dataSearchProject:[]
+        }))
+        try {
+            const response = await Api(false).searchProject(text)
+            if(response.data && response.data.status==200) {
+                await dispatch({
+                    type: "GET_SEARCH_PROJECT",
+                    data: response.data?.dataProjectSearch
+                });
+            }
+            dispatch(updateData({
+                isSearchProject :false
+            }))
+
+
+        } catch (error) {
+
+            dispatch(updateData({
+                isSearchProject :false
+
+            }))
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
 
 export default {
     actionGetAllProject

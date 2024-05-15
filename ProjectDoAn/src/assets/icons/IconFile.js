@@ -1,27 +1,79 @@
 import * as React from "react"
-import Svg, { SvgProps, Path } from "react-native-svg"
+import Svg, {SvgProps, Path, Rect, Stop, LinearGradient, Defs} from "react-native-svg"
 
 const IconFile = (props) => (
-  <Svg
-    width={40}
-    height={40}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-
-  >
-    <Path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14v-4c0-3.771 0-5.657 1.172-6.828C4.343 2 6.239 2 10.03 2c.606 0 1.091 0 1.5.017-.013.08-.02.161-.02.244l-.01 2.834c0 1.097 0 2.067.105 2.848.114.847.375 1.694 1.067 2.386.69.69 1.538.952 2.385 1.066.781.105 1.751.105 2.848.105h4.052c.043.534.043 1.19.043 2.063V14c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22Z"
-      fill="#1C274C"
-      opacity={0.5}
-    />
-    <Path
-      d="m11.51 2.26-.01 2.835c0 1.097 0 2.066.105 2.848.114.847.375 1.694 1.067 2.385.69.691 1.538.953 2.385 1.067.781.105 1.751.105 2.848.105h4.052c.013.155.022.321.028.5H22c0-.268 0-.402-.01-.56a5.322 5.322 0 0 0-.958-2.641c-.094-.128-.158-.204-.285-.357C19.954 7.494 18.91 6.312 18 5.5c-.81-.724-1.921-1.515-2.89-2.162-.832-.555-1.248-.833-1.819-1.04a5.488 5.488 0 0 0-.506-.153c-.384-.095-.758-.128-1.285-.14l.01.255Z"
-      fill="#1C274C"
-    />
-  </Svg>
+    <Svg
+      width={30}
+      height={30}
+        viewBox="0 0 32 32"
+        data-name="Layer 1"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+      <Defs>
+        <LinearGradient
+            gradientUnits="userSpaceOnUse"
+            id="a"
+            x1={4}
+            x2={25}
+            y1={16}
+            y2={16}
+        >
+          <Stop offset={0} stopColor="#f9dcc4" />
+          <Stop offset={0.01} stopColor="#f8dbc2" />
+          <Stop offset={0.12} stopColor="#f3ceb1" />
+          <Stop offset={0.26} stopColor="#f0c5a6" />
+          <Stop offset={0.46} stopColor="#eebf9f" />
+          <Stop offset={1} stopColor="#edbe9d" />
+        </LinearGradient>
+        <LinearGradient
+            gradientUnits="userSpaceOnUse"
+            id="b"
+            x1={7.48}
+            x2={27.52}
+            y1={8.98}
+            y2={29.02}
+        >
+          <Stop offset={0} stopColor="#f9dcc4" />
+          <Stop offset={0.32} stopColor="#f8d9c0" />
+          <Stop offset={0.64} stopColor="#f4cfb3" />
+          <Stop offset={0.98} stopColor="#eebf9f" />
+          <Stop offset={1} stopColor="#edbe9d" />
+        </LinearGradient>
+      </Defs>
+      <Rect
+          height={22}
+          rx={2.5}
+          width={21}
+          x={4}
+          y={5}
+          style={{
+            fill: "url(#a)",
+          }}
+      />
+      <Rect
+          height={22}
+          rx={2.5}
+          width={21}
+          x={7}
+          y={8}
+          style={{
+            fill: "url(#b)",
+          }}
+      />
+      <Path
+          d="M20 2a5 5 0 0 0-5 5v5a2 2 0 0 0 3 1.73v1.77a3.5 3.5 0 0 0 7 0V7a5 5 0 0 0-5-5Z"
+          style={{
+            fill: "#f8edeb",
+          }}
+      />
+      <Path
+          d="M20 2a5 5 0 0 0-5 5v4.5a.5.5 0 0 0 1 0V7a4 4 0 0 1 8 0v8.5a2.5 2.5 0 0 1-5 0V7a1 1 0 0 1 2 0v8.5a.5.5 0 0 0 1 0V7a2 2 0 0 0-4 0v8.5a3.5 3.5 0 0 0 7 0V7a5 5 0 0 0-5-5Z"
+          style={{
+            fill: "#577590",
+          }}
+      />
+    </Svg>
 )
 
 export default IconFile

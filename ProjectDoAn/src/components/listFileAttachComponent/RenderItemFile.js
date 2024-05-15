@@ -1,13 +1,14 @@
 import {Platform, Text, TouchableOpacity, View} from "react-native";
-import {downloadFile} from "../../utils/downLoadFile";
-import {baseUrlLinkFile} from "../../api/ConstBaseUrl";
+import {checkFileExists, downloadFile} from "../../utils/downLoadFile";
 import RNFetchBlob from "rn-fetch-blob";
-import IconDownLoad from "../../assets/icons/IconDownLoad";
 import React from "react";
 import IconPdf from "../../assets/icons/IconPdf";
 import IconDoc from "../../assets/icons/IconDoc";
 import IconXLS from "../../assets/icons/IconXLS";
 import IconFile from "../../assets/icons/IconFile";
+import { Circle, Svg } from "react-native-svg";
+import FileViewer from "react-native-file-viewer";
+
 
 /**
  * Created by TuanTQd on 21/03/2024
@@ -34,42 +35,65 @@ const RenderIcon = (props) => {
 
 };
  export  const RenderItemFile = React.memo((props) => {
-    return (
+   const [percentage, setPercentage] = React.useState(0);
+   const [isShowProgress, setIsShowProgress] = React.useState(false);
+   const size = 30;
+   const strokeWidth = 2;
+   const radius = (size - strokeWidth) / 2;
+   const circum = radius * 2 * Math.PI;
+   const svgProgress = 100 - percentage;
+   const filePath = RNFetchBlob.fs.dirs.DownloadDir+"/pmkma/" + props?.item?.fileName;
+   const filePathIOS = RNFetchBlob.fs.dirs.DocumentDir + props?.item?.fileName;
+   return (
         <TouchableOpacity style={{
             marginTop: 10,
-            flexDirection: "row",
             alignItems: "center",
             justifyContent: "flex-start",
             flex: 1,
         }}
                           onPress={() => {
-                              if (Platform.OS === 'android') {
-                                  downloadFile(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName);
-                              } else {
-                                  downloadFile(baseUrlLinkFile+props?.item?.filePath,props?.item?.fileName).then(res => {
-                                      RNFetchBlob.ios.previewDocument(res.path());
-                                  });
-                              }
+                                  downloadFile(setIsShowProgress,filePath, filePathIOS,setPercentage,props?.item?.filePath,props?.item?.fileName)
                           }}>
 
             <View style={{
-                flex: 0.88, flexDirection: "row", alignItems: "center", borderRadius: 16,
-                backgroundColor: "#DDDDDD", paddingVertical: 5,
-                paddingHorizontal: 5,
+                flex: 1, alignItems: "center",width:150, borderRadius: 10,
+                borderColor: "#1E90FF",borderWidth:1, paddingVertical: 10,
+                paddingHorizontal: 5,marginHorizontal:4, borderStyle:"dashed",
+              flexDirection:'row'
             }}>
-                <View style={{ paddingHorizontal:6 }}>
                     <RenderIcon extension={props.item?.extension} />
-                </View>
-                <Text numberOfLines={2} style={{
-                    fontSize: 15,
+                <Text numberOfLines={3} style={{
+                    fontSize: 12,
                     color: "black",
                     fontFamily: "OpenSans-Regular",
-                    textAlign: "left",
-                    flex:0.88
+                    flex:1,
+                  marginBottom:5,
                 }}>{props.item.fileName}</Text>
-            </View>
-            <View style={{ flex: 0.12, alignItems:'center' }}>
-                <IconDownLoad />
+              {isShowProgress?
+              <Svg width={size} height={size}>
+                {/* Background Circle */}
+                <Circle
+                  stroke="#D9D9D9"
+                  fill="none"
+                  cx={size / 2}
+                  cy={size / 2}
+                  r={radius}
+                  strokeWidth={strokeWidth}
+                />
+                {/* Progress Circle */}
+                <Circle
+                  stroke="#6699FF"
+                  fill="none"
+                  cx={size / 2}
+                  cy={size / 2}
+                  r={radius}
+                  strokeDasharray={`${circum} ${circum}`}
+                  strokeDashoffset={radius * Math.PI * 2 * (svgProgress / 100)}
+                  strokeLinecap="round"
+                  transform={`rotate(-90, ${size / 2}, ${size / 2})`}
+                  strokeWidth={strokeWidth}
+                />
+              </Svg>:null}
             </View>
         </TouchableOpacity>
     );

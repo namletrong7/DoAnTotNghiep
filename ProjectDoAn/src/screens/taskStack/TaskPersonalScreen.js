@@ -6,39 +6,42 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, ActivityIndicator, Platform,
+  ImageBackground,
+  Dimensions,
+  Image,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+  StatusBar,
+  ActivityIndicator,
+  Platform,
+  VirtualizedList, Modal,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
+
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
 
-
-import ItemTask from "../../components/itemTask/ItemTask";
-import FastImage from "react-native-fast-image";
-import LottieView from "lottie-react-native";
-import IconPlus from "../../assets/icons/IconPlus";
-import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconArrowDown from "../../assets/icons/IconArrowDown";
-import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
-import BottomSheet, {BottomSheetBackdrop, BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
-import {useRef} from "react/index";
-import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
-import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
-import { actionGetAllProject } from "../../redux-store/actions/project";
-import {getColorBackgroundPriority, getColorPriority, getValuePriority} from "../../utils/GetPriority";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import IconBox from "../../assets/icons/IconBox";
 import IconDown from "../../assets/icons/IconDown";
-import IconMuiTenXuong from "../../assets/icons/IconMuiTenXuong";
 import {
-  actionGetAllTask,
-  actionGetAssignTask,
-  actionGetDetailTask,
-  actionGetMoreAllTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
+  actionGetAssignTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
 } from "../../redux-store/actions/task";
 import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
-import {FooterTask, FooterTaskk} from "./footerTask/FooterTask";
+import {FooterTask} from "./footerTask/FooterTask";
+import IconAssign from "../../assets/icons/IconAssign";
+import IconTarget from "../../assets/icons/IconTarget";
+import IconAll from "../../assets/icons/IconAll";
+import IconDone from "../../assets/icons/IconDone";
+import IconClose from "../../assets/icons/IconClose";
+import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
+import IconLoadMore from "../../assets/icons/IconLoadMorer";
+import TaskChart from "../../components/TaskChart/TaskChart";
+import IconCalendar from "../../assets/icons/IconCalendar";
+import IconDoubleDown from "../../assets/icons/IconDoubleDown";
+import {BoardTask} from "./BoardTask/BoardTask";
+import LinearGradient from "react-native-linear-gradient";
+
+
 
 const TaskPersonalScreen = ({ navigation }) => {
 
@@ -50,240 +53,34 @@ const TaskPersonalScreen = ({ navigation }) => {
   const dataAssignTask = useSelector(state => state.task.dataAssignTask);
   const dataTargetTask = useSelector(state => state.task.dataTargetTask);
   const dataTaskDone = useSelector(state => state.task.dataTaskDone);
-
-
-
+  const isGetMoreAssignTask = useSelector(state => state.task.isGetMoreAssignTask);
+  const [currentTask, setCurrentTask] = useState(dataAssignTask);
 
   useEffect( () => {
 
      dispatch(actionGetAssignTask())
-     setLableTypeTask("Công việc tôi giao")
-
+     setLableTypeTask("Việc tôi giao")
+    return(()=>{
+ //     console.log("xin chào")
+    })
   },[])
-//  console.log(dataAllTask.length)
-  var fakeDataListTask =  [
-    {
-      "taskId": "0jxabz1",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "2",
-      "priority": "1",
-      "progress": "0",
-      "title": "Jfjfjjf",
-      "content": " Djfjfjf",
-      "startDay": "0000-00-00",
-      "endDay": "0000-00-00",
-      "createdDate": "0000-00-00",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "1",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "2cw76es",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "2jb3w86",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "2",
-      "priority": "0",
-      "progress": "0",
-      "title": "Test nhiệm vụ 1",
-      "content": " Jfjfjfjjffjjfjfj",
-      "startDay": "0000-00-00",
-      "endDay": "0000-00-00",
-      "createdDate": "0000-00-00",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "45mawp0",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "2",
-      "priority": "0",
-      "progress": "0",
-      "title": "Hello",
-      "content": " Jfjfjfjjffjjfjfj",
-      "startDay": "0000-00-00",
-      "endDay": "0000-00-00",
-      "createdDate": "0000-00-00",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "a3gezjo",
-      "status": "0",
-      "state": "1",
-      "assignUser": "0",
-      "targetUser": "0",
-      "priority": "1",
-      "progress": "1",
-      "title": "dsjklvnblvd",
-      "content": " dsflkjvbndljnbv",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Vũ đình tuấn anh",
-      "avatarAssignUser": "anhvtd.png"
-    },
-    {
-      "taskId": "gtajl1x",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "lsnu3eg",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "n02xy61",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "rz82x3p",
-      "status": "1",
-      "state": "1",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "x26j7dw",
-      "status": "1",
-      "state": "2",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "xn0hdlb",
-      "status": "1",
-      "state": "2",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
-    },
-    {
-      "taskId": "y0vp2nu",
-      "status": "1",
-      "state": "2",
-      "assignUser": "1",
-      "targetUser": "1",
-      "priority": "1",
-      "progress": "10",
-      "title": "test giao công việc 1",
-      "content": " nọi dung của công việc ",
-      "startDay": "2024-03-07",
-      "endDay": "2024-03-07",
-      "createdDate": "2024-03-07",
-      "projectId": "P001",
-      "assignFullName": "Lê Trọng Nam",
-      "avatarAssignUser": "namltc.png"
+
+  useEffect( () => {
+    if(typeTask==1){
+      setCurrentTask(dataAssignTask)
     }
-  ];
+    else if(typeTask==2){
+      setCurrentTask(dataTargetTask)
+    }
+    else if(typeTask==3){
+      setCurrentTask(dataAssignTask)
+    }
+    else{
+      setCurrentTask(dataTaskDone)
+    }
+
+
+  },[dataAssignTask,dataTaskDone,dataTargetTask,typeTask])
 
   const goToDetailTask=(taskId)=>{
     navigation.navigate('DetailTaskScreen',{taskId:taskId});
@@ -291,6 +88,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
 
   const loadMore=()=>{
+    ///  console.log("load theem:")
     switch (typeTask) {
       case 1:
         dispatch(actionGetMoreAssignTask(dataAssignTask.length))
@@ -320,102 +118,118 @@ const TaskPersonalScreen = ({ navigation }) => {
         break;
       case 4:
         setTypeTask(4)
-        setLableTypeTask("Tất cả công việc của tôi")
+        setLableTypeTask("Việc của tôi xử lý đã hoàn thành")
         dispatch(actionGetTaskDone())
-
         break;
       default:
         setTypeTask(1)
         dispatch(actionGetAssignTask())
-        setLableTypeTask("Việc của tôi xử lý đã hoàn ")
+        setLableTypeTask("Việc tôi giao")
         break;
     }
   }
-  const taskList= () => {
-    switch (typeTask) {
-      case 1:
-        return dataAssignTask
-        break;
-      case 2:
-        return dataTargetTask
-        break;
-      case 3:
-        return  dataTargetTask
-        break;
-      case 4:
-       return  dataTaskDone
+  // tổng số nhiệm vụ : đang làm, hoàn thành, đã hết hạn xử lý
 
-        break;
-      default:
-         return  dataAssignTask
-        break;
-    }
-  }
   return (
-    <SafeAreaView style={{backgroundColor:"white",marginTop:StatusBar.currentHeight,height:'100%'}}>
-      <StatusBar
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
+    <LinearGradient   colors={['#e3efdd', '#faeeca', '#deedda']} style={{backgroundColor:"#F0F0F0",height:'100%'}}>
+      <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
+        <StatusBar
           translucent
           backgroundColor={'transparent'}
-      />
-      <View style={{zIndex:10,position:'absolute',width:'100%',top:50}}>
-        <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
+        />
+      </View>
+
+      <SafeAreaView style={{width:'100%'}}>
+        <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,justifyContent:'space-between'}}>
           <View style={{flexDirection:"row",marginRight:20}}>
             <IconBox/>
-            <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
+            <Text style={{ fontSize: 17, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
           </View>
-          <IconDown/>
+          <IconDoubleDown/>
         </TouchableOpacity>
-        {isShowMore&&
-          <View style={{backgroundColor:"white",paddingHorizontal:20,paddingBottom:10,}}>
-            <TouchableOpacity onPress={()=>{
-                SetIsShowMore(false)
-                filterTask(1)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc tôi giao"}</Text>
+        <Modal
+         animationType="fade"
+          transparent={true}
+          visible={isShowMore}
+        >
+          <SafeAreaView style={styles.modalContainer} >
+            <View style={styles.modalContent}>
+              <View style={{backgroundColor:"white",paddingHorizontal:20}}>
+                <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
+                  <View style={{flexDirection:"row",marginRight:20,flex:1}}>
+                    <IconBox/>
+                    <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
+                  </View>
+                  <IconClose/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(1)}}
+                  style={{flexDirection:"row",marginTop:15}}
+
+                >
+                  <IconAssign/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi giao"}</Text>
+
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(2)}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconTarget/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi cần xử lý"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(3)}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconAll/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Tất cả công việc của tôi"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  SetIsShowMore(false)
+                  filterTask(4)}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconDone/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navigation.navigate("FilterTaskScreen")}}
+                                  style={{flexDirection:"row",marginTop:10}}
+                >
+                  <IconCalendar/>
+                  <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc cần xử lý tuần này "}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
+      </SafeAreaView>
+          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"17%"}}>
+            <TaskChart/>
+            <BoardTask/>
+            {currentTask?.length>0?
+            (currentTask.map((item, index) => (
+              <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} key={item.taskId} />
+            ))):
+              <EmptyTask/>
+      }
+            {isGetMoreAssignTask&&<FooterTask/>}
+            <TouchableOpacity style={{flexDirection:"row",marginTop:10}} onPress={()=>{loadMore()}}>
+              <IconLoadMore/>
+              <Text style={{ fontSize: 17, color: "black",marginLeft:5, fontFamily: "OpenSans-Regular" }}>{"Nhấn để tải thêm task..."}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              SetIsShowMore(false)
-              filterTask(2)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc tôi cần xử lý"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              SetIsShowMore(false)
-              filterTask(3)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Tất cả công việc của tôi"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              SetIsShowMore(false)
-              filterTask(4)}}>
-              <Text style={{ fontSize: 17, color: "black",marginLeft:20, fontFamily: "OpenSans-Regular",marginTop:15 }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
-            </TouchableOpacity>
-
-          </View>}
-      </View>
-        <ScrollView style={{marginTop:20,marginBottom:Platform.OS==='ios'?"15%":"24%"}}>
-          <View style={{height:1.5, backgroundColor:"white",marginVertical:10}}/>
-          <View style={{paddingHorizontal:10}}>
-           <FlatList
-               data={taskList()}
-               renderItem={({item}) => <ItemTaskPersonal item={item} gotoDetail = {goToDetailTask} />}
-               keyExtractor={item => item.taskId}
-               onEndReachedThreshold={0.04}
-               scrollEnabled={false}
-               onEndReached={loadMore}
-               showsVerticalScrollIndicator={false}
-               ListFooterComponent={
-                 <FooterTask/>
-               }
-           />
-            <TouchableOpacity onPress={()=>{loadMore()}}>
-              <Text style={{ fontSize: 17, color: "green",marginLeft:20, fontFamily: "OpenSans-SemiBold",marginTop:15 }}>{"Nhấn để xem thêm công việc mới..."}</Text>
-            </TouchableOpacity>
-         </View>
+         </ScrollView>
 
 
-
-
-        </ScrollView>
-
-    </SafeAreaView>
+    </LinearGradient>
+    </Animated.View>
   );
 };
 
@@ -458,7 +272,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 20,
     color: '#fff'
+  }, modalContainer: {
+    height:"100%",
+    alignItems: 'center',
+    backgroundColor:'rgba(0,0,0,0.3)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    paddingVertical:15,
+    elevation: 5,
+    width:"100%",
+    height:"40%"
   }
+
 });
 
 export default React.memo(TaskPersonalScreen);

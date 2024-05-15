@@ -19,7 +19,6 @@ import FastImage from "react-native-fast-image";
 export  const ShimmerEffectCommentComponent =React.memo((props) => {
 
   const [isVisible, setIsVisible] = useState(false);
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
     return (
       <View>
         <View style={{flexDirection:"row",marginTop:10}}>

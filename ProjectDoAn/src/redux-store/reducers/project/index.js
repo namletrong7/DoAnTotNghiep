@@ -1,8 +1,13 @@
 const initialState = {
-   isGetProject: false,
+    isGetProject: false,
     dataAllProject:[],
     isGetDetailProject:false,
-    dataDetailProject:{}
+    dataDetailProject:{},
+    isAddProject:false,
+    isTest:'nam',
+    dataSearchProject:[],
+    isSearchProject:false,
+
 }
 const reducerProject = (state =initialState , action) => {
     switch (action.type) {
@@ -30,10 +35,15 @@ const reducerProject = (state =initialState , action) => {
                 dataAllProject: action.data
             };
         }
+        case 'GET_SEARCH_PROJECT': {
+            return { ...state,
+                dataSearchProject: action.data
+            };
+        }
 
         default:
             return state
     }
-
+    return state
 }
 export default reducerProject

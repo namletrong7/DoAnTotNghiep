@@ -10,8 +10,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import IconMenu from "../../assets/icons/IconMenu";
-import IconArrowLeft from "../../assets/icons/IconArrowLeft";
+
 import IconBack from "../../assets/icons/IconBack";
 
 function HeaderComponent (props) {
@@ -30,8 +29,9 @@ function HeaderComponent (props) {
   const rendeHeaderLeft = () => (
     <>
       <View
-        style={[styles.backgroundImage, { backgroundColor: '#6699FF' }]}
+        style={[styles.backgroundImage, { backgroundColor: '#EEEEEE' }]}
       />
+        <StatusBar backgroundColor="#000000" />
       <TouchableOpacity
         style={{ fontWeight: 'bold', color: '#ffffff', position: 'absolute', bottom: 0, left: 2, padding: 10, }}
         onPress={() => props.navigation.goBack()}

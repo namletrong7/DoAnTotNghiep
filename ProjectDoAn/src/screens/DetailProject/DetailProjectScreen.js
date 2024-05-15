@@ -8,20 +8,12 @@ import {
   TouchableWithoutFeedback,
   ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
+import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from "../../components/header/HeaderComponent";
-
-
-import ItemTask from "../../components/itemTask/ItemTask";
 import FastImage from "react-native-fast-image";
-import LottieView from "lottie-react-native";
-import IconPlus from "../../assets/icons/IconPlus";
+
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import ItemProject from "../../components/itemProject/ItemProject";
-import IconArrowRight from "../../assets/icons/IconArrowRigth";
-import IconArrowDown from "../../assets/icons/IconArrowDown";
-import IconArrowDownDouble from "../../assets/icons/IconDoubleDown";
+
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -29,54 +21,60 @@ import BottomSheet, {
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import {useRef} from "react/index";
-import {GestureDetector} from "react-native-gesture-handler/src/handlers/gestures/GestureDetector";
-import {GestureHandlerRootView, PanGestureHandler} from "react-native-gesture-handler";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 import IconProject from "../../assets/icons/IconProject";
 import IconAddUser from "../../assets/icons/IconAddUser";
 import IconInfor from "../../assets/icons/IconInfor";
-import IconArrowLeft from "../../assets/icons/IconArrowLeft";
 import IconBack from "../../assets/icons/IconBack";
-import IconEdit from "../../assets/icons/IconEdit";
-import { showMessage } from "react-native-flash-message";
+
 import {  TopTabTask1 } from "./toptab/TopTabTask";
-import { dataPriority } from "../../utils/GetPriority";
-import { actionGetAllProject, actionGetDetailProject } from "../../redux-store/actions/project";
+import {  getStateProject } from "../../utils/GetPriority";
+import {  actionGetDetailProject } from "../../redux-store/actions/project";
+import {convertDateDB} from "../../utils/ConverPickerDate";
+import { BottomEditUser } from "./BottomEditUser";
+import LinearGradient from "react-native-linear-gradient";
 
 
 
 
 const DetailProjectScreen = ({ navigation ,route}) => {
-   const {itemProject} =  route?.params
+   const {itemProject, projectId} =  route?.params
   const dispatch  = useDispatch();
-  const snapPoints = useMemo(() => ['50%', "80%"], []);
-  const bottomSheetRef = useRef(null);
+  const snapPoints = useMemo(() => ['50%', "80%",'99%'], []);
+  const bottomSheetRef = useRef(null);  // cho bottom thoong tin project
+  const bottomEditUserRef = useRef(null);  // cho bottom thoong tin project
 
-  const dataDetailProject = useSelector(state => state.project.dataDetailProject);
+  const dataDetailProject = useSelector(state => state.project?.dataDetailProject);
   useEffect(()=>{
-    dispatch(actionGetDetailProject(itemProject.projectId))
+    dispatch(actionGetDetailProject(itemProject?.projectId || projectId))
   },[])
 
 
 
   // @ts-ignore
   const renderBackdrop = useCallback(
-    (props: any) => {
+    (props) => {
       return <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />;
     },
     []
   );
   // hàm mở ra bottom sheet thông tin của project
-  function handelOpenModal (){
+  const handelOpenDetail = useCallback(() => {
     bottomSheetRef.current?.present();
-  }
-
-
-const ItemUserMemer=(props)=>{
+  }, []);
+  // hàm mở ra bottom sheet thông tin của project
+  const handelOpenEditUser = useCallback(() => {
+    bottomEditUserRef.current?.present();
+  }, []);
+  const handelCloseEditUser = useCallback(() => {
+    bottomEditUserRef.current?.dismiss();
+  }, [bottomEditUserRef]);
+const ItemUserMemer=React.memo((props)=>{
     const {item}= props
   return (
-    <View style={{flexDirection:"row", borderRadius:14, backgroundColor:"#DDDDDD", flex:0.5, marginHorizontal:10,marginVertical:5,paddingVertical:5, alignItems:'center'}}>
+    <View style={{ borderRadius:14, flex:0.5, marginHorizontal:10,marginVertical:5, alignItems:'center'}}>
       <FastImage
-        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden",marginLeft:3}}
+        style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden",marginLeft:3}}
         source={{
           uri: (baseUrlAvatarUser+item?.avatarUser)||''
         }}
@@ -86,37 +84,40 @@ const ItemUserMemer=(props)=>{
       <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{item.fullName}</Text>
     </View>
   )
-}
+})
 
 
   return (
-    <View style={{backgroundColor:"#F0F0F0", height:"100%"}}>
-     <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight), backgroundColor:"#6699FF", paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
+    <Animated.View
+      entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
+      style={{ flex: 1}}
+    >
+    <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{ height:"100%"}}>
+     <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight), paddingLeft:10, paddingVertical:5, justifyContent:"flex-start",alignItems:"center",display:'flex'}}>
          <TouchableOpacity onPress={()=>{navigation.goBack()}}>
            <IconBack/>
          </TouchableOpacity>
           <IconProject/>
            <View style={{justifyContent:"flex-start", flex:0.7}}>
-             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{itemProject?.nameProject}</Text>
-             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{itemProject?.state==0?"Đang triển khai":"Đã kết thúc"}</Text>
+             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{itemProject?.nameProject || dataDetailProject?.nameProject}</Text>
+             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{getStateProject(itemProject?.state || dataDetailProject?.state)}</Text>
            </View>
        <View style={{flexDirection:"row", justifyContent:"space-between",display:"flex", height:'100%', alignItems:"center", flex:0.25}}>
-         <TouchableOpacity  >
+         <TouchableOpacity onPress={()=>{handelOpenEditUser()}} >
            <IconAddUser/>
          </TouchableOpacity>
-         <TouchableOpacity onPress={()=>{handelOpenModal()}}>
+         <TouchableOpacity onPress={()=>{handelOpenDetail()}}>
            <IconInfor/>
          </TouchableOpacity>
        </View>
      </View>
-      {/*<TouchableOpacity onPress={()=>{navigation.navigate("AddTaskScreen")}} style={{justifyContent:'center', alignItems:'center',position:"absolute",right:20, bottom:0, width:50, height:50, borderRadius:25, backgroundColor:"gray"}}>*/}
-      {/*   <IconPlus/>*/}
-      {/*</TouchableOpacity>*/}
+
 
       <GestureHandlerRootView  style={{ borderRadius:16,  display:"flex"}}>
-          <View style={{height:"100%"}}>
-               <TopTabTask1 projectId={itemProject?.projectId}/>
+          <View  style={{height:"100%"}}>
+               <TopTabTask1 projectId={itemProject?.projectId || projectId}/>
           </View>
+        <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId || projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
         <BottomSheetModalProvider>
           <BottomSheetModal
               ref={bottomSheetRef}
@@ -129,11 +130,17 @@ const ItemUserMemer=(props)=>{
                   <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailProject?.nameProject}</Text>
                 <TouchableOpacity style={{flexDirection:"row", marginTop:10}}>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu dự án: "}</Text>
-                  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.startDay}</Text>
+                  <View  style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD", flexDirection:"row"}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{convertDateDB(dataDetailProject?.startDay)}</Text>
+                  </View>
+
                 </TouchableOpacity>
                 <TouchableOpacity  style={{flexDirection:"row", marginTop:10}}>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày kết thúc dự án: "}</Text>
-                  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.endDay}</Text>
+                  <View  style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD", flexDirection:"row"}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{convertDateDB(dataDetailProject?.endDay)}</Text>
+                  </View>
+
                 </TouchableOpacity>
                 <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Người tạo dự án: "}  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.createFullName}</Text></Text>
                 <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Thành viên tham gia dự án"}</Text>
@@ -142,7 +149,7 @@ const ItemUserMemer=(props)=>{
                   renderItem={({item}) => <ItemUserMemer item={item}  />}
                   scrollEnabled={false}
                   horizontal={false}
-                  numColumns={2}
+                  numColumns={3}
                   keyExtractor={item => item.userId}
                 />
               </View>
@@ -150,7 +157,8 @@ const ItemUserMemer=(props)=>{
           </BottomSheetModal>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
-    </View>
+    </LinearGradient>
+    </Animated.View>
   );
 };
 
