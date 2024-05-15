@@ -60,9 +60,6 @@ const TaskPersonalScreen = ({ navigation }) => {
 
      dispatch(actionGetAssignTask())
      setLableTypeTask("Việc tôi giao")
-    return(()=>{
- //     console.log("xin chào")
-    })
   },[])
 
   useEffect( () => {

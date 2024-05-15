@@ -51,7 +51,7 @@ export const AddFileAttachScreen:React.FC<AddFileAttachScreenProps> = React.memo
         const result = await DocumentPicker.pick({
           type: [DocumentPicker.types.allFiles], // Chọn tất cả các loại file
         });
-        console.log(result)
+      //  console.log(result)
         // setPickedFile((prevFiles) => [...prevFiles, ...result]);
         if (result[0].size >= MaxFileSize) {
           showMessage({

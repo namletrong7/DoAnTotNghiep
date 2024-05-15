@@ -63,6 +63,8 @@ import moment from "moment/moment";
 import ListCheckList from "./CheckList/ListCheckList";
 
 import LottieView from "lottie-react-native";
+import DialogAnswerReport from "./dialogReport/DialogAnswerReport";
+import DialogAcceptAnswerReport from "./dialogReport/DialogAcceptAnswerReport";
 
 
 
@@ -87,10 +89,14 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const [isVisibleReport, setIsVisibleReport] = useState(false);
   const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
+  const [isVisibleAnswerReport, setIsVisibleAnswerReport] = useState(false);
+  const [isVisibleAcceptAnswerReport, setIsVisibleAcceptAnswerReport] = useState(false);  // dialog cháp nhận oặc từ chối
+  const [typeAcceptAnswer, setTypeAcceptAnswer] = useState(null);
   const [isVisibleProgress, setIsVisibleProgress] = useState(false);
   const [isVisibleEditComment, setIsVisibleEditComment] = useState(false);
-  const [isVisibleDeleteTask, setIsVisibleDeleteTask] = useState(false);  // comment duoc chon
+  const [isVisibleDeleteTask, setIsVisibleDeleteTask] = useState(false);
   const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
+  const [reportSelected, setReportSelected] = useState({});  // báo cáo duoc chon
   const refChangeActionTab = useRef(null);
   const refChangeActionComment = useRef(null);
   const refChangeEditUser = useRef(null); // hiern thị bottom sheet thya dỏi user
@@ -147,6 +153,21 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     },[])
   const openDialogEditComment=useCallback(()=>{
     setIsVisibleEditComment(true)
+  },[])
+  const closeAnserReport=useCallback(()=>{  // đóng trả lời yêu cầu báo cáo
+    setIsVisibleAnswerReport(false)
+  },[])
+  const openAnswerReport=useCallback((item)=>{   // mở trả lời yêu cầu báo cáo
+    setReportSelected(item)
+    setIsVisibleAnswerReport(true)
+  },[])
+  const closeAcceptAnswerReport=useCallback(()=>{  // đóng hỏi : từ choi hay chấp nhận báo cáo
+    setIsVisibleAcceptAnswerReport(false)
+  },[])
+  const openAcceptAnswerReport=useCallback((item,type)=>{   // mở trả lời yêu cầu báo cáo
+    setReportSelected(item)
+    setTypeAcceptAnswer(type)
+    setIsVisibleAcceptAnswerReport(true)
   },[])
     const openActionTab=useCallback(()=>{
         if(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser){
@@ -309,7 +330,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                     </View>
                 </View>
 
-              <ListReportTask assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} currenUser={2}/>
+              <ListReportTask assignUser={dataDetailTask?.assignUser} targetUser={dataDetailTask?.targetUser} currenUser={2} openAnserReport={openAnswerReport} openAcceptAnswerReport={openAcceptAnswerReport}/>
               <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center"}}>
                 <IconProhress/>
                 <Text style={{fontSize:18,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
@@ -363,6 +384,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>
+      <DialogAnswerReport visible={isVisibleAnswerReport} onClose={closeAnserReport} taskId={taskId}   dispatch={dispatch} userId={currentUser} parentId={reportSelected?.reportId}/>
+       <DialogAcceptAnswerReport type={typeAcceptAnswer} visible={isVisibleAcceptAnswerReport} onClose={closeAcceptAnswerReport}  dispatch={dispatch}  userId={currentUser} taskId={taskId} reportSelected={reportSelected}/>
       <DialogProgress  taskId={taskId} visible={isVisibleProgress} onClose={closeDialogProgress} />
       <DialogConfirmComponet visible={isVisibleDeleteTask} onClose={closeDialogDeleteTask} content={"Bạn có chắc chắn xóa công việc này không"}/>
       <DialogEditComment   visible={isVisibleEditComment} onClose={closeDialogEditComment} dispatch={dispatch} comment={commentSelected} />

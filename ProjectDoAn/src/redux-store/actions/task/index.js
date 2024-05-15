@@ -71,22 +71,29 @@ export function actionGetDetailTask(taskId) {
         try {
             const response = await Api(false).getDetailTask(taskId);
 
-        //  console.log(response.data)
+       console.log(response.data)
 
 
-            if(response.data && response.data.status==200){
-                await   dispatch({
-                    type: "GET_DETAIL_TASK",
-                    data:response.data
-                });
+            if(response.data && response.data.status){
+                if(response.data.status==200){
+                    await   dispatch({
+                        type: "GET_DETAIL_TASK",
+                        data:response.data
+                    });
+                }else{
+                    showMessage({
+                        message:response?.data?.message,
+                        type: "danger",
+                        duration: 3000,
+                        icon: { icon: "danger", position: 'left' }
+                    });
+                }
+
             }
-            else{
-                await   dispatch({ // kết thúc sự kiện load detail task
-                    type: "END_GET_DETAIL_TASK",
-                });
-            }
 
-
+            await   dispatch({ // kết thúc sự kiện load detail task
+                type: "END_GET_DETAIL_TASK",
+            });
         } catch (error) {
 
             await   dispatch({
@@ -696,6 +703,105 @@ export function actionReportTask(body) {
             const response = await Api(false).reportTask(body)
           //  console.log(response.data)
             if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionAnswerReportTask(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).answerReportTask(body)
+            console.log(response.data)
+            if(response.data && response.data.status){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionAcceptAnswerReport(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).acceptAnswerReport(body)
+            console.log(response.data)
+            if(response.data && response.data.status){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionRejectAnswerReport(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(false).rejectAnswerReport(body)
+            console.log(response.data)
+            if(response.data && response.data.status){
                 showMessage({
                     message: response.data.message,
                     type: "success",

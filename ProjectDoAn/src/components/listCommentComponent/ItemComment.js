@@ -29,7 +29,7 @@ import IconUnLike from "../../assets/icons/IconUnlike";
 
 const ItemComment = ({item,navigation,openActionComment}) => {
   const [isLike, setIsLinke] = useState(false);
-console.log(item)
+//console.log(item)
   const handleLike=useCallback(()=>{
       setIsLinke(!isLike)
   },[isLike])

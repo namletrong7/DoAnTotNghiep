@@ -10,7 +10,7 @@ const Api = (isFormData:boolean) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.1.108:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 // Thêm các headers khác nếu cần thiết
@@ -112,10 +112,19 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
-  const reportTask=(body)=> {
+  const reportTask=(body:any)=> {
     return apiConfig().post("reportTask.php",body);
   }
-  const getListUserOfProject=(projectId)=> {
+  const answerReportTask=(body:any)=> {
+    return apiConfig().post("answerReportTask.php",body);
+  }
+  const acceptAnswerReport=(body:any)=> {  // cháp nhận báo cáo
+    return apiConfig().post("acceptAnswerReport.php",body);
+  }
+  const rejectAnswerReport=(body:any)=> {  // cháp nhận báo cáo
+    return apiConfig().post("rejectAnswerReport.php",body);
+  }
+  const getListUserOfProject=(projectId:string)=> {
     return apiConfig().post(`getUserProject.php?projectId=${projectId}`);
   }
   const editUserForTask=(type:number, taskId:string,userId:any,createUser:number)=> {
@@ -241,6 +250,9 @@ const Api = (isFormData:boolean) => {
       changePriorityTask,
       changeProgressTask,
       reportTask,
+      answerReportTask,
+      acceptAnswerReport,
+      rejectAnswerReport,
       getListUserOfProject,
       editUserForTask,
      searchTask,
