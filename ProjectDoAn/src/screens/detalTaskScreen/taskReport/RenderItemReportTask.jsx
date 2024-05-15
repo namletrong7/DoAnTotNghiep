@@ -19,7 +19,7 @@ import { getTimeDifference } from "../../../utils/ConverPickerDate";
       justifyContent: "flex-start",
 
     }}>
-      <Text style={{ fontSize: 13, color: '#8e9094' , backgroundColor:"#f4f7fc",alignSelf:"flex-start",padding:3}}>{getTimeDifference(item?.timeCreate)}</Text>
+      <Text style={{ fontSize: 13, color: 'black' , backgroundColor:"#f4f7fc",alignSelf:"flex-start",padding:3}}>{getTimeDifference(item?.timeCreate)}</Text>
       <View style={{ flexDirection:"row",marginTop:5 }}>
         <Text numberOfLines={2} style={{
           fontSize: 14,

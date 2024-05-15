@@ -10,19 +10,19 @@ const RenderActionReport = (props) => {
       if(currentUserId==assignUser)// là người giao
       {
         return (
-          <View style={{flexDirection:"row",width:"33%",justifyContent:'space-between'}}>
-            <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,0)}} style={{backgroundColor:"#fed5d5",padding:7, borderRadius:8}}>
-              <Text style={{ fontSize: 12, color: '#fd1c1c' }}>Từ chối</Text>
+          <View style={{flexDirection:"row",width:"35%",justifyContent:'space-between'}}>
+            <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,0)}} style={{backgroundColor:"#fed5d5",padding:7,paddingHorizontal:8, borderRadius:8}}>
+              <Text style={{ fontSize: 13, color: '#fd1c1c' }}>Từ chối</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,1)}} style={{backgroundColor:"#c7e4ff",padding:7,paddingHorizontal:9, borderRadius:8}}>
-              <Text style={{ fontSize: 12, color: '#148eff' }}>Duyệt</Text>
+            <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,1)}} style={{backgroundColor:"#c7e4ff",padding:7,paddingHorizontal:12, borderRadius:8}}>
+              <Text style={{ fontSize: 13, color: '#148eff' }}>Duyệt</Text>
             </TouchableOpacity>
           </View>
         )
       }else {
       return (
         <View>
-          <Text style={{ fontSize: 12, color: '#FFD700' }}>Chờ duyệt</Text>
+          <Text style={{ fontSize: 13, color: '#FFD700' }}>Chờ duyệt</Text>
         </View>
       )
     }
@@ -32,7 +32,7 @@ const RenderActionReport = (props) => {
     {
       return(
       <View style={{marginLeft:10}}>
-        <Text style={{ fontSize: 12, color: '#00EE00'}}>Đã duyệt</Text>
+        <Text style={{ fontSize: 13, color: '#00EE00'}}>Đã duyệt</Text>
       </View>
       )
     }
@@ -40,7 +40,7 @@ const RenderActionReport = (props) => {
     {
       return(
         <View style={{marginLeft:10}}>
-          <Text style={{ fontSize: 12, color: '#FF3333'}}>Đã từ chối</Text>
+          <Text style={{ fontSize: 13, color: '#FF3333'}}>Đã từ chối</Text>
         </View>
       )
     }
@@ -53,14 +53,14 @@ const RenderActionReport = (props) => {
        {
          return (
            <TouchableOpacity  onPress={()=>{openAnserReport(item)}} style={{backgroundColor:"#d4eacc",padding:7,paddingHorizontal:11, borderRadius:8}}>
-             <Text style={{ fontSize: 12, color: '#68b64d' }}>Trả lời</Text>
+             <Text style={{ fontSize: 13, color: '#68b64d' }}>Trả lời</Text>
            </TouchableOpacity>
          )
        }
        else{
          return (
            <View>
-             <Text style={{ fontSize: 12, color: '#1E90FF' }}>Chờ báo cáo</Text>
+             <Text style={{ fontSize: 13, color: '#1E90FF' }}>Chờ báo cáo</Text>
            </View>
          )
        }

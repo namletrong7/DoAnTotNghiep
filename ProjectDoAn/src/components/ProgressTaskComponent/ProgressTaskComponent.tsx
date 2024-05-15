@@ -11,7 +11,7 @@ type Typeprops={
  export const ProgressTaskComponent:React.FC<Typeprops>=React.memo((props)=>{
    const {progress,priority} = props
    return (
-     <View style={{flexDirection:"row",marginTop:5,alignSelf:"center"}}>
+     <View style={{flexDirection:"row",alignSelf:"center",flex:1}}>
        <View style={{marginTop:10,backgroundColor:getColorBackgroundPriority(priority),height:8, borderRadius:50,flex:0.9,flexDirection:"row"}}>
          <View style={{backgroundColor:getColorPriority(priority),borderRadius:50,width:`${parseInt(progress, 10)}%`}}></View>
           <View style={{backgroundColor:getColorPriority(priority),width:38,height:20, borderRadius:28/2, borderColor:getColorBackgroundPriority(priority),borderWidth:2,alignSelf:'center',alignItems:'center',justifyContent:'center',marginLeft:-25}}>
