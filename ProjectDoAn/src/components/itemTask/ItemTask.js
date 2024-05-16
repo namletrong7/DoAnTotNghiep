@@ -4,7 +4,7 @@
 /**
  * Componet hiển thị nội dung từng ngày họp cụ thể
  */
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -34,30 +34,30 @@ import IconHeart from "../../assets/icons/IconHeart";
 const ItemTask = (props) => {
 //  console.log(props.item.taskId)
   // render ra priority của  task
-  const RenderPriority = () => {
+  const RenderPriority = React.memo(() => {
         return(
-              <View style={{padding:5, borderRadius:16, backgroundColor:getColorBackgroundPriority(props.item.priority),paddingHorizontal:12,marginLeft:40,flexDirection:"row",alignItems:'center'}}>
-                <View style={{width:10, height:10, borderRadius:10/2, backgroundColor:getColorPriority(props.item.priority)}}/>
-                <Text style={{fontSize:15,marginLeft:5, color:getColorPriority(props.item.priority),fontFamily:"OpenSans-Regular"}}>{getValuePriority(props.item.priority)}</Text>
+              <View style={{padding:3, borderRadius:16, backgroundColor:getColorBackgroundPriority(props.item.priority),paddingHorizontal:5,marginLeft:40,flexDirection:"row",alignItems:'center'}}>
+                <View style={{width:7, height:7, borderRadius:7/2, backgroundColor:getColorPriority(props.item.priority)}}/>
+                <Text style={{fontSize:13,marginLeft:5, color:getColorPriority(props.item.priority),fontFamily:"OpenSans-Regular"}}>{getValuePriority(props.item.priority)}</Text>
               </View>
         )
-  };
-  function gotoDetailScreen (taskId){
+  });
+  const gotoDetailScreen =useCallback((taskId)=>{
     props.navigation.navigate('DetailTaskScreen',{taskId:taskId});
-  }
+  })
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => {gotoDetailScreen(props.item.taskId)}}>
       <View style={{flexDirection:'row',justifyContent:'space-between'}}>
          <View style={styles.containerEndDay}>
              <IconCalendar/>
-             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props.item?.endDay}</Text>
+             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5}}>{props.item?.endDay}</Text>
          </View>
-        {RenderPriority()}
+        <RenderPriority/>
       </View>
       <View style={{marginTop:5,flexDirection:"row"}}>
         <View style={{width:3,backgroundColor:getColorPriority(props.item.priority)}}/>
-        <Text numberOfLines={2} style={{fontSize:17 ,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props?.item?.title}</Text>
+        <Text numberOfLines={2} style={{fontSize:14 ,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700'}}>{props?.item?.title}</Text>
       </View>
      <ProgressTaskComponent progress={props?.item?.progress} priority={props.item.priority}/>
       <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:9,marginHorizontal:5}}>

@@ -64,11 +64,11 @@ import IconPeople from "../../assets/icons/IconPeople";
 
    }
   return(
-    <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:15,
-      paddingVertical:15, backgroundColor:item.isRead==0?"#DDDDDD":"transparent"}}>
+    <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:10,
+      paddingVertical:7, backgroundColor:item.isRead==0?"#DDDDDD":"transparent"}}>
       <View>
         <FastImage
-          style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden"}}
+          style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
           source={{
             uri:  (baseUrlAvatarUser+props.item?.avatarCreateUser)||''
 
@@ -79,11 +79,11 @@ import IconPeople from "../../assets/icons/IconPeople";
       </View>
 
       <View style={{marginLeft:10,flex:0.98}}>
-        <Text numberOfLines={4} style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item.fullNameCreate+" "}
-          <Text style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular"}}>{item.content+" "}</Text>
-          <Text style={{fontSize:14,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item?.type<11?item?.titleTask:item?.nameProject}</Text>
+        <Text numberOfLines={4} style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item.fullNameCreate+" "}
+          <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular"}}>{item.content+" "}</Text>
+          <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item?.type<11?item?.titleTask:item?.nameProject}</Text>
         </Text>
-        <Text style={{fontSize:13,flexWrap:"wrap", color:"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
+        <Text style={{fontSize:11,flexWrap:"wrap", color:"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
       </View>
     </Pressable>
   )

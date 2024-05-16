@@ -970,7 +970,7 @@ PODS:
     - React-debug
   - react-native-document-picker (9.1.1):
     - React-Core
-  - react-native-netinfo (11.3.0):
+  - react-native-netinfo (11.3.2):
     - React-Core
   - react-native-pager-view (6.2.3):
     - glog
@@ -1527,7 +1527,7 @@ SPEC CHECKSUMS:
   React-logger: 0a57b68dd2aec7ff738195f081f0520724b35dab
   React-Mapbuffer: 114be72666d7e3e317c1a36fb566cd3ad712fcc8
   react-native-document-picker: 3599b238843369026201d2ef466df53f77ae0452
-  react-native-netinfo: 299dad906cdbf3b67bcc6f693c807f98bdd127cc
+  react-native-netinfo: 076df4f9b07f6670acf4ce9a75aac8d34c2e2ccc
   react-native-pager-view: 33c56e3b547d2f29d224255d82e796942e0918b8
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
