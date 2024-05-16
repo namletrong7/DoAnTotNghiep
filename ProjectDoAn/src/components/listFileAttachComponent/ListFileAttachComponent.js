@@ -102,7 +102,7 @@ export const ListFileAttachComponent = React.memo((props) => {
               data={dataListFileTask}
               scrollEnabled={true}
               horizontal={true}
-              ListEmptyComponent={  <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
+              ListEmptyComponent={  <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular",textAlign:'center', marginTop: 15 }}
                                           numberOfLines={10}>{"Không có file đính kèm cho công việc này"}</Text>}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => <RenderItemFile item={item} />}

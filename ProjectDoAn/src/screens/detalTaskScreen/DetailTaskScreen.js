@@ -240,14 +240,14 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </TouchableOpacity>
             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Chi tiết công việc"}</Text>
             <View  style={{ flexDirection:"row"}}>
-              <TouchableOpacity style={{marginRight:5}} onPress={()=>{setisBookMark(!isBookMark)}}>
-                {isBookMark?<IconBookMark/>:<IconUnBookMark/>}
+              <TouchableOpacity  onPress={()=>{setisBookMark(!isBookMark)}}>
+                {isBookMark?<IconBookMark width={20} height={20}/>:<IconUnBookMark width={20} height={20}/>}
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
-                <IconAttachFile/>
+              <TouchableOpacity style={{marginHorizontal:13}} onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
+                <IconAttachFile width={20} height={20}/>
               </TouchableOpacity>
-              <TouchableOpacity onPress={openActionTab} style={{marginLeft:10}}>
-                <IconMenu/>
+              <TouchableOpacity onPress={openActionTab} >
+                <IconMenu width={20} height={20}/>
               </TouchableOpacity>
             </View>
         </View>
