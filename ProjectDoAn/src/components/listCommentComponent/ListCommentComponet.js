@@ -52,18 +52,20 @@ import IconComment from "../../assets/icons/IconComment";
          <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSee(!see)} }>
            <View style={{flexDirection:"row",alignItems:"center"}}>
            <IconComment width={20} height={20}/>
-           <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Bình luận"}</Text>
+           <Text style={{fontSize:18, color:"#007AFE",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Bình luận"}</Text>
            </View>
          </TouchableOpacity>
          {isGetComment?(<ShimmerEffectCommentComponent/>):
            <FlatList
               data={dataCommentTask}
               initialNumToRender={5}
+              ListEmptyComponent={ <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
+                                         numberOfLines={10}>{"Chưa có bình luận nào cho công việc nào"}</Text>}
               renderItem={({item}) => <ItemComment item={item} navigation={navi}  openActionComment={props.openActionComment}/>}
-              keyExtractor={(item) => item.commentId}
+              keyExtractor={(item) => item?.commentId}
               scrollEnabled={false}
-            />
-         }
+            />}
+
          {isGetMoreComment&&(<ShimmerEffectCommentComponent/>)}
          <TouchableOpacity style={{alignItems:"center",marginTop:20}} onPress={()=>{loadMoreComment()}}>
            <Text style={{fontSize:15, color:"#4577ef",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nhấn để xem thêm bình luận..."}</Text>
@@ -76,7 +78,7 @@ import IconComment from "../../assets/icons/IconComment";
 const styles = StyleSheet.create({
   container: {
     display:"flex",
-    marginTop: 10,
+    marginTop: 5,
     backgroundColor:"white",
     padding:7,
     borderRadius:8

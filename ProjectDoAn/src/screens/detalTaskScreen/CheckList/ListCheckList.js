@@ -36,7 +36,7 @@ const ListCheckList = ({taskId}) => {
         <TouchableOpacity style={styles.header} onPress= {() => {setSeeAll(!seeAll)} }>
           <View style={{flexDirection:"row",alignItems:"center"}}>
             <IconSubTask />
-            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"CheckList"}</Text>
+            <Text style={{fontSize:18, color:"#007AFE",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"CheckList"}</Text>
           </View>
           {seeAll? <IconArrowDown/>:<IconArrowUp/>}
         </TouchableOpacity>
@@ -61,7 +61,10 @@ const ListCheckList = ({taskId}) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    marginTop: 19,
+    marginTop: 5,
+    backgroundColor:'white',
+    padding:5,
+    borderRadius:7
   },
   header:{
     flexDirection:"row",justifyContent:"space-between"

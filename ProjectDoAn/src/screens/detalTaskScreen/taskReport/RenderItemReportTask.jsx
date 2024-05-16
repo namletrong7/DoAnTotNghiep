@@ -1,13 +1,17 @@
 import React from "react";
 import { Text, View } from "react-native";
+import RenderActionReport from "./RenderActionReport";
+import { useSelector } from "react-redux";
+import { getTimeDifference } from "../../../utils/ConverPickerDate";
 
    const RenderItemReportTask = (props) => {
-  const {item} = props
+             const {item,assignUser, targetUser,openAnserReport,openAcceptAnswerReport} = props
+     const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   return (
     <View style={{
-      marginTop: 10,
-      paddingTop: 10,
-      paddingBottom:20,
+      marginTop: 5,
+      paddingTop: 5,
+      paddingBottom:10,
       paddingHorizontal: 10,
       borderRadius: 10,
       borderColor: "#DDDDDD",
@@ -15,7 +19,8 @@ import { Text, View } from "react-native";
       justifyContent: "flex-start",
 
     }}>
-      <View style={{ flexDirection:"row" }}>
+      <Text style={{ fontSize: 13, color: 'black' , backgroundColor:"#f4f7fc",alignSelf:"flex-start",padding:3}}>{getTimeDifference(item?.timeCreate)}</Text>
+      <View style={{ flexDirection:"row",marginTop:5 }}>
         <Text numberOfLines={2} style={{
           fontSize: 14,
           color: "black",
@@ -30,7 +35,7 @@ import { Text, View } from "react-native";
         }}>{props.item.type==0?"Yêu cầu báo cáo công việc":"Báo cáo công việc"}</Text></Text>
       </View>
 
-      <View style={{ flexDirection:"row", marginTop:10 }}>
+      <View style={{ flexDirection:"row", marginTop:5 }}>
         <Text style={{
           fontSize: 14,
           color: "black",
@@ -44,7 +49,9 @@ import { Text, View } from "react-native";
         }}>{item.content}</Text></Text>
       </View>
 
-
+      <View style={{alignSelf:"flex-end",marginTop:5}}>
+          <RenderActionReport openAcceptAnswerReport={openAcceptAnswerReport} openAnserReport={openAnserReport} item={item} assignUser={assignUser} targetUser = {targetUser} currentUserId ={dataCurrentUser?.userId}/>
+      </View>
 
     </View>
   );

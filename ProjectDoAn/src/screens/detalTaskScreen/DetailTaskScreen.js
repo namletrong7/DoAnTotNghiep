@@ -63,6 +63,11 @@ import moment from "moment/moment";
 import ListCheckList from "./CheckList/ListCheckList";
 
 import LottieView from "lottie-react-native";
+import DialogAnswerReport from "./dialogReport/DialogAnswerReport";
+import DialogAcceptAnswerReport from "./dialogReport/DialogAcceptAnswerReport";
+import IconReport from "../../assets/icons/IconReport";
+import IconArrowUp from "../../assets/icons/IconArrowLeft";
+import IconContent2 from "../../assets/icons/IconContent";
 
 
 
@@ -87,10 +92,14 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const [isVisibleReport, setIsVisibleReport] = useState(false);
   const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
+  const [isVisibleAnswerReport, setIsVisibleAnswerReport] = useState(false);
+  const [isVisibleAcceptAnswerReport, setIsVisibleAcceptAnswerReport] = useState(false);  // dialog cháp nhận oặc từ chối
+  const [typeAcceptAnswer, setTypeAcceptAnswer] = useState(null);
   const [isVisibleProgress, setIsVisibleProgress] = useState(false);
   const [isVisibleEditComment, setIsVisibleEditComment] = useState(false);
-  const [isVisibleDeleteTask, setIsVisibleDeleteTask] = useState(false);  // comment duoc chon
+  const [isVisibleDeleteTask, setIsVisibleDeleteTask] = useState(false);
   const [commentSelected, setCommentSelected] = useState(null);  // comment duoc chon
+  const [reportSelected, setReportSelected] = useState({});  // báo cáo duoc chon
   const refChangeActionTab = useRef(null);
   const refChangeActionComment = useRef(null);
   const refChangeEditUser = useRef(null); // hiern thị bottom sheet thya dỏi user
@@ -147,6 +156,21 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     },[])
   const openDialogEditComment=useCallback(()=>{
     setIsVisibleEditComment(true)
+  },[])
+  const closeAnserReport=useCallback(()=>{  // đóng trả lời yêu cầu báo cáo
+    setIsVisibleAnswerReport(false)
+  },[])
+  const openAnswerReport=useCallback((item)=>{   // mở trả lời yêu cầu báo cáo
+    setReportSelected(item)
+    setIsVisibleAnswerReport(true)
+  },[])
+  const closeAcceptAnswerReport=useCallback(()=>{  // đóng hỏi : từ choi hay chấp nhận báo cáo
+    setIsVisibleAcceptAnswerReport(false)
+  },[])
+  const openAcceptAnswerReport=useCallback((item,type)=>{   // mở trả lời yêu cầu báo cáo
+    setReportSelected(item)
+    setTypeAcceptAnswer(type)
+    setIsVisibleAcceptAnswerReport(true)
   },[])
     const openActionTab=useCallback(()=>{
         if(currentUser==dataDetailTask.assignUser || currentUser==dataDetailTask.targetUser){
@@ -240,49 +264,53 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             {isGetDetailTask?<LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />
               :
             <View>
-            <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{ justifyContent:"center",marginTop:15,alignItems:'center'}}>
+            <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{marginTop:15}}>
               <Text style={{fontSize:20, color:"black",fontFamily:"OpenSans-SemiBold",textAlign:"center"}}>{dataDetailTask?.title|| ''}</Text>
-              <IconEdit/>
             </TouchableOpacity>
-
-             <View style={{flexDirection:"row",alignItems:'center',marginTop:10,justifyContent:"space-between"}}>
-               <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:8,paddingHorizontal:10, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",flexDirection:"row"}}>
-                 <View style={{width:10, height:10, borderRadius:10/2, backgroundColor:getColorPriority(dataDetailTask?.priority|| 0)}}/>
-                 <Text style={{fontSize:15,marginLeft:5, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
+              <View style={{backgroundColor:'white', borderRadius:14,paddingHorizontal:5,marginTop:5,paddingBottom:10,paddingVertical:5}}>
+                <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}}>
+                  <View style={{flexDirection:"row",alignItems:"center"}}>
+                    <IconContent2 width={22} height={22}/>
+                    <Text style={{fontSize:18, color:"#007AFE",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
+                  </View>
+                   <IconArrowDown/>
+                </TouchableOpacity>
+             <View style={{flexDirection:"row",alignItems:'center',marginTop:15}}>
+               <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Độ ưu tiên:"}</Text>
+               <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:3,paddingHorizontal:4, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",flexDirection:"row"}}>
+                 <View style={{width:7, height:7, borderRadius:7/2, backgroundColor:getColorPriority(dataDetailTask?.priority|| 0)}}/>
+                 <Text style={{fontSize:13,marginLeft:5, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
                  <IconArrowDown width={10} height={10}/>
                </TouchableOpacity>
-               <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,borderRadius:16,paddingHorizontal:10,flexDirection:"row",justifyContent:'center'}}>
-                 <Text style={{
-                   fontSize: 15,
-                   color: getColorTextStateTask(dataDetailTask?.state),
-                   fontFamily: "OpenSans-Regular",
-                 }}>{getState(dataDetailTask?.state)}
-                   <IconArrowDown width={10} height={10}/>
-                 </Text>
-               </View>
              </View>
 
-
-
-
-
-                <View style={{flexDirection:"row", justifyContent:"space-between"}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu"}</Text>
-                  <View style={{flexDirection:"row",alignItems:"center",backgroundColor:"#DDDDDD", borderRadius:7,padding:5}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.startDay||''}</Text>
+                <View style={{flexDirection:"row",alignItems:'center',marginTop:10}}>
+                  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Trạng thái:"}</Text>
+                  <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,borderRadius:16,paddingHorizontal:4,flexDirection:"row",justifyContent:'center'}}>
+                    <Text style={{
+                      fontSize: 13,
+                      color: getColorTextStateTask(dataDetailTask?.state),
+                      fontFamily: "OpenSans-Regular",
+                    }}>{getState(dataDetailTask?.state)}
+                      <IconArrowDown width={10} height={10}/>
+                    </Text>
                   </View>
                 </View>
 
-                  <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15}}>
-                      <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày kết thúc"}</Text>
-                      <View style={{flexDirection:"row",alignItems:"center",backgroundColor:"#DDDDDD", borderRadius:7,padding:5}}>
-                          <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay||''}</Text>
-                      </View>
+
+
+                <View style={{flexDirection:"row",marginTop:15}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày bắt đầu:"}</Text>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.startDay||''}</Text>
+                </View>
+
+                  <View style={{flexDirection:"row",marginTop:15}}>
+                      <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày kết thúc"}</Text>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay||''}</Text>
                   </View>
 
                 <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Người giao"}</Text>
-                    <View style={{flexDirection:"row",alignItems:"center",borderColor:"#999999",borderWidth:0.6, borderRadius:7,padding:3,flex:1}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Người giao:"}</Text>
                         <FastImage
                             style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
                             source={{
@@ -291,12 +319,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                             resizeMode={FastImage.resizeMode.stretch}
 
                         />
-                        <Text style={{flexWrap:"wrap",fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{dataDetailTask?.assignFullName||''}</Text>
-                    </View>
+                        <Text style={{flexWrap:"wrap",alignSelf:'center',fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{dataDetailTask?.assignFullName||''}</Text>
                 </View>
                 <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Người xử lý"}</Text>
-                    <View style={{flexDirection:"row",alignItems:"center",borderColor:"#999999",borderWidth:0.6, borderRadius:7,padding:3,flex:1}}>
+                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Người xử lý:"}</Text>
                         <FastImage
                             style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
                             source={{
@@ -305,26 +331,21 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                             resizeMode={FastImage.resizeMode.stretch}
 
                         />
-                        <Text style={{flexWrap:"wrap",fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{dataDetailTask?.targetFullName||''}</Text>
-                    </View>
+                        <Text style={{flexWrap:"wrap",fontSize:14,alignSelf:'center', color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{dataDetailTask?.targetFullName||''}</Text>
                 </View>
 
-              <ListReportTask assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} currenUser={2}/>
-              <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center"}}>
-                <IconProhress/>
-                <Text style={{fontSize:18,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Độ hoàn thiện"}</Text>
-              </TouchableOpacity>
+              <View style={{flexDirection:"row",marginTop:5,alignItems:'center'}}>
+                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}}>{"Độ hoàn thiện:"}</Text>
+                <ProgressTaskComponent progress={dataDetailTask?.progress} priority={dataDetailTask?.priority}/>
+              </View>
 
-              <ProgressTaskComponent progress={dataDetailTask?.progress} priority={dataDetailTask?.priority}/>
-              <TouchableOpacity style={{flexDirection:"row",marginTop:15,alignItems:"center"}}>
-                <IconContent/>
-                <Text style={{fontSize:18,marginLeft:"5%", color:"black",fontFamily:"OpenSans-SemiBold"}} numberOfLines={10}>{"Nội dung công việc"}</Text>
-              </TouchableOpacity>
-              <View style={{marginTop:10,backgroundColor:"#DDDDDD",padding:10,borderRadius:7}}>
 
+              <View style={{flexDirection:"row",marginTop:15,alignItems:"center",flex:1,overflow:"hidden"}}>
+                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}} numberOfLines={10}>{"Nội dung công việc:"}</Text>
             <RenderHtml
                   contentWidth={screenWidth}
                   source={{html:dataDetailTask?.content}}
+                  baseStyle={{marginLeft:10,flexWrap:"wrap"}}
                   renderersProps={{
                     a: {
                       onPress(event, url, htmlAttribs, target) {
@@ -342,9 +363,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
                   }}
                 />
-
+              </View>
         </View>
             </View>}
+            <ListReportTask assignUser={dataDetailTask?.assignUser} targetUser={dataDetailTask?.targetUser} currenUser={2} openAnserReport={openAnswerReport} openAcceptAnswerReport={openAcceptAnswerReport}/>
             <ListCheckList taskId={taskId}/>
             <ListFileAttachComponent taskId={taskId}/>
             <ListCommentComponet navigation ={navigation} taskId={taskId} openActionComment={openActionComment}  />
@@ -363,6 +385,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>
       <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleRequestReport} type={0}  title={"Yêu cầu báo cáo tiến độ công việc"} onClose={closeDialogRequestReport}/>
+      <DialogAnswerReport visible={isVisibleAnswerReport} onClose={closeAnserReport} taskId={taskId}   dispatch={dispatch} userId={currentUser} parentId={reportSelected?.reportId}/>
+       <DialogAcceptAnswerReport type={typeAcceptAnswer} visible={isVisibleAcceptAnswerReport} onClose={closeAcceptAnswerReport}  dispatch={dispatch}  userId={currentUser} taskId={taskId} reportSelected={reportSelected}/>
       <DialogProgress  taskId={taskId} visible={isVisibleProgress} onClose={closeDialogProgress} />
       <DialogConfirmComponet visible={isVisibleDeleteTask} onClose={closeDialogDeleteTask} content={"Bạn có chắc chắn xóa công việc này không"}/>
       <DialogEditComment   visible={isVisibleEditComment} onClose={closeDialogEditComment} dispatch={dispatch} comment={commentSelected} />

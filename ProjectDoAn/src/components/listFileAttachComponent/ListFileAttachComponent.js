@@ -93,21 +93,21 @@ export const ListFileAttachComponent = React.memo((props) => {
         <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSeeAll(!seeAll)} }>
           <View style={{flexDirection:"row",alignItems:"center"}}>
             <IconAttachFile width={20} height={20}/>
-            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Tệp đính kèm"}</Text>
+            <Text style={{fontSize:18, color:"#007AFE",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Tệp đính kèm"}</Text>
           </View>
           {seeAll? <IconArrowDown/>:<IconArrowUp/>}
         </TouchableOpacity>
         {seeAll ? (
-          dataListFileTask?.length > 0 ? <FlatList
+         <FlatList
               data={dataListFileTask}
               scrollEnabled={true}
               horizontal={true}
+              ListEmptyComponent={  <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
+                                          numberOfLines={10}>{"Không có file đính kèm cho công việc này"}</Text>}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => <RenderItemFile item={item} />}
               keyExtractor={(item, index) => index.toString()}
-            /> :
-            <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
-                  numberOfLines={10}>{"Không có file đính kèm cho công việc này"}</Text>
+            />
         ) : null}
 
       </View>
@@ -117,7 +117,7 @@ export const ListFileAttachComponent = React.memo((props) => {
 const styles = StyleSheet.create({
   container: {
     display:"flex",
-    marginTop: 10,
+    marginTop: 5,
     backgroundColor:"white",
     padding:7,
     borderRadius:8

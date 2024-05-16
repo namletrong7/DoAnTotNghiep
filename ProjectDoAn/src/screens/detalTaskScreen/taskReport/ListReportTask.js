@@ -25,7 +25,7 @@ import RenderItemReportTask from "./RenderItemReportTask";
 
 
 export const ListReportTask = React.memo((props) => {
-
+  const {assignUser,targetUser,openAnserReport,openAcceptAnswerReport} = props
   const dataReport = useSelector(state => state.task.detailTask.dataReport);
   const [seeAll, setSeeAll] = useState(true);
 
@@ -34,20 +34,20 @@ export const ListReportTask = React.memo((props) => {
       <View style={styles.container}>
         <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}} onPress= {() => {setSeeAll(!seeAll)} }>
           <View style={{flexDirection:"row",alignItems:"center"}}>
-            <IconReport width={20} height={20}/>
-            <Text style={{fontSize:18, color:"black",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Báo cáo"}</Text>
+            <IconReport width={22} height={22}/>
+            <Text style={{fontSize:18, color:"#007AFE",fontFamily:"OpenSans-SemiBold",marginLeft:"5%"}} numberOfLines={10}>{"Báo cáo"}</Text>
           </View>
           {seeAll? <IconArrowDown/>:<IconArrowUp/>}
         </TouchableOpacity>
         {seeAll ? (
-          dataReport?.length > 0 ? <FlatList
+           <FlatList
               data={dataReport}
               scrollEnabled={false}
-              renderItem={({ item }) => <RenderItemReportTask item={item} />}
+              ListEmptyComponent={ <Text style={{ fontSize: 14, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15,alignSelf:'center' }}
+                                         numberOfLines={10}>{"Không có báo cáo nào cho công việc này"}</Text>}
+              renderItem={({ item }) => <RenderItemReportTask openAcceptAnswerReport={openAcceptAnswerReport} openAnserReport={openAnserReport} item={item} assignUser={assignUser} targetUser={targetUser} />}
               keyExtractor={(item, index) => index.toString()}
-            /> :
-            <Text style={{ fontSize: 14, color: "black", fontFamily: "OpenSans-Regular", marginTop: 15 }}
-                  numberOfLines={10}>{"Không có báo cáo nào cho công việc này"}</Text>
+            />
         ) : null}
 
       </View>
@@ -57,7 +57,7 @@ export const ListReportTask = React.memo((props) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    marginTop: 19,
+    marginTop: 5,
     backgroundColor:"white",
     padding:7,
     borderRadius:7
