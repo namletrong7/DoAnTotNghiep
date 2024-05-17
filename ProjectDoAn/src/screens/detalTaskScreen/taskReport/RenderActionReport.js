@@ -10,8 +10,8 @@ const RenderActionReport = (props) => {
       if(currentUserId==assignUser)// là người giao
       {
         return (
-          <View style={{flexDirection:"row",width:"35%",justifyContent:'space-between'}}>
-            <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,0)}} style={{backgroundColor:"#fed5d5",padding:7,paddingHorizontal:8, borderRadius:8}}>
+          <View style={{flexDirection:"row",justifyContent:'space-between'}}>
+            <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,0)}} style={{backgroundColor:"#fed5d5",padding:7,paddingHorizontal:8, borderRadius:8,marginRight:8}}>
               <Text style={{ fontSize: 13, color: '#fd1c1c' }}>Từ chối</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>{openAcceptAnswerReport(item,1)}} style={{backgroundColor:"#c7e4ff",padding:7,paddingHorizontal:12, borderRadius:8}}>

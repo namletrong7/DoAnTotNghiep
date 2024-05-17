@@ -11,24 +11,23 @@ const ModalLoading = () => {
 
   const isLoading = useSelector(state => state.task.isLoadingAddTask);
 
-  const multiLineText = "Đang tạo công việc mới\nXin vui lòng đợi trong giây lát";
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={isLoading}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <LottieView style={{ height:100,marginTop:10,width:100}} source={require('../../../assets/animation/loading.json')} autoPlay loop />
-          <Text style={{
-            fontSize: 17,
-            color: "#4577ef",
-            fontFamily: "OpenSans-SemiBold",
-            alignSelf:"center",
-            textAlign:"center",
-            marginVertical:10
-          }}>{multiLineText}</Text>
+          <LottieView style={{ height:130,width:130}} source={require('../../../assets/animation/circlesRotate.json')} autoPlay loop />
+          {/*<Text style={{*/}
+          {/*  fontSize: 17,*/}
+          {/*  color: "#4577ef",*/}
+          {/*  fontFamily: "OpenSans-SemiBold",*/}
+          {/*  alignSelf:"center",*/}
+          {/*  textAlign:"center",*/}
+          {/*  marginVertical:10*/}
+          {/*}}>{multiLineText}</Text>*/}
         </View>
       </View>
     </Modal>
@@ -40,15 +39,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 13,
-    height:"800",
-    backgroundColor: "rgba(0,0,0,0.3)",
   },
   modalContent: {
     marginTop: "60%",
-    backgroundColor: "white",
+    backgroundColor: "rgba(0,0,0,0.35)",
     borderRadius: 10,
     elevation: 5,
-    width: "100%",
    alignItems:'center'
   },
   modelButton: {
