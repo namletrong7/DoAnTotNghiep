@@ -55,18 +55,20 @@ export const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file
 export const AddTaskScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
   const dataAllProject = useSelector(state => state.project.dataAllProject);
-  const [title, setTitle]=useState('');// tieeu de của công việc
+  const [title, setTitle]=useState(null);// tieeu de của công việc
+  const [backgroundTitle, setBackgroundTitle]=useState('transparent');// tieeu de của công việc
+  const titleRef = useRef(null);
   const [content, setContent]=useState('');// nội dung của công viec
 
   const [startDay, setStartDay]=useState('');//ngày băt đầu
-  const [ngayBatDau, setNgayBatDau]=useState('');//ngày băt đầu
+  const [ngayBatDau, setNgayBatDau]=useState(null);//ngày băt đầu
   const [endDay, setEndDay]=useState();// ngày kết thuc
-  const [ngayKetThuc, setngayKetThuc]=useState();// ngày kết thuc
+  const [ngayKetThuc, setngayKetThuc]=useState(null);// ngày kết thuc
 
   const [isShowStartDay, SetIsShowStartDay]=useState(false);//hiển thị picker chọn ngày bắt đầu
   const [isShowEndDay, SetIsShowEndDay]=useState(false);//hiển thị picker chọn kết thúc
 
-  const [valueProjectId, setValueProjectId]=useState('');  // giá trị của project id dc chọn
+  const [valueProjectId, setValueProjectId]=useState(null);  // giá trị của project id dc chọn
   const [valuePriority, setValuePriority]=useState(0);// giá trị của priority
   const [pickedFile, setPickedFile] = useState([]);// mảng chứa các file dc chọn
 
@@ -189,36 +191,44 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
   // hàm nhấn vào để tạo task
   const addTask=async () => {
-    const formData = new FormData();
+    if(!title){
+      setBackgroundTitle('red')
+   //   titleRef.current.focus();
 
-    // chèn các đối số vào  formData
-    formData.append('status', 0);
-    formData.append('state', 0);
-    formData.append('assignUser', dataCurrentUser.userId);
+    }else{
+      return ;
+    }
+    // const formData = new FormData();
+    //
+    // // chèn các đối số vào  formData
+    // formData.append('status', 0);
+    // formData.append('state', 0);
+    // formData.append('assignUser', dataCurrentUser.userId);
+    //
+    // formData.append('targetUser', targetUser?.userId||null);
+    // formData.append('priority', valuePriority);
+    // formData.append('title', title);
+    //
+    // formData.append('content', descHTML);
+    // formData.append('startDay', ngayBatDau);
+    // formData.append('endDay', ngayKetThuc);
+    //
+    // formData.append('createdDate', moment(new Date()).format('YYYY-MM-DD'));
+    // formData.append('progress', 0);
+    // formData.append('projectId', valueProjectId);
+    //
+    //
+    //
+    // pickedFile.forEach((file, index) => {
+    //   formData.append(`file${index + 1}`, {
+    //     uri: file.uri,
+    //     type: file.type,
+    //     name: file.name,
+    //   });
+    // });
+    //
+    //  await dispatch(actionAddTask(formData))
 
-    formData.append('targetUser', targetUser.userId);
-    formData.append('priority', valuePriority);
-    formData.append('title', title);
-
-    formData.append('content', descHTML);
-    formData.append('startDay', ngayBatDau);
-    formData.append('endDay', ngayKetThuc);
-
-    formData.append('createdDate', moment(new Date()).format('YYYY-MM-DD'));
-    formData.append('progress', 0);
-    formData.append('projectId', valueProjectId);
-
-
-
-    pickedFile.forEach((file, index) => {
-      formData.append(`file${index + 1}`, {
-        uri: file.uri,
-        type: file.type,
-        name: file.name,
-      });
-    });
-
-     await dispatch(actionAddTask(formData))
   }
   return (
     <View>
@@ -229,7 +239,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
         keyboardShouldPersistTaps="handled">
 
          <View style={{marginHorizontal:15,paddingBottom:'50%'}}>
-          <TextInputComponent textInput={title} setTextInput={setTitle} title={"Tiêu đề công việc *"} placeHolder={"Nhập tiêu đề của công việc"} height={45}/>
+          <TextInputComponent setBackground={setBackgroundTitle} background={backgroundTitle} textInput={title} inputRef={titleRef} setTextInput={setTitle} title={"Tiêu đề công việc"} placeHolder={"Nhập tiêu đề của công việc"} height={45}/>
            <DropDownMenu data={createListProjectDropDown(dataAllProject)} value={valueProjectId} title={"Chọn project của bạn"} onSelectItem = {onSelectProjectId} label={"Nhấn để chọn project"}/>
            <DropDownMenu data={dataPriority} value={valuePriority} title={"Độ ưu tiên"} onSelectItem = {onSelectPriority}  label={"Nhấn để chọn độ ưu  tiên "}/>
            <View  style={{marginTop:15,marginBottom:15}}>

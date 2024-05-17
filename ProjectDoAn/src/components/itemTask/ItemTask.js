@@ -77,8 +77,8 @@ const ItemTask = (props) => {
             resizeMode={FastImage.resizeMode.cover}
           />
         </View>
-        <View style={{flexDirection:'row',flex:0.45,justifyContent:'space-between'}}>
-          <View style={styles.backgroundQuantity}>
+        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+          <View style={[styles.backgroundQuantity,{marginRight:7}]}>
             <IconComment/>
             <Text style={styles.textStyleQuantity}>{"6"}</Text>
           </View>
