@@ -21,7 +21,7 @@ import IconEdit2 from "../../assets/icons/IconEdit2";
              />
          </View>
          {background==='red'?
-         <Text style={{ fontSize: 12, color: "red", fontFamily: "OpenSans-SemiBold" }}>{"Vui long nhap tieu de task"} </Text>:null}
+         <Text style={{ fontSize: 11, color: "red", fontFamily: "OpenSans-Regular" }}>{"Vui lòng nhập tiêu đề công việc !"} </Text>:null}
 
      </View>
    )

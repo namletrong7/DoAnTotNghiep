@@ -241,13 +241,13 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Chi tiết công việc"}</Text>
             <View  style={{ flexDirection:"row"}}>
               <TouchableOpacity  onPress={()=>{setisBookMark(!isBookMark)}}>
-                {isBookMark?<IconBookMark width={20} height={20}/>:<IconUnBookMark width={20} height={20}/>}
+                {isBookMark?<IconBookMark width={22} height={22}/>:<IconUnBookMark width={22} height={22}/>}
               </TouchableOpacity>
               <TouchableOpacity style={{marginHorizontal:13}} onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
-                <IconAttachFile width={20} height={20}/>
+                <IconAttachFile width={22} height={22}/>
               </TouchableOpacity>
               <TouchableOpacity onPress={openActionTab} >
-                <IconMenu width={20} height={20}/>
+                <IconMenu width={22} height={22}/>
               </TouchableOpacity>
             </View>
         </View>
@@ -286,7 +286,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
                 <View style={{flexDirection:"row",alignItems:'center',marginTop:10}}>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Trạng thái:"}</Text>
-                  <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,borderRadius:16,paddingHorizontal:4,flexDirection:"row",justifyContent:'center'}}>
+                  <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,paddingHorizontal:4, borderRadius:7,flexDirection:"row",justifyContent:'center'}}>
                     <Text style={{
                       fontSize: 13,
                       color: getColorTextStateTask(dataDetailTask?.state),

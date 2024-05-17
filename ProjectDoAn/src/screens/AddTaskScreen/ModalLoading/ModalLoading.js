@@ -19,7 +19,7 @@ const ModalLoading = () => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <LottieView style={{ height:130,width:130}} source={require('../../../assets/animation/circlesRotate.json')} autoPlay loop />
+          <LottieView style={{ height:100,width:100}} source={require('../../../assets/animation/circlesRotate.json')} autoPlay loop />
           {/*<Text style={{*/}
           {/*  fontSize: 17,*/}
           {/*  color: "#4577ef",*/}
@@ -42,9 +42,8 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     marginTop: "60%",
-    backgroundColor: "rgba(0,0,0,0.35)",
+    backgroundColor: "rgba(0,0,0,0.3)",
     borderRadius: 10,
-    elevation: 5,
    alignItems:'center'
   },
   modelButton: {
