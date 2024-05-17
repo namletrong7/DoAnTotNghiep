@@ -13,7 +13,7 @@ import IconPeople from "../../assets/icons/IconPeople";
  export const ItemNotify = React.memo((props)=>{
   const {item, navigation,dispatch} = props
    const handleItemNotifi = useCallback((item) => {
-     if(item?.type<11){
+     if(item?.type<12){
        navigation.navigate('DetailTask_Notifi', { taskId: item?.taskId });
      }else {
        navigation.navigate('DetailProjectScreen', { projectId:item?.projectId });
@@ -41,13 +41,7 @@ import IconPeople from "../../assets/icons/IconPeople";
            <IconEdit2 width={15} height={15}/>
          </View>
        )
-     } else if(type == 6 || type==7 ){
-       return (
-         <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00F5FF", borderRadius:16,padding:5}}>
-           <IconReport width={15} height={15}/>
-         </View>
-       )
-     }else if(type == 11 ){
+     } else if(type == 11 ){
        return (
          <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#5030E5", borderRadius:16,padding:5}}>
            <IconPeople width={15} height={15}/>
@@ -64,8 +58,9 @@ import IconPeople from "../../assets/icons/IconPeople";
 
    }
   return(
+    <View>
     <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:10,
-      paddingVertical:7, backgroundColor:item.isRead==0?"#DDDDDD":"transparent"}}>
+      paddingVertical:7, backgroundColor:item.isRead==0?"#E8E8E8":"transparent"}}>
       <View>
         <FastImage
           style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
@@ -86,5 +81,7 @@ import IconPeople from "../../assets/icons/IconPeople";
         <Text style={{fontSize:11,flexWrap:"wrap", color:"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
       </View>
     </Pressable>
+      <View style={{height:1, backgroundColor:"white"}}/>
+    </View>
   )
 })
