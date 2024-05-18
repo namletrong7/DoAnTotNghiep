@@ -13,7 +13,7 @@ import FileViewer from "react-native-file-viewer";
 /**
  * Created by TuanTQd on 21/03/2024
  */
-const RenderIcon = (props) => {
+const RenderIcon = React.memo((props) => {
     var Extension = props.extension.toLowerCase();
     if (Extension === "pdf") {
         return (
@@ -33,7 +33,7 @@ const RenderIcon = (props) => {
         );
     }
 
-};
+});
  export  const RenderItemFile = React.memo((props) => {
    const [percentage, setPercentage] = React.useState(0);
    const [isShowProgress, setIsShowProgress] = React.useState(false);

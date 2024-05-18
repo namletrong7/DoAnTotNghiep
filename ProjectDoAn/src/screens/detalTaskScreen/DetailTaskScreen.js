@@ -68,6 +68,7 @@ import DialogAcceptAnswerReport from "./dialogReport/DialogAcceptAnswerReport";
 import IconReport from "../../assets/icons/IconReport";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import IconContent2 from "../../assets/icons/IconContent";
+import { CircleprogressTask } from "../../components/ProgressTaskComponent/CircleprogressTask";
 
 
 
@@ -267,7 +268,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             <TouchableOpacity onPress={()=>{setIsShowChangeConent(true)}} style={{marginTop:15}}>
               <Text style={{fontSize:20, color:"black",fontFamily:"OpenSans-SemiBold",textAlign:"center"}}>{dataDetailTask?.title|| ''}</Text>
             </TouchableOpacity>
-              <View style={{backgroundColor:'white', borderRadius:14,paddingHorizontal:5,marginTop:5,paddingBottom:10,paddingVertical:5}}>
+              <View style={{backgroundColor:'white',flex:1, borderRadius:14,paddingHorizontal:5,marginTop:5,paddingBottom:10,paddingVertical:5}}>
                 <TouchableOpacity style={{flexDirection:"row",justifyContent:"space-between"}}>
                   <View style={{flexDirection:"row",alignItems:"center"}}>
                     <IconContent2 width={22} height={22}/>
@@ -336,11 +337,11 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
               <View style={{flexDirection:"row",marginTop:5,alignItems:'center'}}>
                 <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}}>{"Tiến độ xử lý:"}</Text>
-                <ProgressTaskComponent progress={dataDetailTask?.progress} priority={dataDetailTask?.priority}/>
+                <CircleprogressTask progress={dataDetailTask?.progress} priority={dataDetailTask?.priority}/>
               </View>
 
 
-              <View style={{flexDirection:"row",marginTop:15,alignItems:"center",flex:1,overflow:"hidden"}}>
+              <View style={{flexDirection:"row",marginTop:15,alignItems:"center",flex:1,flexWrap:'wrap'}}>
                 <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}} numberOfLines={10}>{"Nội dung công việc:"}</Text>
             <RenderHtml
                   contentWidth={screenWidth}

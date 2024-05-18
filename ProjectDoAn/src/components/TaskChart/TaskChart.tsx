@@ -4,7 +4,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 
 const TaskChart = () => {
-    const dataNumTask = useSelector(state => state.auth.dataNumTask);
+    const dataNumTask = useSelector(state => state?.auth?.dataNumTask);
   const pieData = [
     { value:  (dataNumTask?.numTaskDone / dataNumTask?.totalTask) * 100, color: '#7FFFD4', focused: true},
     {value:  (dataNumTask?.numTaskDoing / dataNumTask?.totalTask) * 100, color: '#836FFF' },
