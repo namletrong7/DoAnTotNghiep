@@ -32,6 +32,7 @@ const initialState = {
     dataCheckList:[],
     dataListNotify:[],
     isGetNotify:false,
+    isGetMoreNotify:false ,
     isAddComment:false,
 }
 const reducerTask = (state =initialState , action) => {
@@ -246,6 +247,11 @@ const reducerTask = (state =initialState , action) => {
                     ? { ...item, isRead: 1 }
                     : item
                 ),
+            };
+        }
+        case 'GET_MORE_NOTIFY': {
+            return { ...state,
+                dataListNotify: [...state.dataListNotify, ...action.data],
             };
         }
         default:

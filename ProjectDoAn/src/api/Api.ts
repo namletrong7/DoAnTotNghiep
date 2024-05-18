@@ -185,10 +185,12 @@ const Api = (isFormData:boolean) => {
       }
     });
   }
-  const getListNotify=(reciverUser:number)=>{
+  const getListNotify=(reciverUser:number,offset:number)=>{
     return apiConfig().get('getNotify.php',{
       params:{
         reciverUser:reciverUser,
+        offset:offset
+
       }
     });
   }

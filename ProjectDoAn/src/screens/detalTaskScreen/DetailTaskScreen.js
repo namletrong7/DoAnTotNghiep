@@ -276,7 +276,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                    <IconArrowDown/>
                 </TouchableOpacity>
              <View style={{flexDirection:"row",alignItems:'center',marginTop:15}}>
-               <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Độ ưu tiên:"}</Text>
+               <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Độ ưu tiên:"}</Text>
                <TouchableOpacity onPress={()=>{handelOpenChangePriority()}} style={{padding:3,paddingHorizontal:4, borderRadius:7, backgroundColor:getColorBackgroundPriority(dataDetailTask?.priority|| 0) ,alignItems:"center",flexDirection:"row"}}>
                  <View style={{width:7, height:7, borderRadius:7/2, backgroundColor:getColorPriority(dataDetailTask?.priority|| 0)}}/>
                  <Text style={{fontSize:13,marginLeft:5, color:getColorPriority(dataDetailTask?.priority|| 0),fontFamily:"OpenSans-Regular"}}>{getValuePriority(dataDetailTask?.priority||0)}</Text>
@@ -285,7 +285,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
              </View>
 
                 <View style={{flexDirection:"row",alignItems:'center',marginTop:10}}>
-                  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Trạng thái:"}</Text>
+                  <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Trạng thái:"}</Text>
                   <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,paddingHorizontal:4, borderRadius:7,flexDirection:"row",justifyContent:'center'}}>
                     <Text style={{
                       fontSize: 13,
@@ -300,17 +300,17 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
 
                 <View style={{flexDirection:"row",marginTop:15}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày bắt đầu:"}</Text>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.startDay||'chưa có thông tin'}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày bắt đầu:"}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.startDay||'chưa có thông tin'}</Text>
                 </View>
 
                   <View style={{flexDirection:"row",marginTop:15}}>
-                      <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày kết thúc"}</Text>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay||'chưa có thông tin'}</Text>
+                      <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày kết thúc:"}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay||'chưa có thông tin'}</Text>
                   </View>
 
                 <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Người giao:"}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Người giao:"}</Text>
                         <FastImage
                             style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
                             source={{
@@ -322,7 +322,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                         <Text style={{flexWrap:"wrap",alignSelf:'center',fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5,flex:1}}>{dataDetailTask?.assignFullName||'chưa có thông tin'}</Text>
                 </View>
                 <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>
-                    <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Người xử lý:"}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Người xử lý:"}</Text>
                         <FastImage
                             style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden"}}
                             source={{
@@ -335,13 +335,13 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 </View>
 
               <View style={{flexDirection:"row",marginTop:5,alignItems:'center'}}>
-                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}}>{"Tiến độ xử lý:"}</Text>
+                <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}}>{"Tiến độ xử lý:"}</Text>
                 <ProgressTaskComponent progress={dataDetailTask?.progress} priority={dataDetailTask?.priority}/>
               </View>
 
 
               <View style={{flexDirection:"row",marginTop:15,alignItems:"center",flex:1,overflow:"hidden"}}>
-                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}} numberOfLines={10}>{"Nội dung công việc:"}</Text>
+                <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}} numberOfLines={10}>{"Nội dung công việc:"}</Text>
             <RenderHtml
                   contentWidth={screenWidth}
                   source={{html:dataDetailTask?.content}}
