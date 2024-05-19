@@ -88,6 +88,7 @@ import {useSelector} from "react-redux";
          const formData = new FormData();
          formData.append('file', avatarUser);
          formData.append('userId', 14);
+         formData.append('userDepartJobId', 14);
 
          formData.append('userName', username);
          formData.append('firstName', firstName);
