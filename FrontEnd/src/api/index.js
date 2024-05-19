@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const Api = () => {
+const Api = (isFormData) => {
     const api = axios.create({
-        baseURL: 'http://3.25.188.2/DOAN/API_WEB/',
+        baseURL: 'http://192.168.1.108:8080/DOAN/API_WEB/',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': isFormData?'multipart/form-data':'application/json',
         },
         timeout: 20000,
     });
@@ -21,10 +21,41 @@ const Api = () => {
     const getJobtitle=()=> {
         return api.get("getJobtitle.php");
     }
+    const editJobtitle=(content,jobtitleId)=> {
+        return api.get("editJobtitle.php",{
+            params:{
+                content:content,
+                jobtitleId:jobtitleId,
 
+            }
+        });
+    }
 
+    const addJobtitle=(content)=> {
+        return api.get("addJobtitle.php",{
+            params:{
+                content:content,
+            }
+        });
+    }
+    const editDepartment=(content,departmentId)=> {
+        return api.get("editDepartment.php",{
+            params:{
+                content:content,
+                departmentId:departmentId,
+
+            }
+        });
+    }
+    const addDepartment=(content,departmentId)=> {
+        return api.get("addDepartment.php",{
+            params:{
+                content:content,
+            }
+        });
+    }
     return {
-        getListEmployee,getDepartMent,getJobtitle
+        getListEmployee,getDepartMent,getJobtitle,editJobtitle,addJobtitle,editDepartment,addDepartment
     };
 };
 

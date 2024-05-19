@@ -23,12 +23,14 @@ import {useSelector} from "react-redux";
      const [jobTitleId, setJobTitleId] = useState(null);
      const [departmentId, setDepartmentId] = useState(null);
      const [positionLevel, setPositionLevel] = useState(null);
-     const [image, setImage] = useState(null)
+     const [image, setImage] = useState(null);
+     const [avatarUser, setAvatarUser] = useState(null)
      const dataListDepartment = useSelector(state => state.reducerDepartment?.dataListDepartment);
      const dataListJobtitle = useSelector(state => state.reducerJobtitle?.dataListJobtitle);
      const onImageChange = (event) => {
          if (event.target.files && event.target.files[0]) {
              setImage(URL.createObjectURL(event.target.files[0]));
+             setAvatarUser(event.target.files[0])
              console.log(event);
          }
      }
@@ -45,30 +47,60 @@ import {useSelector} from "react-redux";
          setJobTitleId(item?.jobtitleId)
          setDepartmentId(item?.departmentId)
          setPositionLevel(item?.positionLevel)
+         setAvatarUser(null)
+         console.log(item)
      },[item,isShowModalEditUser])
     const handleSetAdmin=()=>{
-         setIsAdmin(!isAdmin)
+         setIsAdmin(isAdmin==1?0:1)
     }
      const handleSetActive=()=>{
-         setIsActive(!isActive)
+         setIsActive(isActive==1?0:1)
      }
-     // "userId": "1",
-     //     "userName": "namltc",
-     //     "firstName": "John",
-     //     "lastName": "Doe",
-     //     "fullName": "Lê Trọng Nam",
-     //     "email": "john.doe@example.com",
-     //     "phoneNumber": "123456789",
-     //     "gender": "1",
-     //     "isActive": "1",
-     //     "passWord": "password123",
-     //     "createdByUserid": "admin_user",
-     //     "avatarUser": "namltc.png",
-     //     "positionLevel": "2",
-     //     "birthDay": "1990-01-01 00:00:00",
-     //     "isAdmin": "1",
-     //     "jobtitleName": "Chuyên viên phân tích dữ liệu",
-     //     "departmentName": "Phòng phát triển hệ thống"
+     const removeVietnameseTones = (str) => {
+         str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+         str = str.replace(/đ/g, "d").replace(/Đ/g, "D");
+         return str;
+     };
+     const formatName = (name) => {
+         const words = name.split(' ');
+         if (words.length === 0) {
+             return '';
+         }
+
+         // Lấy từ cuối cùng, bỏ dấu và chuyển đổi chữ cái đầu thành viết hoa
+         const lastName = words[words.length - 1];
+         const formattedLastName = removeVietnameseTones(lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase());
+
+         // Lấy chữ cái đầu tiên của tất cả các từ và chuyển đổi thành chữ in hoa
+         const initials = words.map(word => removeVietnameseTones(word.charAt(0).toUpperCase())).join('');
+
+         return formattedLastName + initials.slice(0, -1);
+     };
+     const handleFirstName=async (e) => {
+         await setfirstName(e.target.value);
+         setUserName(formatName(firstName.trim()+' '+lastName.trim()));
+     }
+     const handleLastName=async (e) => {
+         await setlastName(e.target.value)
+         setUserName(formatName(firstName.trim()+' '+lastName.trim()));
+     }
+     const handleEdit=()=>{
+         const formData = new FormData();
+         formData.append('file', avatarUser);
+         formData.append('userId', 14);
+
+         formData.append('userName', username);
+         formData.append('firstName', firstName);
+         formData.append('lastName', lastName);
+         formData.append('email', email);
+         formData.append('phoneNumber', phoneNumber);
+         formData.append('positionLevel', positionLevel);
+         formData.append('departmentId', departmentId);
+         formData.append('jobTitleId', jobTitleId);
+         formData.append('isAdmin', isAdmin);
+         formData.append('isActive', isActive);
+     }
+
 
     return (
         <div>
@@ -94,11 +126,11 @@ import {useSelector} from "react-redux";
 
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>First Name</div>
-                                       <input  value={firstName} onChange={(e)=>{setfirstName(e.target.value)}} className={cx('input')}  />
+                                       <input  value={firstName} onChange={handleFirstName} className={cx('input')}  />
                                    </div>
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>Last name</div>
-                                       <input value={lastName} onChange={(e)=>{setlastName(e.target.value)}} className={cx('input')} />
+                                       <input value={lastName} onChange={handleLastName} className={cx('input')} />
                                    </div>
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>Email</div>
@@ -107,7 +139,7 @@ import {useSelector} from "react-redux";
 
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>Số điện thoại</div>
-                                       <input value={phoneNumber} onChange={(e)=>{setPhoneNumber(e.target.value)}} className={cx('input')}  />
+                                       <input value={phoneNumber}    type="tel"  onChange={(e)=>{setPhoneNumber(e.target.value)}} className={cx('input')}  />
                                    </div>
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>Chức vụ</div>

@@ -29,7 +29,7 @@ function JobtitleManagerScreen (props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [textSearch, setTextSearch] = useState('');
-    const [selectedOption, setSelectedOption] = useState('');
+//    const [selectedOption, setSelectedOption] = useState('');
     const isGetListJobtitle = useSelector(state => state.reducerJobtitle?.isGetListJobtitle);
     const dataListJobtitle = useSelector(state => state.reducerJobtitle?.dataListJobtitle);
     console.log(dataListJobtitle)
@@ -37,25 +37,23 @@ function JobtitleManagerScreen (props) {
         setTextSearch(e.target.value)
     }
 
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
+  //  const handleOptionChange = (event) => {
+    //     setSelectedOption(event.target.value);
+    // };
 
-    const handleToEditProductKhoHangAdminScreen = (item) => {
-        const editSanPham = true;
-
-        navigate(`/admin/EditProductKhoHangAdminScreen/${item.idProduct}`, {
-            state: { editSanPham },
-        });
-    }
+    // const handleToEditProductKhoHangAdminScreen = (item) => {
+    //     const editSanPham = true;
+    //
+    //     navigate(`/admin/EditProductKhoHangAdminScreen/${item.idProduct}`, {
+    //         state: { editSanPham },
+    //     });
+    // }
 
     const onCloseModalDeleteJobtitle=useCallback(()=>{
         setIsShowModalDeleteJobtitle(false)
     },[])
 
-    const showToast = () => {
-        toast.success("successful");
-    };
+
     const handleOpenEditJobtitle=useCallback(async (item) => {
         await setItemSelected(item)
         console.log(item)
@@ -91,7 +89,7 @@ function JobtitleManagerScreen (props) {
             <div className={cx('fixed')}>
                 <div className={cx('headerQl', 'flex')}>
                     <i className={cx('bx bx-menu', 'iconMenu')}></i>
-                    <div>QUẢN LÝ PHÒNG BAN</div>
+                    <div>QUẢN LÝ CHUYÊN MÔN</div>
                 </div>
 
                 <div className={cx('flex', 'searchUser')}>
@@ -102,7 +100,7 @@ function JobtitleManagerScreen (props) {
                 </div>
 
 
-                <div onClick={gotoBillAdminScrenn} className={cx('btn', 'addSp')}>Thêm chuyên môn</div>
+                <div onClick={handleOpenAddJobtitle} className={cx('btn', 'addSp')}>Thêm chuyên môn</div>
             </div>
             <div className={cx('body')}>
                 {isGetListJobtitle?<LoadingComponent/>:
@@ -137,7 +135,7 @@ function JobtitleManagerScreen (props) {
                 </div>}
 
             </div>
-            <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.jobtitleName} onClose={onCloseModalDeleteJobtitle} isVisible={isShowModalDeleteJobtitle}/>
+             <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.jobtitleName} onClose={onCloseModalDeleteJobtitle} isVisible={isShowModalDeleteJobtitle}/>
              <ModalAddJobtitle isVisible={isShowModalAddJobtitle} onClose={handleCloseAddJobtitle}/>
              <ModalEditJobtitle item={itemSelected} isVisible={isShowModalEditJobtitle} onClose={handleCloseEditJobtitle}/>
 

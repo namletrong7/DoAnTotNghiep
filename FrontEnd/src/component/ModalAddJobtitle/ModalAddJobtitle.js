@@ -1,18 +1,34 @@
 import IconClose from "../../assets/icon/IconClose";
 import React, {useEffect, useState} from "react";
 import classNames from "classnames/bind";
-import styles from './ModalAddDepartment.module.scss'
+import styles from './ModalAddJobtitle.module.scss'
 import {dataListPosititon} from "../../unitl/GetValuePosition";
 import {baseUrlAvatarUser, baseUrlLinkFile} from "../../api/ConstBaseUrl";
 import IconSwitchOn from "../../assets/icon/IconSwitchOn";
 import IconSwitchOff from "../../assets/icon/IconSwitchOff";
+import {actionAddJobtitle, actionEditJobtitle} from "../../redux-store/action/actionJobtitle";
+import {useDispatch} from "react-redux";
 
 
  export const ModalAddJobtitle=React.memo((props)=>{
     const {isVisible, onClose} = props
     const cx = classNames.bind(styles);
+     const dispatch = useDispatch();
+     const [errors, setErrors] = useState({});
     const [content, setContent] = useState('');
-
+    const handleAdd=async (event) => {
+        const error = {};
+        if (content === null || content.trim() === '') {
+            error.value = 'Xin vui lòng nhập chuyên môn!'
+            setErrors(error)
+        } else {
+            setErrors(error)
+        }
+        if (Object.keys(error).length === 0) {
+           await dispatch(actionAddJobtitle(content))
+            onClose();
+        }
+    }
     return (
         <div>
             {isVisible ?
@@ -32,9 +48,10 @@ import IconSwitchOff from "../../assets/icon/IconSwitchOff";
                                        <div className={cx('textInput')}>Tên chuyên môn: </div>
                                        <input value={content} onChange={(e)=>{setContent(e.target.value)}} placeholder={"Nhập tên phòng ban"} className={cx('input')}/>
                                    </div>
+                            {errors.value?<div style={{fontSize:15, color:'red', marginLeft:"10%"}}>{errors.value}</div>:null}
                         </div>
                         <div>
-                            <div style={style.buttonEdit}>
+                            <div onClick={handleAdd} style={style.buttonEdit}>
                                 <div style={style.textEdit}>Thêm phòng ban</div>
                             </div>
                         </div>
@@ -76,7 +93,7 @@ const style = {
         alignItems:'center',
         justifyContent:'center',
         textAlign:'center',
-        width:100,
+        width:150,
         alignSelf:'center',
         paddingTop:5,
         marginLeft:"45%",
