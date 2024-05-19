@@ -202,7 +202,7 @@ const reducerTask = (state =initialState , action) => {
                 ),
             };
         }
-        case 'DELETE_COMMENT': {
+        case 'DELETE_COMMENT': {  /// filter láy ra danh sách comment có id khác với id muốn xóa
             return { ...state,
                 dataCommentTask:state.dataCommentTask.filter(comment =>
                   comment.commentId !== action.data.commentId
