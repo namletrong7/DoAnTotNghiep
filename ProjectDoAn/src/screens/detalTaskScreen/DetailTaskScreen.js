@@ -69,6 +69,7 @@ import IconReport from "../../assets/icons/IconReport";
 import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import IconContent2 from "../../assets/icons/IconContent";
 import { CircleprogressTask } from "../../components/ProgressTaskComponent/CircleprogressTask";
+import IconAttach2 from "../../assets/icons/IconAttach2";
 
 
 
@@ -245,10 +246,10 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                 {isBookMark?<IconBookMark width={22} height={22}/>:<IconUnBookMark width={22} height={22}/>}
               </TouchableOpacity>
               <TouchableOpacity style={{marginHorizontal:13}} onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
-                <IconAttachFile width={22} height={22}/>
+                <IconAttach2 width={20} height={20}/>
               </TouchableOpacity>
               <TouchableOpacity onPress={openActionTab} >
-                <IconMenu width={22} height={22}/>
+                <IconMenu width={20} height={20}/>
               </TouchableOpacity>
             </View>
         </View>

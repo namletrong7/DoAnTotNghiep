@@ -26,7 +26,7 @@ const InputCheckList = (props) => {
                 value={content}
                 onChangeText={setContent}
                 placeholderTextColor={"gray"}
-                placeholder={"Them checklist"}
+                placeholder={"Nhập nội dung checklist.."}
                 style={styles.textinput}
             />
             <TouchableOpacity onPress={addCheckList} style={{paddingHorizontal:7, paddingVertical:4, backgroundColor:"#CCCCCC",borderRadius:14}}>

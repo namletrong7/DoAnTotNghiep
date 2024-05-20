@@ -68,6 +68,9 @@ export const PersonalScreen = React.memo(({navigation})=>{
       icon: { icon: "warning", position: 'left' }
     });
   },[])
+  const gotoChangePassScreen=useCallback(()=>{
+  navigation.navigate("ChangePasswordScreen")
+  },[])
   const showInfo=useCallback(()=>{
     showMessage({
       message: "Phiên bản 1.0.0",
@@ -125,7 +128,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
                  <IconComputer/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Quản lý phiên đăng nhập"}</Text>
                </TouchableOpacity>
-               <TouchableOpacity  onPress={show} style={{marginTop:25,flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
+               <TouchableOpacity  onPress={gotoChangePassScreen} style={{marginTop:25,flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
                  <IconKey/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đổi mật khẩu"}</Text>
                </TouchableOpacity>
