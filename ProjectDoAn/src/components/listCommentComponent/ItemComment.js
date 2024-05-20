@@ -1,9 +1,4 @@
-/**
- * Componet itemtask : thiết kế item cho 1 công việc trên danh sách
- */
-/**
- * Componet hiển thị nội dung từng ngày họp cụ thể
- */
+
 import React, {useCallback, useState} from 'react';
 import {
   Dimensions,
@@ -16,15 +11,13 @@ import {
   View,
 } from "react-native";
 
-import AppNavigator from "../../navigation/AppNavigator";
-import IconFlag from "../../assets/icons/IconArrowDown";
+
 import FastImage from 'react-native-fast-image'
-import { getColorBackgroundPriority, getColorPriority, getState, getValuePriority } from "../../utils/GetPriority";
-import IconCalendar from "../../assets/icons/IconCalendar";
+
 import { baseUrlAvatarUser, baseUrlLinkFile } from "../../api/ConstBaseUrl";
 import { convertDateDB } from "../../utils/ConverPickerDate";
 import IconLike from "../../assets/icons/IconLike";
-import IconUnLike from "../../assets/icons/IconUnlike";
+
 
 
 const ItemComment = ({item,navigation,openActionComment}) => {
