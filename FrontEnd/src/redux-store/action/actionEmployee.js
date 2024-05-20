@@ -1,4 +1,5 @@
 import Api from "../../api";
+import {actionGetListJobtitle} from "./actionJobtitle";
 
 export function updateData(data) {
     return {
@@ -59,6 +60,22 @@ export function actionGetListEmployee () {
         }
     };
 }
+export function actionEditEmployee(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(true).editUser(body);
+            console.log(response.data)
+            if(response.data && response.data.status){
+                alert(response.data?.message);
+                dispatch(actionGetListEmployee())
+            }else{
+                alert("Đã xảy ra lỗi vui lòng thử lại sau");
+            }
+        } catch (error) {
 
+            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
+        }
+    };
+}
 
 

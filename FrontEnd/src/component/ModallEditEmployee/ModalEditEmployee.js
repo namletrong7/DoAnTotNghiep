@@ -8,11 +8,13 @@ import IconSwitchOn from "../../assets/icon/IconSwitchOn";
 import IconSwitchOff from "../../assets/icon/IconSwitchOff";
 import {isVisible} from "@testing-library/user-event/dist/utils";
 import {Player} from "@lottiefiles/react-lottie-player";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {actionEditEmployee} from "../../redux-store/action/actionEmployee";
 
  export const ModalEditEmployee=React.memo((props)=>{
     const {item, isShowModalEditUser, onClose} = props
     const cx = classNames.bind(styles);
+     const dispatch = useDispatch();
      const [username, setUserName] = useState('');
      const [firstName, setfirstName] = useState('');
      const [lastName, setlastName] = useState('');
@@ -84,22 +86,24 @@ import {useSelector} from "react-redux";
          await setlastName(e.target.value)
          setUserName(formatName(firstName.trim()+' '+lastName.trim()));
      }
-     const handleEdit=()=>{
+     const handleEdit=async () => {
          const formData = new FormData();
-         formData.append('file', avatarUser);
-         formData.append('userId', 14);
-         formData.append('userDepartJobId', 14);
+         formData.append('userId', item?.userId);
+         formData.append('userDepartJobId', item?.userDepartJobId);
 
+
+         formData.append('file', avatarUser);
          formData.append('userName', username);
-         formData.append('firstName', firstName);
-         formData.append('lastName', lastName);
-         formData.append('email', email);
-         formData.append('phoneNumber', phoneNumber);
+         formData.append('firstName', firstName.trim());
+         formData.append('lastName', lastName.trim());
+         formData.append('email', email.trim());
+         formData.append('phoneNumber', phoneNumber.trim());
          formData.append('positionLevel', positionLevel);
          formData.append('departmentId', departmentId);
          formData.append('jobTitleId', jobTitleId);
          formData.append('isAdmin', isAdmin);
          formData.append('isActive', isActive);
+         await dispatch(actionEditEmployee(formData))
      }
 
 
@@ -198,7 +202,7 @@ import {useSelector} from "react-redux";
                             </div>
 
                         </div>
-                           <div style={style.buttonEdit}>
+                           <div  onClick={handleEdit} style={style.buttonEdit}>
                                <div style={style.textEdit}>Chỉnh sửa</div>
                            </div>
                     </div>
