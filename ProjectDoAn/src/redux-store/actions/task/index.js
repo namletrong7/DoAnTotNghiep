@@ -150,9 +150,6 @@ export function actionGetCommentTask(taskId,offset) {
         await   dispatch({  // bắt đầu
             type: "START_GET_COMMENT",
         });
-        await   dispatch({  // bắt đầu
-            type: "START_GET_FILE_ATTACH",
-        });
         try {
 
             const response = await Api(false).getCommentTask(taskId,offset);
@@ -213,11 +210,10 @@ export function actionGetMoreCommentTask(taskId,offset) {
                 }
 
 
-            }else {
-                await   dispatch({ // kết thúc sự kiện load detail task
-                    type: "END_GET_MORE_COMMENT",
-                });
             }
+            await   dispatch({ // kết thúc sự kiện load detail task
+                type: "END_GET_MORE_COMMENT",
+            });
 
 
         } catch (error) {
@@ -1003,7 +999,7 @@ export function actionGetListNotify() {
         }))
         let userId = getState().auth.dataCurrentUser?.userId
         try {
-            const response = await Api(false).getListNotify(userId);
+            const response = await Api(false).getListNotify(userId,0);
 
         //  console.log(response.data?.dataListNotify)
             if (response.data && response.data.status == 200) {
@@ -1028,6 +1024,44 @@ export function actionGetListNotify() {
         }
 
 
+    }
+}
+export function actionGetMoreListNotify() {
+    return async (dispatch, getState) => {
+        if(!getState().task.isGetMoreNotify && !getState().task.isGetNotify) {
+            dispatch(updateData({
+                isGetMoreNotify: true
+            }))
+            let userId = getState().auth.dataCurrentUser?.userId
+            let dataListNotify = getState().task?.dataListNotify
+            try {
+                const response = await Api(false).getListNotify(userId, dataListNotify?.length);
+
+                //  console.log(response.data?.dataListNotify)
+                if (response.data && response.data.status == 200) {
+                    dispatch({
+                        type: "GET_MORE_NOTIFY",
+                        data: response.data?.dataListNotify
+                    });
+                }
+                setTimeout(() => {
+                    dispatch(updateData({
+                        isGetMoreNotify: false
+                    }))
+                }, 3000);
+            } catch (error) {
+                dispatch(updateData({
+                    isGetMoreNotify: false
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        }
     }
 }
 export function actionSetIsReadNotify(notifyUserId) {

@@ -31,4 +31,35 @@ export function actionGetListJobtitle () {
         }
     };
 }
+export function actionEditJobtitle (content, jobtitleId) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api().editJobtitle(content, jobtitleId);
+            if(response.data && response.data.status){
+                alert(response.data?.message);
+                dispatch(actionGetListJobtitle())
+            }else{
+                alert("Đã xảy ra lỗi vui lòng thử lại sau");
+            }
+        } catch (error) {
+
+            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
+        }
+    };
+}
+export function actionAddJobtitle (content) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api().addJobtitle(content);
+            if(response.data && response.data.status){
+                alert(response.data?.message);
+                dispatch(actionGetListJobtitle())
+            }else{
+                alert("Đã xảy ra lỗi vui lòng thử lại sau");
+            }
+        } catch (error) {
+            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
+        }
+    };
+}
 

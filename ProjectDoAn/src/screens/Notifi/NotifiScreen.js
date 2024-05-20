@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -22,7 +22,7 @@ import IconBell from "../../assets/icons/IconBell";
 import { getTypeNotifi } from "../../utils/GetPriority";
 import IconBack from "../../assets/icons/IconBack";
 import LinearGradient from "react-native-linear-gradient";
-import { actionGetListNotify, actionGetTaskToDoProject } from "../../redux-store/actions/task";
+import { actionGetListNotify, actionGetMoreListNotify, actionGetTaskToDoProject } from "../../redux-store/actions/task";
 import IconComment from "../../assets/icons/IconComment";
 import IconNotityComment from "../../assets/icons/IconNotityComment";
 import IconEdit from "../../assets/icons/IconEdit";
@@ -36,17 +36,27 @@ const NotifiScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const dataListNotify = useSelector(state => state.task?.dataListNotify);
   const isGetNotify = useSelector(state => state.task?.isGetNotify);
+  const isGetMoreNotify = useSelector(state => state.task?.isGetMoreNotify);
   useEffect(()=>{
     dispatch(actionGetListNotify())
   },[])
-  const handleRefresh = () => {
+  const handleRefresh =useCallback(() => {
     setRefreshing(true); // Đặt trạng thái là đang làm mới
     dispatch(actionGetListNotify())
     setRefreshing(false);
-  };
+  },[]);
 
-
-
+  const loadMoreData = useCallback(() => {
+     dispatch(actionGetMoreListNotify())
+  },[]);
+  const renderFooter = React.memo(() => {
+    if (!isGetMoreNotify) return null;
+    return (
+      <View>
+        <LottieView style={{ height:100,width:100,alignSelf:'center'}} source={require('../../assets/animation/loading2.json')} autoPlay loop />
+      </View>
+    );
+  });
 
   return (
     <View style={{height:'100%',backgroundColor:"#F0F0F0"}}>
@@ -58,6 +68,9 @@ const NotifiScreen = ({ navigation }) => {
             scrollEnabled={true}
             initialNumToRender={10}
             keyExtractor={item => item.notifyUserId}
+            onEndReached={loadMoreData}
+            onEndReachedThreshold={0.02}
+            ListFooterComponent={renderFooter}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -66,7 +79,7 @@ const NotifiScreen = ({ navigation }) => {
           />
           {isGetNotify?
           <View style={{position:"absolute", flex:1,alignSelf:"center",height:'100%',justifyContent:'center'}}>
-            <ActivityIndicator size="large" color="#4577ef" />
+            <LottieView style={{ height:150,width:150}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />
           </View>:null}
 
         </LinearGradient>

@@ -2,6 +2,9 @@ import IconClose from "../../assets/icon/IconClose";
 import React, {useEffect, useState} from "react";
 import classNames from "classnames/bind";
 import styles from './ModalEditDepartment.module.scss'
+import {useDispatch} from "react-redux";
+import {actionAddJobtitle} from "../../redux-store/action/actionJobtitle";
+import {actionEditDepartment} from "../../redux-store/action/actionDepartment";
 
 
 
@@ -9,9 +12,24 @@ import styles from './ModalEditDepartment.module.scss'
     const {item,isVisible, onClose} = props
     const cx = classNames.bind(styles);
     const [content, setContent] = useState('');
+     const dispatch = useDispatch();
+     const [errors, setErrors] = useState({});
     useEffect(()=>{
         setContent(item?.departmentName)
     },[item,isVisible])
+     const handleEdit=async () => {
+         const error = {};
+         if (content === null || content.trim() === '') {
+             error.value = 'Xin vui lòng nhập phòng ban!'
+             setErrors(error)
+         } else {
+             setErrors(error)
+         }
+         if (Object.keys(error).length === 0) {
+             await dispatch(actionEditDepartment(content,item?.departmentId))
+             onClose();
+         }
+     }
     return (
         <div>
             {isVisible ?
@@ -31,9 +49,11 @@ import styles from './ModalEditDepartment.module.scss'
                                        <div className={cx('textInput')}>Tên phòng ban: </div>
                                        <input value={content} onChange={(e)=>{setContent(e.target.value)}} placeholder={"Nhập tên phòng ban"} className={cx('input')}/>
                                    </div>
+                            {errors.value?<div style={{fontSize:15, color:'red', marginLeft:"10%"}}>{errors.value}</div>:null}
+
                         </div>
                         <div>
-                            <div style={style.buttonEdit}>
+                            <div onClick={handleEdit} style={style.buttonEdit}>
                                 <div style={style.textEdit}>Chỉnh sửa</div>
                             </div>
                         </div>

@@ -108,11 +108,6 @@ const TaskPersonalScreen = ({ navigation }) => {
          dispatch(actionGetTargetTask())
         setLableTypeTask("Việc tôi cần xử lý")
         break;
-      case 3:
-        setTypeTask(1)
-        setLableTypeTask("Tất cả công việc của tôi")
-
-        break;
       case 4:
         setTypeTask(4)
         setLableTypeTask("Việc của tôi xử lý đã hoàn thành")
@@ -159,7 +154,7 @@ const TaskPersonalScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
                   <View style={{flexDirection:"row",marginRight:20,flex:1}}>
                     <IconBox/>
-                    <Text style={{ fontSize: 19, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
+                    <Text style={{ fontSize: 15, color: "black", fontFamily: "OpenSans-SemiBold",marginLeft:10 }}>{lableTypeTask}</Text>
                   </View>
                   <IconClose/>
                 </TouchableOpacity>
@@ -170,7 +165,7 @@ const TaskPersonalScreen = ({ navigation }) => {
 
                 >
                   <IconAssign/>
-                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi giao"}</Text>
+                  <Text style={{ fontSize: 15, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi giao"}</Text>
 
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{
@@ -179,15 +174,7 @@ const TaskPersonalScreen = ({ navigation }) => {
                                   style={{flexDirection:"row",marginTop:10}}
                 >
                   <IconTarget/>
-                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi cần xử lý"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{
-                  SetIsShowMore(false)
-                  filterTask(3)}}
-                                  style={{flexDirection:"row",marginTop:10}}
-                >
-                  <IconAll/>
-                  <Text style={{ fontSize: 17, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Tất cả công việc của tôi"}</Text>
+                  <Text style={{ fontSize: 15, color: "black",marginLeft:15, fontFamily: "OpenSans-Regular" }}>{"Việc tôi cần xử lý"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{
                   SetIsShowMore(false)
@@ -195,13 +182,13 @@ const TaskPersonalScreen = ({ navigation }) => {
                                   style={{flexDirection:"row",marginTop:10}}
                 >
                   <IconDone/>
-                  <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
+                  <Text style={{ fontSize: 15, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{navigation.navigate("FilterTaskScreen")}}
                                   style={{flexDirection:"row",marginTop:10}}
                 >
                   <IconCalendar/>
-                  <Text style={{ fontSize: 17, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc cần xử lý tuần này "}</Text>
+                  <Text style={{ fontSize: 15, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc cần xử lý tuần này "}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -269,7 +256,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 20,
     color: '#fff'
-  }, modalContainer: {
+  },
+  modalContainer: {
     height:"100%",
     alignItems: 'center',
     backgroundColor:'rgba(0,0,0,0.3)',
@@ -279,7 +267,9 @@ const styles = StyleSheet.create({
     paddingVertical:15,
     elevation: 5,
     width:"100%",
-    height:"40%"
+    height:"40%",
+    borderBottomRightRadius:10,
+    borderBottomLeftRadius:10,
   }
 
 });

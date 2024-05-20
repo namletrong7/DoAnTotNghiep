@@ -2,7 +2,7 @@
  * Màn hình thêm task mới
  */
 
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   actions,
   RichEditor,
@@ -53,6 +53,7 @@ import { actionGetListUserProject } from "../../redux-store/actions/user";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 export const MaxFileSize = 10 * 1024 * 1024; // Giới hạn kích thước file: 10 MB
 export const AddTaskScreen = React.memo(({navigation})=>{
+  const scrollViewRef = useRef(null);
   const dispatch = useDispatch()
   const dataAllProject = useSelector(state => state.project.dataAllProject);
   const [title, setTitle]=useState(null);// tieeu de của công việc
@@ -98,38 +99,38 @@ export const AddTaskScreen = React.memo(({navigation})=>{
   }
 
   // hàm nhán vào nút ok của pker chọn ngày bắt đầu
-  const onConfirmStartDay = (date)=>{
+  const onConfirmStartDay = useCallback((date)=>{
        setStartDay(converPickerDate(date));
        setNgayBatDau(moment(date).format('YYYY-MM-DD'))
        hideStartDayPicker();
-  }
+  },[])
   // hàm mở lại picker chon ngày key thuc
-  const  showEndDayPicker= ()=>{
+  const  showEndDayPicker= useCallback(()=>{
 
     SetIsShowEndDay(true)
-  }
+  },[])
   // hàm tắt picker chọn ngày key thuc
-  const  hideEndDayPicker= ()=>{
+  const  hideEndDayPicker= useCallback(()=>{
 
     SetIsShowEndDay(false)
-  }
+  },[])
 
   // hàm nhán vào nút ok của pker ngày key thuc
-  const onConfirmEndDay = (date)=>{
+  const onConfirmEndDay = useCallback((date)=>{
     setEndDay(converPickerDate(date));
     setngayKetThuc(moment(date).format('YYYY-MM-DD'));
     hideEndDayPicker();
-  }
+  },[])
 
   // hàm chọn value cho project Id dc chọn
-  const onSelectProjectId=async item => {
+  const onSelectProjectId=useCallback(async( item) => {
     setValueProjectId(item.value)
     await dispatch(actionGetListUserProject(item.value))
-  }
-  const onSelectPriority=item=>{
+  },[])
+  const onSelectPriority=useCallback(item=>{
     setValuePriority(item.value)
 
-  }
+  },[])
 
 // hàm hõ trợ láy ra các file từ điện thoại
   const pickDocument = async () => {
@@ -170,72 +171,81 @@ export const AddTaskScreen = React.memo(({navigation})=>{
        }
      }
   };
-  // hàm hỗ trợ xóa file đã chọn
 
-    const handleDeleteItemFile = (index) => {
+  // hàm hỗ trợ xóa file đã chọn
+    const handleDeleteItemFile = useCallback((index) => {
       // Tạo một bản sao của danh sách
       const updatedData = [...pickedFile];
       // Loại bỏ mục tại index được chọn
       updatedData.splice(index, 1);
       // Cập nhật state để kích thích việc render lại
       setPickedFile(updatedData);
-    };
+    },[pickedFile]);
+
+
 // hàm nhán dẻ close modal user
-  const onCloseUser=()=>{
+  const onCloseUser=useCallback(()=>{
     setIsShowModalUser(false)
-  }
+  },[]);
   // hàm hỗ trợ nhấn vao chọn item user
-  const handelItemUser=(item)=>{
+  const handelItemUser=useCallback((item)=>{
     setTargetUser(item);
     setIsShowModalUser(false)
-  }
+  },[]);
   // hàm nhấn vào để tạo task
   const addTask=async () => {
     if(!title){
-      setBackgroundTitle('red')
-   //   titleRef.current.focus();
+      setBackgroundTitle('red');
+      scrollToInput();
+    }else {
 
-    }else{
-      return ;
+
+      const formData = new FormData();
+
+      // chèn các đối số vào  formData
+      formData.append('status', 0);
+      formData.append('state', 0);
+      formData.append('assignUser', dataCurrentUser.userId);
+
+      formData.append('targetUser', targetUser?.userId||null);
+      formData.append('priority', valuePriority);
+      formData.append('title', title);
+
+      formData.append('content', descHTML);
+      formData.append('startDay', ngayBatDau);
+      formData.append('endDay', ngayKetThuc);
+
+      formData.append('createdDate', moment(new Date()).format('YYYY-MM-DD'));
+      formData.append('progress', 0);
+      formData.append('projectId', valueProjectId);
+
+
+
+      pickedFile.forEach((file, index) => {
+        formData.append(`file${index + 1}`, {
+          uri: file.uri,
+          type: file.type,
+          name: file.name,
+        });
+      });
+
+       await dispatch(actionAddTask(formData))
     }
-    // const formData = new FormData();
-    //
-    // // chèn các đối số vào  formData
-    // formData.append('status', 0);
-    // formData.append('state', 0);
-    // formData.append('assignUser', dataCurrentUser.userId);
-    //
-    // formData.append('targetUser', targetUser?.userId||null);
-    // formData.append('priority', valuePriority);
-    // formData.append('title', title);
-    //
-    // formData.append('content', descHTML);
-    // formData.append('startDay', ngayBatDau);
-    // formData.append('endDay', ngayKetThuc);
-    //
-    // formData.append('createdDate', moment(new Date()).format('YYYY-MM-DD'));
-    // formData.append('progress', 0);
-    // formData.append('projectId', valueProjectId);
-    //
-    //
-    //
-    // pickedFile.forEach((file, index) => {
-    //   formData.append(`file${index + 1}`, {
-    //     uri: file.uri,
-    //     type: file.type,
-    //     name: file.name,
-    //   });
-    // });
-    //
-    //  await dispatch(actionAddTask(formData))
-
   }
+  // focus tu dong luot den vi tri cua tieu de nhiem vu
+     const scrollToInput = useCallback(() => {
+         scrollViewRef.current.scrollToFocusedInput(titleRef.current);
+    // viewRef.current.measure((fx, fy, width, height, px, py) => {
+    //   scrollViewRef.current.scrollToPosition(0, py, true);
+    //   viewRef.current.focus();
+  },[]);
   return (
     <View>
       <HeaderComponent title={"Tạo công việc"} navigation={navigation} back/>
       <KeyboardAwareScrollView
         style={styles.container}
         scrollEnabled={true}
+        ref={scrollViewRef}
         keyboardShouldPersistTaps="handled">
 
          <View style={{marginHorizontal:15,paddingBottom:'50%'}}>

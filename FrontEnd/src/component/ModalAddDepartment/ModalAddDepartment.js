@@ -6,13 +6,30 @@ import {dataListPosititon} from "../../unitl/GetValuePosition";
 import {baseUrlAvatarUser, baseUrlLinkFile} from "../../api/ConstBaseUrl";
 import IconSwitchOn from "../../assets/icon/IconSwitchOn";
 import IconSwitchOff from "../../assets/icon/IconSwitchOff";
+import {useDispatch} from "react-redux";
+import {actionAddJobtitle} from "../../redux-store/action/actionJobtitle";
+import {actionAddDepartment} from "../../redux-store/action/actionDepartment";
 
 
  export const ModalAddDepartment=React.memo((props)=>{
     const {isVisible, onClose} = props
     const cx = classNames.bind(styles);
     const [content, setContent] = useState('');
-
+     const dispatch = useDispatch();
+     const [errors, setErrors] = useState({});
+     const handleAdd=async (event) => {
+         const error = {};
+         if (content === null || content.trim() === '') {
+             error.value = 'Xin vui lòng nhập phòng ban!'
+             setErrors(error)
+         } else {
+             setErrors(error)
+         }
+         if (Object.keys(error).length === 0) {
+             await dispatch(actionAddDepartment(content))
+             onClose();
+         }
+     }
     return (
         <div>
             {isVisible ?
@@ -32,9 +49,10 @@ import IconSwitchOff from "../../assets/icon/IconSwitchOff";
                                        <div className={cx('textInput')}>Tên phòng ban: </div>
                                        <input value={content} onChange={(e)=>{setContent(e.target.value)}} placeholder={"Nhập tên phòng ban"} className={cx('input')}/>
                                    </div>
+                            {errors.value?<div style={{fontSize:16, color:'red', marginLeft:"10%"}}>{errors.value}</div>:null}
                         </div>
                         <div>
-                            <div style={style.buttonEdit}>
+                            <div onClick={handleAdd} style={style.buttonEdit}>
                                 <div style={style.textEdit}>Thêm phòng ban</div>
                             </div>
                         </div>
@@ -76,7 +94,7 @@ const style = {
         alignItems:'center',
         justifyContent:'center',
         textAlign:'center',
-        width:100,
+        width:200,
         alignSelf:'center',
         paddingTop:5,
         marginLeft:"45%",

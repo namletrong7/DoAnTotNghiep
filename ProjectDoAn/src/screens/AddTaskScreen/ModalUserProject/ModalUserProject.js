@@ -14,7 +14,7 @@ const ModalUserProject = ({ visible, onClose ,handleItem,targetUser}) => {
     return(
     <TouchableOpacity onPress={()=>{handleItem(props.item)}} style={{ backgroundColor:targetUser?.userId==props.item.userId?"#EEEEEE":null,flexDirection: "row", alignItems: "center", flex: 1,marginVertical:5, marginHorizontal:10 }}>
       <FastImage
-        style={{ width: 40, height: 40,borderRadius: 40/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
+        style={{ width: 30, height: 30,borderRadius: 30/2 ,overflow: "hidden", borderWidth: 1,borderColor:"#99CCFF"}}
         source={{
           uri: baseUrlAvatarUser+props?.item.avatarUser
         }}
@@ -23,13 +23,13 @@ const ModalUserProject = ({ visible, onClose ,handleItem,targetUser}) => {
       />
       <View >
         <Text style={{
-          fontSize: 17,
+          fontSize: 13,
           marginLeft:20,
           color: "black",
           fontFamily: "OpenSans-SemiBold",
         }}>{props.item.fullName}</Text>
         <Text style={{
-          fontSize: 17,
+          fontSize: 13,
           marginLeft:20,
           color: "black",
           fontFamily: "OpenSans-Regular",
@@ -52,14 +52,14 @@ const ModalUserProject = ({ visible, onClose ,handleItem,targetUser}) => {
         <View style={styles.modalContent}>
           <View style={{flexDirection:"row",justifyContent:'space-between',width:'100%', paddingHorizontal:5}}>
             <Text style={{
-              fontSize: 19,
+              fontSize: 12,
               color: "black",
               marginTop:15,
               fontFamily: "OpenSans-SemiBold",
             }}>{"Chọn người xử lý chính"}</Text>
             <TouchableOpacity onPress={onClose}>
               <Text style={{
-                fontSize: 19,
+                fontSize: 11,
                 color: "black",
                 marginTop:15,
                 fontFamily: "OpenSans-SemiBold",

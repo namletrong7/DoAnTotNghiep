@@ -2,7 +2,7 @@
  * Màn hình thêm task mới
  */
 
-import React, {  useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import moment from 'moment';
 import {
@@ -39,9 +39,11 @@ import ModalLoadingAddProject from "./ModalLoading/ModalLoading";
 
 export const AddProjectScreen = React.memo(({navigation})=>{
   const dispatch = useDispatch()
-  const [title, setTitle]=useState('');// tieeu de của project
+  const scrollViewRef = useRef(null);
+  const [title, setTitle]=useState(null);// tieeu de của project
   const [textSearch, settextSearch]=useState('');// tieeu de của project
-
+  const titleRef = useRef(null);
+  const [borderTitle, setBoderTitle]=useState('#888888');// mau cua border nhap tieu de cong viec
   const [startDay, setStartDay]=useState(moment(new Date()).format('YYYY-MM-DD'));//ngày băt đầu
   const [ngayBatDau, setNgayBatDau]=useState('');//ngày băt đầu
   const [endDay, setEndDay]=useState(moment(new Date()).format('YYYY-MM-DD'));// ngày kết thuc
@@ -97,19 +99,24 @@ export const AddProjectScreen = React.memo(({navigation})=>{
     dispatch(actionsearchUser(value))
   }
   const handleAddProject=async () => {
-    await dispatch(actionAddProject({
-      "nameProject":title,
-      "startDay":"2024-03-01",
-      "endDay":"2024-03-01",
-      "createUser":dataCurrentUser.userId,
-      "state":stateProject,
-      "projectUser":dataUserChoose
-    }))
+     if(!title){
+         setBoderTitle('red');
+       scrollViewRef.current.scrollToFocusedInput(titleRef.current);  // scrool tới phần nhap tieu de du an
+     }else {
+       await dispatch(actionAddProject({
+         "nameProject": title,
+         "startDay": ngayBatDau,
+         "endDay": ngayKetThuc,
+         "createUser": dataCurrentUser.userId,
+         "state": stateProject,
+         "projectUser": dataUserChoose
+       }))
+     }
   }
   return (
     <View>
       <HeaderComponent title={"Tạo Dự Án Mới"} navigation={navigation} back/>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView ref={scrollViewRef}>
         <View style={{marginHorizontal:15,paddingTop:10,paddingBottom:"25%"}}>
           <Text style={{
             fontSize: 15,
@@ -124,12 +131,17 @@ export const AddProjectScreen = React.memo(({navigation})=>{
             <IconLogoProject/>
             <TextInput
               value={title}
+              ref={titleRef}
               onChangeText={setTitle}
+              onFocus={()=>{setBoderTitle("#148EFF")}}
+              onBlur={()=>{setBoderTitle("#888888")}}
               placeholder={"Nhập tên dự án"}
               placeholderTextColor={"#888888"}
-              style={{ height: 40,flex:1,marginLeft:10,borderRadius:5, borderColor: "#888888", borderWidth: 0.5, textAlignVertical:"center", fontSize:14, fontFamily: "OpenSans-Regular" }}
+              style={{ height: 40,flex:1,marginLeft:10,borderRadius:5, borderColor: borderTitle, borderWidth: 0.5, textAlignVertical:"center", fontSize:14, fontFamily: "OpenSans-Regular" }}
             />
           </View>
+          {borderTitle==='red'?
+            <Text style={{ fontSize: 11, color: "red", fontFamily: "OpenSans-Regular" }}>{"Vui lòng nhập tiêu đề dự án !"} </Text>:null}
           <View style={{flexDirection:"row",marginTop:10,justifyContent:"space-between"}}>
             <Text style={{
               fontSize: 15,

@@ -84,13 +84,13 @@ export const PersonalScreen = React.memo(({navigation})=>{
     <LinearGradient   colors={['#e3efdd', '#faeeca', '#deedda']}  style={{backgroundColor:"#F0F0F0",height:'100%'}}>
       <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}/>
       <ScrollView
-        contentContainerStyle={{padding:15, }}
+        style={{paddingHorizontal:8}}
         showsVerticalScrollIndicator={false}>
            <View>
                <View>
                    <Text style={{ fontSize: 18, color: "#178cf9", fontFamily: "OpenSans-SemiBold" }}>{"Cá nhân bạn"}</Text>
                </View>
-             <TouchableOpacity onPress={()=>{navigation.navigate("ProFilePersonalScreen")}} style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <TouchableOpacity onPress={()=>{navigation.navigate("ProFilePersonalScreen")}} style={{flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16}}>
                <FastImage
                  style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden",alignSelf:"center"}}
                  source={{
@@ -101,9 +101,9 @@ export const PersonalScreen = React.memo(({navigation})=>{
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{dataCurrentUser?.fullName||'Họ và tên'}</Text>
                  <Text style={{ fontSize: 14, color: "#999999",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Xem thông tin chi tiết của bạn"}</Text>
                </View>
-
              </TouchableOpacity>
-             <TouchableOpacity onPress={()=>{SetIsShow(!isShow)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16,justifyContent:'space-between'}}>
+
+             <TouchableOpacity onPress={()=>{SetIsShow(!isShow)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16,justifyContent:'space-between'}}>
                <View style={{flexDirection:"row"}}>
                  <IconSetting/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Cài đặt & Quyền riêng tư "}</Text>
@@ -112,7 +112,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
              </TouchableOpacity>
 
              {isShow?(
-             <View  style={{marginTop:10,backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <View  style={{marginTop:10,backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16}}>
                <TouchableOpacity onPress={()=>{show()}}  style={{flexDirection:"row",alignItems:"center",backgroundColor:"white", borderRadius:16}}>
                  <IconNight/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Chế độ tối "}</Text>
@@ -137,7 +137,7 @@ export const PersonalScreen = React.memo(({navigation})=>{
 
 
 
-             <TouchableOpacity onPress={()=>{SetIsShowLogOut(true)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16, marginHorizontal:16}}>
+             <TouchableOpacity onPress={()=>{SetIsShowLogOut(true)}} style={{marginTop:10,flexDirection:"row",alignItems:"center",backgroundColor:"white",paddingHorizontal:16,paddingVertical:10, borderRadius:16}}>
                  <IconLogOut/>
                  <Text style={{ fontSize: 15, color: "black",marginLeft:20, fontFamily: "OpenSans-SemiBold" }}>{"Đăng xuất"}</Text>
              </TouchableOpacity>
