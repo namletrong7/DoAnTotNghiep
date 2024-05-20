@@ -342,8 +342,8 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
               </View>
 
 
-              <View style={{flexDirection:"row",marginTop:15,alignItems:"center",flex:1,flexWrap:'wrap'}}>
-                <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",width:'38%'}} numberOfLines={10}>{"Nội dung công việc:"}</Text>
+              <View style={{flexDirection:"row",marginTop:7,alignItems:"center",flex:1,flexWrap:'wrap'}}>
+                <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",width:'38%',marginBottom:7}} numberOfLines={10}>{"Nội dung công việc:"}</Text>
             <RenderHtml
                   contentWidth={screenWidth}
                   source={{html:dataDetailTask?.content}}
