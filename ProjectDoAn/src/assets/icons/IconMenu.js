@@ -11,18 +11,10 @@ function IconMenu(props) {
           xmlns="http://www.w3.org/2000/svg"
           {...props}
       >
-        <Path
-            d="M9 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM13 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM17 12a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
-            fill="black"
-        />
-        <Circle
-            opacity={1}
-            cx={12}
-            cy={12}
-            r={10}
-            stroke="black"
-            strokeWidth={1.5}
-        />
+          <Path
+              d="M7 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM14 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM21 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"
+              fill="#1C274C"
+          />
       </Svg>
   )
 }

@@ -39,6 +39,7 @@ import pushNotify from "../utils/PushNotify";
 import PushNotify from "../utils/PushNotify";
 import { useDispatch } from "react-redux";
 import { actionGetListNotify } from "../redux-store/actions/task";
+import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
 
 
 export  const NotifiStack = React.memo(() => {
@@ -77,6 +78,7 @@ export  const PersonalStack = React.memo(() => {
       <Stack.Screen name="PersonalScreen" component={PersonalScreen} />
       <Stack.Screen name="ProFilePersonalScreen" component={ProFilePersonalScreen} />
       <Stack.Screen name="EditProfilePersonalScreen" component={EditProfilePersonalScreen} />
+      <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
     </Stack.Navigator>
   )
 })

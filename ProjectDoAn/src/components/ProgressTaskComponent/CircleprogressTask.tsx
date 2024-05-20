@@ -16,9 +16,9 @@ type Typeprops={
    const svgProgress = 100 - progress;
 
    return (
-     <View style = {{flexDirection:"row",alignSelf:"flex",flex:1}}>
-       <Svg width={size} height={size} >
-         {/* Background Circle */}
+     <View style = {{alignSelf:"flex",flexDirection:'row',justifyContent:'center'}}>
+       <Text style={{fontSize:9, color:getColorPriority(priority),alignSelf:'center',fontFamily:"OpenSans-SemiBold",position:'absolute'}}>{progress+"%"}</Text>
+       <Svg width={size} height={size}  >
          <Circle
            stroke={getColorBackgroundPriority(priority)}
            fill="none"
@@ -27,7 +27,6 @@ type Typeprops={
            r={radius}
            strokeWidth={strokeWidth}
          />
-         <Text style={{fontSize:9, color:getColorPriority(priority),alignSelf:'center',marginTop:14,fontFamily:"OpenSans-SemiBold"}} numberOfLines={2}>{progress+"%"}</Text>
          <Circle
            stroke={getColorPriority(priority)}
            fill="none"

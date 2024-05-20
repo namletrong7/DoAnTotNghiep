@@ -8,6 +8,7 @@ import FlashMessage from "react-native-flash-message";
 import { Platform, StatusBar } from "react-native";
 import DialogNointernet from "../components/DialogNointernet/DialogNointernet";
 import * as NetInfo from "@react-native-community/netinfo";
+import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
 
 const AppNavigator = () => {
   const token = useSelector(state => state.auth.token);
