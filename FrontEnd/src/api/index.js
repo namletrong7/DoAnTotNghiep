@@ -54,8 +54,11 @@ const Api = (isFormData) => {
             }
         });
     }
+    const editUser=(body)=> {
+        return api.post("editUser.php",body);
+    }
     return {
-        getListEmployee,getDepartMent,getJobtitle,editJobtitle,addJobtitle,editDepartment,addDepartment
+        getListEmployee,getDepartMent,getJobtitle,editJobtitle,addJobtitle,editDepartment,addDepartment,editUser
     };
 };
 
