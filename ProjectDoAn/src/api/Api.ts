@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 // Tạo một instance của Axios với các cấu hình mặc định
-const Api = (isFormData:boolean) => {
+const Api = (isFormData:boolean,token:null) => {
 
     //Hàm tạo header
     const apiConfig = () => {
@@ -13,6 +13,7 @@ const Api = (isFormData:boolean) => {
             baseURL: "http://3.25.188.2/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
+                'Authorization1':  token,
                 // Thêm các headers khác nếu cần thiết
             },
             timeout: 180000, // Timeout là 10 giây
