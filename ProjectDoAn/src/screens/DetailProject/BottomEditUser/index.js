@@ -30,10 +30,12 @@ export const BottomEditUser=React.memo((props)=>{
   useEffect(()=>{
     setDataUser(dataUserChoose)
   },[dataUserChoose])
+
   const handleSearchUser = useCallback((value) => {
     settextSearch(value);
     dispatch(actionsearchUser(value));
   }, [dispatch]);
+
   const handleChooseUser = useCallback((itemCheck) => {
     if (checkMember(itemCheck, dataUser)) { // nếu đã nằm trong danh sách đã chọn
       const newDataUserChoose = dataUser.filter(item => item.userName !== itemCheck.userName);
@@ -42,9 +44,11 @@ export const BottomEditUser=React.memo((props)=>{
       setDataUser([...dataUser, itemCheck])
     }
   }, [dataUser, setDataUser, checkMember]);
+
   const handlOnClose = useCallback(() => {
     setDataUser(dataUserChoose);
   }, [dataUserChoose, setDataUser]);
+
   const handleDeleteUser = useCallback((userId) => {
     // Tạo một bản sao của danh sách
     const updatedData = [...dataUser];

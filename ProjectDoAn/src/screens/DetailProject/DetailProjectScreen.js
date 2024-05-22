@@ -33,6 +33,9 @@ import {  actionGetDetailProject } from "../../redux-store/actions/project";
 import {convertDateDB} from "../../utils/ConverPickerDate";
 import { BottomEditUser } from "./BottomEditUser";
 import LinearGradient from "react-native-linear-gradient";
+import IconEdit2 from "../../assets/icons/IconEdit2";
+import IconEdit from "../../assets/icons/IconEdit";
+import {BottomEditInforProject} from "./BottomEditInforProject";
 
 
 
@@ -43,6 +46,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
   const snapPoints = useMemo(() => ['50%', "80%",'99%'], []);
   const bottomSheetRef = useRef(null);  // cho bottom thoong tin project
   const bottomEditUserRef = useRef(null);  // cho bottom thoong tin project
+  const bottomEditInfor = useRef(null);  // cho bottom thoong tin project
 
   const dataDetailProject = useSelector(state => state.project?.dataDetailProject);
   useEffect(()=>{
@@ -66,9 +70,17 @@ const DetailProjectScreen = ({ navigation ,route}) => {
   const handelOpenEditUser = useCallback(() => {
     bottomEditUserRef.current?.present();
   }, []);
+  const handelOpenEditInfor = useCallback(() => {
+    bottomSheetRef.current?.dismiss();
+    bottomEditInfor.current?.present();
+
+  }, []);
   const handelCloseEditUser = useCallback(() => {
     bottomEditUserRef.current?.dismiss();
   }, [bottomEditUserRef]);
+  const handelCloseEditInfor = useCallback(() => {
+    bottomEditInfor.current?.dismiss();
+  }, [bottomEditInfor]);
 const ItemUserMemer=React.memo((props)=>{
     const {item}= props
   return (
@@ -118,6 +130,7 @@ const ItemUserMemer=React.memo((props)=>{
                <TopTabTask1 projectId={itemProject?.projectId || projectId}/>
           </View>
         <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId || projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
+         <BottomEditInforProject data={dataDetailProject} bottomSheetRef={bottomEditInfor}  projectId={itemProject?.projectId || projectId} snapPoints={snapPoints} handleClose={handelCloseEditInfor} />
         <BottomSheetModalProvider>
           <BottomSheetModal
               ref={bottomSheetRef}
@@ -127,7 +140,7 @@ const ItemUserMemer=React.memo((props)=>{
               snapPoints={snapPoints}>
             <BottomSheetScrollView  >
               <View style={{paddingHorizontal:10, backgroundColor:"white"}}>
-                  <Text style={{fontSize:24, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailProject?.nameProject}</Text>
+                  <Text style={{fontSize:17,alignSelf:'center', color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailProject?.nameProject}</Text>
                 <TouchableOpacity style={{flexDirection:"row", marginTop:10}}>
                   <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{"Ngày bắt đầu dự án: "}</Text>
                   <View  style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD", flexDirection:"row"}}>
@@ -142,8 +155,8 @@ const ItemUserMemer=React.memo((props)=>{
                   </View>
 
                 </TouchableOpacity>
-                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Người tạo dự án: "}  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.createFullName}</Text></Text>
-                <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Thành viên tham gia dự án"}</Text>
+                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Người tạo dự án: "}  <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{dataDetailProject?.createFullName}</Text></Text>
+                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Thành viên tham gia dự án"}</Text>
                 <FlatList
                   data={dataDetailProject?.dataMember}
                   renderItem={({item}) => <ItemUserMemer item={item}  />}
@@ -152,7 +165,13 @@ const ItemUserMemer=React.memo((props)=>{
                   numColumns={3}
                   keyExtractor={item => item.userId}
                 />
+                <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10,marginTop:10}}>{"Công cụ: "}</Text>
+                      <TouchableOpacity onPress={handelOpenEditInfor} style={{flexDirection:"row",marginLeft:30, marginTop:10}}>
+                            <IconEdit/>
+                             <Text style={{fontSize:15, color:"black",fontFamily:"OpenSans-Regular",marginRight:5}}>{'Chỉnh sửa thông tin dự án'}</Text>
+                      </TouchableOpacity>
               </View>
+
             </BottomSheetScrollView>
           </BottomSheetModal>
         </BottomSheetModalProvider>

@@ -45,9 +45,9 @@ export const AddProjectScreen = React.memo(({navigation})=>{
   const titleRef = useRef(null);
   const [borderTitle, setBoderTitle]=useState('#888888');// mau cua border nhap tieu de cong viec
   const [startDay, setStartDay]=useState(moment(new Date()).format('YYYY-MM-DD'));//ngày băt đầu
-  const [ngayBatDau, setNgayBatDau]=useState('');//ngày băt đầu
+  const [ngayBatDau, setNgayBatDau]=useState(moment(new Date()).format('YYYY-MM-DD'));//ngày băt đầu
   const [endDay, setEndDay]=useState(moment(new Date()).format('YYYY-MM-DD'));// ngày kết thuc
-  const [ngayKetThuc, setngayKetThuc]=useState();// ngày kết thuc
+  const [ngayKetThuc, setngayKetThuc]=useState(moment(new Date()).format('YYYY-MM-DD'));// ngày kết thuc
 
   const [isShowStartDay, SetIsShowStartDay]=useState(false);//hiển thị picker chọn ngày bắt đầu
   const [isShowEndDay, SetIsShowEndDay]=useState(false);//hiển thị picker chọn kết thúc
@@ -147,11 +147,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
               fontSize: 15,
               color: "black",
               fontFamily: "OpenSans-SemiBold",
-            }}>{"Ngày bắt đầu:"} <Text style={{
-              fontSize: 15,
-              color: "red",
-              fontFamily: "OpenSans-SemiBold",
-            }}>{"*"}</Text></Text>
+            }}>{"Ngày bắt đầu:"}</Text>
             <TouchableOpacity onPress={()=>{SetIsShowStartDay(true)}} style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD"}}>
               <Text style={{
                 fontSize: 15,
@@ -165,11 +161,7 @@ export const AddProjectScreen = React.memo(({navigation})=>{
               fontSize: 15,
               color: "black",
               fontFamily: "OpenSans-SemiBold",
-            }}>{"Ngày kết thúc:"} <Text style={{
-              fontSize: 15,
-              color: "red",
-              fontFamily: "OpenSans-SemiBold",
-            }}>{"*"}</Text></Text>
+            }}>{"Ngày kết thúc:"}</Text>
             <TouchableOpacity onPress={()=>{SetIsShowEndDay(true)}}  style={{padding:5, borderRadius:6, backgroundColor:"#DDDDDD"}}>
               <Text style={{
                 fontSize: 15,

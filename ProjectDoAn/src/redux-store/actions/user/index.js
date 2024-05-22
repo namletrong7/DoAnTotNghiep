@@ -14,8 +14,9 @@ export function actionGetProfileUser(userId) {
     await   dispatch({
       type: "START_GET_PROFILE_USER",
     });
+    const token = getState().auth?.token
     try {
-      const response = await Api(true).getProfileUser(userId);
+      const response = await Api(true,token).getProfileUser(userId);
 
 
 
@@ -48,13 +49,12 @@ export function actionGetProfileUser(userId) {
 export function actionsearchUser(keyWord) {
   return async (dispatch, getState) => {
     if(!getState().user.isSearchUser){
-
-
     await   dispatch({
       type: "START_SEARCH_USER",
     });
+      const token = getState().auth?.token
     try {
-      const response = await Api(false).searchUser(keyWord);
+      const response = await Api(false,token).searchUser(keyWord);
       if(response.data && response?.data?.status==200){
         await   dispatch({
           type: "SEARCH_USER",
@@ -97,9 +97,10 @@ export function actionEditUserProject(projectId,dataUser) {
       await   dispatch({
         type: "START_EDIT_USER_PROJECT",
       });
+    const token = getState().auth?.token
     let userId= getState().auth.dataCurrentUser?.userId
       try {
-        const response = await Api(false).editUserOfProject(
+        const response = await Api(false,token).editUserOfProject(
         {
           "projectId": projectId,
           "listUser": dataUser,
@@ -148,8 +149,9 @@ export function actionEditUserProject(projectId,dataUser) {
 export function actionGetListUserProject(projectId) {
   return async (dispatch, getState) => {
     if(!getState().user.isEditUserProject){
+      const token = getState().auth?.token
       try {
-        const response = await Api(false).getListUserOfProject(projectId);
+        const response = await Api(false,token).getListUserOfProject(projectId);
 
         if(response.data && response.data.status==200){
           await   dispatch({
@@ -191,8 +193,10 @@ export function actionGetListUserProject(projectId) {
 export function actionEditUserForTask(type , taskId, userId) {
   return async (dispatch, getState) => {
     let createUser = getState().auth.dataCurrentUser?.userId
+    const token = getState().auth?.token
       try {
-        const response = await Api(false).editUserForTask(type,taskId, userId,createUser );
+
+        const response = await Api(false,token).editUserForTask(type,taskId, userId,createUser );
 
         if(response.data && response.data.status==200){
           showMessage({
@@ -226,7 +230,41 @@ export function actionEditUserForTask(type , taskId, userId) {
 
   };
 }
+export function actionChangePassword(newPass) {
+  return async (dispatch, getState) => {
+    let createUser = getState().auth.dataCurrentUser?.userId
+    const token = getState().auth?.token
+    try {
+      const response = await Api(false,token).changePassword(newPass, createUser );
+      if(response.data && response.data.status==200){
+        showMessage({
+          message: response.data?.message,
+          type: "success",
+          duration: 1000,
+          icon: { icon: "success", position: 'left' }
+        });
 
+      }
+      else{
+        showMessage({
+          message: "Xảy ra lỗi vui lòng thử lại sau",
+          type: "warning",
+          duration: 1000,
+          icon: { icon: "warning", position: 'left' }
+        });
+      }
+    } catch (error) {
+      showMessage({
+        message: "Lỗi mạng",
+        type: "danger",
+        duration: 1000,
+        icon: { icon: "danger", position: 'left' }
+      });
+    }
+
+
+  };
+}
 export default {
   actionGetProfileUser
 };

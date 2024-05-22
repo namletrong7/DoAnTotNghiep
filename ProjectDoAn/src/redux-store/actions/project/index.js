@@ -16,13 +16,14 @@ export function updateData(data) {
 }
 export function actionGetAllProject() {
     return async (dispatch, getState) => {
-        let userId=getState().auth.dataCurrentUser.userId
+        let userId=getState().auth.dataCurrentUser.userId;
+        const token = getState().auth?.token
         //console.log(userId)
         await   dispatch({
             type: "START_GET_PROJECT",
         });
         try {
-            const response = await Api(false).getAllProject(userId);
+            const response = await Api(false,token).getAllProject(userId);
 
 
 
@@ -62,10 +63,10 @@ export function actionGetDetailProject(projectId) {
     return async (dispatch, getState) => {
         dispatch(updateData({
             isGetDetailProject:true
-
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getDetailProject(projectId);
+            const response = await Api(false,token).getDetailProject(projectId);
 
             if(response.data && response.data.status==200){
                 dispatch(updateData({
@@ -99,8 +100,9 @@ export function actionAddProject(body) {
         dispatch(updateData({
             isAddProject:true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).addProject(body);
+            const response = await Api(false,token).addProject(body);
      //      console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
@@ -141,8 +143,9 @@ export function actionSearchProject(text) {
             isSearchProject :true,
             dataSearchProject:[]
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).searchProject(text)
+            const response = await Api(false,token).searchProject(text)
             if(response.data && response.data.status==200) {
                 await dispatch({
                     type: "GET_SEARCH_PROJECT",
@@ -170,7 +173,41 @@ export function actionSearchProject(text) {
 
     };
 }
+export function actionChangeInforProject(nameProject,startDay, endDay, projectId) {
+    return async (dispatch, getState) => {
+        let createUser = getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
+        try {
+            const response = await Api(false,token).changeInforProject(nameProject, startDay,endDay,projectId,createUser );
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data?.message,
+                    type: "success",
+                    duration: 1000,
+                    icon: { icon: "success", position: 'left' }
+                });
 
+            }
+            else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "warning",
+                    duration: 1000,
+                    icon: { icon: "warning", position: 'left' }
+                });
+            }
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
+    };
+}
 export default {
     actionGetAllProject
 

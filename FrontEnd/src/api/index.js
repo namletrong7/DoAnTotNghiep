@@ -2,9 +2,10 @@ import axios from 'axios';
 
 const Api = (isFormData) => {
     const api = axios.create({
-        baseURL: 'http://192.168.1.108:8080/DOAN/API_WEB/',
+        baseURL: 'http://3.25.188.2/DOAN/API_WEB/',
         headers: {
             'Content-Type': isFormData?'multipart/form-data':'application/json',
+
         },
         timeout: 20000,
     });

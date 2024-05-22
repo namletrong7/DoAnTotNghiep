@@ -63,7 +63,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
 
   const [startDay, setStartDay]=useState('');//ngày băt đầu
   const [ngayBatDau, setNgayBatDau]=useState(null);//ngày băt đầu
-  const [endDay, setEndDay]=useState();// ngày kết thuc
+  const [endDay, setEndDay]=useState('');// ngày kết thuc
   const [ngayKetThuc, setngayKetThuc]=useState(null);// ngày kết thuc
 
   const [isShowStartDay, SetIsShowStartDay]=useState(false);//hiển thị picker chọn ngày bắt đầu
