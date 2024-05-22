@@ -230,6 +230,25 @@ const Api = (isFormData:boolean,token:null) => {
       }
     });
   }
+    const changePassword=(newPassword:string, userId:number)=>{
+        return apiConfig().get('changePassword.php',{
+            params:{
+                newPassword:newPassword,
+                userId:userId
+            }
+        });
+    }
+    const changeInforProject=(nameProject :string, startDay :string, endDay:string, projectId:string,createUser: string )=>{
+        return apiConfig().get('changeInforProject.php',{
+            params:{
+                nameProject:nameProject,
+                startDay:startDay,
+                endDay:endDay,
+                projectId:projectId,
+                createUser:createUser
+            }
+        });
+    }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -268,7 +287,8 @@ const Api = (isFormData:boolean,token:null) => {
       setHasReadNotify,
       changeDayTask,
       registerDeviceTokenFCM,
-      deleteDevicetokenFCM
+      deleteDevicetokenFCM,
+        changePassword,changeInforProject
     };
 };
 export default Api;

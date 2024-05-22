@@ -20,7 +20,7 @@ import IconPhone from "../../assets/icons/IconPhone";
 import IconMail from "../../assets/icons/IconMail";
 import Toast from "react-native-toast-message";
 import FlashMessage, { showMessage } from "react-native-flash-message";
-import { actionGetProfileUser } from "../../redux-store/actions/user";
+import {actionChangePassword, actionGetProfileUser} from "../../redux-store/actions/user";
 import { ShimmerProfileUser } from "./shimmerProfileUser/ShimerProfileUser";
 import {
   ShimmerEffectCommentComponent
@@ -47,27 +47,28 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
     const [error, setError ] = useState({});
   const [isShowPass, setIsShowPass ] = useState(true);
   const [isShowRePass, setIsShowRePass] = useState(true);
+    const dispatch = useDispatch();
     const validatePassword = useCallback((password) => {
         const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
         return regex.test(password);
     },[]);
-      const handleChangePass=()=>{
-          const error={};
-          if(!validatePassword(pass)){
-              error.pass='Vui lòng nhập mật khẩu thỏa mãn điều kiện trên!'
+      const handleChangePass=async () => {
+          const error = {};
+          if (!validatePassword(pass)) {
+              error.pass = 'Vui lòng nhập mật khẩu thỏa mãn điều kiện trên!'
               setError(error)
           }
-          if(!validatePassword(rePass)){
-              error.rePass='Vui lòng nhập mật khẩu thỏa mãn điều kiện trên!'
+          if (!validatePassword(rePass)) {
+              error.rePass = 'Vui lòng nhập mật khẩu thỏa mãn điều kiện trên!'
               setError(error)
-          }
-          else if(rePass!==pass){
-              error.rePass='Nhập lại mật khẩu không khớp!'
+          } else if (rePass !== pass) {
+              error.rePass = 'Nhập lại mật khẩu không khớp!'
               setError(error)
-          }
-          else{
+          } else {
               setError(error)
-              console.log("thoả mãn các dieu kien ")
+              await dispatch(actionChangePassword(pass))
+              setPass(null)
+              setRePass(null)
           }
       }
   return (

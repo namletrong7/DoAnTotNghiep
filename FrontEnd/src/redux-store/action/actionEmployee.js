@@ -43,7 +43,8 @@ export function actionGetListEmployee () {
             dispatch(updateData({
                 isGetListEmployee: true,
             }))
-            const response = await Api().getListEmployee();
+            const response = await Api(false).getListEmployee();
+         //   console.log(response.data?.dataListEmployee)
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataListEmployee: response.data?.dataListEmployee

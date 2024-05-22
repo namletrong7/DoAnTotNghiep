@@ -21,9 +21,10 @@ export function actionAddTask(body) {
         await   dispatch({
             type: "START_ADD_TASK",
         });
+        const token = getState().auth?.token
         try {
-            const response = await Api(true).addTask(body);
-          console.log(response.data)
+            const response = await Api(true,token).addTask(body);
+        //  console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -68,8 +69,9 @@ export function actionGetDetailTask(taskId) {
            dispatch({  // bắt đầu
             type: "START_GET_DETAIL_TASK",
         });
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getDetailTask(taskId);
+            const response = await Api(false,token).getDetailTask(taskId);
 
        console.log(response.data)
 
@@ -114,8 +116,9 @@ export function actionGetFileAttach(taskId) {
         await   dispatch({  // bắt đầu
             type: "START_GET_FILE_ATTACH",
         });
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getFileAttach(taskId);
+            const response = await Api(false,token).getFileAttach(taskId);
             console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -150,11 +153,10 @@ export function actionGetCommentTask(taskId,offset) {
         await   dispatch({  // bắt đầu
             type: "START_GET_COMMENT",
         });
+        const token = getState().auth?.token
         try {
 
-            const response = await Api(false).getCommentTask(taskId,offset);
-
-
+            const response = await Api(false,token).getCommentTask(taskId,offset);
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_COMMENT",
@@ -186,9 +188,10 @@ export function actionGetMoreCommentTask(taskId,offset) {
         await   dispatch({  // bắt đầu
             type: "START_GET_MORE_COMMENT",
         });
+            const token = getState().auth?.token
         try {
 
-            const response = await Api(false).getCommentTask(taskId,offset);
+            const response = await Api(false,token).getCommentTask(taskId,offset);
 
             if(response.data && response.data.status==200){
                 if(response.data.commentTask.length>0){
@@ -239,12 +242,13 @@ export function actionAddCommentTask(taskId,content) {
         let userId= getState().auth.dataCurrentUser?.userId
         let avatar=getState().auth.dataCurrentUser?.avatarUser
         let fullName=getState().auth.dataCurrentUser?.fullName
+        const token = getState().auth?.token
         console.log(getState().task.dataCommentTask)
         dispatch(updateData({
             isAddComment :true
         }))
         try {
-            const response = await Api(false).addCommentTask(taskId,content,userId);
+            const response = await Api(false,token).addCommentTask(taskId,content,userId);
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "ADD_COMMENT_TASK",
@@ -288,8 +292,9 @@ export function actionGetTaskToDoProject(projectId) {
         await   dispatch({  // bắt đầu
             type: "START_GET_TASK_PROJECT_TODO",
         });
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getListTaskProject(projectId,0);
+            const response = await Api(false,token).getListTaskProject(projectId,0);
 
 
             if(response.data && response.data.status==200){
@@ -322,8 +327,9 @@ export function actionGetTaskDoingProject(projectId) {
         dispatch(updateData({
             isGetTaskProjectDoing :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getListTaskProject(projectId,1);
+            const response = await Api(false,token).getListTaskProject(projectId,1);
 
             if(response.data && response.data.status==200){
                 dispatch(updateData({
@@ -357,8 +363,9 @@ export function actionGetTaskDoneProject(projectId) {
         dispatch(updateData({
             isGetTaskProjectDone :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getListTaskProject(projectId,2);
+            const response = await Api(false,token).getListTaskProject(projectId,2);
 
 
             if(response.data && response.data.status==200){
@@ -391,8 +398,9 @@ export function actionGetAllTask(offset) {
         dispatch(updateData({
             isGetAllTask :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getAllTask(offset);
+            const response = await Api(false,token).getAllTask(offset);
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataAllTask: response.data.dataListTask
@@ -421,8 +429,9 @@ export function actionGetMoreAllTask() {
         dispatch(updateData({
             isGetMoreAllTask :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getAllTask(getState().task.dataAllTask.length)
+            const response = await Api(false,token).getAllTask(getState().task.dataAllTask.length)
 
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -456,8 +465,9 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
         dispatch(updateData({
             isGetAssignTask :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId,0)
+            const response = await Api(false,token).getAssignTask(getState().auth.dataCurrentUser.userId,0)
       //      console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
@@ -495,8 +505,9 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
                 isGetMoreAssignTask: true,
 
             }))
+            const token = getState().auth?.token
             try {
-                const response = await Api(false).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
+                const response = await Api(false,token).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
                 if (response.data && response.data.status == 200) {
           //      console.log(response.data?.dataListTask.length)
                     if(response.data?.dataListTask?.length>0){
@@ -553,8 +564,9 @@ export function actionGetTargetTask() {  // action lấy ds cv mình cần xử 
         dispatch(updateData({
             isGetTargetTask :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getTargetTask(getState().auth.dataCurrentUser.userId,0)
+            const response = await Api(false,token).getTargetTask(getState().auth.dataCurrentUser.userId,0)
       //      console.log(response.data)
         //    console.log("thuc hien cong viec khac")
             if(response.data && response.data.status==200){
@@ -590,8 +602,9 @@ export function actionGetTaskDone() {
         dispatch(updateData({
             isGetTaskDone :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getTaskDone(getState().auth.dataCurrentUser.userId,0)
+            const response = await Api(false,token).getTaskDone(getState().auth.dataCurrentUser.userId,0)
     //        console.log("task done:")
      //       console.log(response.data)
             if(response.data && response.data.status==200){
@@ -626,10 +639,10 @@ export function actionGetTaskDone() {
 export function actionChangePriorityTask(priority,taskId) {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
         const userId=getState().auth.dataCurrentUser?.userId
-
+        const token = getState().auth?.token
 
         try {
-            const response = await Api(false).changePriorityTask(priority,taskId,userId)
+            const response = await Api(false,token).changePriorityTask(priority,taskId,userId)
       //      console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
@@ -662,8 +675,9 @@ export function actionChangePriorityTask(priority,taskId) {  // action lấy ds 
 export function actionChangeProgressTask(progress,taskId) {
     return async (dispatch, getState) => {
         const userId=getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).changeProgressTask(progress,taskId,userId)
+            const response = await Api(false,token).changeProgressTask(progress,taskId,userId)
        //     console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
@@ -695,8 +709,9 @@ export function actionChangeProgressTask(progress,taskId) {
 }
 export function actionReportTask(body) {
     return async (dispatch, getState) => {
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).reportTask(body)
+            const response = await Api(false,token).reportTask(body)
           //  console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
@@ -728,8 +743,9 @@ export function actionReportTask(body) {
 }
 export function actionAnswerReportTask(body) {
     return async (dispatch, getState) => {
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).answerReportTask(body)
+            const response = await Api(false,token).answerReportTask(body)
             console.log(response.data)
             if(response.data && response.data.status){
                 showMessage({
@@ -761,8 +777,9 @@ export function actionAnswerReportTask(body) {
 }
 export function actionAcceptAnswerReport(body) {
     return async (dispatch, getState) => {
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).acceptAnswerReport(body)
+            const response = await Api(false,token).acceptAnswerReport(body)
             console.log(response.data)
             if(response.data && response.data.status){
                 showMessage({
@@ -794,8 +811,9 @@ export function actionAcceptAnswerReport(body) {
 }
 export function actionRejectAnswerReport(body) {
     return async (dispatch, getState) => {
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).rejectAnswerReport(body)
+            const response = await Api(false,token).rejectAnswerReport(body)
             console.log(response.data)
             if(response.data && response.data.status){
                 showMessage({
@@ -852,8 +870,9 @@ export function actionSearchTask(text) {
         dispatch(updateData({
             isSearchTask :true
         }))
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).searchTask(text)
+            const response = await Api(false,token).searchTask(text)
             if(response.data && response.data.status==200) {
                 await dispatch({
                     type: "GET_SEARCH_TASK",
@@ -884,11 +903,12 @@ export function actionSearchTask(text) {
 export function actionGetTargetTaskByEndDay(offset,startDay , endDay) {
     return async (dispatch, getState) => {
         const userId=getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
         dispatch(updateData({
             isFilterTask :true
         }))
         try {
-            const response = await Api(false).getTargetTaskByEndDay(offset,userId,startDay,endDay)
+            const response = await Api(false,token).getTargetTaskByEndDay(offset,userId,startDay,endDay)
         //    console.log(response.data.dataListTask?.length)
             if(response.data && response.data.status==200) {
                 await dispatch({
@@ -922,8 +942,9 @@ export function actionAddCheckList(taskId,content) {
     return async (dispatch, getState) => {
         let userId= getState().auth.dataCurrentUser?.userId
         let avatar=getState().auth.dataCurrentUser?.avatarUser
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).addCheckList(taskId,content,userId);
+            const response = await Api(false,token).addCheckList(taskId,content,userId);
             if(response.data && response.data.status==200){
                 await      dispatch({
                     type: "ADD_CHECKLIST",
@@ -968,8 +989,9 @@ export function actionSetStatusCheckList(status,checkId) {
                 status:status,
             }
         });
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).setStatusCheckList(status,checkId);
+            const response = await Api(false,token).setStatusCheckList(status,checkId);
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
@@ -998,8 +1020,9 @@ export function actionGetListNotify() {
             isGetNotify: true
         }))
         let userId = getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).getListNotify(userId,0);
+            const response = await Api(false,token).getListNotify(userId,0);
 
         //  console.log(response.data?.dataListNotify)
             if (response.data && response.data.status == 200) {
@@ -1028,14 +1051,16 @@ export function actionGetListNotify() {
 }
 export function actionGetMoreListNotify() {
     return async (dispatch, getState) => {
+
         if(!getState().task.isGetMoreNotify && !getState().task.isGetNotify) {
             dispatch(updateData({
                 isGetMoreNotify: true
             }))
+            const token = getState().auth?.token
             let userId = getState().auth.dataCurrentUser?.userId
             let dataListNotify = getState().task?.dataListNotify
             try {
-                const response = await Api(false).getListNotify(userId, dataListNotify?.length);
+                const response = await Api(false,token).getListNotify(userId, dataListNotify?.length);
 
                 //  console.log(response.data?.dataListNotify)
                 if (response.data && response.data.status == 200) {
@@ -1072,9 +1097,9 @@ export function actionSetIsReadNotify(notifyUserId) {
                 notifyUserId:notifyUserId,
             }
         });
-
+        const token = getState().auth?.token
         try {
-   await Api(false).setHasReadNotify(notifyUserId);
+   await Api(false,token).setHasReadNotify(notifyUserId);
        //     /(response.data)
         } catch (error) {
            // console.log(error)
@@ -1094,8 +1119,9 @@ export function actionChangeDayTask(taskId,type, day) {
     return async (dispatch, getState) => {
    //     console.log(taskId,type,day)
         let userId = getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
         try {
-            const response = await Api(false).changeDayTask(taskId,type,userId,day);
+            const response = await Api(false,token).changeDayTask(taskId,type,userId,day);
             if (response.data && response.data.status == 200) {
                 showMessage({
                     message: response.data?.message,

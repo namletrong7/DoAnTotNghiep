@@ -27,7 +27,7 @@ import IconPeople from "../../assets/icons/IconPeople";
      }
 
    }, [item]);
-   const RenderIconNotity=({type})=>{
+   const RenderIconNotity=React.memo(({type})=>{
      if(type==10){
        return(
          <View style={{alignSelf:"flex-end",marginLeft:-15,marginTop:-10,backgroundColor:"#00CD00", borderRadius:16,padding:5}}>
@@ -56,7 +56,7 @@ import IconPeople from "../../assets/icons/IconPeople";
        )
      }
 
-   }
+   })
   return(
     <View>
     <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:10,
