@@ -24,13 +24,14 @@ export function actionLogin(userName, passWord) {
             const response = await Api(false).login(userName, passWord);
             if (response.data.status==200 && response.data.data == 1){
                 dispatch(updateData({
+                    token: response.data?.token,
                     isLoginSuccess: true,
                     dataCurrentUser:response.data.dataCurrentUser
                 }))
              await   dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
             setTimeout(() => {
                 dispatch(updateData({
-                    token: 'asdasdasdasdasdasd',
+                    isLoginSuccess: false,
                 }))
             }, 3000);
                 await messaging().registerDeviceForRemoteMessages()
@@ -52,9 +53,11 @@ export function actionLogin(userName, passWord) {
 // lấy thông tin overView
 export function actionGetOverView(userId) {
     return async (dispatch, getState) => {
+        const token = getState().auth?.token
+        console.log(token)
         try {
-            const response = await Api(false).getOverView(userId);
-   //         console.log(response.data)
+            const response = await Api(false,token).getOverView(userId);
+         console.log(response.data)
             if (response.data.status==200 && response){
                 dispatch(updateData({
                     dataNumProject: response.data?.dataNumProject,
