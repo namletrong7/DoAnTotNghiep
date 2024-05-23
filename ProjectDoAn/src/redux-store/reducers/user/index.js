@@ -5,9 +5,14 @@ const initialState ={
     dataUserSearch:[],
     isEditUserProject:false,
     listUserOfProject:[],
+    isChangePass:false,
 }
 const reducerUser = (state = initialState, action) => {
     switch (action.type) {
+        case 'USER_UPDATE_DATA': {
+            let data = action.data || {};
+            return { ...state, ...data };
+        }
         case "RESET_USER":{
             return  initialState;
         }
