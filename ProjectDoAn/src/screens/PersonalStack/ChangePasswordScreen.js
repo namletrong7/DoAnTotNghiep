@@ -38,6 +38,7 @@ import { getColorStateProject, getStateProject } from "../../utils/GetPriority";
 import LogoApp from "../../assets/icons/LogoApp";
 import IconEye from "../../assets/icons/IconEye";
 import IconEyeSlash from "../../assets/icons/IconEyeSlash";
+import LottieView from "lottie-react-native";
 
 
 const ChangePasswordScreen = ({ navigation ,route }) => {
@@ -48,6 +49,8 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
   const [isShowPass, setIsShowPass ] = useState(true);
   const [isShowRePass, setIsShowRePass] = useState(true);
     const dispatch = useDispatch();
+  const isChangePass = useSelector(state => state.user?.isChangePass);
+
     const validatePassword = useCallback((password) => {
         const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
         return regex.test(password);
@@ -127,12 +130,17 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
                 marginLeft:"10%",
                 fontFamily: "OpenSans-SemiBold",
             }}>{error.rePass}</Text>:null}
-            <TouchableOpacity onPress={handleChangePass} style={{height:50,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#daeefd", marginTop:30,alignItems:'center', justifyContent:'center'}}>
-                <Text style={{
+            <TouchableOpacity onPress={handleChangePass} style={{height:50,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#daeefd", marginTop:30,alignItems:'center', justifyContent:'center',width:'40%'}}>
+              {
+                isChangePass?
+                  <LottieView style={{ height:90,width:90}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />:
+                  <Text style={{
                     fontSize: 15,
                     color: "#2f88dc",
                     fontFamily: "OpenSans-SemiBold",
-                }}>{"Đổi mật khẩu"}</Text>
+                  }}>{"Đổi mật khẩu"}</Text>
+              }
+
             </TouchableOpacity>
         </View>
 

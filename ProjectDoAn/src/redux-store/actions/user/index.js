@@ -8,6 +8,12 @@ import { actionGetDetailProject } from "../project";
  * Created by NamLTC on 29/01/2024
  * khai báo các action thực hiện liên quan đến user như  lấy thông tin user, laasy user của project
  */
+export function updateData(data) {
+  return {
+    type: 'USER_UPDATE_DATA',
+    data
+  }
+}
 // action call api addTask
 export function actionGetProfileUser(userId) {
   return async (dispatch, getState) => {
@@ -234,6 +240,9 @@ export function actionChangePassword(newPass) {
   return async (dispatch, getState) => {
     let createUser = getState().auth.dataCurrentUser?.userId
     const token = getState().auth?.token
+    dispatch(updateData({
+      isChangePass: true,
+    }))
     try {
       const response = await Api(false,token).changePassword(newPass, createUser );
       if(response.data && response.data.status==200){
@@ -253,7 +262,13 @@ export function actionChangePassword(newPass) {
           icon: { icon: "warning", position: 'left' }
         });
       }
+      dispatch(updateData({
+        isChangePass: false,
+      }))
     } catch (error) {
+      dispatch(updateData({
+        isChangePass: false,
+      }))
       showMessage({
         message: "Lỗi mạng",
         type: "danger",
