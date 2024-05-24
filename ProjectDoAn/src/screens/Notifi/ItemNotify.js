@@ -60,7 +60,7 @@ import IconPeople from "../../assets/icons/IconPeople";
   return(
     <View>
     <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:10,
-      paddingVertical:7, backgroundColor:item.isRead==0?"#E8E8E8":"transparent"}}>
+      paddingVertical:7, backgroundColor:item.isRead==0?"#AAAAAA":"transparent"}}>
       <View>
         <FastImage
           style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
@@ -78,7 +78,7 @@ import IconPeople from "../../assets/icons/IconPeople";
           <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular"}}>{item.content+" "}</Text>
           <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item?.type<11?item?.titleTask:item?.nameProject}</Text>
         </Text>
-        <Text style={{fontSize:11,flexWrap:"wrap", color:"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
+        <Text style={{fontSize:11,flexWrap:"wrap", color:item.isRead==0?"white":"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
       </View>
     </Pressable>
       <View style={{height:1, backgroundColor:"white"}}/>

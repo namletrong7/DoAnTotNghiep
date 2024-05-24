@@ -195,7 +195,7 @@ const TaskPersonalScreen = ({ navigation }) => {
           </SafeAreaView>
         </Modal>
       </SafeAreaView>
-          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:"17%"}}>
+          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:Platform.isPad?"10%":"17%"}}>
             <TaskChart/>
             <BoardTask/>
             {currentTask?.length>0?

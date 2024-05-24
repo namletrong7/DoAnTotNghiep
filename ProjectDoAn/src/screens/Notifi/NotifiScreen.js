@@ -1,33 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
-  Text,
-  Button,
   StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, RefreshControl, ActivityIndicator,
+  Dimensions,
+  FlatList,
+  RefreshControl,
+  Platform,
 } from "react-native";
-import {  actionLogout } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
 
-
-import ItemTask from "../../components/itemTask/ItemTask";
-import FastImage from "react-native-fast-image";
 import LottieView from "lottie-react-native";
-import IconPlus from "../../assets/icons/IconPlus";
-import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
-import IconBell from "../../assets/icons/IconBell";
-import { getTypeNotifi } from "../../utils/GetPriority";
-import IconBack from "../../assets/icons/IconBack";
+
 import LinearGradient from "react-native-linear-gradient";
-import { actionGetListNotify, actionGetMoreListNotify, actionGetTaskToDoProject } from "../../redux-store/actions/task";
-import IconComment from "../../assets/icons/IconComment";
-import IconNotityComment from "../../assets/icons/IconNotityComment";
-import IconEdit from "../../assets/icons/IconEdit";
-import IconEdit2 from "../../assets/icons/IconEdit2";
-import IconReport from "../../assets/icons/IconReport";
+import { actionGetListNotify, actionGetMoreListNotify } from "../../redux-store/actions/task";
 import { ItemNotify } from "./ItemNotify";
 
 const NotifiScreen = ({ navigation }) => {
@@ -61,7 +47,7 @@ const NotifiScreen = ({ navigation }) => {
   return (
     <View style={{height:'100%',backgroundColor:"#F0F0F0"}}>
       <HeaderComponent title={"THÔNG BÁO"} navigation={navigation}/>
-        <LinearGradient  colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1,paddingBottom:'20%'}} >
+        <View   style={{flex:1,paddingBottom:Platform.isPad?"10%":"17%"}} >
           <FlatList
             data={dataListNotify}
             renderItem={({item}) => <ItemNotify item={item} navigation = {navigation} dispatch={dispatch} />}
@@ -82,7 +68,7 @@ const NotifiScreen = ({ navigation }) => {
             <LottieView style={{ height:150,width:150}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />
           </View>:null}
 
-        </LinearGradient>
+        </View>
     </View>
   );
 };
