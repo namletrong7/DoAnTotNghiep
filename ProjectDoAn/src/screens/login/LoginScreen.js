@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  TouchableWithoutFeedback, ScrollView, SafeAreaView,
+  TouchableWithoutFeedback, ScrollView, SafeAreaView, KeyboardAvoidingView,
 } from "react-native";
 import LottieView from 'lottie-react-native';
 import IconEye from "../../assets/icons/IconEye";
@@ -77,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={{height:"100%", flex:1,backgroundColor:"white"}}>
-
+      <KeyboardAvoidingView keyboardVerticalOffset={5} behavior='padding'>
     <ScrollView contentContainerStyle={{backgroundColor:"white"}}>
       <View style={styles.container}>
       <LottieView style={{width:'80%', height:200,marginTop:40}} source={require('../../assets/animation/work_space.json')} autoPlay loop />
@@ -133,6 +133,7 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/tree_2.json')} autoPlay loop />
     </ScrollView>
+      </KeyboardAvoidingView>
       <ModalLoadingSuccess/>
     </View>
   );

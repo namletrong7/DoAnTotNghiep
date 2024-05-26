@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -6,52 +6,86 @@ import {
     StyleSheet,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl,
+    ImageBackground,
+    Dimensions,
+    Image,
+    SafeAreaView,
+    FlatList,
+    ScrollView,
+    RefreshControl,
+    TextInput,
+    KeyboardAvoidingView, Pressable,
 } from "react-native";
-import {actionLogout} from "../../redux-store/actions/auth";
+
 import {useDispatch, useSelector} from "react-redux";
 import HeaderComponent from "../../components/header/HeaderComponent";
 
-import ItemTask from "../../components/itemTask/ItemTask";
-import FastImage from "react-native-fast-image";
-import {getValuePositionLevel} from "../../utils/GetValuePosition";
-import IconMessage from "../../assets/icons/IconMessage";
-import IconPhone from "../../assets/icons/IconPhone";
-import IconMail from "../../assets/icons/IconMail";
-import Toast from "react-native-toast-message";
-import FlashMessage, {showMessage} from "react-native-flash-message";
-import {actionGetProfileUser} from "../../redux-store/actions/user";
-import {ShimmerProfileUser} from "./shimmerProfileUser/ShimerProfileUser";
-import {
-    ShimmerEffectCommentComponent
-} from "../../components/shimmerEfffect/ShimmerEffectComment/ShimmerEffectCommentComponent";
-import {baseUrlAvatarUser} from "../../api/ConstBaseUrl";
+
 import IconUser from "../../assets/icons/IconUser";
 import IconCardId from "../../assets/icons/IconCardId";
 import IconEmail from "../../assets/icons/IconEmail";
 import IconPhone2 from "../../assets/icons/IconPhone2";
 import IconGiftBox from "../../assets/icons/IconGitBox";
 import IconEdit from "../../assets/icons/IconEdit";
-import {convertDateDB} from "../../utils/ConverPickerDate";
+import { converPickerDate, convertDateDB } from "../../utils/ConverPickerDate";
+import LottieView from "lottie-react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from "moment/moment";
+import { actionEditInforUser } from "../../redux-store/actions/user";
 
 
 const EditProfilePersonalScreen = ({navigation, route}) => {
 
     const [refreshing, setRefreshing] = useState(false);
+    const dispatch  = useDispatch();
+
+    const [email, setEmail] = useState(null);
+    const [fullname, setFullname] = useState(null);
+    const [phone, setPhone] = useState(null);
+    const [birthDay, setBirthDay] = useState(null); // dùng cho hiển thị
+    const [ngaySinh, setNgaySinh] = useState(null);   // dùng cho gửi API
+    const [isShowChooseBirthDay, setIsShowChooseBirthDay] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
+      useEffect(()=>{
+            setFullname(dataCurrentUser?.fullName)
+          setEmail(dataCurrentUser?.email)
+          setPhone(dataCurrentUser?.phoneNumber)
+          setBirthDay(convertDateDB(dataCurrentUser?.birthDay))
+          setNgaySinh(dataCurrentUser?.birthDay)
+      },[dataCurrentUser])
 
+    const handleCancel=useCallback(()=>{
+        setFullname(dataCurrentUser?.fullName)
+        setEmail(dataCurrentUser?.email)
+        setPhone(dataCurrentUser?.phoneNumber)
+        setBirthDay(convertDateDB(dataCurrentUser?.birthDay))
+        setNgaySinh(dataCurrentUser?.birthDay)
+    },[dataCurrentUser])
+    const onConfirmBirthDay = (date)=>{
+        setBirthDay(converPickerDate(date));
+        setNgaySinh(moment(date).format('YYYY-MM-DD'))
+        setIsShowChooseBirthDay(false)
+    }
+    const handleEditInforUser=async () => {
+        setIsLoading(true)
+        await dispatch(actionEditInforUser(fullname, email, phone, ngaySinh))
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000);
 
-
+    }
     return (
         <View style={{backgroundColor: "white", height: '100%'}}>
             <HeaderComponent title={"Chỉnh sửa trang cá nhân"} navigation={navigation} back/>
-            <ScrollView contentContainerStyle={{marginTop: 10}}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={refreshing}
-                            />
-                        }>
-                <View>
+            <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding'>
+                <ScrollView contentContainerStyle={{marginTop: 10}}
+                            refreshControl={
+                                <RefreshControl
+                                  refreshing={refreshing}
+                                />
+                            }>
                     <View style={{marginHorizontal: 20,}}>
 
                             <Text style={[styles.textInfor, {fontFamily: "OpenSans-SemiBold"}]}>{"Thông tin cá nhân"}</Text>
@@ -61,17 +95,21 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
                             <IconUser/>
                             <View style={{marginLeft: 10,flex:1}}>
                                 <Text style={styles.textInfor}>{"Họ và tên:"}</Text>
-                                <View style={{
+                                <TextInput
+                                  value={fullname}
+                                  onChangeText={setFullname}
+                                  style={{
                                     marginTop:15,
                                     justifyContent: 'center',
                                     paddingVertical: 5,
                                     borderColor: "#DDDDDD",
                                     borderWidth: 0.5,
                                     borderRadius: 7,
-                                    paddingHorizontal: 5
+                                    paddingHorizontal: 5,
+                                      fontSize:17,
                                 }}>
-                                    <Text style={styles.textInfor}>{dataCurrentUser?.fullName}</Text>
-                                </View>
+
+                                </TextInput>
 
                             </View>
                         </View>
@@ -80,12 +118,8 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
                             <View style={{marginLeft: 10, flex: 1}}>
                                 <Text style={styles.textInfor}>{"Mã nhân viên:"}</Text>
                                 <View style={{
-                                    marginTop:15,
+                                    marginTop:5,
                                     justifyContent: 'center',
-                                    paddingVertical: 5,
-                                    borderColor: "#DDDDDD",
-                                    borderWidth: 0.5,
-                                    borderRadius: 7,
                                     paddingHorizontal: 5
                                 }}>
                                     <Text style={styles.textInfor}>{dataCurrentUser?.userName}</Text>
@@ -97,17 +131,21 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
                             <IconEmail/>
                             <View style={{marginLeft: 10, flex: 1}}>
                                 <Text style={styles.textInfor}>{"Email:"}</Text>
-                                <View style={{
+                                <TextInput
+                                  keyboardType={'email-address'}
+                                  value={email}
+                                  onChangeText={setEmail}
+                                  style={{
                                     marginTop:15,
                                     justifyContent: 'center',
                                     paddingVertical: 5,
                                     borderColor: "#DDDDDD",
                                     borderWidth: 0.5,
                                     borderRadius: 7,
-                                    paddingHorizontal:5
+                                    paddingHorizontal:5,
+                                    fontSize:17
                                 }}>
-                                    <Text style={styles.textInfor}>{dataCurrentUser?.email}</Text>
-                                </View>
+                                </TextInput>
 
                             </View>
                         </View>
@@ -115,17 +153,22 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
                             <IconPhone2/>
                             <View style={{marginLeft: 10, flex: 1}}>
                                 <Text style={styles.textInfor}>{"Số điện thoại:"}</Text>
-                                <View style={{
+                                <TextInput
+                                  value={phone}
+                                  onChangeText={setPhone}
+                                  maxLength={10}
+                                  keyboardType={"phone-pad"}
+                                  style={{
                                     marginTop:15,
                                     justifyContent: 'center',
                                     paddingVertical: 5,
                                     borderColor: "#DDDDDD",
                                     borderWidth: 0.5,
                                     borderRadius: 7,
-                                    paddingHorizontal: 5
+                                    paddingHorizontal: 5,
+                                    fontSize:17
                                 }}>
-                                    <Text style={styles.textInfor}>{dataCurrentUser?.phoneNumber}</Text>
-                                </View>
+                                </TextInput>
 
                             </View>
                         </View>
@@ -133,7 +176,7 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
                             <IconGiftBox/>
                             <View style={{marginLeft: 10, flex: 1}}>
                                 <Text style={styles.textInfor}>{"Ngày sinh:"}</Text>
-                                <View style={{
+                                <Pressable onPress={()=>setIsShowChooseBirthDay(true)} style={{
                                     marginTop:15,
                                     justifyContent: 'center',
                                     paddingVertical: 5,
@@ -142,15 +185,39 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
                                     borderRadius: 7,
                                     paddingHorizontal: 5
                                 }}>
-                                    <Text style={styles.textInfor}>{convertDateDB(dataCurrentUser?.birthDay)}</Text>
-                                </View>
-
+                                    <Text style={styles.textInfor}>{birthDay}</Text>
+                                </Pressable>
                             </View>
                         </View>
+                        <View style={{flexDirection:'row',justifyContent:"space-between"}}>
+                            <TouchableOpacity onPress={handleEditInforUser} style={{height:40,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#daeefd", marginTop:30,alignItems:'center', justifyContent:'center',width:'40%'}}>
+                                <Text style={{
+                                    fontSize: 15,
+                                    color: "#2f88dc",
+                                    fontFamily: "OpenSans-SemiBold",
+                                }}>{"Thay đổi"}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={handleCancel} style={{height:40,alignSelf:'center', paddingHorizontal:9, borderRadius:17, backgroundColor:"#C0C0C0", marginTop:30,alignItems:'center', justifyContent:'center',width:'40%'}}>
+                                <Text style={{
+                                    fontSize: 15,
+                                    color: "white",
+                                    fontFamily: "OpenSans-SemiBold",
+                                }}>{"Hủy"}</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-
             </ScrollView>
+            </KeyboardAvoidingView>
+            <DateTimePicker
+              isVisible={isShowChooseBirthDay}
+              mode="date"
+              onCancel={()=>{setIsShowChooseBirthDay(false)}}
+              onConfirm={onConfirmBirthDay}
+            />
+            {isLoading?
+            <View style={{top:'30%',position:"absolute",backgroundColor:'rgba(0,0,0,0.1)',alignItems:'center',alignSelf:'center',borderRadius:10}}>
+                <LottieView style={{ height:100,width:100}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />
+            </View>:null}
         </View>
     );
 };
