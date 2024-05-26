@@ -2,6 +2,7 @@ import Api from "../../../api/Api";
 ;
 import { showMessage } from "react-native-flash-message";
 import { actionGetDetailProject } from "../project";
+import { getNewDate } from "../../../utils/ConverPickerDate";
 
 
 /**
@@ -277,6 +278,37 @@ export function actionChangePassword(newPass) {
       });
     }
 
+
+  };
+}
+export function actionEditInforUser(fullName,email,phoneNumber,birthDay) {
+  return async (dispatch, getState) => {
+      let userId= getState().auth.dataCurrentUser?.userId
+      let token = getState().auth?.token
+    try {
+      const response = await Api(false, token).editInforUser({
+        userId: userId,
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+        birthDay: birthDay,
+        email: email,
+      });
+      if(response.data && response.data.message){
+        showMessage({
+          message: response.data.message,
+          type: "success",
+          duration: 1000,
+          icon: { icon: "success", position: 'left' }
+        });
+      }
+    } catch (error) {
+      showMessage({
+        message: "Lỗi mạng",
+        type: "danger",
+        duration: 1000,
+        icon: { icon: "danger", position: 'left' }
+      });
+    }
 
   };
 }

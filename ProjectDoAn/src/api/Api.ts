@@ -86,7 +86,7 @@ const Api = (isFormData:boolean,token:null) => {
     const getTaskDone=(targetUser:number,offset:number)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
         return apiConfig().get(`getTaskDone.php?targetUser=${targetUser}&offset=${offset}`);
     }
-  const searchUser=(text:string)=>{ // api lấy danh sách Cv tôi xử lý chưa hoàn thành
+  const searchUser=(text:string)=>{ //api tìm kiếm user
     return apiConfig().get(`searchUser.php?textSearch=${text}`);
   }
   const addProject=(body:any)=> {
@@ -249,6 +249,9 @@ const Api = (isFormData:boolean,token:null) => {
             }
         });
     }
+  const editInforUser=(body:any)=>{  // theem checkId cho task
+    return apiConfig().post('editInforUser.php',body);
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -288,7 +291,8 @@ const Api = (isFormData:boolean,token:null) => {
       changeDayTask,
       registerDeviceTokenFCM,
       deleteDevicetokenFCM,
-        changePassword,changeInforProject
+      changePassword,changeInforProject,
+      editInforUser,
     };
 };
 export default Api;
