@@ -81,7 +81,7 @@ import IconPeople from "../../assets/icons/IconPeople";
         <Text style={{fontSize:11,flexWrap:"wrap", color:item.isRead==0?"white":"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
       </View>
     </Pressable>
-      <View style={{height:1, backgroundColor:"white"}}/>
+      <View style={{height:1, backgroundColor:"#999999"}}/>
     </View>
   )
 })

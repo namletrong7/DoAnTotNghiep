@@ -33,6 +33,7 @@ const NotifiScreen = ({ navigation }) => {
   },[]);
 
   const loadMoreData = useCallback(() => {
+    console.log('loa them thong bao')
      dispatch(actionGetMoreListNotify())
   },[]);
   const renderFooter = React.memo(() => {
@@ -45,7 +46,7 @@ const NotifiScreen = ({ navigation }) => {
   });
 
   return (
-    <View style={{height:'100%',backgroundColor:"#F0F0F0"}}>
+    <View style={{height:'100%',backgroundColor:'white'}}>
       <HeaderComponent title={"THÔNG BÁO"} navigation={navigation}/>
         <View   style={{flex:1,paddingBottom:Platform.isPad?"10%":"17%"}} >
           <FlatList
