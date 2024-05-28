@@ -33,7 +33,7 @@ const OptionComponent = ({onShowDialogLeave,onShowDialogLeaveProject,isAdmin, is
             {isShowOption?
             <View style={{marginTop:10,paddingHorizontal:20}}>
                 {/*là thành viên dự án thì mới có quyền rời dự án*/}
-                {isMember?
+                {isMember|| isAdmin?
                 <TouchableOpacity onPress={onShowDialogLeave} style={{flexDirection:'row',alignItems:"center"}}>
                     <IconUserLeave/>
                     <Text style={{

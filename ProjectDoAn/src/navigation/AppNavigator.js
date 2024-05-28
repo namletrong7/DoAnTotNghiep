@@ -32,8 +32,7 @@ const AppNavigator = () => {
     }, []);
   return (
     <>
-      {/*{token ? (<StackNavigate />) : (<LoginNavigator />)}*/}
-        <EditInforProjectScreen/>
+      {token ? (<StackNavigate />) : (<LoginNavigator />)}
       <DialogNointernet visible={isConnected} onClose={handleClose}/>
     </>
   )

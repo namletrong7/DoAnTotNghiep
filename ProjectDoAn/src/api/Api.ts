@@ -10,7 +10,7 @@ const Api = (isFormData:boolean,token:null) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.1.108:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 'Authorization1':  token,
@@ -67,9 +67,14 @@ const Api = (isFormData:boolean,token:null) => {
     const apiInstance = apiConfig();
     return apiInstance.get(`getProjectUser.php?userId=${userId}`);
   }
-  const getDetailProject=(projectId:string)=>{ // apo lấy chi tiết project
+  const getDetailProject=(projectId:string,userId:number)=>{ // apo lấy chi tiết project
     const apiInstance = apiConfig();
-    return apiInstance.get(`getDetailProject.php?projectId=${projectId}`);
+    return apiInstance.get(`getDetailProject.php`,{
+      params: {
+        projectId: projectId,
+        userId:userId
+      }
+    });
   }
   const getListTaskProject=(projectId:string,state:number)=>{ // api lấy danh sách của 1 project
     return apiConfig().get(`getListTaskProject.php?projectId=${projectId}&state=${state}`);
@@ -238,12 +243,13 @@ const Api = (isFormData:boolean,token:null) => {
             }
         });
     }
-    const changeInforProject=(nameProject :string, startDay :string, endDay:string, projectId:string,createUser: string )=>{
+
+
+  const changeInforProject=(content :string, type:number, projectId:string,createUser: string )=>{
         return apiConfig().get('changeInforProject.php',{
             params:{
-                nameProject:nameProject,
-                startDay:startDay,
-                endDay:endDay,
+                 content:content,
+                 type:type,
                 projectId:projectId,
                 createUser:createUser
             }

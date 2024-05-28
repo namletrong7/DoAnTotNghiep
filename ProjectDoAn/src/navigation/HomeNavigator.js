@@ -40,6 +40,7 @@ import PushNotify from "../utils/PushNotify";
 import { useDispatch } from "react-redux";
 import { actionGetListNotify } from "../redux-store/actions/task";
 import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
+import { EditInforProjectScreen } from "../screens/EditinforProjectScreen";
 
 
 export  const NotifiStack = React.memo(() => {
@@ -197,6 +198,7 @@ export  const StackNavigate = React.memo( () => {
       <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
       <Stack.Screen name="AddFileAttachScreen" component={AddFileAttachScreen} />
       <Stack.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
+      <Stack.Screen name="EditInforProjectScreen" component={EditInforProjectScreen} />
     </Stack.Navigator>
   )
 })

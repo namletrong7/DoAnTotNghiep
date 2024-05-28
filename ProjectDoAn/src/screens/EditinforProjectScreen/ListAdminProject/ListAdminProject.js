@@ -27,7 +27,7 @@ const ListAdminProject = ({listAdmin,handleItem}) => {
                              color: "black",
                              marginLeft:10,
                              fontFamily: "OpenSans-Regular",
-                         }}>{'('+2+')'}</Text></Text>
+                         }}>{'('+listAdmin?.length+')'}</Text></Text>
                      </View>
                      {isShowOption?<IconArrowDown width={10} height={10} color={'black'}/>: <IconArrowUp width={10} height={10} color={'black'}/>}
                  </Pressable>
