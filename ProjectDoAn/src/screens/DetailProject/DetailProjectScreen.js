@@ -6,12 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, StatusBar,
 } from "react-native";
 import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 import FastImage from "react-native-fast-image";
-
+import { ScrollView } from "react-native-gesture-handler";
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 
 import BottomSheet, {
@@ -33,9 +33,7 @@ import {  actionGetDetailProject } from "../../redux-store/actions/project";
 import {convertDateDB} from "../../utils/ConverPickerDate";
 import { BottomEditUser } from "./BottomEditUser";
 import LinearGradient from "react-native-linear-gradient";
-import IconEdit2 from "../../assets/icons/IconEdit2";
 import IconEdit from "../../assets/icons/IconEdit";
-import {BottomEditInforProject} from "./BottomEditInforProject";
 
 
 
@@ -130,7 +128,7 @@ const ItemUserMemer=React.memo((props)=>{
                <TopTabTask1 projectId={itemProject?.projectId || projectId}/>
           </View>
         <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={itemProject?.projectId || projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={dataDetailProject?.dataMember}/>
-         <BottomEditInforProject data={dataDetailProject} bottomSheetRef={bottomEditInfor}  projectId={itemProject?.projectId || projectId} snapPoints={snapPoints} handleClose={handelCloseEditInfor} />
+         {/*<EditinforProjectScreen data={dataDetailProject} bottomSheetRef={bottomEditInfor}  projectId={itemProject?.projectId || projectId} snapPoints={snapPoints} handleClose={handelCloseEditInfor} />*/}
         <BottomSheetModalProvider>
           <BottomSheetModal
               ref={bottomSheetRef}
@@ -138,7 +136,7 @@ const ItemUserMemer=React.memo((props)=>{
               enablePanDownToClose={true}
               backdropComponent={renderBackdrop}
               snapPoints={snapPoints}>
-            <BottomSheetScrollView  >
+            <ScrollView  >
               <View style={{paddingHorizontal:10, backgroundColor:"white"}}>
                   <Text style={{fontSize:17,alignSelf:'center', color:"black",fontFamily:"OpenSans-SemiBold",fontWeight:'700',marginRight:10}}>{dataDetailProject?.nameProject}</Text>
                 <TouchableOpacity style={{flexDirection:"row", marginTop:10}}>
@@ -172,7 +170,7 @@ const ItemUserMemer=React.memo((props)=>{
                       </TouchableOpacity>
               </View>
 
-            </BottomSheetScrollView>
+            </ScrollView>
           </BottomSheetModal>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>

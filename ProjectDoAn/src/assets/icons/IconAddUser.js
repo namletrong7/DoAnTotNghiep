@@ -19,7 +19,6 @@ const IconAddUser = (props) => (
       strokeLinejoin="round"
     />
     <Path
-      opacity={0.4}
       clipRule="evenodd"
       d="M9.877 11.886A4.568 4.568 0 1 0 5.31 7.318a4.551 4.551 0 0 0 4.536 4.568h.03Z"
       stroke="#130F26"
