@@ -60,10 +60,10 @@ import IconPeople from "../../assets/icons/IconPeople";
   return(
     <View>
     <Pressable onPress={()=>{handleItemNotifi(item)}} style={{flexDirection:"row",alignItems:"center",paddingHorizontal:10,
-      paddingVertical:7, backgroundColor:item.isRead==0?"#AAAAAA":"transparent"}}>
+      paddingVertical:7, backgroundColor:item.isRead==0?"#f5f5f5":"#ffffff"}}>
       <View>
         <FastImage
-          style={{ width: 50, height: 50,borderRadius: 50/2 ,overflow: "hidden"}}
+          style={{ width: 60, height: 60,borderRadius: 60/2 ,overflow: "hidden"}}
           source={{
             uri:  (baseUrlAvatarUser+props.item?.avatarCreateUser)||''
 
@@ -78,10 +78,9 @@ import IconPeople from "../../assets/icons/IconPeople";
           <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-Regular"}}>{item.content+" "}</Text>
           <Text style={{fontSize:13,flexWrap:"wrap", color:"black",fontFamily:"OpenSans-SemiBold"}}>{item?.type<11?item?.titleTask:item?.nameProject}</Text>
         </Text>
-        <Text style={{fontSize:11,flexWrap:"wrap", color:item.isRead==0?"white":"#8B8B83",fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
+        <Text style={{fontSize:11,flexWrap:"wrap", color:"#646464",top:10,fontFamily:"OpenSans-SemiBold"}}>{getTimeDifference(item?.timeNotify)}</Text>
       </View>
     </Pressable>
-      <View style={{height:1, backgroundColor:"#999999"}}/>
     </View>
   )
 })

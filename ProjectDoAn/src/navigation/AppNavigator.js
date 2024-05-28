@@ -9,6 +9,8 @@ import { Platform, StatusBar } from "react-native";
 import DialogNointernet from "../components/DialogNointernet/DialogNointernet";
 import * as NetInfo from "@react-native-community/netinfo";
 import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
+import {EditInforProjectScreen} from "../screens/EditinforProjectScreen";
+
 
 const AppNavigator = () => {
   const token = useSelector(state => state.auth.token);
@@ -30,7 +32,8 @@ const AppNavigator = () => {
     }, []);
   return (
     <>
-      {token ? (<StackNavigate />) : (<LoginNavigator />)}
+      {/*{token ? (<StackNavigate />) : (<LoginNavigator />)}*/}
+        <EditInforProjectScreen/>
       <DialogNointernet visible={isConnected} onClose={handleClose}/>
     </>
   )
