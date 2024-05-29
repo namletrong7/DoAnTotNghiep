@@ -36,15 +36,14 @@ import DialogConfirmComponent from "../../components/DialogConfirmComponent/Dial
 import {ModalOptionForAdmin} from "./ModalOptionForAdmin/ModalOptionForAdmin";
 
 export const EditInforProjectScreen=React.memo((props)=>{
-  const {projectId,navigation}= props
+  const {route,navigation}= props
+  const { projectId } = route?.params ;
   const dispatch  = useDispatch();
   const data = useSelector(state => state.project?.dataDetailProject);
   const [title, setTitle]=useState(null);// tieeu de của project
   const [borderTitle, setBoderTitle]=useState('#888888');// mau cua border nhap tieu de cong viec
   const [startDay, setStartDay]=useState(moment(new Date()).format('YYYY-MM-DD'));//ngày băt đầu
-  const [ngayBatDau, setNgayBatDau]=useState(moment(new Date()).format('YYYY-MM-DD'));// su dung de call api
   const [endDay, setEndDay]=useState(moment(new Date()).format('YYYY-MM-DD'));// ngày kết thuc
-  const [ngayKetThuc, setngayKetThuc]=useState(moment(new Date()).format('YYYY-MM-DD'));// su dung de call api
   const [isShowStartDay, SetIsShowStartDay]=useState(false);//hiển thị picker chọn ngày bắt đầu
   const [isShowEndDay, SetIsShowEndDay]=useState(false);//hiển thị picker chọn kết thúc
   const [isChooseState, SetIsChooseState]=useState(false);//hiển thị modal chọn trạng thái dự án
@@ -59,10 +58,9 @@ export const EditInforProjectScreen=React.memo((props)=>{
 
 
    useEffect(()=>{
-              setNgayBatDau(data?.startDay)
+     console.log(data)
               setStartDay(convertDateDB(data?.startDay))
               setEndDay(convertDateDB(data?.endDay))
-              setngayKetThuc(data?.endDay)
               setTitle(data?.nameProject)
               SetStateProject(data?.state)
    },[data])
@@ -70,7 +68,7 @@ export const EditInforProjectScreen=React.memo((props)=>{
   // hàm nhán vào nút ok của pker chọn ngày bắt đầu
   const onConfirmStartDay = (date)=>{
     setStartDay(converPickerDate(date));
-    setNgayBatDau(moment(date).format('YYYY-MM-DD'))
+    handleEditProject(moment(date).format('YYYY-MM-DD'),1);
     SetIsShowStartDay(false)
   }
 
@@ -78,7 +76,7 @@ export const EditInforProjectScreen=React.memo((props)=>{
   // hàm nhán vào nút ok của pker ngày key thuc
   const onConfirmEndDay = (date)=>{
     setEndDay(converPickerDate(date));
-    setngayKetThuc(moment(date).format('YYYY-MM-DD'));
+    handleEditProject(moment(date).format('YYYY-MM-DD'),2);
     SetIsShowEndDay(false)
   }
 
@@ -119,20 +117,22 @@ export const EditInforProjectScreen=React.memo((props)=>{
   },[userSelected,typeOptionForAdmin])
   const handleEditProject=async (content,type) => {
      // type = 0 - chỉnh sửa tên dự án , 1-chỉnh sửa ngày bắt đầu. 2- chỉnh sửa ngày kết thúc
-    if(!title){
-      setBoderTitle('red');
-    }else {
-      await dispatch(actionChangeInforProject(title,ngayBatDau,ngayKetThuc,"projectId"))
-    }
+       dispatch(actionChangeInforProject(content,type,projectId))
   }
 
   return (
-      <View>
-        <View style={{flexDirection:"row",paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight),backgroundColor:'#f5f5f5', paddingLeft:10, paddingVertical:5,alignItems:"center"}}>
-          <TouchableOpacity style={{alignSelf:'flex-start'}} onPress={()=>{navigation.goBack()}}>
+      <View style={{height:"100%"}}>
+        <View style={{position:"relative",backgroundColor:"black",height:StatusBar.currentHeight}}>
+          <StatusBar
+            translucent
+            backgroundColor={'transparent'}
+          />
+        </View>
+        <View style={{paddingTop:Platform.OS==='ios'?(StatusBar.currentHeight+50):(StatusBar.currentHeight),backgroundColor:'#f5f5f5', paddingLeft:10, paddingVertical:5}}>
+          <TouchableOpacity style={{position:"absolute",alignSelf:'flex-start'}} onPress={()=>{navigation.goBack()}}>
             <IconBack/>
           </TouchableOpacity>
-            <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:'30%'}}>{"Cấu hình dự án"}</Text>
+            <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",alignSelf:'center',marginTop:-20}}>{"Cấu hình dự án"}</Text>
         </View>
         <ScrollView style={{backgroundColor:"white"}} >
           <View style={{paddingHorizontal:10, backgroundColor:"white",marginBottom:"40%",}}>
@@ -143,9 +143,9 @@ export const EditInforProjectScreen=React.memo((props)=>{
                   onFocus={()=>{setisShowIconEdit(false)}}
                   onBlur={()=>setisShowIconEdit(true)}
                   placeholder={"Nhập tên dự án"}
-                  onSubmitEditing={()=>console.log('da hoan thanh nhap lieu')}
+                  onSubmitEditing={()=>handleEditProject(title,0)}
                   placeholderTextColor={"#888888"}
-                  style={{ height: 40,marginLeft:10, textAlignVertical:"center",alignSelf:'center', fontSize:20, fontFamily: "Roboto-Bold" }}
+                  style={{ height: 60,marginLeft:10, textAlignVertical:"center",alignSelf:'center', fontSize:20, fontFamily: "Roboto-Bold" }}
               />
               {isShowIconEdit? <IconEdit height={15} width={15}/>:null}
             </View>
@@ -199,9 +199,9 @@ export const EditInforProjectScreen=React.memo((props)=>{
               </TouchableOpacity>
             </View>
             {/*Là quản trị viên hay thành vien mới có quyền hiển thị lựa chọn này*/}
-            {(data?.isAdmin || !data?.isMember) ? <OptionComponent isAdmin={data?.isAdmin} isMember={data?.isMember} onShowDialogLeave={onShowDialogLeave} onShowDialogLeaveProject={onShowDialogLeaveProject} />:null}
-            <ListAdminProject listAdmin={data?.dataMember} handleItem={onShowModalOptionForAdmin} />
-            <ListMemberProject listAdmin={data?.dataMember} handleItem={onShowModalOptionForAdmin} />
+            {(data?.isAdminProject || data?.isMemberProject) ? <OptionComponent isAdmin={data?.isAdminProject} isMember={data?.isMemberProject} onShowDialogLeave={onShowDialogLeave} onShowDialogLeaveProject={onShowDialogLeaveProject} />:null}
+            <ListAdminProject listAdmin={data?.dataMemberAdmin} handleItem={onShowModalOptionForAdmin} />
+            <ListMemberProject listMember={data?.dataMember} handleItem={onShowModalOptionForAdmin} />
           </View>
         </ScrollView>
         <DialogConfirmComponent visible={isShowDialogLeave} content={"Ban có chắc chắn muốn rời khỏi dự án?"} onClose={onCloseDialogLeave} onConfirm />

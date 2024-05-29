@@ -66,8 +66,8 @@ export function actionGetDetailProject(projectId) {
         }))
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).getDetailProject(projectId);
-
+            const response = await Api(false,token).getDetailProject(projectId,getState().auth.dataCurrentUser.userId);
+              console.log(response.data.dataDetailProject)
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataDetailProject:response.data.dataDetailProject
@@ -173,12 +173,12 @@ export function actionSearchProject(text) {
 
     };
 }
-export function actionChangeInforProject(nameProject,startDay, endDay, projectId) {
+export function actionChangeInforProject(content,type, projectId) {
     return async (dispatch, getState) => {
         let createUser = getState().auth.dataCurrentUser?.userId
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).changeInforProject(nameProject, startDay,endDay,projectId,createUser );
+            const response = await Api(false,token).changeInforProject(content, type,projectId,createUser );
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data?.message,

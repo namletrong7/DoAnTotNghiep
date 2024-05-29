@@ -60,10 +60,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
     },
     []
   );
-  // hàm mở ra bottom sheet thông tin của project
-  const handelOpenDetail = useCallback(() => {
-    bottomSheetRef.current?.present();
-  }, []);
+
   // hàm mở ra bottom sheet thông tin của project
   const handelOpenEditUser = useCallback(() => {
     bottomEditUserRef.current?.present();
@@ -116,7 +113,7 @@ const ItemUserMemer=React.memo((props)=>{
          <TouchableOpacity onPress={()=>{handelOpenEditUser()}} >
            <IconAddUser/>
          </TouchableOpacity>
-         <TouchableOpacity onPress={()=>{handelOpenDetail()}}>
+         <TouchableOpacity onPress={()=>{navigation.navigate("EditInforProjectScreen",{projectId: itemProject?.projectId || projectId})}}>
            <IconInfor/>
          </TouchableOpacity>
        </View>
