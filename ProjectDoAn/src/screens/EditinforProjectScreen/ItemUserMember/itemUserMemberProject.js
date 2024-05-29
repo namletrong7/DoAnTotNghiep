@@ -12,6 +12,7 @@ import IconMenu from "../../../assets/icons/IconMenu";
  */
 export const ItemUserMemberProject=React.memo((props)=>{
     const {item,handleItem,typeOption}= props
+    console.log('render lai member')
     return (
         <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between' }}>
         <View style={{marginVertical:5, alignItems:'center',flexDirection:'row'}}>

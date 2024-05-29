@@ -8,7 +8,7 @@ import IconAddUser from "../../../assets/icons/IconAddUser";
 /**
  * Created by TuanTQd on 28/5/24
  */
-export const ModalOptionForAdmin=React.memo(({isVisible,onClose,typeOption})=>{
+export const ModalOptionForAdmin=React.memo(({isVisible,onClose,typeOption,onEditRoleProject})=>{
     return (
         <Modal
             onBackdropPress={onClose}
@@ -28,17 +28,17 @@ export const ModalOptionForAdmin=React.memo(({isVisible,onClose,typeOption})=>{
                 margin: 0,}}
         >
             <View  style={styles.modalContainer} >
-                 <TouchableOpacity style={styles.rowContent}>
+                 <TouchableOpacity onPress={()=>onEditRoleProject(2)} style={styles.rowContent}>
                        <IconUserLeave/>
-                     <Text style={styles.textStyle}>{"Xóa khỏi dự án"} </Text>
+                       <Text style={styles.textStyle}>{"Xóa khỏi dự án"} </Text>
                  </TouchableOpacity>
                 {typeOption===0?
-                <TouchableOpacity style={styles.rowContent}>
+                <TouchableOpacity onPress={()=>onEditRoleProject(0)} style={styles.rowContent}>
                     <IconUserLeave/>
                     <Text style={styles.textStyle}>{"Gỡ vai trò quản trị viên"} </Text>
                 </TouchableOpacity>:null}
                 {typeOption===1?
-                <TouchableOpacity style={styles.rowContent}>
+                <TouchableOpacity onPress={()=>onEditRoleProject(1)} style={styles.rowContent}>
                 <IconAddUser/>
                     <Text style={styles.textStyle}>{"Thêm làm quản trị viên"} </Text>
                 </TouchableOpacity>:null}

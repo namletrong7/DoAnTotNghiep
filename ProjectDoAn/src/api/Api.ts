@@ -10,7 +10,7 @@ const Api = (isFormData:boolean,token:null) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://192.168.1.108:8080/DOAN/",
+            baseURL: "http://3.25.188.2/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 'Authorization1':  token,
@@ -245,13 +245,24 @@ const Api = (isFormData:boolean,token:null) => {
     }
 
 
-  const changeInforProject=(content :string, type:number, projectId:string,createUser: string )=>{
+  const changeInforProject=(content :any, type:number, projectId:string,createUser: string )=>{
         return apiConfig().get('changeInforProject.php',{
             params:{
                  content:content,
                  type:type,
                 projectId:projectId,
                 createUser:createUser
+            }
+        });
+    }
+    const editRoleProject=(projectUserId :number,  projectId:string,createUser: number, type:number, userSelectFullName:string )=>{
+        return apiConfig().get('editRoleProject.php',{
+            params:{
+                projectUserId:projectUserId,
+                projectId:projectId,
+                createUser:createUser,
+                userSelectFullName:userSelectFullName,
+                type:type
             }
         });
     }
@@ -299,6 +310,7 @@ const Api = (isFormData:boolean,token:null) => {
       deleteDevicetokenFCM,
       changePassword,changeInforProject,
       editInforUser,
+        editRoleProject
     };
 };
 export default Api;

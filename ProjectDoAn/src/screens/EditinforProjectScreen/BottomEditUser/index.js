@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { convertDateDB } from "../../../utils/ConverPickerDate";
+
 import React, { useCallback, useEffect, useState } from "react";
 import ListUserChoose from "../../AddProjectScreen/ListUserChoose/ListUserChoose";
 import IconSearch from "../../../assets/icons/IconSearch";
@@ -17,7 +17,7 @@ import { actionEditUserProject, actionsearchUser } from "../../../redux-store/ac
 import { useDispatch } from "react-redux";
 import ListUserSearch from "../../AddProjectScreen/ListUserSearch/ListUserSearch";
 import { checkMember } from "../../AddProjectScreen/Utils/CheckMember";
-import { drawAsImage } from "@shopify/react-native-skia";
+
 import { showMessage } from "react-native-flash-message";
 import { ScrollView } from "react-native-gesture-handler";
 
