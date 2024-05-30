@@ -24,7 +24,7 @@ export function actionGetAllProject() {
         });
         try {
             const response = await Api(false,token).getAllProject(userId);
-
+            console.log(response.data.dataAllProject)
 
 
             if(response.data && response.data.status==200){

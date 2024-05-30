@@ -161,7 +161,7 @@ export  const StackNavigate = React.memo( () => {
   });
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-    //  console.log(remoteMessage)
+     console.log(remoteMessage)
       await PushNotify().displayNotify(remoteMessage.messageId,remoteMessage.notification?.title,remoteMessage.notification?.body,remoteMessage.data)
       dispatch(actionGetListNotify())
 
@@ -171,13 +171,26 @@ export  const StackNavigate = React.memo( () => {
       if (remoteMessage) {
   //      console.log('Notification opened app:', remoteMessage);
         // Xử lý hành động từ thông báo ở đây
-        navi.navigate("DetailTaskScreen", { taskId: remoteMessage.data?.id });
+        if(remoteMessage.data?.type<12){
+          navi.navigate('DetailTaskScreen', { taskId: remoteMessage.data?.id });
+        }else {
+          navi.navigate('DetailProjectScreen', { projectId:remoteMessage.data?.id });
+        }
+
       }
     });
     // nhasn vao thong bao thi mo app
     messaging().onNotificationOpenedApp(messaging => {
-    //  console.log('Notification opened app:', messaging);
-      navi.navigate("DetailTaskScreen", { taskId: messaging.data?.id });
+      if (messaging) {
+        //      console.log('Notification opened app:', remoteMessage);
+        // Xử lý hành động từ thông báo ở đây
+        if(messaging.data?.type<12){
+          navi.navigate('DetailTaskScreen', { taskId: messaging.data?.id });
+        }else {
+          navi.navigate('DetailProjectScreen', { projectId:messaging.data?.id });
+        }
+
+      }
     })
     return unsubscribe
   }, [])

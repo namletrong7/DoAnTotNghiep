@@ -33,7 +33,6 @@ const UserPageScreen = ({navigation , route}) => {
   const [listImage, setListImage] = useState([]);
   const dataUser = useSelector(state => state.user?.dataProfileUser);
   const isGetProfileUser = useSelector(state => state.user?.isGetProfileUser);
-  const link="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/436200407_815315570624973_1781664654681842378_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=n4Htsj_wW_4Ab7Z64qG&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAdWUwE2Z-tSCAYn9RNJSiA_MyAEjhsICJZW-cDQG_N2Q&oe=6625A6B3"
   const handleGetProfileUser=useCallback(()=> {
     setRefreshing(true);
     dispatch(actionGetProfileUser(userId))
@@ -80,7 +79,7 @@ const chooseImage=()=>{
                     height: 160,
                   }}
                   source={{
-                    uri: link
+                    uri: "https://yamicomputer.com/image/data/tintuc-ngoc/hinh-nen-may-tinh-dep-full-hd-8.jpg"
                   }}
                   resizeMode={FastImage.resizeMode.stretch}
                 />
