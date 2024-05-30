@@ -67,7 +67,7 @@ export function actionGetDetailProject(projectId) {
         const token = getState().auth?.token
         try {
             const response = await Api(false,token).getDetailProject(projectId,getState().auth.dataCurrentUser.userId);
-              console.log(response.data.dataDetailProject)
+    //          console.log(response.data.dataDetailProject)
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataDetailProject:response.data.dataDetailProject
@@ -186,6 +186,43 @@ export function actionChangeInforProject(content,type, projectId) {
                     duration: 1000,
                     icon: { icon: "success", position: 'left' }
                 });
+
+            }
+            else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "warning",
+                    duration: 1000,
+                    icon: { icon: "warning", position: 'left' }
+                });
+            }
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
+    };
+}
+export function actionEditRoleProjecet(projectUserId, projectId,type,userSelectFullName) {
+    return async (dispatch, getState) => {
+        let createUser = getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
+        try {
+            const response = await Api(false,token).editRoleProject( projectUserId,projectId,createUser,type,userSelectFullName);
+       //     console.log(response.data)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data?.message,
+                    type: "success",
+                    duration: 1000,
+                    icon: { icon: "success", position: 'left' }
+                });
+                dispatch(actionGetDetailProject(projectId))
 
             }
             else{

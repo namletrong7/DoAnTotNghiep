@@ -73,7 +73,7 @@ export function actionGetDetailTask(taskId) {
         try {
             const response = await Api(false,token).getDetailTask(taskId);
 
-       console.log(response.data)
+  //     console.log(response.data)
 
 
             if(response.data && response.data.status){
@@ -119,7 +119,7 @@ export function actionGetFileAttach(taskId) {
         const token = getState().auth?.token
         try {
             const response = await Api(false,token).getFileAttach(taskId);
-            console.log(response.data)
+     //       console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_FILE_ATTACH",
@@ -243,7 +243,7 @@ export function actionAddCommentTask(taskId,content) {
         let avatar=getState().auth.dataCurrentUser?.avatarUser
         let fullName=getState().auth.dataCurrentUser?.fullName
         const token = getState().auth?.token
-        console.log(getState().task.dataCommentTask)
+     //   console.log(getState().task.dataCommentTask)
         dispatch(updateData({
             isAddComment :true
         }))

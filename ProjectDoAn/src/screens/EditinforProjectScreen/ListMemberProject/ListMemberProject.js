@@ -10,7 +10,7 @@ import {ItemUserMemberProject} from "../ItemUserMember/itemUserMemberProject";
 import IconAssign from "../../../assets/icons/IconAssign";
 import IconAddUser from "../../../assets/icons/IconAddUser";
 
-const ListMemberProject = ({listMember,handleItem}) => {
+const ListMemberProject = ({listMember,handleItem,openEditUser}) => {
     const [isShowOption, setIsShowOption]=useState(true);
 
     return (
@@ -32,7 +32,7 @@ const ListMemberProject = ({listMember,handleItem}) => {
                      </View>
                      {isShowOption?<IconArrowDown width={10} height={10} color={'black'}/>: <IconArrowUp width={10} height={10} color={'black'}/>}
                  </Pressable>
-            <View style={{marginTop:10,marginLeft:25,flexDirection:'row',marginVertical:5,flex:1}}>
+            <Pressable onPress={openEditUser} style={{marginTop:10,marginLeft:25,flexDirection:'row',marginVertical:5,flex:1}}>
                 <IconAddUser/>
                 <Text style={{
                     fontSize: 15,
@@ -41,7 +41,7 @@ const ListMemberProject = ({listMember,handleItem}) => {
                     fontFamily: "OpenSans-Regular",
                     flexWrap:"wrap",
                 }}>{'Chỉnh sửa danh sách thành viên'}</Text>
-            </View>
+            </Pressable>
             {isShowOption?
             <View style={{marginTop:10,paddingHorizontal:20}}>
                 <FlatList
