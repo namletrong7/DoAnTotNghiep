@@ -54,10 +54,10 @@ export function actionLogin(userName, passWord) {
 export function actionGetOverView(userId) {
     return async (dispatch, getState) => {
         const token = getState().auth?.token
-        console.log(token)
+    //    console.log(token)
         try {
             const response = await Api(false,token).getOverView(userId);
-         console.log(response.data)
+    //     console.log(response.data)
             if (response.data.status==200 && response){
                 dispatch(updateData({
                     dataNumProject: response.data?.dataNumProject,

@@ -228,7 +228,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
           name: file.name,
         });
       });
-
+       console.log(formData)
        await dispatch(actionAddTask(formData))
     }
   }

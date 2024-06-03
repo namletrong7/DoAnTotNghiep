@@ -161,7 +161,7 @@ export  const StackNavigate = React.memo( () => {
   });
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-     console.log(remoteMessage)
+   //  console.log(remoteMessage)
       await PushNotify().displayNotify(remoteMessage.messageId,remoteMessage.notification?.title,remoteMessage.notification?.body,remoteMessage.data)
       dispatch(actionGetListNotify())
 

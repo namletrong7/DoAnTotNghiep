@@ -13,15 +13,21 @@ import { useDispatch, useSelector } from "react-redux";
 import {useRef} from "react/index";
 
 import IconProject from "../../assets/icons/IconProject";
-import IconAddUser from "../../assets/icons/IconAddUser";
+
 import IconInfor from "../../assets/icons/IconInfor";
 import IconBack from "../../assets/icons/IconBack";
 
 import {  TopTabTask1 } from "./toptab/TopTabTask";
 import {  getStateProject } from "../../utils/GetPriority";
 import {  actionGetDetailProject } from "../../redux-store/actions/project";
-import { BottomEditUser } from "../EditinforProjectScreen/BottomEditUser";
+
 import LinearGradient from "react-native-linear-gradient";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import { BottomChooseAssignUser } from "./BottomChooseAssignUser/BottomChooseAssignUser";
+import { BottomChooseTargetUser } from "./BottomChooseAssignUser/BottomChooseTargetUser";
+import { actionFilterTaskProject } from "../../redux-store/actions/task";
+
 
 
 
@@ -31,18 +37,55 @@ const DetailProjectScreen = ({ navigation ,route}) => {
    const {itemProject, projectId} =  route?.params
   const dispatch  = useDispatch();
   const snapPoints = useMemo(() => ['50%', "80%",'99%'], []);
-  const bottomEditUserRef = useRef(null);
-
+  const [objectFilter, setSetObjectFilter] = useState({
+    assignUser:null,
+    targetUser:null,
+    type:null
+  });
   const dataDetailProject = useSelector(state => state.project?.dataDetailProject);
+  const bottomSelectAssignUser = useRef(null);  // bottom chọn người duyệt để lọc theo người duyệt
+  const bottomSelectTargetUser = useRef(null);  // bottom chọn người duyệt để lọc theo người xử lý
   useEffect(()=>{
     dispatch(actionGetDetailProject(itemProject?.projectId || projectId))
   },[])
 
+  const renderBackdrop = useCallback(
+    (props) => {
+      return <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />;
+    },
+    []
+  );
 
+// hàm mở ra bottom sheet thông tin của project
+  const openBottomSelectAssignUser = useCallback(() => {
+    bottomSelectAssignUser.current?.present();
+  }, []);
+  const closeBottomSelectAssignUser = useCallback(() => {
+    bottomSelectAssignUser.current?.dismiss();
+  }, []);
+  // hàm mở ra bottom sheet thông tin của project
+  const openBottomSelectTargetUser = useCallback(() => {
+    bottomSelectTargetUser.current?.present();
+  }, []);
+  const closeBottomSelectTargetUser = useCallback(() => {
+    bottomSelectTargetUser.current?.dismiss();
+  }, []);
 
-
-
-
+// hàm nhấn chọn người duyệt
+  const handleChooseAssignUser=(item)=>{
+    setSetObjectFilter({
+      ...objectFilter, assignUser: item
+    })
+  }
+  const handleChooseTargetUser=(item)=>{
+    setSetObjectFilter({
+      ...objectFilter, targetUser: item
+    })
+  }
+  const handleFilterTask=()=>{
+    closeBottomSelectAssignUser();
+    dispatch(actionFilterTaskProject(projectId||itemProject?.projectId,objectFilter?.assignUser?.userId, objectFilter?.targetUser?.userId))
+  }
 
 
 
@@ -62,15 +105,18 @@ const DetailProjectScreen = ({ navigation ,route}) => {
              <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{getStateProject(itemProject?.state || dataDetailProject?.state)}</Text>
            </View>
        <View style={{flexDirection:"row", justifyContent:"flex-end",display:"flex",flex:0.3, height:'100%', alignItems:"center"}}>
-         <TouchableOpacity onPress={()=>{navigation.navigate("EditInforProjectScreen",{projectId: itemProject?.projectId || projectId})}}>
+         <TouchableOpacity onPress={openBottomSelectTargetUser}>
            <IconInfor/>
          </TouchableOpacity>
        </View>
      </View>
-
+      <GestureHandlerRootView style={{ borderRadius:16,  display:"flex"}}>
           <View  style={{height:"100%"}}>
-               <TopTabTask1 projectId={itemProject?.projectId || projectId}/>
+               <TopTabTask1 projectId={itemProject?.projectId || projectId} objectFilter={objectFilter}/>
           </View>
+      <BottomChooseAssignUser handleChooseAssignUser={handleChooseAssignUser} bottomSheetRef={bottomSelectAssignUser} renderBackdrop={renderBackdrop} snapPoints={snapPoints} assignUser={objectFilter.assignUser} handleFilterTask={handleFilterTask} />
+        <BottomChooseTargetUser handleChooseAssignUser={handleChooseTargetUser} bottomSheetRef={bottomSelectTargetUser} renderBackdrop={renderBackdrop} snapPoints={snapPoints} assignUser={objectFilter.targetUser} handleFilterTask={handleFilterTask}/>
+      </GestureHandlerRootView>
     </LinearGradient>
     </Animated.View>
   );
