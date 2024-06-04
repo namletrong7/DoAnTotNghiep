@@ -3,6 +3,7 @@ import HeaderComponent from "./component/headerComponent/HeaderComponent";
 import HeaderAdmin from "./component/headerAdmin/HeaderAdmin";
 import {useSelector} from "react-redux";
 import {ToastContainer} from "react-toastify";
+import LoginScreen from "./screen/authen/LoginScreen";
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     return (
         <div className="App">
             <ToastContainer />
-            <HeaderAdmin/>
+            <LoginScreen/>
         </div>
     );
 }
