@@ -21,17 +21,18 @@ import LinearGradient from "react-native-linear-gradient";
 import LottieView from "lottie-react-native";
 
 const TaskProjectDone = ({navigation,route}) => {
-  const { projectId } = route?.params;
+  const { projectId,objectFilter } = route?.params;
   const dispatch  = useDispatch();
   const dataListTaskProjectDone = useSelector(state => state.task.dataListTaskProjectDone);
   const isGetTaskProjectDone = useSelector(state => state.task?.isGetTaskProjectDone);
   const [refreshing, setRefreshing] = useState(false);
+  console.log('render lại task project done')
   useEffect(()=>{
-    dispatch(actionGetTaskDoneProject(projectId))
+    dispatch(actionGetTaskDoneProject(projectId,objectFilter.assignUser?.userId,objectFilter.targetUser?.userId))
   },[])
   const handleRefresh = useCallback(() => {
     setRefreshing(true); // Đặt trạng thái là đang làm mới
-    dispatch(actionGetTaskDoneProject(projectId))
+    dispatch(actionGetTaskDoneProject(projectId,objectFilter.assignUser?.userId,objectFilter.targetUser?.userId))
     setRefreshing(false);
   },[projectId]);
   return (

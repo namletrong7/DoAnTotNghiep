@@ -287,16 +287,18 @@ export function actionAddCommentTask(taskId,content) {
     };
 }
 //láy toàn bộ danh sách công việc của PROJECT ở trạng thái todo
-export function actionGetTaskToDoProject(projectId) {
+export function actionGetTaskToDoProject(projectId,assignUser, targetUser) {
     return async (dispatch, getState) => {
+        console.log('call api get task todo')
         await   dispatch({  // bắt đầu
             type: "START_GET_TASK_PROJECT_TODO",
         });
+        console.log(projectId,assignUser,targetUser)
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).getListTaskProject(projectId,0);
+            const response = await Api(false,token).filterTaskOfProject(projectId,0,assignUser,targetUser);
 
-
+            console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_TASK_PROJECT_TODO",
@@ -308,7 +310,7 @@ export function actionGetTaskToDoProject(projectId) {
             });
         } catch (error) {
 
-
+   console.log(error)
             await   dispatch({  // bắt đầu
                 type: "END_GET_TASK_PROJECT_TODO",
             });
@@ -322,15 +324,15 @@ export function actionGetTaskToDoProject(projectId) {
 
     };
 }
-export function actionGetTaskDoingProject(projectId) {
+export function actionGetTaskDoingProject(projectId,assignUser, targetUser) {
     return async (dispatch, getState) => {
+        console.log('call api get task doing')
         dispatch(updateData({
             isGetTaskProjectDoing :true
         }))
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).getListTaskProject(projectId,1);
-
+            const response = await Api(false,token).filterTaskOfProject(projectId,1,assignUser,targetUser);
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataListTaskProjectDoing: response.data.dataListTask,
@@ -358,14 +360,15 @@ export function actionGetTaskDoingProject(projectId) {
 
     };
 }
-export function actionGetTaskDoneProject(projectId) {
+export function actionGetTaskDoneProject(projectId,assignUser, targetUser) {
     return async (dispatch, getState) => {
+        console.log('call api get task done')
         dispatch(updateData({
             isGetTaskProjectDone :true
         }))
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).getListTaskProject(projectId,2);
+            const response = await Api(false,token).filterTaskOfProject(projectId,2,assignUser,targetUser);
 
 
             if(response.data && response.data.status==200){
@@ -746,7 +749,7 @@ export function actionAnswerReportTask(body) {
         const token = getState().auth?.token
         try {
             const response = await Api(false,token).answerReportTask(body)
-            console.log(response.data)
+      //      console.log(response.data)
             if(response.data && response.data.status){
                 showMessage({
                     message: response.data.message,
@@ -780,7 +783,7 @@ export function actionAcceptAnswerReport(body) {
         const token = getState().auth?.token
         try {
             const response = await Api(false,token).acceptAnswerReport(body)
-            console.log(response.data)
+     //       console.log(response.data)
             if(response.data && response.data.status){
                 showMessage({
                     message: response.data.message,
@@ -814,7 +817,7 @@ export function actionRejectAnswerReport(body) {
         const token = getState().auth?.token
         try {
             const response = await Api(false,token).rejectAnswerReport(body)
-            console.log(response.data)
+    //        console.log(response.data)
             if(response.data && response.data.status){
                 showMessage({
                     message: response.data.message,
@@ -1141,6 +1144,13 @@ export function actionChangeDayTask(taskId,type, day) {
             });
         }
 
+    }
+}
+export function actionFilterTaskProject(projectId,assignUser, targetUser) {
+    return async (dispatch, getState) => {
+        dispatch(actionGetTaskDoingProject(projectId,assignUser, targetUser))
+        dispatch(actionGetTaskDoneProject(projectId,assignUser, targetUser))
+        dispatch(actionGetTaskToDoProject(projectId,assignUser, targetUser))
     }
 }
 export default {

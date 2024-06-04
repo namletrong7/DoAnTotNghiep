@@ -10,7 +10,7 @@ const Api = (isFormData:boolean,token:null) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.1.108:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 'Authorization1':  token,
@@ -78,6 +78,16 @@ const Api = (isFormData:boolean,token:null) => {
   }
   const getListTaskProject=(projectId:string,state:number)=>{ // api lấy danh sách của 1 project
     return apiConfig().get(`getListTaskProject.php?projectId=${projectId}&state=${state}`);
+  }
+  const filterTaskOfProject=(projectId:string,state:number,assignUser:any, targetUser:any)=>{ // api lấy danh sách của 1 project nhưng có lọc
+    return apiConfig().get('filterTaskOfProject.php',{
+      params: {
+        projectId: projectId,
+        state: state,
+        assignUser: assignUser,
+        targetUser: targetUser
+      }
+    });
   }
   const getAllTask=(offset:number)=>{  /// api lasy tat ca cac task
     return apiConfig().get(`getAllTask.php?offset=${offset}`);
@@ -310,7 +320,8 @@ const Api = (isFormData:boolean,token:null) => {
       deleteDevicetokenFCM,
       changePassword,changeInforProject,
       editInforUser,
-        editRoleProject
+        editRoleProject,
+      filterTaskOfProject
     };
 };
 export default Api;
