@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 
 import classNames from "classnames/bind";
 import styles from "./style.module.scss";
 import {useDispatch} from "react-redux";
-import {actionLogin} from "../../redux-store/action/actionEmployee";
 import {Player} from "@lottiefiles/react-lottie-player";
+import {actionLogin} from "../../redux-store/action/actionAuth";
 
 const cx = classNames.bind(styles)
 
@@ -30,17 +30,19 @@ function LoginScreen ( props ) {
     //     navigate('/screen/authen/RegisterScreen');
     // };
 
-    const handleEmail = (e) => {
+    const handleEmail = useCallback((e) => {
         setEmail(e.target.value);
 
-    }
+    },[])
 
-    const handlePassword = (e) => {
+    const handlePassword =  useCallback((e) => {
         setPassword(e.target.value);
-    }
+
+    },[])
 
     const loginAction = async () => {
-   //     await dispatch(actionLogin(email, password, nextToScreen));
+     await dispatch(actionLogin(email, password));
+        console.log("xin chào")
     }
 
     const Login = () => (
@@ -98,7 +100,7 @@ export default LoginScreen;
 const style = {
       container:{
           display:'flex',
-          marginTop:"10%",
+          marginTop:"7%",
           width:"70%",
           alignSelf:'center',
           backgroundColor:"#CCCCCC",
