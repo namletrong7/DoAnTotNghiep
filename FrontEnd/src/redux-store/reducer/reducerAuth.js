@@ -1,17 +1,12 @@
 const INITIAL_STATE = {
-    UserInformations: [{
-        name: null,
-        sdt: null,
-        address: 'Địa chỉ khác',
-        default: false,
-        notView: true,
-    }],
+   isLogin: false ,
+    token: null ,
 };
 
-const reducerUserInformation = (state = INITIAL_STATE, action) => {
+const reducerAuth = (state = INITIAL_STATE, action) => {
     let newState = { ...state };
     switch (action.type) {
-        case 'UPDATE_DATA': {
+        case 'UPDATE_DATA_AUTH_REDUCER': {
             let data = action.data || {};
             return { ...newState, ...data };
         }
@@ -21,6 +16,7 @@ const reducerUserInformation = (state = INITIAL_STATE, action) => {
         default:
             return state
     }
+    return state
 };
 
-export default reducerUserInformation;
+export default reducerAuth;

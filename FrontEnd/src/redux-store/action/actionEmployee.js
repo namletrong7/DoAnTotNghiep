@@ -8,34 +8,7 @@ export function updateData(data) {
     }
 }
 
-export function actionLogin (username, password, nextToScreen) {
-    return async (dispatch, getState) => {
-        try {
-            const response = await Api().getTokenLogin(username, password);
-            console.log(response.data);
-            if (response && response.data){
-                dispatch(updateData({
-                    isLogin: true,
-                    token: response.data.accessToken,
-                }))
 
-                alert("Đăng nhập thành công!");
-                nextToScreen("/screen/UserInformationScreen/UserInformationScreen");
-            } else {
-                dispatch(updateData({
-                    isLogin: false,
-                    token: '',
-                }))
-                alert("Đăng nhập thất bại!");
-            }
-        } catch (error) {
-            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
-            dispatch(updateData({
-                token: '',
-            }))
-        }
-    };
-}
 
 export function actionGetListEmployee () {
     return async (dispatch, getState) => {

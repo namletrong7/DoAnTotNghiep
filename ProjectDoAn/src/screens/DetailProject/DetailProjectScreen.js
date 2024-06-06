@@ -105,7 +105,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
              <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:5, marginTop:5}}>{getStateProject(itemProject?.state || dataDetailProject?.state)}</Text>
            </View>
        <View style={{flexDirection:"row", justifyContent:"flex-end",display:"flex",flex:0.3, height:'100%', alignItems:"center"}}>
-         <TouchableOpacity onPress={openBottomSelectTargetUser}>
+         <TouchableOpacity onPress={()=>{navigation.navigate("EditInforProjectScreen",{projectId: itemProject?.projectId || projectId})}}>
            <IconInfor/>
          </TouchableOpacity>
        </View>

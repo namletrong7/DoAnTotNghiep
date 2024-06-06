@@ -22,6 +22,7 @@ export function actionLogin(userName, passWord) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).login(userName, passWord);
+            console.log(response)
             if (response.data.status==200 && response.data.data == 1){
                 dispatch(updateData({
                     token: response.data?.token,

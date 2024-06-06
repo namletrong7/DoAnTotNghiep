@@ -1,17 +1,18 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 
 import classNames from "classnames/bind";
 import styles from "./style.module.scss";
 import {useDispatch} from "react-redux";
-import {actionLogin} from "../../redux-store/action/actionEmployee";
+import {Player} from "@lottiefiles/react-lottie-player";
+import {actionLogin} from "../../redux-store/action/actionAuth";
 
 const cx = classNames.bind(styles)
 
 function LoginScreen ( props ) {
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+   const dispatch = useDispatch();
 
     const [showLogin, setShowLogin] = useState(true);
     const [email, setEmail] = useState('');
@@ -21,36 +22,38 @@ function LoginScreen ( props ) {
         setShowLogin(!showLogin);
     }
 
-    const nextToScreen = (url) => {
-        navigate(url);
-    };
+    // const nextToScreen = (url) => {
+    //     navigate(url);
+    // };
+    //
+    // const handleRegister = () => {
+    //     navigate('/screen/authen/RegisterScreen');
+    // };
 
-    const handleRegister = () => {
-        navigate('/screen/authen/RegisterScreen');
-    };
-
-    const handleEmail = (e) => {
+    const handleEmail = useCallback((e) => {
         setEmail(e.target.value);
-    }
 
-    const handlePassword = (e) => {
+    },[])
+
+    const handlePassword =  useCallback((e) => {
         setPassword(e.target.value);
-    }
+
+    },[])
 
     const loginAction = async () => {
-        await dispatch(actionLogin(email, password, nextToScreen));
+     await dispatch(actionLogin(email, password));
+        console.log("xin chào")
     }
 
     const Login = () => (
-        <div className={cx('w40', 'item')} >
+        <div className={cx('w70', 'item')} >
             <h4>ĐĂNG NHẬP</h4>
             <p>Nếu bạn có một tài khoản, xin vui lòng đăng nhập.</p>
             <h4>Tên đăng nhập</h4>
-            <input className={cx('input', 'w70')} placeholder={'Nhập tên đăng nhập'} onChange={handleEmail} />
-            <h4>Password</h4>
-            <input className={cx('input', 'w70')} placeholder={'Nhập Password'} onChange={handlePassword} type={'password'}/>
+            <input className={cx('input', 'w70')} placeholder={'Nhập tên đăng nhập'} value={email} onChange={handleEmail} />
+            <h4>Mật khẩu</h4>
+            <input className={cx('input', 'w70')} placeholder={'Nhập Password'} value={password} onChange={handlePassword} type={'password'}/>
             <p onClick={handleForget} className={cx('cursorP')} >Quên mật khẩu ?</p>
-
             <div className={cx('btn', 'w20')} onClick={loginAction} >ĐĂNG NHẬP</div>
         </div>
     )
@@ -74,25 +77,41 @@ function LoginScreen ( props ) {
         </div>
     )
 
-    const Register = () => (
-        <div className={cx('w40', 'item')} >
-            <h4>KHÁCH HÀNG MỚI</h4>
-            <p>Đăng ký tài khoản để mua hàng nhanh hơn. Theo dõi đơn đặt hàng, vận chuyển. Cập nhật các tin tức sự kiện và các chương trình giảm giá của chúng tôi.</p>
 
-            <div onClick={handleRegister} className={cx('btn', 'w20')} >
-                ĐĂNG KÝ
-            </div>
-        </div>
-    )
 
     return (
         <div className={cx('login')} >
+                <div style={style.container}>
+                    <Login/>
+                    <Player
+                        autoplay
+                        loop
+                        src={require("../../assets/animation/work_space.json")}
+                        style={{ flex:1 }}
+                    />
+                </div>
 
-            { showLogin ? Login() : ForgotPassword() }
-            {Register()}
 
         </div>
     )
 }
 
 export default LoginScreen;
+const style = {
+      container:{
+          display:'flex',
+          marginTop:"7%",
+          width:"70%",
+          alignSelf:'center',
+          backgroundColor:"#CCCCCC",
+          marginRight:"10%",
+          borderRadius:10,
+          borderWidth:10,
+          borderColor:"red"
+      },
+    lottie:{
+          backgroundColor: "red",
+        display: 'flex',
+       flex:1
+    }
+};

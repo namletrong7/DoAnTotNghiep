@@ -36,7 +36,7 @@ const ItemTask = (props) => {
   // render ra priority của  task
   const RenderPriority = React.memo(() => {
         return(
-              <View style={{padding:3, borderRadius:16, backgroundColor:getColorBackgroundPriority(props.item.priority),paddingHorizontal:5,marginLeft:40,flexDirection:"row",alignItems:'center'}}>
+              <View style={{padding:3, borderRadius:16, backgroundColor:getColorBackgroundPriority(props.item.priority),paddingHorizontal:8,marginLeft:40,flexDirection:"row",alignItems:'center'}}>
                 <View style={{width:7, height:7, borderRadius:7/2, backgroundColor:getColorPriority(props.item.priority)}}/>
                 <Text style={{fontSize:13,marginLeft:5, color:getColorPriority(props.item.priority),fontFamily:"OpenSans-Regular"}}>{getValuePriority(props.item.priority)}</Text>
               </View>
@@ -51,7 +51,7 @@ const ItemTask = (props) => {
       <View style={{flexDirection:'row',justifyContent:'space-between'}}>
          <View style={styles.containerEndDay}>
              <IconCalendar/>
-             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{props.item?.endDay}</Text>
+             <Text style={{fontSize:13, color:"black",fontFamily:"OpenSans-Regular",marginLeft:10}}>{props.item?.endDay==='0000-00-00'?"Chưa có hạn xử lý":props.item?.endDay}</Text>
          </View>
         <RenderPriority/>
       </View>
