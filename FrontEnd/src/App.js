@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import HeaderAdmin from "./component/headerAdmin/HeaderAdmin";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ToastContainer} from "react-toastify";
 import LoginScreen from "./screen/authen/LoginScreen";
+import {ISLOGIN} from "./unitl/constant";
+import {actionCheckLogged} from "./redux-store/action/actionAuth";
 
 function App() {
 
-   const isLogin = useSelector(state => state.reducerAuth?.isLogin);
+    const isLogin = useSelector(state => state.reducerAuth?.isLogin);
+    const dispatch = useDispatch();
+      useEffect(()=>{
+           dispatch(actionCheckLogged())
+      },[])
 
     return (
         <div className="App">

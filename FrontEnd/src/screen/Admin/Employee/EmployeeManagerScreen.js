@@ -99,15 +99,6 @@ function EmployeeManagerScreen (props) {
                         <i className={cx('bx bx-search', 'iconSearch')}></i>
                     </div>
                 </div>
-
-                <div>
-                    <select value={selectedOption} onChange={handleOptionChange} className={cx('selectListProduct')}>
-                        {dataListTypeProduct.map(item => (
-                            <option value={item.id} >{item.name}</option>
-                        ))}
-                    </select>
-                </div>
-
                 <div onClick={showToast} className={cx('btn', 'addSp')}>Thêm nhân viên</div>
             </div>
             <div className={cx('body')}>
