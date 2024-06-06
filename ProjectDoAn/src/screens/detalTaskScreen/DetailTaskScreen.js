@@ -303,12 +303,12 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
                 <View style={{flexDirection:"row",marginTop:15}}>
                     <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày bắt đầu:"}</Text>
-                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.startDay||'chưa có thông tin'}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.startDay==='0000-00-00'?'Chưa có ngày bắt đầu':dataDetailTask?.startDay}</Text>
                 </View>
 
                   <View style={{flexDirection:"row",marginTop:15}}>
                       <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Ngày kết thúc:"}</Text>
-                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay||'chưa có thông tin'}</Text>
+                    <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular"}}>{dataDetailTask?.endDay==='0000-00-00'?'Chưa có ngày kết thúc':dataDetailTask?.endDay}</Text>
                   </View>
 
                 <View style={{flexDirection:"row", justifyContent:"space-between",marginTop:15,flex:1}}>

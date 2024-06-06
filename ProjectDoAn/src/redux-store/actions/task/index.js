@@ -24,7 +24,7 @@ export function actionAddTask(body) {
         const token = getState().auth?.token
         try {
             const response = await Api(true,token).addTask(body);
-        //  console.log(response.data)
+         console.log(response.data)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,
