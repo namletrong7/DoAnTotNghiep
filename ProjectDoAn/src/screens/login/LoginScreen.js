@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  TouchableWithoutFeedback, ScrollView, SafeAreaView, KeyboardAvoidingView,
+  TouchableWithoutFeedback, ScrollView, SafeAreaView, KeyboardAvoidingView, ActivityIndicator,
 } from "react-native";
 import LottieView from 'lottie-react-native';
 import IconEye from "../../assets/icons/IconEye";
@@ -26,6 +26,7 @@ const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [rememberPassword, setRememberPassword] = useState(false);
   const [isOnPressFrist, setIsOnPressFrist] = useState(false);
   const [isForgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
@@ -33,7 +34,9 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
 
     if( username && password) {
-      dispatch(actionLogin(username, password))
+      setIsLogin(true)
+     await dispatch(actionLogin(username, password))
+      setIsLogin(false)
     }else {
       showMessage({
         message: "Vui lòng nhập đầy đủ thông tin ",
@@ -111,7 +114,8 @@ const LoginScreen = ({ navigation }) => {
         </Text>))}
       </View>
       <TouchableOpacity style={styles.btlLogin} onPress={handleLogin} >
-        <Text style={{ color: "white", width: '100%', textAlign: 'center' }} >Đăng nhập</Text>
+        {isLogin? <ActivityIndicator size='small' color="white" />:
+        <Text style={{ color: "white", width: '100%', textAlign: 'center',fontSize:17 }} >Đăng nhập</Text>}
       </TouchableOpacity>
 
       <Text style={styles.textQMK} onPress={toggleForgotPasswordModal} >Quên mật khẩu</Text>
