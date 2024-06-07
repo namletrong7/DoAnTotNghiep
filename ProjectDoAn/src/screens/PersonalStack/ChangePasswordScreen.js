@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     View,
     Text,
     Button,
     StyleSheet,
-    TouchableOpacity,
+    TouchableOpacity,Animated,
     TouchableWithoutFeedback,
     ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, RefreshControl, Modal, TextInput,
 } from "react-native";
@@ -43,13 +43,15 @@ import LottieView from "lottie-react-native";
 
 const ChangePasswordScreen = ({ navigation ,route }) => {
 
-    const [pass, setPass ] = useState(null);
-    const [rePass, setRePass ] = useState(null);
-    const [error, setError ] = useState({});
-  const [isShowPass, setIsShowPass ] = useState(true);
+  const [pass, setPass] = useState(null);
+  const [rePass, setRePass] = useState(null);
+  const [error, setError] = useState({});
+  const [isShowPass, setIsShowPass] = useState(true);
   const [isShowRePass, setIsShowRePass] = useState(true);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isChangePass = useSelector(state => state.user?.isChangePass);
+  const animPass = useRef(new Animated.Value(0));
+  const animRePass = useRef(new Animated.Value(0));
 
     const validatePassword = useCallback((password) => {
         const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
@@ -74,6 +76,38 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
               setRePass(null)
           }
       }
+  const vibrateAnimation = (name) => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(name.current, {
+          useNativeDriver: true,
+          toValue: -10,
+          duration: 80,
+        }),
+
+        Animated.timing(name.current, {
+          useNativeDriver: true,
+          toValue: 10,
+          duration: 80,
+        }),
+
+        Animated.timing(name.current, {
+          useNativeDriver: true,
+          toValue: 0,
+          duration: 50,
+        }),
+      ]),
+      { iterations: 2 }
+    ).start();
+  };
+  useEffect(() => {
+    if (error.pass) {
+      vibrateAnimation(animPass);
+    }
+    if (error.rePass) {
+      vibrateAnimation(animRePass);
+    }
+  }, [error]);
   return (
     <View style={{backgroundColor:"white",height:'100%'}}>
       <HeaderComponent title={"Đổi mật khẩu"} navigation={navigation} back/>
@@ -83,6 +117,9 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
                 <LogoApp/>
                 <Text style={{ fontSize: 12, color: "#888888", fontFamily: "OpenSans-SemiBold",marginTop:15,flexWrap:"wrap",paddingHorizontal:90 }}>Xin vui lòng nhập mật khẩu mới với điều kiện: Có ít nhất 8 ký tự, bao gồm ít nhất 1 chữ hoa, bao gồm 1 ký tự đặc biệt </Text>
             </View>
+          <Animated.View
+            style={{ transform: [{ translateX: animPass?.current }] }}
+          >
             <View  style={styles.textInput}>
                 <View style={{width:3, backgroundColor:"blue",borderRadius:5,paddingRight:4,marginRight:10}}/>
                 <TextInput
@@ -99,6 +136,7 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
                     </TouchableOpacity>
 
             </View>
+          </Animated.View>
             {error.pass?
             <Text style={{
                 fontSize: 10,
@@ -107,6 +145,9 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
                 marginLeft:"10%",
                 fontFamily: "OpenSans-SemiBold",
             }}>{error.pass}</Text>:null}
+          <Animated.View
+            style={{ transform: [{ translateX: animRePass?.current }] }}
+          >
             <View style={styles.textInput}>
                 <View style={{width:3, backgroundColor:"green",borderRadius:5,paddingRight:4,marginRight:10}}/>
                 <TextInput
@@ -122,6 +163,7 @@ const ChangePasswordScreen = ({ navigation ,route }) => {
                     {isShowRePass ? (<IconEye />) : (<IconEyeSlash />)}
                 </TouchableOpacity>
             </View>
+          </Animated.View>
             {error.rePass?
             <Text style={{
                 fontSize: 10,

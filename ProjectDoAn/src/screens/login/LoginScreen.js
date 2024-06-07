@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
+  StyleSheet, Animated,
   Image,
   TouchableWithoutFeedback, ScrollView, SafeAreaView, KeyboardAvoidingView, ActivityIndicator,
 } from "react-native";
@@ -30,7 +30,8 @@ const LoginScreen = ({ navigation }) => {
   const [rememberPassword, setRememberPassword] = useState(false);
   const [isOnPressFrist, setIsOnPressFrist] = useState(false);
   const [isForgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
-
+  const animUser = useRef(new Animated.Value(0));
+  const animPass = useRef(new Animated.Value(0));
   const handleLogin = async () => {
 
     if( username && password) {
@@ -38,6 +39,8 @@ const LoginScreen = ({ navigation }) => {
      await dispatch(actionLogin(username, password))
       setIsLogin(false)
     }else {
+      vibrateAnimation(animUser)
+      vibrateAnimation(animPass)
       showMessage({
         message: "Vui lòng nhập đầy đủ thông tin ",
         type: "warning",
@@ -58,8 +61,35 @@ const LoginScreen = ({ navigation }) => {
   const toggleForgotPasswordModal = () => {
     setForgotPasswordModalVisible(!isForgotPasswordModalVisible);
   };
+  const vibrateAnimation = (name) => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(name.current, {
+          useNativeDriver: true,
+          toValue: -5,
+          duration: 50,
+        }),
 
-  const renderInput = (placeholder, value, onChangeText, leftIconName, isPassword) => (
+        Animated.timing(name.current, {
+          useNativeDriver: true,
+          toValue: 5,
+          duration: 50,
+        }),
+
+        Animated.timing(name.current, {
+          useNativeDriver: true,
+          toValue: 0,
+          duration: 50,
+        }),
+      ]),
+      { iterations: 2 }
+    ).start();
+  };
+
+  const renderInput = (placeholder, value, onChangeText, leftIconName, isPassword,animUser) => (
+    <Animated.View
+      style={{ transform: [{ translateX: animUser?.current }],width:'100%' }}
+    >
     <View style={styles.inputContainer}>
       <TextInput
         placeholder={placeholder}
@@ -76,6 +106,7 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
       )}
     </View>
+    </Animated.View>
   );
 
   return (
@@ -99,8 +130,8 @@ const LoginScreen = ({ navigation }) => {
 
       <SafeAreaView>
         {/*{renderInput('Địa chỉ Server', addServer, setAddServer, 'user')}*/}
-        {renderInput('Tên đăng nhập', username, setUsername, 'user')}
-        {renderInput('Mật khẩu', password, setPassword, 'lock', true)}
+        {renderInput('Tên đăng nhập', username, setUsername, 'user',false,animUser)}
+        {renderInput('Mật khẩu', password, setPassword, 'lock', true,animPass)}
 
         <TouchableOpacity onPress={toggleRememberPassword} style={styles.checkBoxContainer} >
           {rememberPassword ? (<IconCheckBox />) : (<IconChecked />)}
