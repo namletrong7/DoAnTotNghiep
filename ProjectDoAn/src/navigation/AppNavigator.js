@@ -10,6 +10,7 @@ import DialogNointernet from "../components/DialogNointernet/DialogNointernet";
 import * as NetInfo from "@react-native-community/netinfo";
 import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
 import {EditInforProjectScreen} from "../screens/EditinforProjectScreen";
+import { FadeInView } from "../components/global/AnimatedScreen/FadeInView";
 
 
 const AppNavigator = () => {
@@ -31,10 +32,10 @@ const AppNavigator = () => {
         };
     }, []);
   return (
-    <>
+    <FadeInView style={{ flex: 1 }}>
       {token ? (<StackNavigate />) : (<LoginNavigator />)}
       <DialogNointernet visible={isConnected} onClose={handleClose}/>
-    </>
+    </FadeInView>
   )
 }
 
