@@ -24,7 +24,7 @@ const App = () => {
 
     const timerId = setTimeout(() => {
       setIsShow(false)
-    }, 3000);
+    }, 5000);
 
 
     return () => clearTimeout(timerId);

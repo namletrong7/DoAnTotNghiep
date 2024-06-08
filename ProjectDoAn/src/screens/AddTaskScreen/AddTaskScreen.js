@@ -296,7 +296,7 @@ export const AddTaskScreen = React.memo(({navigation})=>{
              <RichToolbar
                editor={richText}
                selectedIconTint="#000000"
-               iconTint="green"
+               iconTint="#CCCCCC"
                actions={[
                  actions.fontSize,
                  actions.undo,
@@ -351,11 +351,9 @@ const styles = StyleSheet.create({
   },
 
   richTextEditorStyle: {
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
     borderWidth: 1,
-    borderColor: "#2596be",
-    shadowColor: "#2596be",
+    borderColor: "black",
+    shadowColor: "black",
     shadowOffset: {
       width: 0,
       height: 2,

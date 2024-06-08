@@ -22,22 +22,30 @@ export function actionLogin(userName, passWord) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).login(userName, passWord);
-            console.log(response)
-            if (response.data.status==200 && response.data.data == 1){
-                dispatch(updateData({
-                    token: response.data?.token,
-                    isLoginSuccess: true,
-                    dataCurrentUser:response.data.dataCurrentUser
-                }))
-             await   dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
-            setTimeout(() => {
-                dispatch(updateData({
-                    isLoginSuccess: false,
-                }))
-            }, 3000);
-                await messaging().registerDeviceForRemoteMessages()
-                await   dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
-        }
+            if(response.data.status) {
+                showMessage({
+                    message: response.data?.message,
+                    type:response.data.status==200?'success':'warning',
+                    duration: 3000,
+                    icon: { icon: response.data.status==200?'success':'warning', position: 'left' }
+                });
+                if (response.data.status == 200 && response.data.data == 1) {
+                    dispatch(updateData({
+                        token: response.data?.token,
+                        isLoginSuccess: true,
+                        dataCurrentUser: response.data.dataCurrentUser
+                    }))
+                    await dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
+                    setTimeout(() => {
+                        dispatch(updateData({
+                            isLoginSuccess: false,
+                        }))
+                    }, 3000);
+                    await messaging().registerDeviceForRemoteMessages()
+                    await dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
+                }
+
+            }
         } catch (error) {
        //     console.log(error)
             showMessage({
