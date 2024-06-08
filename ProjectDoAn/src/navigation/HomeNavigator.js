@@ -41,6 +41,7 @@ import { useDispatch } from "react-redux";
 import { actionGetListNotify } from "../redux-store/actions/task";
 import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
 import { EditInforProjectScreen } from "../screens/EditinforProjectScreen";
+import {FadeInView} from "../components/global/AnimatedScreen/FadeInView";
 
 
 export  const NotifiStack = React.memo(() => {
@@ -61,11 +62,13 @@ export  const HomeStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
 
   return (
+      <FadeInView style={{ flex: 1 }}>
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
     </Stack.Navigator>
+      </FadeInView>
   )
 })
 // stack này bao gồm các màn hình cá nhân user đang login -> chi tiêt cá nhân ->chỉnh sửa thông tin cá nhân

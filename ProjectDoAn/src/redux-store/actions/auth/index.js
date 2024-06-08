@@ -32,16 +32,9 @@ export function actionLogin(userName, passWord) {
                 if (response.data.status == 200 && response.data.data == 1) {
                     dispatch(updateData({
                         token: response.data?.token,
-                        isLoginSuccess: true,
                         dataCurrentUser: response.data.dataCurrentUser
                     }))
                     await dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
-                    setTimeout(() => {
-                        dispatch(updateData({
-                            isLoginSuccess: false,
-                        }))
-                    }, 3000);
-                    await messaging().registerDeviceForRemoteMessages()
                     await dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
                 }
 
@@ -91,6 +84,7 @@ export function actionGetOverView(userId) {
 export function actionRegisterTokenFCM(user) {
     return async (dispatch, getState) => {
         try {
+            await messaging().registerDeviceForRemoteMessages()
             const idDevice = await DeviceInfo.getUniqueId();
             const tokenFCM = await messaging().getToken();
       //      console.log(tokenFCM)
@@ -125,7 +119,7 @@ export function actionLogout() {
         await messaging().deleteToken();
         const idDevice = await DeviceInfo.getUniqueId();
         try {
-            const response = await Api(false).deleteDevicetokenFCM(idDevice);
+          await Api(false).deleteDevicetokenFCM(idDevice);
         } catch (error) {
             showMessage({
                 message: "Lỗi mạng xin vui lòng kiểm tra lại kết nối internet ",
