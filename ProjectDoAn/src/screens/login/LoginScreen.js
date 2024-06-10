@@ -115,9 +115,9 @@ const LoginScreen = ({ navigation }) => {
     <ScrollView contentContainerStyle={{backgroundColor:"white"}}>
       <View style={styles.container}>
       <LottieView style={{width:'80%', height:200,marginTop:40}} source={require('../../assets/animation/work_space.json')} autoPlay loop />
-        <View style={{flexDirection:"row",alignSelf:'center',marginTop:-40}}>
+        <View style={{flexDirection:"row",alignSelf:'center',marginTop:-10}}>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require('../../assets/images/PMKMA.png')}
             style={styles.logo}
           />
           <View style={{height:40, width:1,backgroundColor:"#178cf9",alignSelf:"center"}}/>
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
     backgroundColor:"white"
   },
   logo: {
-    width: 200,
-    height: 100,
+    width: 150,
+    height: 40,
     alignSelf:"flex-start"
   },
   inputContainer: {

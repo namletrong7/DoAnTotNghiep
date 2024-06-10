@@ -113,7 +113,7 @@ export const AddFileAttachScreen:React.FC<AddFileAttachScreenProps> = React.memo
             <Text style={{fontSize:15, color:"#148eff",fontFamily:"OpenSans-SemiBold",marginRight:10}}>{"Nhấn để chọn file đính kèm"}</Text>
           </TouchableOpacity>
         </ScrollView>
-      <TouchableOpacity onPress={handleUploadFile} style={{height:50,bottom:20,alignSelf:'center',paddingHorizontal:50, borderRadius:17, backgroundColor:"#4577ef", marginTop:30,alignItems:'center', justifyContent:'center'}}>
+      <TouchableOpacity onPress={handleUploadFile} style={{height:50,bottom:20,alignSelf:'center',paddingHorizontal:50, borderRadius:17, backgroundColor:"#4577ef", marginTop:30,alignItems:'center', justifyContent:'center',width:"50%"}}>
         {isUpload? <ActivityIndicator size='small' color="white" />:
           <Text style={{
             fontSize: 17,

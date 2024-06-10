@@ -1055,7 +1055,7 @@ export function actionGetListNotify() {
 }
 export function actionGetMoreListNotify() {
     return async (dispatch, getState) => {
-
+     console.log("goi action getMore notify")
         if(!getState().task.isGetMoreNotify && !getState().task.isGetNotify) {
             dispatch(updateData({
                 isGetMoreNotify: true
