@@ -29,9 +29,12 @@ import ListCommentComponet from "../../components/listCommentComponent/ListComme
 import FastImage from "react-native-fast-image";
 import SendCommentComponent from "../../components/sendComentComponet/SendCommentComponent";
 import { ListFileAttachComponent } from "../../components/listFileAttachComponent/ListFileAttachComponent";
-import IconEdit from "../../assets/icons/IconEdit";
-import LoadingComponent from "../../components/loadingComponent/LoadingComponent";
-import { actionChangeDayTask, actionGetDetailTask } from "../../redux-store/actions/task";
+import {
+  actionChangeDayTask,
+  actionGetCommentTask,
+  actionGetDetailTask,
+  actionGetFileAttach,
+} from "../../redux-store/actions/task";
 
 import { baseUrlAvatarUser } from "../../api/ConstBaseUrl";
 import { ListReportTask } from "./taskReport/ListReportTask";
@@ -52,21 +55,13 @@ import IconAttachFile from "../../assets/icons/IconAttachFile";
 import { BottomEditUserTask } from "./BottomEditUserTask/BottomEditUserTask";
 import DialogChangContent from "../../components/changeConentComponent/ModalChangeContent";
 import DialogConfirmComponet from "../../components/DialogConfirmComponent/DialogConfirmComponet";
-import { ProgressTaskComponent } from "../../components/ProgressTaskComponent/ProgressTaskComponent";
-import IconContent from "../../assets/icons/ItemContent";
-import IconProhress from "../../assets/icons/IconProhress";
-import IconBookMark from "../../assets/icons/IconBookMark";
-import IconUnBookMark from "../../assets/icons/IconUnBookMark";
 import LinearGradient from "react-native-linear-gradient";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment/moment";
 import ListCheckList from "./CheckList/ListCheckList";
-
 import LottieView from "lottie-react-native";
 import DialogAnswerReport from "./dialogReport/DialogAnswerReport";
 import DialogAcceptAnswerReport from "./dialogReport/DialogAcceptAnswerReport";
-import IconReport from "../../assets/icons/IconReport";
-import IconArrowUp from "../../assets/icons/IconArrowLeft";
 import IconContent2 from "../../assets/icons/IconContent";
 import { CircleprogressTask } from "../../components/ProgressTaskComponent/CircleprogressTask";
 import IconAttach2 from "../../assets/icons/IconAttach2";
@@ -81,7 +76,6 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const { taskId } = route?.params || "T001";
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
-  const [isBookMark, setisBookMark] = useState(false);
   // láy data detail task từ  reducer có dược
   const dataDetailTask = useSelector(state => state.task.detailTask);
   const isGetDetailTask = useSelector(state => state.task.isGetDetailTask);
@@ -122,7 +116,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
     // Đặt refreshing thành true để thể hiện quá trình load lại
     setRefreshing(true);
     dispatch(actionGetDetailTask(taskId))
-    // Gọi hàm hoặc thực hiện các tác vụ cần thiết khi load lại
+    dispatch(actionGetFileAttach(taskId))
+     dispatch(actionGetCommentTask(taskId,0))
+     // Gọi hàm hoặc thực hiện các tác vụ cần thiết khi load lại
     // ...
 
     // Sau khi hoàn thành, đặt refreshing về false để kết thúc quá trình load lại
@@ -242,9 +238,6 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
             </TouchableOpacity>
             <Text numberOfLines={1} style={{fontSize:17, color:"black",fontFamily:"Roboto-Bold",marginLeft:5}}>{"Chi tiết công việc"}</Text>
             <View  style={{ flexDirection:"row"}}>
-              <TouchableOpacity  onPress={()=>{setisBookMark(!isBookMark)}}>
-                {isBookMark?<IconBookMark width={22} height={22}/>:<IconUnBookMark width={22} height={22}/>}
-              </TouchableOpacity>
               <TouchableOpacity style={{marginHorizontal:13}} onPress={()=>{navigation.navigate("AddFileAttachScreen",{taskId: taskId})}}>
                 <IconAttach2 width={20} height={20}/>
               </TouchableOpacity>
@@ -255,7 +248,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
         </View>
         <GestureHandlerRootView  style={{ borderRadius:16,flex:1}}>
           <ScrollView
-            contentContainerStyle={{paddingHorizontal:5,paddingBottom:200}}
+            contentContainerStyle={{paddingHorizontal:5,paddingBottom:100}}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

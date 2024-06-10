@@ -169,7 +169,6 @@ const LoginScreen = ({ navigation }) => {
       <LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/tree_2.json')} autoPlay loop />
     </ScrollView>
       </KeyboardAvoidingView>
-      <ModalLoadingSuccess/>
     </View>
   );
 }

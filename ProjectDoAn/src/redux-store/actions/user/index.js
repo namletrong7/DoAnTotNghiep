@@ -293,6 +293,7 @@ export function actionEditInforUser(fullName,email,phoneNumber,birthDay) {
         birthDay: birthDay,
         email: email,
       });
+      console.log(response.data)
       if(response.data && response.data.message){
         showMessage({
           message: response.data.message,
@@ -300,6 +301,17 @@ export function actionEditInforUser(fullName,email,phoneNumber,birthDay) {
           duration: 1000,
           icon: { icon: "success", position: 'left' }
         });
+
+        dispatch({
+          type:'EDIT_INFOR_USER',
+          data:{
+            fullName: fullName,
+            phoneNumber: phoneNumber,
+            birthDay: birthDay,
+            email: email,
+          }
+        })
+
       }
     } catch (error) {
       showMessage({

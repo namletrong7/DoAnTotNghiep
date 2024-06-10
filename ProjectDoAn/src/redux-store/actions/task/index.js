@@ -815,6 +815,7 @@ export function actionAcceptAnswerReport(body) {
 export function actionRejectAnswerReport(body) {
     return async (dispatch, getState) => {
         const token = getState().auth?.token
+        console.log(body)
         try {
             const response = await Api(false,token).rejectAnswerReport(body)
     //        console.log(response.data)
@@ -1152,6 +1153,31 @@ export function actionFilterTaskProject(projectId,assignUser, targetUser) {
         dispatch(actionGetTaskDoneProject(projectId,assignUser, targetUser))
         dispatch(actionGetTaskToDoProject(projectId,assignUser, targetUser))
     }
+}
+export function actionUploadFileAttach(body) {
+    return async (dispatch, getState) => {
+        const token = getState().auth?.token
+        try {
+            const response = await Api(true,token).uploadFileAttach(body);
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type:  response.data.status==200?"success":"danger",
+                    duration: 1000,
+                    icon: { icon: response.data.status==200?"success":"danger", position: 'left' }
+                });
+            }
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
 }
 export default {
     actionAddTask,

@@ -49,7 +49,7 @@ const EditProfilePersonalScreen = ({navigation, route}) => {
     const [isLoading, setIsLoading] = useState(false);
     const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
       useEffect(()=>{
-            setFullname(dataCurrentUser?.fullName)
+          setFullname(dataCurrentUser?.fullName)
           setEmail(dataCurrentUser?.email)
           setPhone(dataCurrentUser?.phoneNumber)
           setBirthDay(convertDateDB(dataCurrentUser?.birthDay))

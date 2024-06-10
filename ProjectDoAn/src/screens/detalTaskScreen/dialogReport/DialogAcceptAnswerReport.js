@@ -15,7 +15,7 @@ const DialogAcceptAnswerReport = ({ visible, onClose ,type, dispatch,userId,task
             createUser:userId,
             taskId:taskId
           }))
-    }else {
+    }else { // từ chối báo cáo
       dispatch(actionRejectAnswerReport({
         reportId:reportSelected?.reportId,
         createUser:userId,
