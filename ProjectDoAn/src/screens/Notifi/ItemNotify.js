@@ -14,7 +14,7 @@ import IconPeople from "../../assets/icons/IconPeople";
   const {item, navigation,dispatch} = props
    const handleItemNotifi = useCallback((item) => {
      if(item?.type<12){
-       navigation.navigate('DetailTask_Notifi', { taskId: item?.taskId });
+       navigation.navigate('DetailTaskScreen', { taskId: item?.taskId });
      }else {
        navigation.navigate('DetailProjectScreen', { projectId:item?.projectId });
      }
