@@ -16,7 +16,6 @@ const InputCheckList = (props) => {
         setContent('')
     }
     return (
-      <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding'>
         <View style={styles.container}>
             <IconUnTick/>
             <TextInput
@@ -31,7 +30,6 @@ const InputCheckList = (props) => {
                 <IconPlus width={22} height={22}/>
             </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
     );
 };
 const styles = StyleSheet.create({

@@ -2,8 +2,9 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/login/LoginScreen";
 
+const Stack = createNativeStackNavigator();
 const LoginNavigator = () => {
-  const Stack = createNativeStackNavigator();
+
 
   return (
     <Stack.Navigator screenOptions={{

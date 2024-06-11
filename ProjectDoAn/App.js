@@ -11,7 +11,10 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import FlashMessage from "react-native-flash-message";
 import FilterTaskScreen from "./src/screens/taskStack/FilterTaskScreen";
 import SplashScreen from "./src/screens/SplashScreen";
-
+import 'react-native-gesture-handler';
+import 'react-native-reanimated'
+import { enableFreeze } from 'react-native-screens';
+enableFreeze(true);
 
 
 

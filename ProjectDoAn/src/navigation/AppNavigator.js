@@ -1,15 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react";
-
-
 import { useSelector } from "react-redux";
 import LoginNavigator from "./LoginNavigator";
-import { BottomHomeNavigation, HomeNavigator, StackNavigate } from "./HomeNavigator";
-import FlashMessage from "react-native-flash-message";
-import { Platform, StatusBar } from "react-native";
+import {  StackNavigate } from "./HomeNavigator";
 import DialogNointernet from "../components/DialogNointernet/DialogNointernet";
 import * as NetInfo from "@react-native-community/netinfo";
-import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen";
-import {EditInforProjectScreen} from "../screens/EditinforProjectScreen";
 import { FadeInView } from "../components/global/AnimatedScreen/FadeInView";
 
 
