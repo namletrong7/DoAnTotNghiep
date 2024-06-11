@@ -43,34 +43,41 @@ import ChangePasswordScreen from "../screens/PersonalStack/ChangePasswordScreen"
 import { EditInforProjectScreen } from "../screens/EditinforProjectScreen";
 import {FadeInView} from "../components/global/AnimatedScreen/FadeInView";
 
-
+const StackPersonal = createNativeStackNavigator();
 // stack này bao gồm các màn hình cá nhân user đang login -> chi tiêt cá nhân ->chỉnh sửa thông tin cá nhân
 export  const PersonalStack = React.memo(() => {
-  const Stack = createNativeStackNavigator();
+
 
   return (
-    <Stack.Navigator screenOptions={{
-      headerShown: false
+    <StackPersonal.Navigator screenOptions={{
+      headerShown: false,
+      detachInactiveScreens:false ,
+      animationEnabled:false,
+      animationTypeForReplace:'pop'
     }}>
-      <Stack.Screen name="PersonalScreen" component={PersonalScreen} />
-      <Stack.Screen name="ProFilePersonalScreen" component={ProFilePersonalScreen} />
-      <Stack.Screen name="EditProfilePersonalScreen" component={EditProfilePersonalScreen} />
-      <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
-    </Stack.Navigator>
+      <StackPersonal.Screen name="PersonalScreen" component={PersonalScreen} />
+      <StackPersonal.Screen name="ProFilePersonalScreen" component={ProFilePersonalScreen} />
+      <StackPersonal.Screen name="EditProfilePersonalScreen" component={EditProfilePersonalScreen} />
+      <StackPersonal.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
+    </StackPersonal.Navigator>
   )
 })
 
 // stack này bao gồm màn hình thóng kế task , màn hình lọc task theo tuần
+const StackTaskPersonal = createNativeStackNavigator();
 export  const TaskPersonalStack = React.memo(() => {
-  const Stack = createNativeStackNavigator();
+
 
   return (
-    <Stack.Navigator screenOptions={{
-      headerShown: false
+    <StackTaskPersonal.Navigator screenOptions={{
+      headerShown: false,
+      detachInactiveScreens:false ,
+      animationEnabled:false,
+      animationTypeForReplace:'pop'
     }}>
-      <Stack.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} />
-      <Stack.Screen name="FilterTaskScreen" component={FilterTaskScreen} />
-    </Stack.Navigator>
+      <StackTaskPersonal.Screen name="TaskPersonalScreen" component={TaskPersonalScreen} />
+      <StackTaskPersonal.Screen name="FilterTaskScreen" component={FilterTaskScreen} />
+    </StackTaskPersonal.Navigator>
   )
 })
 
@@ -126,15 +133,12 @@ export  const BottomHomeNavigation = React.memo(() => {
 
   )
 })
+const StackNavigation = createNativeStackNavigator();
 export  const StackNavigate = React.memo( () => {
   const navi = useNavigation();
   const dispatch = useDispatch();
-  const Stack = createNativeStackNavigator();
-  const channelId =  notifee.createChannel({
-    id: 'important',
-    name: 'Important Notifications',
-    importance: AndroidImportance.HIGH,
-  });
+
+
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
    //  console.log(remoteMessage)
@@ -173,22 +177,25 @@ export  const StackNavigate = React.memo( () => {
 
 
   return (
-    <Stack.Navigator screenOptions={{
+    <StackNavigation.Navigator screenOptions={{
       headerShown: false,
+      detachInactiveScreens:false ,
+      animationEnabled:false,
+      animationTypeForReplace:'pop'
     }}
     >
-      <Stack.Screen name="BottomHomeNavigation" component={BottomHomeNavigation} />
-      <Stack.Screen name="DetailTaskScreen" component={DetailTaskScreen} />
-      <Stack.Screen name="ProfileUser" component={ProFileUserScreen} />
-      <Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
-      <Stack.Screen name="AddProjectScreen" component={AddProjectScreen} />
-      <Stack.Screen name="ViewImageScreen" component={ViewImageScreen} />
-      <Stack.Screen name="UserPageScreen" component={UserPageScreen} />
-      <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
-      <Stack.Screen name="AddFileAttachScreen" component={AddFileAttachScreen} />
-      <Stack.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
-      <Stack.Screen name="EditInforProjectScreen" component={EditInforProjectScreen} />
-    </Stack.Navigator>
+      <StackNavigation.Screen name="BottomHomeNavigation" component={BottomHomeNavigation} />
+      <StackNavigation.Screen name="DetailTaskScreen" component={DetailTaskScreen} />
+      <StackNavigation.Screen name="ProfileUser" component={ProFileUserScreen} />
+      <StackNavigation.Screen name="AddTaskScreen" component={AddTaskScreen} />
+      <StackNavigation.Screen name="AddProjectScreen" component={AddProjectScreen} />
+      <StackNavigation.Screen name="ViewImageScreen" component={ViewImageScreen} />
+      <StackNavigation.Screen name="UserPageScreen" component={UserPageScreen} />
+      <StackNavigation.Screen name="WebViewScreen" component={WebViewScreen} />
+      <StackNavigation.Screen name="AddFileAttachScreen" component={AddFileAttachScreen} />
+      <StackNavigation.Screen name="DetailProjectScreen" component={DetailProjectScreen} />
+      <StackNavigation.Screen name="EditInforProjectScreen" component={EditInforProjectScreen} />
+    </StackNavigation.Navigator>
   )
 })
 const styles = StyleSheet.create({
