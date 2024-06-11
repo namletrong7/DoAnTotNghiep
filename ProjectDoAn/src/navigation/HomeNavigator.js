@@ -44,33 +44,6 @@ import { EditInforProjectScreen } from "../screens/EditinforProjectScreen";
 import {FadeInView} from "../components/global/AnimatedScreen/FadeInView";
 
 
-export  const NotifiStack = React.memo(() => {
-  const Stack = createNativeStackNavigator();
-
-  return (
-    <Stack.Navigator screenOptions={{
-      headerShown: false
-    }}>
-      <Stack.Screen name="NotifiScreen" component={NotifiScreen} />
-      <Stack.Screen name="DetailTask_Notifi" component={DetailTaskScreen} />
-
-    </Stack.Navigator>
-  )
-})
-// stack này bao gồm màn hình home -> màn hình chi tiết project
-export  const HomeStack = React.memo(() => {
-  const Stack = createNativeStackNavigator();
-
-  return (
-      <FadeInView style={{ flex: 1 }}>
-    <Stack.Navigator screenOptions={{
-      headerShown: false
-    }}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    </Stack.Navigator>
-      </FadeInView>
-  )
-})
 // stack này bao gồm các màn hình cá nhân user đang login -> chi tiêt cá nhân ->chỉnh sửa thông tin cá nhân
 export  const PersonalStack = React.memo(() => {
   const Stack = createNativeStackNavigator();
@@ -144,10 +117,10 @@ export  const BottomHomeNavigation = React.memo(() => {
           }}
           animation='fade'
         >
-          <Tab.Screen name="HomeStack" component={HomeStack}   options={{ headerShown: false ,tabBarLabel:"Home",tabBarShowLabel:false}}   />
+          <Tab.Screen name="HomeStack" component={HomeScreen}   options={{ headerShown: false ,tabBarLabel:"Home",tabBarShowLabel:false}}   />
           <Tab.Screen name="TaskPersonalStack" component={TaskPersonalStack} options={{ headerShown: false,tabBarLabel:"Task",tabBarShowLabel:false }} />
           <Tab.Screen name="Search" component={SearchTaskScreen} options={{ headerShown: false,tabBarLabel:"Tìm kiếm",tabBarShowLabel:false }}   />
-          <Tab.Screen name="NotifiStack" component={NotifiStack} options={{ headerShown: false,tabBarLabel:"Thông báo",tabBarShowLabel:false }}   />
+          <Tab.Screen name="NotifiStack" component={NotifiScreen} options={{ headerShown: false,tabBarLabel:"Thông báo",tabBarShowLabel:false }}   />
           <Tab.Screen name="PersonalStack" component={PersonalStack} options={{ headerShown: false,tabBarLabel:"Cá nhân" ,tabBarShowLabel:false}} />
         </Tab.Navigator>
 
