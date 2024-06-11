@@ -29,8 +29,7 @@ const Api = (isFormData:boolean,token:null) => {
     }//-----------------------------------------------------
     // thêm api add task
     const addTask=(body:any)=> {
-        const apiInstance = apiConfig();
-        return apiInstance.post("addTask.php",body);
+        return apiConfig().post("addTask.php",body);
     }
     // api get detail task
    const getDetailTask=(taskId:string)=>{
@@ -279,10 +278,14 @@ const Api = (isFormData:boolean,token:null) => {
   const editInforUser=(body:any)=>{  // theem checkId cho task
     return apiConfig().post('editInforUser.php',body);
   }
+  const uploadFileAttach=(body:any)=>{  // upload file đính kèm
+    return apiConfig().post('uploadFileAttach.php',body);
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
         login,
+        uploadFileAttach,
         getCommentTask,
         addTask,
         getDetailTask,

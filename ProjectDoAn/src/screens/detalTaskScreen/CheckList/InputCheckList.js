@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity, View} from "react-native";
 import IconUnTick from "../../../assets/icons/IconUnTick";
-import IconTickGreen from "../../../assets/icons/IconTickGreen";
-import FastImage from "react-native-fast-image";
-import {baseUrlAvatarUser} from "../../../api/ConstBaseUrl";
 import IconPlus from "../../../assets/icons/IconPlus";
 import {useDispatch} from "react-redux";
 import {actionAddCheckList} from "../../../redux-store/actions/task";
@@ -19,6 +16,7 @@ const InputCheckList = (props) => {
         setContent('')
     }
     return (
+      <KeyboardAvoidingView keyboardVerticalOffset={10} behavior='padding'>
         <View style={styles.container}>
             <IconUnTick/>
             <TextInput
@@ -33,6 +31,7 @@ const InputCheckList = (props) => {
                 <IconPlus width={22} height={22}/>
             </TouchableOpacity>
         </View>
+      </KeyboardAvoidingView>
     );
 };
 const styles = StyleSheet.create({

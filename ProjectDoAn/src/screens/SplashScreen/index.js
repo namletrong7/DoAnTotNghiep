@@ -47,10 +47,16 @@ const SplashScreen = () => {
           <LogoApp/>
         </Animated.View>
         <Animated.View style={[styles.logoContainer, {marginLeft: moveAnim}]}>
-          <Text style={[styles.logoText]}>PM</Text>
-          <Animated.Text style={[styles.logoText, {opacity: fadeAnim}]}>
-            KMA
-          </Animated.Text>
+          <Image
+            source={require('../../assets/images/PM.png')}
+            style={{width:70, height:30}}
+          />
+          <Animated.View style={{opacity: fadeAnim}}>
+            <Image
+              source={require('../../assets/images/KMA.png')}
+              style={{width:85, height:44,marginTop:-6}}
+            />
+          </Animated.View>
         </Animated.View>
       </View>
     </SafeAreaView>
@@ -81,6 +87,7 @@ export const styles = StyleSheet.create({
   },
   logoContainer: {
     flexDirection: 'row',
+    marginTop:20
   },
 });
 
