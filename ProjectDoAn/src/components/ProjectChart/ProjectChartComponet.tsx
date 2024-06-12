@@ -7,11 +7,24 @@ const ProjectChartComponet = () => {
     const dataNumProject = useSelector(state => state.auth.dataNumProject);
 
     const pieData = [
-    { value: (dataNumProject?.numProjectUnfulfilled / dataNumProject?.totalProject) * 100, color: '#181818'},
-    {value: (dataNumProject?.numProjectDoing / dataNumProject?.totalProject) * 100, color: '#4191df'},
-    {value: (dataNumProject?.numProjectPause / dataNumProject?.totalProject) * 100, color: '#ecae36'},
-    {value: (dataNumProject?.numProjectDone / dataNumProject?.totalProject) * 100, color: '#62c241', focused: true, }
-  ];
+        {
+            value: parseFloat(((dataNumProject?.numProjectUnfulfilled ?? 0) / (dataNumProject?.totalProject ?? 1) * 100).toFixed(2)),
+            color: '#181818'
+        },
+        {
+            value: parseFloat(((dataNumProject?.numProjectDoing ?? 0) / (dataNumProject?.totalProject ?? 1) * 100).toFixed(2)),
+            color: '#4191df'
+        },
+        {
+            value: parseFloat(((dataNumProject?.numProjectPause ?? 0) / (dataNumProject?.totalProject ?? 1) * 100).toFixed(2)),
+            color: '#ecae36'
+        },
+        {
+            value: parseFloat(((dataNumProject?.numProjectDone ?? 0) / (dataNumProject?.totalProject ?? 1) * 100).toFixed(2)),
+            color: '#62c241',
+            focused: true
+        }
+    ];
 
   const renderDot = (color:string) => {
     return (

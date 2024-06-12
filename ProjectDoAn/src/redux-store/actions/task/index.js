@@ -287,18 +287,15 @@ export function actionAddCommentTask(taskId,content) {
     };
 }
 //láy toàn bộ danh sách công việc của PROJECT ở trạng thái todo
-export function actionGetTaskToDoProject(projectId,assignUser, targetUser) {
+export function actionGetTaskToDoProject(projectId) {
     return async (dispatch, getState) => {
-        console.log('call api get task todo')
         await   dispatch({  // bắt đầu
             type: "START_GET_TASK_PROJECT_TODO",
         });
-        console.log(projectId,assignUser,targetUser)
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).filterTaskOfProject(projectId,0,assignUser,targetUser);
+            const response = await Api(false,token).getListTaskProject(projectId,0,0);
 
-            console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_TASK_PROJECT_TODO",
@@ -310,7 +307,7 @@ export function actionGetTaskToDoProject(projectId,assignUser, targetUser) {
             });
         } catch (error) {
 
-   console.log(error)
+
             await   dispatch({  // bắt đầu
                 type: "END_GET_TASK_PROJECT_TODO",
             });
@@ -324,15 +321,55 @@ export function actionGetTaskToDoProject(projectId,assignUser, targetUser) {
 
     };
 }
-export function actionGetTaskDoingProject(projectId,assignUser, targetUser) {
+export function actionGetMoreTaskToDoProject(projectId) {
     return async (dispatch, getState) => {
-        console.log('call api get task doing')
+        const isGetTaskProjectTodo = getState().task?.isGetTaskProjectTodo
+        const isGetMoreTaskProjectTodo = getState().task?.isGetMoreTaskProjectTodo
+        if(!isGetMoreTaskProjectTodo && !isGetTaskProjectTodo) {
+            dispatch(updateData({
+                isGetMoreTaskProjectTodo: true
+            }))
+            const token = getState().auth?.token
+            const dataListTaskProjectTodo = getState().task?.dataListTaskProjectTodo
+
+            try {
+                const response = await Api(false, token).getListTaskProject(projectId, 0, dataListTaskProjectTodo?.length);
+                 console.log(response.data)
+                if (response.data && response.data.status == 200) {
+                    await dispatch({
+                        type: "GET_MORE_TASK_PROJECT_TODO",
+                        data: response.data.dataListTask
+                    });
+                }
+                dispatch(updateData({
+                    isGetMoreTaskProjectTodo: false
+                }))
+
+            } catch (error) {
+                dispatch(updateData({
+                    isGetMoreTaskProjectTodo: false
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: {icon: "danger", position: 'left'}
+                });
+            }
+        }
+
+    };
+}
+// lấy danh sách công việc của projeect ở trạng  thái doing
+export function actionGetTaskDoingProject(projectId) {
+    return async (dispatch, getState) => {
         dispatch(updateData({
             isGetTaskProjectDoing :true
         }))
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).filterTaskOfProject(projectId,1,assignUser,targetUser);
+            const response = await Api(false,token).getListTaskProject(projectId,1,0);
+
             if(response.data && response.data.status==200){
                 dispatch(updateData({
                     dataListTaskProjectDoing: response.data.dataListTask,
@@ -360,16 +397,55 @@ export function actionGetTaskDoingProject(projectId,assignUser, targetUser) {
 
     };
 }
-export function actionGetTaskDoneProject(projectId,assignUser, targetUser) {
+export function actionGetMoreTaskDoingProject(projectId) {
     return async (dispatch, getState) => {
-        console.log('call api get task done')
+        const isGetTaskProjectDoing = getState().task?.isGetTaskProjectDoing
+        const isGetMoreTaskProjectDoing = getState().task?.isGetMoreTaskProjectDoing
+        if(!isGetTaskProjectDoing && !isGetMoreTaskProjectDoing) {
+            dispatch(updateData({
+                isGetMoreTaskProjectDoing: true
+            }))
+            const token = getState().auth?.token
+            const dataListTaskProjectDoing = getState().task?.dataListTaskProjectDoing
+
+            try {
+                const response = await Api(false, token).getListTaskProject(projectId, 1, dataListTaskProjectDoing?.length);
+                console.log(response.data)
+                if (response.data && response.data.status == 200) {
+                    await dispatch({
+                        type: "GET_MORE_TASK_PROJECT_DOING",
+                        data: response.data.dataListTask
+                    });
+                }
+                dispatch(updateData({
+                    isGetMoreTaskProjectDoing: false
+                }))
+
+            } catch (error) {
+                dispatch(updateData({
+                    isGetMoreTaskProjectDoing: false
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: {icon: "danger", position: 'left'}
+                });
+            }
+        }
+
+    };
+}
+// lấy danh sách công việc của projeect ở trạng  thái done
+export function actionGetTaskDoneProject(projectId) {
+    return async (dispatch, getState) => {
         dispatch(updateData({
             isGetTaskProjectDone :true
         }))
         const token = getState().auth?.token
         try {
-            const response = await Api(false,token).filterTaskOfProject(projectId,2,assignUser,targetUser);
-
+            const response = await Api(false,token).getListTaskProject(projectId,2,0);
+            console.log(response.data)
 
             if(response.data && response.data.status==200){
                 dispatch(updateData({
@@ -392,6 +468,45 @@ export function actionGetTaskDoneProject(projectId,assignUser, targetUser) {
                 duration: 1000,
                 icon: { icon: "danger", position: 'left' }
             });
+        }
+
+    };
+}
+export function actionGetMoreTaskDoneProject(projectId) {
+    return async (dispatch, getState) => {
+        const isGetTaskProjectDone = getState().task?.isGetTaskProjectDone
+        const isGetMoreTaskProjectDone = getState().task?.isGetMoreTaskProjectDone
+        if(!isGetTaskProjectDone && !isGetMoreTaskProjectDone) {
+            dispatch(updateData({
+                isGetMoreTaskProjectDone: true
+            }))
+            const token = getState().auth?.token
+            const dataListTaskProjectDone = getState().task?.dataListTaskProjectDone
+
+            try {
+                const response = await Api(false, token).getListTaskProject(projectId, 2, dataListTaskProjectDone?.length);
+                console.log(response.data)
+                if (response.data && response.data.status == 200) {
+                    await dispatch({
+                        type: "GET_MORE_TASK_PROJECT_DONE",
+                        data: response.data.dataListTask
+                    });
+                }
+                dispatch(updateData({
+                    isGetMoreTaskProjectDone: false
+                }))
+
+            } catch (error) {
+                dispatch(updateData({
+                    isGetMoreTaskProjectDone: false
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: {icon: "danger", position: 'left'}
+                });
+            }
         }
 
     };

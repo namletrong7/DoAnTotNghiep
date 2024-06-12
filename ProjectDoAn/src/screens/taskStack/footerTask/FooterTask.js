@@ -18,7 +18,7 @@ import LinearGradient from "react-native-linear-gradient";
 export  const FooterTask=React.memo(()=>{
 
   return(
-    <View style={{paddingVertical:3,}}>
+    <View style={{paddingVertical:10,backgroundColor:"white",marginHorizontal:5}}>
       <View style={{flexDirection:"row", justifyContent:"space-between",paddingHorizontal:15, }}>
         <View >
           <ShimmerPlaceholder visible={false} style={{borderRadius:5}}
@@ -47,7 +47,7 @@ export  const FooterTask=React.memo(()=>{
         </View>
 
       </View>
-      <View style={{height:1, backgroundColor:"#DDDDDD", width:"100%", marginVertical:3}}/>
+
 
     </View>
   )

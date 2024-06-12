@@ -5,11 +5,22 @@ import {useSelector} from "react-redux";
 
 const TaskChart = () => {
     const dataNumTask = useSelector(state => state?.auth?.dataNumTask);
-  const pieData = [
-    { value:  (dataNumTask?.numTaskDone / dataNumTask?.totalTask) * 100, color: '#7FFFD4', focused: true},
-    {value:  (dataNumTask?.numTaskDoing / dataNumTask?.totalTask) * 100, color: '#836FFF' },
-    { value:  (dataNumTask?.numTaskOutDate / dataNumTask?.totalTask) * 100, color: '#CD853F'},
-  ];
+    const pieData = [
+        {
+            value: parseFloat(((dataNumTask?.numTaskDone ?? 0) / (dataNumTask?.totalTask ?? 1) * 100).toFixed(2)),
+            color: '#7FFFD4',
+            focused: true
+        },
+        {
+            value: parseFloat(((dataNumTask?.numTaskDoing ?? 0) / (dataNumTask?.totalTask ?? 1) * 100).toFixed(2)),
+            color: '#836FFF'
+        },
+        {
+            value: parseFloat(((dataNumTask?.numTaskOutDate ?? 0) / (dataNumTask?.totalTask ?? 1) * 100).toFixed(2)),
+            color: '#CD853F'
+        }
+    ];
+
 
   const renderDot = (color:string) => {
     return (
