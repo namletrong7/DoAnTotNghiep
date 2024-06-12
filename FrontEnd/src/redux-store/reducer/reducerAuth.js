@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
    isLogin: false ,
     token: null ,
+    dataCurrentUser:null,
 };
 
 const reducerAuth = (state = INITIAL_STATE, action) => {

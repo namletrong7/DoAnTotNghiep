@@ -46,13 +46,13 @@ import {useDispatch} from "react-redux";
                         <div className={cx('flex')}>
                                    <div className={cx('itemInput')}>
                                        <div className={cx('textInput')}>Tên chuyên môn: </div>
-                                       <input value={content} onChange={(e)=>{setContent(e.target.value)}} placeholder={"Nhập tên phòng ban"} className={cx('input')}/>
+                                       <input value={content} onChange={(e)=>{setContent(e.target.value)}} placeholder={"Nhập chuyên môn"} className={cx('input')}/>
                                    </div>
                             {errors.value?<div style={{fontSize:15, color:'red', marginLeft:"10%"}}>{errors.value}</div>:null}
                         </div>
                         <div>
                             <div onClick={handleAdd} style={style.buttonEdit}>
-                                <div style={style.textEdit}>Thêm phòng ban</div>
+                                <div style={style.textEdit}>Thêm chuyên môn</div>
                             </div>
                         </div>
 

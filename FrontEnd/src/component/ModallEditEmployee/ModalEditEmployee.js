@@ -25,8 +25,8 @@ import {actionEditEmployee} from "../../redux-store/action/actionEmployee";
      const [jobTitleId, setJobTitleId] = useState(null);
      const [departmentId, setDepartmentId] = useState(null);
      const [positionLevel, setPositionLevel] = useState(null);
-     const [image, setImage] = useState(null);
-     const [avatarUser, setAvatarUser] = useState(null)
+     const [image, setImage] = useState(null);  // sử dụng để hiển thị lên view
+     const [avatarUser, setAvatarUser] = useState(null)  //sử dụng để guiewr len api
      const dataListDepartment = useSelector(state => state.reducerDepartment?.dataListDepartment);
      const dataListJobtitle = useSelector(state => state.reducerJobtitle?.dataListJobtitle);
      const onImageChange = (event) => {
@@ -47,7 +47,7 @@ import {actionEditEmployee} from "../../redux-store/action/actionEmployee";
          setIsActive(item?.isActive)
          setIsAdmin(item?.isAdmin)
          setJobTitleId(item?.jobtitleId)
-         setDepartmentId(item?.departmentId)
+         setDepartmentId(item?.departmentId )
          setPositionLevel(item?.positionLevel)
          setAvatarUser(null)
          console.log(item)

@@ -11,7 +11,7 @@ import {LoadingComponent} from "../../../component/LoadingComponent/LoadingCompo
 import {ModalComfirm} from "../../../component/ModalConfirm/ModalComfirm";
 import {ModalAddDepartment} from "../../../component/ModalAddDepartment/ModalAddDepartment";
 import {ModalEditDepartment} from "../../../component/ModalEditDepartment/ModalEditDepartment";
-import {actionGetListDepartment} from "../../../redux-store/action/actionDepartment";
+import {actionDeleteDepartment, actionGetListDepartment} from "../../../redux-store/action/actionDepartment";
 
 
 const cx = classNames.bind(styles);
@@ -77,6 +77,10 @@ function DepartmentManagerScreen (props) {
   //    dispatch(actionGetListDepartment())
         console.log(dataListDepartment)
     };
+    const handlDelete=()=>{
+        setIsShowModalDeleteDepartment(false)
+        dispatch(actionDeleteDepartment(itemSelected?.departmentId))
+    }
   useEffect(()=>{
        fetchData()
   },[])
@@ -131,7 +135,7 @@ function DepartmentManagerScreen (props) {
                 </div>}
 
             </div>
-            <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.departmentName} onClose={onCloseModalDeletedepartment} isVisible={isShowModalDeleteDepartment}/>
+            <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.departmentName} onClose={onCloseModalDeletedepartment} isVisible={isShowModalDeleteDepartment} onConfirm={handlDelete}/>
              <ModalAddDepartment isVisible={isShowModalAddDepartment} onClose={handleCloseAddDepartment}/>
              <ModalEditDepartment item={itemSelected} isVisible={isShowModalEditDepartment} onClose={handleCloseEditDepartment}/>
 
