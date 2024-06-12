@@ -12,6 +12,7 @@ import { getValuePositionLevel } from "../../utils/GetValuePosition";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetDetailProject } from "../../redux-store/actions/project";
 import {
+  actionGetMoreTaskDoingProject, actionGetMoreTaskDoneProject,
   actionGetTaskDoingProject,
   actionGetTaskDoneProject,
   actionGetTaskToDoProject,
@@ -19,22 +20,28 @@ import {
 import { EmptyTask } from "../../components/EmptyScreen/EmptyTask";
 import LinearGradient from "react-native-linear-gradient";
 import LottieView from "lottie-react-native";
+import {FooterTask} from "../taskStack/footerTask/FooterTask";
+import IconLoadMore from "../../assets/icons/IconLoadMorer";
 
 const TaskProjectDone = ({navigation,route}) => {
-  const { projectId,objectFilter } = route?.params;
+  const { projectId } = route?.params;
   const dispatch  = useDispatch();
   const dataListTaskProjectDone = useSelector(state => state.task.dataListTaskProjectDone);
   const isGetTaskProjectDone = useSelector(state => state.task?.isGetTaskProjectDone);
+  const isGetMoreTaskProjectDone = useSelector(state => state.task?.isGetMoreTaskProjectDone);
   const [refreshing, setRefreshing] = useState(false);
   console.log('render lại task project done')
   useEffect(()=>{
-    dispatch(actionGetTaskDoneProject(projectId,objectFilter.assignUser?.userId,objectFilter.targetUser?.userId))
+    dispatch(actionGetTaskDoneProject(projectId))
   },[])
   const handleRefresh = useCallback(() => {
     setRefreshing(true); // Đặt trạng thái là đang làm mới
-    dispatch(actionGetTaskDoneProject(projectId,objectFilter.assignUser?.userId,objectFilter.targetUser?.userId))
+    dispatch(actionGetTaskDoneProject(projectId))
     setRefreshing(false);
   },[projectId]);
+  const handleLoadMore=()=>{
+    dispatch(actionGetMoreTaskDoneProject(projectId))
+  }
   return (
     <LinearGradient colors={['#faefcb', '#eaf1e0', '#deedda']} style={{flex:1, paddingBottom:120, justifyContent:"center"}}>
       {isGetTaskProjectDone ? <LottieView style={{ height:100,marginTop:10}} source={require('../../assets/animation/circlesRotate.json')} autoPlay loop />:
@@ -50,6 +57,20 @@ const TaskProjectDone = ({navigation,route}) => {
                       onRefresh={handleRefresh}
                     />}
                   keyExtractor={item => item.taskId}
+                  ListFooterComponent={
+                    <View>
+                      {isGetMoreTaskProjectDone?<FooterTask/>:null}
+                      {dataListTaskProjectDone?.length > 0 ? (
+                          <TouchableOpacity onPress={handleLoadMore} style={{ flexDirection: "row", marginTop: 10 ,paddingBottom:20,alignSelf:'center'}}>
+                            <IconLoadMore />
+                            <Text style={{ fontSize: 17, color: "black", marginLeft: 5, fontFamily: "OpenSans-Regular" }}>
+                              {"Nhấn để tải thêm task..."}
+                            </Text>
+                          </TouchableOpacity>
+                      ) : null}
+                    </View>
+
+                  }
               />)
 
       }

@@ -9,11 +9,11 @@ const initialState = {
     isGetComment: false ,
     dataCommentTask: [],
     isGetMoreComment: false ,
-    isGetTaskProjectTodo :false ,
+    isGetTaskProjectTodo :false ,isGetMoreTaskProjectTodo:false,
     dataListTaskProjectTodo:[],
-    isGetTaskProjectDoing :false ,
+    isGetTaskProjectDoing :false ,isGetMoreTaskProjectDoing:false ,
     dataListTaskProjectDoing:[],
-    isGetTaskProjectDone :true,
+    isGetTaskProjectDone :true,isGetMoreTaskProjectDone:false,
     dataListTaskProjectDone:[],
     isGetAllTask:false,
     dataAllTask:[],
@@ -158,6 +158,24 @@ const reducerTask = (state =initialState , action) => {
         case 'END_GET_TASK_PROJECT_TODO': {
             return { ...state,
                 isGetTaskProjectTodo: false
+            };
+        }
+        // lay them danh sach task  todo cua project
+        case 'GET_MORE_TASK_PROJECT_TODO': {
+            return { ...state,
+                dataListTaskProjectTodo: [...state.dataListTaskProjectTodo, ...action.data],
+            };
+        }
+        // lay them danh sach task  doing cua project
+        case 'GET_MORE_TASK_PROJECT_DOING': {
+            return { ...state,
+                dataListTaskProjectDoing: [...state.dataListTaskProjectDoing, ...action.data],
+            };
+        }
+        // lay them danh sach task  done cua project
+        case 'GET_MORE_TASK_PROJECT_DONE': {
+            return { ...state,
+                dataListTaskProjectDone: [...state.dataListTaskProjectDone, ...action.data],
             };
         }
         case 'GET_MORE_ALL_TASK': {

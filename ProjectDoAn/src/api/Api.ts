@@ -75,8 +75,14 @@ const Api = (isFormData:boolean,token:null) => {
       }
     });
   }
-  const getListTaskProject=(projectId:string,state:number)=>{ // api lấy danh sách của 1 project
-    return apiConfig().get(`getListTaskProject.php?projectId=${projectId}&state=${state}`);
+  const getListTaskProject=(projectId:string,state:number,offset:number)=>{ // api lấy danh sách của 1 project
+    return apiConfig().get('getListTaskProject.php',{
+        params: {
+            projectId: projectId,
+            state: state,
+            offset:offset
+        }
+    });
   }
   const filterTaskOfProject=(projectId:string,state:number,assignUser:any, targetUser:any)=>{ // api lấy danh sách của 1 project nhưng có lọc
     return apiConfig().get('filterTaskOfProject.php',{

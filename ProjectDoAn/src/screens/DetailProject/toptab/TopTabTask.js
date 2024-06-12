@@ -10,9 +10,7 @@ import TaskProjectDone from "../TaskProjectDone";
 
 const TopNavigator = createMaterialTopTabNavigator();
 export const TopTabTask1=React.memo((props)=> {
-  const {projectId,objectFilter}= props
-  console.log("tại chỗ top tab")
-  console.log(objectFilter)
+  const {projectId}= props
   return (
     <TopNavigator.Navigator
       screenOptions={{
@@ -34,11 +32,11 @@ export const TopTabTask1=React.memo((props)=> {
         }}
         name="Cần làm"
         component={TaskProjectToDo}
-        initialParams={{ projectId:projectId,objectFilter:objectFilter }} // Truyền biến vào đây
+        initialParams={{ projectId:projectId}} // Truyền biến vào đây
       />
 
       <TopNavigator.Screen name="Đang làm" component={TaskProjectDoing}
-                           initialParams={{ projectId:projectId,objectFilter:objectFilter }}
+                           initialParams={{ projectId:projectId }}
       />
 
       <TopNavigator.Screen
@@ -53,7 +51,7 @@ export const TopTabTask1=React.memo((props)=> {
         }}
         name="Hoàn thành"
         component={TaskProjectDone}
-        initialParams={{ projectId:projectId ,objectFilter:objectFilter}}
+        initialParams={{ projectId:projectId}}
       />
     </TopNavigator.Navigator>
   );

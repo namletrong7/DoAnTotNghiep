@@ -72,16 +72,16 @@ const DetailProjectScreen = ({ navigation ,route}) => {
   }, []);
 
 // hàm nhấn chọn người duyệt
-  const handleChooseAssignUser=(item)=>{
+  const handleChooseAssignUser=useCallback((item)=>{
     setSetObjectFilter({
       ...objectFilter, assignUser: item
     })
-  }
-  const handleChooseTargetUser=(item)=>{
+  },[objectFilter])
+  const handleChooseTargetUser=useCallback((item)=>{
     setSetObjectFilter({
       ...objectFilter, targetUser: item
     })
-  }
+  },[objectFilter])
   const handleFilterTask=()=>{
     closeBottomSelectAssignUser();
     dispatch(actionFilterTaskProject(projectId||itemProject?.projectId,objectFilter?.assignUser?.userId, objectFilter?.targetUser?.userId))
@@ -112,7 +112,7 @@ const DetailProjectScreen = ({ navigation ,route}) => {
      </View>
       <GestureHandlerRootView style={{ borderRadius:16,  display:"flex"}}>
           <View  style={{height:"100%"}}>
-               <TopTabTask1 projectId={itemProject?.projectId || projectId} objectFilter={objectFilter}/>
+               <TopTabTask1 projectId={itemProject?.projectId || projectId}/>
           </View>
       <BottomChooseAssignUser handleChooseAssignUser={handleChooseAssignUser} bottomSheetRef={bottomSelectAssignUser} renderBackdrop={renderBackdrop} snapPoints={snapPoints} assignUser={objectFilter.assignUser} handleFilterTask={handleFilterTask} />
         <BottomChooseTargetUser handleChooseAssignUser={handleChooseTargetUser} bottomSheetRef={bottomSelectTargetUser} renderBackdrop={renderBackdrop} snapPoints={snapPoints} assignUser={objectFilter.targetUser} handleFilterTask={handleFilterTask}/>

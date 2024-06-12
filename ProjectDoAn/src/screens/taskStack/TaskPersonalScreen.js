@@ -55,6 +55,7 @@ const TaskPersonalScreen = ({ navigation }) => {
   const dataTaskDone = useSelector(state => state.task.dataTaskDone);
   const isGetMoreAssignTask = useSelector(state => state.task.isGetMoreAssignTask);
   const [currentTask, setCurrentTask] = useState(dataAssignTask);
+  const [isLoadMore, setIsLoadMore] = useState(false);
 
   useEffect( () => {
 
@@ -79,21 +80,24 @@ const TaskPersonalScreen = ({ navigation }) => {
 
   },[dataAssignTask,dataTaskDone,dataTargetTask,typeTask])
 
-  const goToDetailTask=(taskId)=>{
+  const goToDetailTask=useCallback((taskId)=>{
     navigation.navigate('DetailTaskScreen',{taskId:taskId});
-  }
+  },[])
+ const gotoFilterTask=()=>{
 
+ }
 
-  const loadMore=()=>{
-    ///  console.log("load theem:")
+  const loadMore=async () => {
+    setIsLoadMore(true)
     switch (typeTask) {
       case 1:
-        dispatch(actionGetMoreAssignTask(dataAssignTask.length))
+        await dispatch(actionGetMoreAssignTask(dataAssignTask.length))
         break;
       default:
-        dispatch(actionGetMoreAssignTask(dataAssignTask.length))
+       await dispatch(actionGetMoreAssignTask(dataAssignTask.length))
         break;
     }
+    setIsLoadMore(false)
   }
   const filterTask=async (typeTask) => {
 
@@ -148,9 +152,9 @@ const TaskPersonalScreen = ({ navigation }) => {
           transparent={true}
           visible={isShowMore}
         >
-          <SafeAreaView style={styles.modalContainer} >
+          <View style={styles.modalContainer} >
             <View style={styles.modalContent}>
-              <View style={{backgroundColor:"white",paddingHorizontal:20}}>
+              <SafeAreaView style={{backgroundColor:"white",paddingHorizontal:20,marginHorizontal:20}}>
                 <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
                   <View style={{flexDirection:"row",marginRight:20,flex:1}}>
                     <IconBox/>
@@ -184,15 +188,16 @@ const TaskPersonalScreen = ({ navigation }) => {
                   <IconDone/>
                   <Text style={{ fontSize: 15, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc của tôi xử lý đã hoàn thành"}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>{navigation.navigate("FilterTaskScreen")}}
+                <TouchableOpacity onPress={()=>{SetIsShowMore(false)
+                    ,navigation.navigate("FilterTaskScreen")}}
                                   style={{flexDirection:"row",marginTop:10}}
                 >
                   <IconCalendar/>
                   <Text style={{ fontSize: 15, color: "black",marginLeft:14, fontFamily: "OpenSans-Regular" }}>{"Việc cần xử lý tuần này "}</Text>
                 </TouchableOpacity>
-              </View>
+              </SafeAreaView>
             </View>
-          </SafeAreaView>
+          </View>
         </Modal>
       </SafeAreaView>
           <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:Platform.isPad?"10%":"17%"}}>
@@ -204,7 +209,7 @@ const TaskPersonalScreen = ({ navigation }) => {
             ))):
               <EmptyTask/>
       }
-            {isGetMoreAssignTask&&<FooterTask/>}
+            {isLoadMore&&<FooterTask/>}
             <TouchableOpacity style={{flexDirection:"row",marginTop:10}} onPress={()=>{loadMore()}}>
               <IconLoadMore/>
               <Text style={{ fontSize: 17, color: "black",marginLeft:5, fontFamily: "OpenSans-Regular" }}>{"Nhấn để tải thêm task..."}</Text>
