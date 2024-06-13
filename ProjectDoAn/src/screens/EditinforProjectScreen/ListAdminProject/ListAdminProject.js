@@ -11,7 +11,6 @@ import IconUserAdmin from "../../../assets/icons/IconUserAdmin";
 
 const ListAdminProject = ({listAdmin,handleItem}) => {
     const [isShowOption, setIsShowOption]=useState(true);
-
     return (
         <View>
                  <Pressable onPress={()=>setIsShowOption(!isShowOption)} style={{flexDirection:'row', justifyContent:'space-between',alignItems:"center",marginTop:25}}>

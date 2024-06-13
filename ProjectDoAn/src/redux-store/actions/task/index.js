@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import { randomKeyComment } from "../../../utils/RandomKeyComment";
 import {getNewDate} from "../../../utils/ConverPickerDate";
+import { useSelector } from "react-redux";
 
 
 /**
@@ -615,7 +616,7 @@ export function actionGetAssignTask() {  // action lấy ds cv mình giao
 
     };
 }
-export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình giao
+export function actionGetMoreAssignTask() {  // action lấy ds cv mình giao
     return async (dispatch, getState) => {
         if(!getState().task.isGetMoreAssignTask && !getState().task.isGetAssignTask) {
    //         console.log("bat dau goi api")
@@ -624,8 +625,9 @@ export function actionGetMoreAssignTask(offset) {  // action lấy ds cv mình g
 
             }))
             const token = getState().auth?.token
+            const dataAssignTask =  getState().task.dataAssignTask
             try {
-                const response = await Api(false,token).getAssignTask(getState().auth.dataCurrentUser.userId, offset)
+                const response = await Api(false,token).getAssignTask(getState().auth.dataCurrentUser.userId, dataAssignTask?.length)
                 if (response.data && response.data.status == 200) {
           //      console.log(response.data?.dataListTask.length)
                     if(response.data?.dataListTask?.length>0){
@@ -714,6 +716,58 @@ export function actionGetTargetTask() {  // action lấy ds cv mình cần xử 
 
     };
 }
+export function actionGetMoreTargetTask() {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        if(!getState().task.isGetMoreTargetTask && !getState().task.isGetTargetTask) {
+            //         console.log("bat dau goi api")
+            dispatch(updateData({
+                isGetMoreTargetTask: true,
+            }))
+            const token = getState().auth?.token
+            const dataTargetTask =  getState().task.dataTargetTask
+            try {
+                const response = await Api(false,token).getTargetTask(getState().auth.dataCurrentUser.userId, dataTargetTask?.length)
+                if (response.data && response.data.status == 200) {
+                    //      console.log(response.data?.dataListTask.length)
+                    if(response.data?.dataListTask?.length>0){
+                        await dispatch({
+                            type: "GET_MORE_TARGET_TASK",
+                            data: response.data.dataListTask
+                        });
+                    }else{
+                        showMessage({
+                            message: "Đã load hết công việc bạn cần phải xử lý ",
+                            type: "warning",
+                            duration: 1500,
+                            icon: { icon: "warning", position: 'left' }
+                        });
+                    }
+
+
+                }
+                dispatch(updateData({
+                    isGetMoreTargetTask: false
+                }))
+
+            } catch (error) {
+
+                dispatch(updateData({
+                    isGetMoreTargetTask: false
+
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: {icon: "danger", position: 'left'}
+                });
+            }
+        }else{
+            return;
+        }
+
+    };
+}
 export function actionGetTaskDone() {
     return async (dispatch, getState) => {
    //     console.log("call task done")
@@ -724,7 +778,7 @@ export function actionGetTaskDone() {
         try {
             const response = await Api(false,token).getTaskDone(getState().auth.dataCurrentUser.userId,0)
     //        console.log("task done:")
-     //       console.log(response.data)
+         console.log(response.data)
             if(response.data && response.data.status==200){
                 await   dispatch({
                     type: "GET_TASK_DONE",
@@ -750,6 +804,58 @@ export function actionGetTaskDone() {
                 duration: 1000,
                 icon: { icon: "danger", position: 'left' }
             });
+        }
+
+    };
+}
+export function actionGetMoreTaskDone() {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        if(!getState().task.isGetMoreTaskDone && !getState().task.isGetTaskDone) {
+            //         console.log("bat dau goi api")
+            dispatch(updateData({
+                isGetMoreTaskDone: true,
+            }))
+            const token = getState().auth?.token
+            const dataTaskDone =  getState().task.dataTaskDone
+            try {
+                const response = await Api(false,token).getTaskDone(getState().auth.dataCurrentUser.userId, dataTaskDone?.length)
+                if (response.data && response.data.status == 200) {
+                    //      console.log(response.data?.dataListTask.length)
+                    if(response.data?.dataListTask?.length>0){
+                        await dispatch({
+                            type: "GET_MORE_TASK_DONE",
+                            data: response.data.dataListTask
+                        });
+                    }else{
+                        showMessage({
+                            message: "Đã load hết công việc bạn đã hoàn thành",
+                            type: "warning",
+                            duration: 1500,
+                            icon: { icon: "warning", position: 'left' }
+                        });
+                    }
+
+
+                }
+                dispatch(updateData({
+                    isGetMoreTaskDone: false
+                }))
+
+            } catch (error) {
+
+                dispatch(updateData({
+                    isGetMoreTaskDone: false
+
+                }))
+                showMessage({
+                    message: "Lỗi mạng",
+                    type: "danger",
+                    duration: 1000,
+                    icon: {icon: "danger", position: 'left'}
+                });
+            }
+        }else{
+            return;
         }
 
     };

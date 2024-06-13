@@ -24,7 +24,12 @@ import Animated, { FadeIn, SlideInDown, SlideInRight, SlideOutLeft, SlideOutRigh
 import IconBox from "../../assets/icons/IconBox";
 import IconDown from "../../assets/icons/IconDown";
 import {
-  actionGetAssignTask, actionGetMoreAssignTask, actionGetTargetTask, actionGetTaskDone
+  actionGetAssignTask,
+  actionGetMoreAssignTask,
+  actionGetMoreTargetTask,
+  actionGetMoreTaskDone,
+  actionGetTargetTask,
+  actionGetTaskDone,
 } from "../../redux-store/actions/task";
 import { ItemTaskPersonal } from "../../components/itemTask/ItemTaskPersonal";
 import {FooterTask} from "./footerTask/FooterTask";
@@ -71,11 +76,9 @@ const TaskPersonalScreen = ({ navigation }) => {
       setCurrentTask(dataTargetTask)
     }
     else if(typeTask==3){
-      setCurrentTask(dataAssignTask)
-    }
-    else{
       setCurrentTask(dataTaskDone)
     }
+
 
 
   },[dataAssignTask,dataTaskDone,dataTargetTask,typeTask])
@@ -83,18 +86,21 @@ const TaskPersonalScreen = ({ navigation }) => {
   const goToDetailTask=useCallback((taskId)=>{
     navigation.navigate('DetailTaskScreen',{taskId:taskId});
   },[])
- const gotoFilterTask=()=>{
 
- }
 
   const loadMore=async () => {
     setIsLoadMore(true)
     switch (typeTask) {
       case 1:
-        await dispatch(actionGetMoreAssignTask(dataAssignTask.length))
+        await dispatch(actionGetMoreAssignTask())
         break;
-      default:
-       await dispatch(actionGetMoreAssignTask(dataAssignTask.length))
+      case 2:
+        console.log('load them target')
+       await dispatch(actionGetMoreTargetTask())
+        break ;
+      case 3:
+        console.log('load them task done')
+        await dispatch(actionGetMoreTaskDone())
         break;
     }
     setIsLoadMore(false)
@@ -113,7 +119,7 @@ const TaskPersonalScreen = ({ navigation }) => {
         setLableTypeTask("Việc tôi cần xử lý")
         break;
       case 4:
-        setTypeTask(4)
+        setTypeTask(3)
         setLableTypeTask("Việc của tôi xử lý đã hoàn thành")
         dispatch(actionGetTaskDone())
         break;

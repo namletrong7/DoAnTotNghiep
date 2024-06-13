@@ -10,7 +10,7 @@ const Api = (isFormData:boolean,token:null) => {
     //Hàm tạo header
     const apiConfig = () => {
         return axios.create({
-            baseURL: "http://3.25.188.2/DOAN/",
+            baseURL: "http://192.168.1.107:8080/DOAN/",
             headers: {
                 'Content-Type': isFormData?'multipart/form-data':'application/json',
                 'Authorization1':  token,
@@ -287,6 +287,15 @@ const Api = (isFormData:boolean,token:null) => {
   const uploadFileAttach=(body:any)=>{  // upload file đính kèm
     return apiConfig().post('uploadFileAttach.php',body);
   }
+  // api người dùng thoát khỏi dự án
+  const outProject=(projectId:string, userId:number)=>{  // upload file đính kèm
+    return apiConfig().get('outProject.php',{
+      params:{
+        projectId:projectId,
+        userId:userId
+      }
+    });
+  }
     //NamLTc: Trả về các hàm api để lớp action gọi tới
     return {
         apiConfig,
@@ -330,7 +339,8 @@ const Api = (isFormData:boolean,token:null) => {
       changePassword,changeInforProject,
       editInforUser,
         editRoleProject,
-      filterTaskOfProject
+      filterTaskOfProject,
+      outProject
     };
 };
 export default Api;
