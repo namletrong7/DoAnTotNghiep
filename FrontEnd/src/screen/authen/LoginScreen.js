@@ -30,59 +30,27 @@ function LoginScreen ( props ) {
     //     navigate('/screen/authen/RegisterScreen');
     // };
 
-    const handleEmail = useCallback((e) => {
-        setEmail(e.target.value);
 
-    },[])
-
-    const handlePassword =  useCallback((e) => {
-        setPassword(e.target.value);
-
-    },[])
 
     const loginAction = async () => {
      await dispatch(actionLogin(email, password));
         console.log("xin chào")
     }
 
-    const Login = () => (
-        <div className={cx('w70', 'item')} >
-            <h4>ĐĂNG NHẬP</h4>
-            <p>Nếu bạn có một tài khoản, xin vui lòng đăng nhập.</p>
-            <h4>Tên đăng nhập</h4>
-            <input className={cx('input', 'w70')} placeholder={'Nhập tên đăng nhập'} value={email} onChange={handleEmail} />
-            <h4>Mật khẩu</h4>
-            <input className={cx('input', 'w70')} placeholder={'Nhập Password'} value={password} onChange={handlePassword} type={'password'}/>
-            <p onClick={handleForget} className={cx('cursorP')} >Quên mật khẩu ?</p>
-            <div className={cx('btn', 'w20')} onClick={loginAction} >ĐĂNG NHẬP</div>
-        </div>
-    )
-
-    const ForgotPassword = () => (
-        <div className={cx('w40', 'item')} >
-            <h4>ĐĂNG NHẬP</h4>
-            <p>Nếu bạn có một tài khoản, xin vui lòng đăng nhập.</p>
-
-            <h4>Đặt lại mật khẩu</h4>
-            <p>Chúng tôi sẽ gửi cho bạn một email để kích hoạt việc đặt lại mật khẩu.</p>
-
-            <p>E-mail</p>
-            <input className={cx('input', 'w70')} placeholder={'Nhập E-mail'} />
-
-            <div className={cx('flex')} >
-                <p className={cx('w10', 'btnForget')} >Gửi</p>
-                <p className={cx('w10')} >hoặc</p>
-                <p className={cx('w10', 'cldis', 'cursorP')} onClick={handleForget} >Huỷ</p>
-            </div>
-        </div>
-    )
-
-
 
     return (
         <div className={cx('login')} >
                 <div style={style.container}>
-                    <Login/>
+                    <div className={cx('w70', 'item')} >
+                        <h4>ĐĂNG NHẬP</h4>
+                        <p>Nếu bạn có một tài khoản, xin vui lòng đăng nhập.</p>
+                        <h4>Tên đăng nhập</h4>
+                        <input className={cx('input', 'w70')} placeholder={'Nhập tên đăng nhập'} value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+                        <h4>Mật khẩu</h4>
+                        <input className={cx('input', 'w70')} placeholder={'Nhập Password'} value={password} onChange={(e)=>{setPassword(e.target.value)}} type={'password'}/>
+                        <p onClick={handleForget} className={cx('cursorP')} >Quên mật khẩu ?</p>
+                        <div className={cx('btn', 'w40')} onClick={loginAction} >ĐĂNG NHẬP</div>
+                    </div>
                     <Player
                         autoplay
                         loop
@@ -100,7 +68,7 @@ export default LoginScreen;
 const style = {
       container:{
           display:'flex',
-          marginTop:"7%",
+          marginTop:"5%",
           width:"70%",
           alignSelf:'center',
           backgroundColor:"#CCCCCC",

@@ -22,7 +22,7 @@ import styles from './ModalComfirm.module.scss'
                          <div style={style.content}>{content}</div>
                           <div style={style.rowContent}>
                               <div onClick={onClose} style={style.contentCancel}>Hủy bỏ</div>
-                              <div style={style.contentConfirm}>Xác nhận</div>
+                              <div onClick={onConfirm} style={style.contentConfirm}>Xác nhận</div>
                           </div>
                     </div>
                 </div> : null}

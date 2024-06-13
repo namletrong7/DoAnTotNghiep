@@ -9,11 +9,6 @@ import reducerUser from "./user";
 import reducerProject from "./project";
 
 
-//NạmLTc: cấu hình các reducer tại đây
-const Reducer = combineReducers({
-   auth : reducerAuth,
-    // Thêm các reducers khác nếu cần
-});
 
 
 

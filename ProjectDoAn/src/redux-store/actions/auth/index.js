@@ -22,7 +22,7 @@ export function actionLogin(userName, passWord) {
     return async (dispatch, getState) => {
         try {
             const response = await Api(false).login(userName, passWord);
-            if(response.data.status) {
+            if(response.data) {
                 showMessage({
                     message: response.data?.message,
                     type:response.data.status==200?'success':'warning',

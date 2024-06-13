@@ -12,7 +12,7 @@ import {ModalComfirm} from "../../../component/ModalConfirm/ModalComfirm";
 import {ModalAddDepartment} from "../../../component/ModalAddDepartment/ModalAddDepartment";
 import {ModalEditDepartment} from "../../../component/ModalEditDepartment/ModalEditDepartment";
 import {actionGetListDepartment} from "../../../redux-store/action/actionDepartment";
-import {actionGetListJobtitle} from "../../../redux-store/action/actionJobtitle";
+import {actionDeleteJobtitle, actionGetListJobtitle} from "../../../redux-store/action/actionJobtitle";
 import {ModalEditJobtitle} from "../../../component/ModalEditJobtitle/ModalEditJobtitle";
 import {ModalAddJobtitle} from "../../../component/ModalAddJobtitle/ModalAddJobtitle";
 
@@ -78,8 +78,10 @@ function JobtitleManagerScreen (props) {
       dispatch(actionGetListJobtitle())
        // console.log('mout lai man hinh chuyen mon')
     };
-    const gotoBillAdminScrenn = ()=>{
-        navigate('/admin/BillAdminScreen',{taskId:'T001'})
+
+    const handleDelete=()=>{
+        setIsShowModalDeleteJobtitle(false)
+        dispatch(actionDeleteJobtitle(itemSelected?.jobtitleId))
     }
   useEffect(()=>{
        fetchData()
@@ -135,7 +137,7 @@ function JobtitleManagerScreen (props) {
                 </div>}
 
             </div>
-             <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.jobtitleName} onClose={onCloseModalDeleteJobtitle} isVisible={isShowModalDeleteJobtitle}/>
+             <ModalComfirm content={"Bạn có đồng ý xóa phòng ban: "+itemSelected?.jobtitleName} onClose={onCloseModalDeleteJobtitle} isVisible={isShowModalDeleteJobtitle} onConfirm={handleDelete}/>
              <ModalAddJobtitle isVisible={isShowModalAddJobtitle} onClose={handleCloseAddJobtitle}/>
              <ModalEditJobtitle item={itemSelected} isVisible={isShowModalEditJobtitle} onClose={handleCloseEditJobtitle}/>
 

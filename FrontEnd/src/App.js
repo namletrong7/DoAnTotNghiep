@@ -9,10 +9,8 @@ import {actionCheckLogged} from "./redux-store/action/actionAuth";
 function App() {
 
     const isLogin = useSelector(state => state.reducerAuth?.isLogin);
-    const dispatch = useDispatch();
-      useEffect(()=>{
-           dispatch(actionCheckLogged())
-      },[])
+
+
 
     return (
         <div className="App">

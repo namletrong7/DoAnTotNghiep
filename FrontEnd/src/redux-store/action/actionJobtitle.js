@@ -62,4 +62,19 @@ export function actionAddJobtitle (content) {
         }
     };
 }
+export function actionDeleteJobtitle (jobtitleId) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api().deleteJobtitle(jobtitleId);
+            if(response.data && response.data.status){
+                alert(response.data?.message);
+                dispatch(actionGetListJobtitle())
+            }else{
+                alert("Đã xảy ra lỗi vui lòng thử lại sau");
+            }
+        } catch (error) {
+            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
+        }
+    };
+}
 

@@ -5,11 +5,15 @@ const Api = (isFormData) => {
         baseURL: 'http://192.168.1.107:8080/DOAN/API_WEB/',
         headers: {
             'Content-Type': isFormData?'multipart/form-data':'application/json',
-
         },
         timeout: 20000,
     });
-
+    const login=(userName,password)=> {
+        return api.post("login.php",{
+            userName:userName,
+            passWord:password
+        });
+    }
     // api lấy danh sách nhân viên
     const getListEmployee=()=> {
         return api.get("getListEmployee.php");
@@ -58,8 +62,23 @@ const Api = (isFormData) => {
     const editUser=(body)=> {
         return api.post("editUser.php",body);
     }
+    const deleteJobtitle=(jobtitleId)=> {
+        return api.get("deleteJobtitle.php",{
+            params:{
+                jobtitleId:jobtitleId,
+            }
+        });
+    }
+    const deleteDepartment=(departmentId)=> {
+        return api.get("deleteDepartment.php",{
+            params:{
+                departmentId:departmentId,
+            }
+        });
+    }
     return {
-        getListEmployee,getDepartMent,getJobtitle,editJobtitle,addJobtitle,editDepartment,addDepartment,editUser
+        getListEmployee,getDepartMent,getJobtitle,editJobtitle,addJobtitle,editDepartment,addDepartment,editUser,
+        deleteJobtitle,deleteDepartment,login
     };
 };
 

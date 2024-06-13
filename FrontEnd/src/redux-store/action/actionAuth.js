@@ -1,5 +1,5 @@
 import Api from "../../api";
-import {ISLOGIN} from "../../unitl/constant";
+import {ISLOGIN, TOKEN} from "../../unitl/constant";
 
 export function updateData(data) {
     return {
@@ -11,10 +11,24 @@ export function updateData(data) {
 export function actionLogin (userName, password) {
     return async (dispatch, getState) => {
         try {
-            dispatch(updateData({
-                isLogin: true,
-            }))
-            window.localStorage.setItem(ISLOGIN,true)
+            const response = await Api().login(userName,password);
+            console.log(response)
+                if ( response?.data &&response?.data?.status) {
+                    alert(response.data?.message);
+                       if (response.data.status == 200 && response.data.data == 1) {
+                           dispatch(updateData({
+                               isLogin: true,
+                               token:response.data?.token,
+                               dataCurrentUser:response.data?.dataCurrentUser
+                           }))
+                           window.localStorage.setItem(ISLOGIN,true)
+                           window.localStorage.setItem(TOKEN,response.data?.token)
+                         }
+
+                }
+
+
+
         } catch (error) {
             alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
         }
@@ -24,7 +38,9 @@ export function actionLogin (userName, password) {
 export function actionCheckLogged () {
     return async (dispatch, getState) => {
         try {
+            console.log('gọi lai ham check logged')
             const checkLogged = await window.localStorage.getItem(ISLOGIN);
+            console.log(checkLogged)
             dispatch(updateData({
                 isLogin: checkLogged,
             }))
@@ -36,10 +52,10 @@ export function actionCheckLogged () {
 export function actionLogout () {
     return async (dispatch, getState) => {
         try {
-            dispatch(updateData({
-                isLogin: false,
-            }))
-            window.localStorage.setItem(ISLOGIN,false)
+            dispatch({
+                type:"RESET_DATA"
+            })
+
         } catch (error) {
             alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
         }
