@@ -222,7 +222,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   return (
     <Animated.View
-      entering={SlideInRight.duration(1000)} exiting={SlideOutLeft.duration(500)}
+      entering={SlideInRight.duration(400)} exiting={SlideOutLeft.duration(500)}
       style={{ flex: 1}}
     >
     <LinearGradient  colors={['#e3efdd', '#faeeca', '#deedda']} style={{height:"100%",backgroundColor:"#EEEEEE"}}>
