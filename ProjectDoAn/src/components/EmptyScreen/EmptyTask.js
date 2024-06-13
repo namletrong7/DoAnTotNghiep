@@ -21,7 +21,7 @@ export  const EmptyTask =React.memo(() => {
     return (
         <View style={{marginTop:10,justifyContent:'center',alignItems:'center',flex:1}}>
         <IconEmptytask/>
-          <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-Regular"}}>{"Xin chúc mừng bạn không có công việc nào 😍"}</Text>
+          <Text style={{fontSize:17, color:"black",fontFamily:"OpenSans-Regular"}}>{"Không có công việc nào 🎉"}</Text>
         </View>
 
 
