@@ -154,7 +154,7 @@ const TaskPersonalScreen = ({ navigation }) => {
         >
           <View style={styles.modalContainer} >
             <View style={styles.modalContent}>
-              <SafeAreaView style={{backgroundColor:"white",paddingHorizontal:20}}>
+              <SafeAreaView style={{backgroundColor:"white",paddingHorizontal:20,marginHorizontal:10}}>
                 <TouchableOpacity onPress={()=>{SetIsShowMore(!isShowMore)}} style={{flexDirection:"row",paddingLeft:10,backgroundColor:isShowMore?"white":null}}>
                   <View style={{flexDirection:"row",marginRight:20,flex:1}}>
                     <IconBox/>
