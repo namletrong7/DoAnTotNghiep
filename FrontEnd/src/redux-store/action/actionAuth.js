@@ -55,6 +55,15 @@ export function actionLogout () {
             dispatch({
                 type:"RESET_DATA"
             })
+            dispatch({
+                type:"RESET_REDUCER_EMPLOYEE"
+            })
+            dispatch({
+                type:"RESET_REDUCER_DEPARTMENT"
+            })
+            dispatch({
+                type:"RESET_REDUCER_JOBTITLE"
+            })
 
         } catch (error) {
             alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");

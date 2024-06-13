@@ -51,4 +51,20 @@ export function actionEditEmployee(body) {
         }
     };
 }
+export function actionAddEmployee(body) {
+    return async (dispatch, getState) => {
+        try {
+            const response = await Api(true).addUser(body);
+            console.log(response.data)
+            if(response.data && response.data.status){
+                alert(response.data?.message);
+                dispatch(actionGetListEmployee())
+            }else{
+                alert("Đã xảy ra lỗi vui lòng thử lại sau");
+            }
+        } catch (error) {
 
+            alert("Lỗi mạng Xin vui lòng kiểm tra lại kết nối internet");
+        }
+    };
+}

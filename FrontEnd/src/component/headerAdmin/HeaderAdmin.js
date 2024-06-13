@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import styles from './HeaderAdmin.module.scss';
 import classNames from "classnames/bind";
-import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, Routes,Navigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import EmployeeManagerScreen from "../../screen/Admin/Employee/EmployeeManagerScreen";
 import DepartmentManagerScreen from "../../screen/Admin/Department/DepartmentManagerScreen";
@@ -63,10 +63,11 @@ function HeaderAdmin () {
             </div>
 
             <Routes>
-                <Route path="/admin/EmployeeManagerScreen" element={<EmployeeManagerScreen />} />
-                <Route path="/admin/DepartmentManagerScreen" element={<DepartmentManagerScreen />} />
-                <Route path="/admin/JobtitleManagerScreen" element={<JobtitleManagerScreen />} />
-            </Routes>
+            <Route path="/admin" element={<Navigate to="/admin/EmployeeManagerScreen" />} />
+            <Route path="/admin/EmployeeManagerScreen" element={<EmployeeManagerScreen />} />
+            <Route path="/admin/DepartmentManagerScreen" element={<DepartmentManagerScreen />} />
+            <Route path="/admin/JobtitleManagerScreen" element={<JobtitleManagerScreen />} />
+        </Routes>
 
         </Router>
     )

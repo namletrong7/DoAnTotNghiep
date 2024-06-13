@@ -74,7 +74,7 @@ function DepartmentManagerScreen (props) {
         setIsShowModalAddDepartment(false)
     },[])
     const fetchData = async () => {
-  //    dispatch(actionGetListDepartment())
+    dispatch(actionGetListDepartment())
         console.log(dataListDepartment)
     };
     const handlDelete=()=>{

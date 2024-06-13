@@ -1,0 +1,49 @@
+.imgProduct {
+    width: 8%;
+    margin-right: 15px;
+}
+.itemInput {
+    line-height: 26px;
+    font-size: 18px;
+    width: 30%;
+    margin-right: 3%;
+    margin-bottom: 12px;
+}
+.textInput {
+    margin-bottom: 5px;
+    color: black;
+    font-weight: 800;
+}
+.w50pt {
+    width: 50%;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.input {
+    width: 100%;
+    color: #454545;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #cccccc;
+}
+
+.selectImg {
+    width: 100%;
+}
+.selectListProduct {
+    bottom: 10px;
+    width: 20%;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    color: #313030;
+}
+.rowInput {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
