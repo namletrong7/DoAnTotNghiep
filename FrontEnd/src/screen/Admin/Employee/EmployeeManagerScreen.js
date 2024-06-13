@@ -18,6 +18,7 @@ import axios from "axios";
 import {ModalEditEmployee} from "../../../component/ModallEditEmployee/ModalEditEmployee";
 import {LoadingComponent} from "../../../component/LoadingComponent/LoadingComponent";
 import Api from "../../../api";
+import {ModalAddEmployee} from "../../../component/ModalAddEmployee/ModalAddEmployee";
 
 
 const cx = classNames.bind(styles);
@@ -27,17 +28,9 @@ const cx = classNames.bind(styles);
 function EmployeeManagerScreen (props) {
     const  [isShowModalEditUser , setIsShowModalEditUser] = useState(false);
     const  [isShowModalDeleteEmployee , setIsShowModalDeleteEmployee] = useState(false);
+    const  [isShowAddEmployee , setIsShowAddEmployee] = useState(false);
     const  [itemSelected , setItemSelected] = useState({});
-    const dataListTypeProduct = [
-        {
-            id: 1,
-            name: 'iPhone XS',
-        },
-        {
-            id: 2,
-            name: 'iPhone 12',
-        }
-    ]
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -50,17 +43,7 @@ function EmployeeManagerScreen (props) {
         setTextSearch(e.target.value)
     }
 
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
 
-    const handleToEditProductKhoHangAdminScreen = (item) => {
-        const editSanPham = true;
-
-        navigate(`/admin/EditProductKhoHangAdminScreen/${item.idProduct}`, {
-            state: { editSanPham },
-        });
-    }
     const onCloseEditEmployee=useCallback(()=>{
         setIsShowModalEditUser(false)
     },[])
@@ -82,6 +65,14 @@ function EmployeeManagerScreen (props) {
     const fetchData =  () => {
       dispatch(actionGetListEmployee())
     };
+
+    const handleOpenAddEmployee=useCallback(async () => {
+        setIsShowAddEmployee(true)
+    },[])
+    const handlCloseAddEmployee=useCallback(async () => {
+        setIsShowAddEmployee(false)
+    },[])
+
   useEffect(()=>{
        fetchData()
   },[])
@@ -99,7 +90,7 @@ function EmployeeManagerScreen (props) {
                         <i className={cx('bx bx-search', 'iconSearch')}></i>
                     </div>
                 </div>
-                <div onClick={showToast} className={cx('btn', 'addSp')}>Thêm nhân viên</div>
+                <div onClick={handleOpenAddEmployee} className={cx('btn', 'addSp')}>Thêm nhân viên</div>
             </div>
             <div className={cx('body')}>
                 <div className={cx('relative')}>
@@ -168,6 +159,7 @@ function EmployeeManagerScreen (props) {
 
             </div>
             <ModalEditEmployee item={itemSelected} isShowModalEditUser={isShowModalEditUser} onClose={onCloseEditEmployee}/>
+            <ModalAddEmployee  isShowModalEditUser={isShowAddEmployee} onClose={handlCloseAddEmployee}/>
             <ModalComfirm content={"Bạn có đồng ý xóa nhân viên: "+itemSelected?.userName} onClose={onCloseModalDeleteEmployee} isVisible={isShowModalDeleteEmployee}/>
 
         </div>

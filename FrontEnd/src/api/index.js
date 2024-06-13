@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const Api = (isFormData) => {
     const api = axios.create({
-        baseURL: 'http://192.168.1.107:8080/DOAN/API_WEB/',
+        baseURL: 'http://3.25.188.2/DOAN/API_WEB/',
         headers: {
             'Content-Type': isFormData?'multipart/form-data':'application/json',
         },
@@ -62,6 +62,9 @@ const Api = (isFormData) => {
     const editUser=(body)=> {
         return api.post("editUser.php",body);
     }
+    const addUser=(body)=> {
+        return api.post("addUser.php",body);
+    }
     const deleteJobtitle=(jobtitleId)=> {
         return api.get("deleteJobtitle.php",{
             params:{
@@ -78,7 +81,7 @@ const Api = (isFormData) => {
     }
     return {
         getListEmployee,getDepartMent,getJobtitle,editJobtitle,addJobtitle,editDepartment,addDepartment,editUser,
-        deleteJobtitle,deleteDepartment,login
+        deleteJobtitle,deleteDepartment,login,addUser
     };
 };
 
