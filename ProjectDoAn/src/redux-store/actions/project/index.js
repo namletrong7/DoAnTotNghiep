@@ -245,6 +245,43 @@ export function actionEditRoleProjecet(projectUserId, projectId,type,userSelectF
 
     };
 }
+export function actionOutProjecet(projectId) {
+    return async (dispatch, getState) => {
+        let createUser = getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
+        try {
+            const response = await Api(false,token).outProject(projectId,createUser);
+            console.log(response.data)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data?.message,
+                    type: "success",
+                    duration: 1000,
+                    icon: { icon: "success", position: 'left' }
+                });
+                dispatch(actionGetDetailProject(projectId))
+
+            }
+            else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "warning",
+                    duration: 1000,
+                    icon: { icon: "warning", position: 'left' }
+                });
+            }
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+
+    };
+}
 export default {
     actionGetAllProject
 

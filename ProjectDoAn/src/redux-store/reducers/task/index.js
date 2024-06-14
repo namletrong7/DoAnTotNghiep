@@ -25,6 +25,8 @@ const initialState = {
     isGetTaskDone:false,
     dataTaskDone:[],
     isGetMoreAssignTask:false,
+    isGetMoreTargetTask:false ,
+    isGetMoreTaskDone:false ,
     isSearchTask:false,
     dataSearchTask:false,
     dataTargetTaskByEndDay:[],
@@ -209,6 +211,16 @@ const reducerTask = (state =initialState , action) => {
             return { ...state,
                 dataAssignTask: [...state.dataAssignTask, ...action.data],
                 isGetMoreAssignTask: false
+            };
+        }
+        case 'GET_MORE_TARGET_TASK': {
+            return { ...state,
+                dataTargetTask: [...state.dataTargetTask, ...action.data],
+            };
+        }
+        case 'GET_MORE_TASK_DONE': {
+            return { ...state,
+                dataTaskDone: [...state.dataTaskDone, ...action.data],
             };
         }
         case 'EDIT_COMMENT': {

@@ -30,12 +30,13 @@ export function actionLogin(userName, passWord) {
                     icon: { icon: response.data.status==200?'success':'warning', position: 'left' }
                 });
                 if (response.data.status == 200 && response.data.data == 1) {
+
+                    await dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
+                    await dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
                     dispatch(updateData({
                         token: response.data?.token,
                         dataCurrentUser: response.data.dataCurrentUser
                     }))
-                    await dispatch(actionGetOverView(response.data.dataCurrentUser?.userId))
-                    await dispatch(actionRegisterTokenFCM(response.data.dataCurrentUser?.userId))
                 }
 
             }
@@ -59,7 +60,7 @@ export function actionGetOverView(userId) {
     //    console.log(token)
         try {
             const response = await Api(false,token).getOverView(userId);
-    //     console.log(response.data)
+    //    console.log(response.data)
             if (response.data.status==200 && response){
                 dispatch(updateData({
                     dataNumProject: response.data?.dataNumProject,

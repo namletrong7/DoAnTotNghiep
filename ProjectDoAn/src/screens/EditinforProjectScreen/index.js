@@ -18,7 +18,7 @@ import IconArrowDown from "../../assets/icons/IconArrowDown";
 import moment from "moment";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Modal from "react-native-modal";
-import { actionChangeInforProject, actionEditRoleProjecet} from "../../redux-store/actions/project";
+import { actionChangeInforProject, actionEditRoleProjecet, actionOutProjecet } from "../../redux-store/actions/project";
 import IconBack from "../../assets/icons/IconBack";
 import IconEdit from "../../assets/icons/IconEdit";
 import OptionComponent from "./OptionComponent/OptionComponent";
@@ -100,10 +100,15 @@ export const EditInforProjectScreen=React.memo((props)=>{
     setIsShowModalOptionForAdmin(false)
   },[])
   const onShowModalOptionForAdmin =useCallback(async (typeOption, item) => {
-    setTypeOptionForAdmin(typeOption)
-    await setUserSelected(item)
-    setIsShowModalOptionForAdmin(true)
-  },[])
+   if(data?.isAdminProject){
+     setTypeOptionForAdmin(typeOption)
+     await setUserSelected(item)
+     setIsShowModalOptionForAdmin(true)
+   }else{
+     return ;
+   }
+
+  },[data])
   const onEditRoleProject =useCallback(async (type) => {
         //   type:  0 - gỡ vai trò quản trị viên , 1- thêm vai trò quản trị viên  2-Rời khỏi dự án
     setIsLoading(true)
@@ -137,6 +142,22 @@ export const EditInforProjectScreen=React.memo((props)=>{
       },
       []
   );
+  // hành động cho user hiện tại thoát khỏi project
+  const handleOutProject = useCallback(async () => {
+    setIsLoading(true)
+    setIsShowDialogLeave(false)
+    await dispatch(actionOutProjecet(projectId))
+    setIsLoading(false)
+
+  }, []);
+  const handleOpenEditState=useCallback(()=>{
+    if(data?.isAdminProject){
+      SetIsChooseState(true)
+    }else{
+      return ;
+    }
+
+  },[data])
   return (
       <View style={{height:"100%"}}>
         <SafeAreaView style={{position:"relative",height:StatusBar.currentHeight}}>
@@ -211,7 +232,7 @@ export const EditInforProjectScreen=React.memo((props)=>{
                 color: "black",
                 fontFamily: "OpenSans-Regular",
               }}>{"Trạng thái:"} </Text>
-              <TouchableOpacity onPress={()=>{SetIsChooseState(true)}} style={{padding:6, borderRadius:6, backgroundColor:getBackgroundStateProject(stateProject), flexDirection:"row", alignItems:'center'}}>
+              <TouchableOpacity onPress={handleOpenEditState} style={{padding:6, borderRadius:6, backgroundColor:getBackgroundStateProject(stateProject), flexDirection:"row", alignItems:'center'}}>
                 <Text style={{
                   fontSize: 15,
                   color: getColorStateProject(stateProject),
@@ -228,7 +249,7 @@ export const EditInforProjectScreen=React.memo((props)=>{
         </ScrollView>
           <BottomEditUser handelCloseEditUser={handelCloseEditUser} projectId={projectId} bottomSheetRef={bottomEditUserRef} renderBackdrop={renderBackdrop} snapPoints={snapPoints} dataUserChoose={data?.dataMember}/>
         </GestureHandlerRootView>
-        <DialogConfirmComponent visible={isShowDialogLeave} content={"Ban có chắc chắn muốn rời khỏi dự án?"} onClose={onCloseDialogLeave} onConfirm />
+        <DialogConfirmComponent visible={isShowDialogLeave} content={"Ban có chắc chắn muốn rời khỏi dự án?"} onClose={onCloseDialogLeave} onConfirm={handleOutProject} />
         <DialogConfirmComponent visible={isShowDialogDeleteProject} content={"Bạn có chắc chắn muốn xóa dự án"} onClose={onCloseDialogDeleteProject} onConfirm />
       <DateTimePicker
           isVisible={isShowStartDay}

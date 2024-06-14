@@ -46,8 +46,8 @@ import {actionEditEmployee} from "../../redux-store/action/actionEmployee";
          setImage(baseUrlAvatarUser+item?.avatarUser)
          setIsActive(item?.isActive)
          setIsAdmin(item?.isAdmin)
-         setJobTitleId(item?.jobtitleId)
-         setDepartmentId(item?.departmentId )
+         setJobTitleId(item?.jobtitleId || dataListJobtitle[0]?.jobtitleId)
+         setDepartmentId(item?.departmentId  || dataListDepartment[0]?.departmentId)
          setPositionLevel(item?.positionLevel)
          setAvatarUser(null)
          console.log(item)
@@ -104,6 +104,7 @@ import {actionEditEmployee} from "../../redux-store/action/actionEmployee";
          formData.append('isAdmin', isAdmin);
          formData.append('isActive', isActive);
          await dispatch(actionEditEmployee(formData))
+         onClose();
      }
 
 

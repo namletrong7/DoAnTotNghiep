@@ -1,5 +1,5 @@
 import IconClose from "../../assets/icon/IconClose";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import classNames from "classnames/bind";
 import styles from './ModalAddEmployee.module.scss'
 import {dataListPosititon} from "../../unitl/GetValuePosition";
@@ -39,8 +39,8 @@ import {actionAddEmployee, actionEditEmployee} from "../../redux-store/action/ac
          setUserName('');
          setfirstName('')
          setlastName('')
-         setEmail(null)
-         setPhoneNumber(null)
+         setEmail('')
+         setPhoneNumber('')
          setImage(null)
          setIsActive(1)
          setIsAdmin(0)
@@ -55,11 +55,11 @@ import {actionAddEmployee, actionEditEmployee} from "../../redux-store/action/ac
      const handleSetActive=()=>{
          setIsActive(isActive==1?0:1)
      }
-     const removeVietnameseTones = (str) => {
+     const removeVietnameseTones =useCallback((str) => {
          str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
          str = str.replace(/đ/g, "d").replace(/Đ/g, "D");
          return str;
-     };
+     },[]);
      const formatName = (name) => {
          const words = name.split(' ');
          if (words.length === 0) {
@@ -98,6 +98,7 @@ import {actionAddEmployee, actionEditEmployee} from "../../redux-store/action/ac
          formData.append('isAdmin', isAdmin);
          formData.append('isActive', isActive);
          await dispatch(actionAddEmployee(formData))
+         onClose();
      }
 
 
