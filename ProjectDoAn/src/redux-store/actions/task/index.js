@@ -864,10 +864,44 @@ export function actionChangePriorityTask(priority,taskId) {  // action lấy ds 
     return async (dispatch, getState) => {
         const userId=getState().auth.dataCurrentUser?.userId
         const token = getState().auth?.token
-
         try {
             const response = await Api(false,token).changePriorityTask(priority,taskId,userId)
       //      console.log(response)
+            if(response.data && response.data.status==200){
+                showMessage({
+                    message: response.data.message,
+                    type: "success",
+                    duration: 2000,
+                    icon: { icon: "success", position: 'left' }
+                });
+
+            }else{
+                showMessage({
+                    message: "Xảy ra lỗi vui lòng thử lại sau",
+                    type: "danger",
+                    duration: 2000,
+                    icon: { icon: "danger", position: 'left' }
+                });
+            }
+
+        } catch (error) {
+            showMessage({
+                message: "Lỗi mạng",
+                type: "danger",
+                duration: 1000,
+                icon: { icon: "danger", position: 'left' }
+            });
+        }
+
+    };
+}
+export function actionChangeStateTask(state,taskId) {  // action lấy ds cv mình giao
+    return async (dispatch, getState) => {
+        const userId=getState().auth.dataCurrentUser?.userId
+        const token = getState().auth?.token
+        try {
+            const response = await Api(false,token).changeStateTask(state,taskId,userId)
+            //      console.log(response)
             if(response.data && response.data.status==200){
                 showMessage({
                     message: response.data.message,

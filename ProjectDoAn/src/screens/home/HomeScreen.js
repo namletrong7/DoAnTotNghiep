@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, Platform,
+  ImageBackground, Dimensions, Image, SafeAreaView, FlatList, ScrollView, StatusBar, Platform, RefreshControl,
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,8 @@ import IconArrowRight from "../../assets/icons/IconArrowRigth";
 import IconSayhi from "../../assets/icons/IconSayhi";
 import LinearGradient from "react-native-linear-gradient";
 import messaging from "@react-native-firebase/messaging";
+import { actionGetTaskDoneProject } from "../../redux-store/actions/task";
+import { actionGetOverView } from "../../redux-store/actions/auth";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -32,21 +34,17 @@ const HomeScreen = ({ navigation }) => {
   const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   const dataAllProject = useSelector(state => state.project.dataAllProject);
   const [isShowMoreAdd, setIsShowMoreAdd]=useState(false);// show thêm lựa chọn thêm projet hay công việc
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(()=>{
       dispatch(actionGetAllProject())
   },[])
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true); // Đặt trạng thái là đang làm mới
+    await dispatch(actionGetAllProject())
+    await dispatch(actionGetOverView(dataCurrentUser?.userId))
+    setRefreshing(false);
+  },[]);
 
-  const helo= async () => {
-    try {
-       await messaging().onTokenRefresh((newToken)=>{
- //       console.log(newToken)
-      });
-
-    }catch (e){
- //     console.log(e)
-    }
-
-  }
 
 
 
@@ -60,7 +58,13 @@ const HomeScreen = ({ navigation }) => {
         />
       </View>
       <SafeAreaView>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+          />
+        }>
         <View  style={{paddingHorizontal:10,paddingBottom:"40%",height:"100%"}}>
           <View style={{marginVertical:10}}>
             <View style={{flexDirection:"row",justifyContent:"space-between"}}>

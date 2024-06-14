@@ -15,7 +15,7 @@ import {
   StatusBar,
   ActivityIndicator,
   Platform,
-  VirtualizedList, Modal,
+  VirtualizedList, Modal, RefreshControl,
 } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +45,7 @@ import IconCalendar from "../../assets/icons/IconCalendar";
 import IconDoubleDown from "../../assets/icons/IconDoubleDown";
 import {BoardTask} from "./BoardTask/BoardTask";
 import LinearGradient from "react-native-linear-gradient";
+import { actionGetOverView } from "../../redux-store/actions/auth";
 
 
 
@@ -54,14 +55,14 @@ const TaskPersonalScreen = ({ navigation }) => {
   const [isShowMore, SetIsShowMore] = useState(false); // show các chức năng khác
   const [typeTask, setTypeTask] = useState(1); // lua chon các task khac nhau
   const [lableTypeTask, setLableTypeTask] = useState("");
-
+  const dataCurrentUser = useSelector(state => state.auth.dataCurrentUser);
   const dataAssignTask = useSelector(state => state.task.dataAssignTask);
   const dataTargetTask = useSelector(state => state.task.dataTargetTask);
   const dataTaskDone = useSelector(state => state.task.dataTaskDone);
   const isGetMoreAssignTask = useSelector(state => state.task.isGetMoreAssignTask);
   const [currentTask, setCurrentTask] = useState(dataAssignTask);
   const [isLoadMore, setIsLoadMore] = useState(false);
-
+  const [refreshing, setRefreshing] = useState(false);
   useEffect( () => {
 
      dispatch(actionGetAssignTask())
@@ -118,7 +119,7 @@ const TaskPersonalScreen = ({ navigation }) => {
          dispatch(actionGetTargetTask())
         setLableTypeTask("Việc tôi cần xử lý")
         break;
-      case 4:
+      case 3:
         setTypeTask(3)
         setLableTypeTask("Việc của tôi xử lý đã hoàn thành")
         dispatch(actionGetTaskDone())
@@ -131,7 +132,22 @@ const TaskPersonalScreen = ({ navigation }) => {
     }
   }
   // tổng số nhiệm vụ : đang làm, hoàn thành, đã hết hạn xử lý
-
+   const handleRefresh=async () => {
+     setRefreshing(true);
+     switch (typeTask) {
+       case 1:
+         await dispatch(actionGetAssignTask())
+         break;
+       case 2:
+         await dispatch(actionGetTargetTask())
+         break;
+       case 3:
+         await dispatch(actionGetTaskDone())
+         break;
+     }
+     await  dispatch(actionGetOverView(dataCurrentUser?.userId))
+     setRefreshing(false);
+   }
   return (
     <Animated.View
       entering={SlideInRight.duration(500)} exiting={SlideOutLeft.duration(500)}
@@ -188,7 +204,7 @@ const TaskPersonalScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{
                   SetIsShowMore(false)
-                  filterTask(4)}}
+                  filterTask(3)}}
                                   style={{flexDirection:"row",marginTop:10}}
                 >
                   <IconDone/>
@@ -206,7 +222,13 @@ const TaskPersonalScreen = ({ navigation }) => {
           </View>
         </Modal>
       </SafeAreaView>
-          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:Platform.isPad?"10%":"17%"}}>
+          <ScrollView style={{paddingHorizontal:10,marginTop:10,marginBottom:Platform.isPad?"10%":"17%"}}
+                      refreshControl={
+                        <RefreshControl
+                          refreshing={refreshing}
+                          onRefresh={handleRefresh}
+                        />}
+          >
             <TaskChart/>
             <BoardTask/>
             {currentTask?.length>0?
