@@ -49,7 +49,7 @@ export const BoardTask = React.memo(() =>{
                      </View>
                      <View >
                          <Text style={styles.textStyleTitle}>{"Cần xử lý"}</Text>
-                         <Text style={styles.textStyleContent}>{"20 công việc"}</Text>
+                         <Text style={styles.textStyleContent}>{dataNumTask?.numTaskNeedDoing+" công việc"}</Text>
                      </View>
                  </View>
              </View>
