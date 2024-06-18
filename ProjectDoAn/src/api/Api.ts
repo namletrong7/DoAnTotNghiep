@@ -124,6 +124,15 @@ const Api = (isFormData:boolean,token:null) => {
       }
       });
   }
+  const changeStateTask=(state, taskId,createUser)=> {
+    return apiConfig().get(`changeStateTask.php`,{
+      params: {
+        state: state,
+        taskId: taskId,
+        createUser: createUser
+      }
+    });
+  }
   const changeProgressTask=(progress:number, taskId:any,userId:any)=> {
     return apiConfig().get(`changeProgressTask.php`,{
       params:{
@@ -340,7 +349,7 @@ const Api = (isFormData:boolean,token:null) => {
       editInforUser,
         editRoleProject,
       filterTaskOfProject,
-      outProject
+      outProject,changeStateTask
     };
 };
 export default Api;

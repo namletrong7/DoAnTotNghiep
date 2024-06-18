@@ -5,8 +5,8 @@ import {useSelector} from "react-redux";
 
 const ProjectChartComponet = () => {
     const dataNumProject = useSelector(state => state.auth.dataNumProject);
-
-    const pieData = [
+   const percentDone = parseFloat(((dataNumProject?.numProjectDone ?? 0) / (dataNumProject?.totalProject ?? 1) * 100).toFixed(2))
+  const pieData = [
         {
             value: parseFloat(((dataNumProject?.numProjectUnfulfilled ?? 0) / (dataNumProject?.totalProject ?? 1) * 100).toFixed(2)),
             color: '#181818'
@@ -109,7 +109,7 @@ const ProjectChartComponet = () => {
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Text
                     style={{fontSize: 10, color: 'white', fontWeight: 'bold'}}>
-                    47%
+                    {percentDone+'%'}
                   </Text>
                   <Text style={{fontSize: 10, color: 'white'}}>Đã hoàn thành</Text>
                 </View>

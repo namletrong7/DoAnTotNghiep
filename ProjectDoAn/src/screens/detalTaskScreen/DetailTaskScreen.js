@@ -6,15 +6,15 @@ import React, {memo, useCallback, useEffect, useMemo, useState} from "react";
 import Clipboard from '@react-native-clipboard/clipboard';
 import RenderHtml from 'react-native-render-html';
 import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Dimensions,
-    SafeAreaView,
-    ScrollView,
-    KeyboardAvoidingView,
-    RefreshControl, StatusBar,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  KeyboardAvoidingView,
+  RefreshControl, StatusBar, Pressable,
 } from "react-native";
 import { actionChangeTitleTask, } from "../../redux-store/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,6 +65,7 @@ import DialogAcceptAnswerReport from "./dialogReport/DialogAcceptAnswerReport";
 import IconContent2 from "../../assets/icons/IconContent";
 import { CircleprogressTask } from "../../components/ProgressTaskComponent/CircleprogressTask";
 import IconAttach2 from "../../assets/icons/IconAttach2";
+import { BottomChangeState } from "./bottomChangeStateTask/BottomChangeState";
 
 
 
@@ -85,7 +86,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
   const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
   const [isShowChangeConent, setIsShowChangeConent] = useState(false); // hiển thị dialog chỉnh sửa thông tin
   const refChangePriority = useRef(null); // ref cho bottm sheet chinh sau priority
-
+  const refChangeState = useRef(null); // ref cho bottm sheet chinh sau priority
   const [isVisibleReport, setIsVisibleReport] = useState(false);
   const [isVisibleRequestReport, setisVisibleRequestReport] = useState(false);
   const [isVisibleAnswerReport, setIsVisibleAnswerReport] = useState(false);
@@ -105,6 +106,9 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
 
   const handelOpenChangePriority = useCallback(() => {// hàm mở ra bottom sheet thay doi proority
     refChangePriority.current?.present();
+  },[]);
+  const handelOpenChangeState = useCallback(() => {// hàm mở ra bottom sheet thay doi proority
+    refChangeState.current?.present();
   },[]);
 
   useEffect( () => {
@@ -279,7 +283,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                </TouchableOpacity>
              </View>
 
-                <View style={{flexDirection:"row",alignItems:'center',marginTop:10}}>
+                <Pressable onPress={handelOpenChangeState} style={{flexDirection:"row",alignItems:'center',marginTop:10}}>
                   <Text style={{fontSize:14, color:"black",fontFamily:"OpenSans-Regular",marginRight:5,width:'35%'}}>{"Trạng thái:"}</Text>
                   <View style={{backgroundColor:getBackgroundStateTask(dataDetailTask?.state),padding:3,paddingHorizontal:4, borderRadius:7,flexDirection:"row",justifyContent:'center'}}>
                     <Text style={{
@@ -290,7 +294,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
                       <IconArrowDown width={10} height={10}/>
                     </Text>
                   </View>
-                </View>
+                </Pressable>
 
 
 
@@ -376,6 +380,7 @@ export const DetailTaskScreen = React.memo(({navigation,route})=>{
           <BottomEditUserTask bottomSheetRef ={refChangeEditUser} taskId={taskId} type={typeEditUser}  />
              <RenderActionComment dispatch={dispatch} commentSelected={commentSelected}   refChangeActionComment={refChangeActionComment}  copyToClipboard={copyToClipboard} openDialogEditComment={openDialogEditComment}  />
             <BottomChangePriority taskId={taskId}  bottomSheetRef={refChangePriority} priority={dataDetailTask?.priority||0}/>
+            <BottomChangeState taskId={taskId}  bottomSheetRef={refChangeState} state={dataDetailTask?.state||0}/>
             <RenderActionTask refChangeActionTab={refChangeActionTab} openBottomEditUser={openBottomEditUser}  openDialogReport={openDialogReport} openDialogRequestReport={openDialogRequestReport} openDialogProgress={openDialogProgress} onpenDialogDelete={openDialogDeleteTask}  assignUser={dataDetailTask.assignUser} targetUser={dataDetailTask.targetUser} openChangeDay={openChangeDay} />
         </GestureHandlerRootView>
        <DialogReport userId={currentUser} dispatch={dispatch} taskId={taskId} visible={isVisibleReport} type={1}  title={"Báo cáo tiến độ công việc"} onClose={closeDialogReport}/>

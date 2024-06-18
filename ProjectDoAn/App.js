@@ -38,10 +38,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          {
-            isShow?<SplashScreen/>:    <AppNavigator/>
-          }
-
+          <AppNavigator/>
           <FlashMessage position="top" style={{height:100,  alignItems:"flex-end"}} />
         </NavigationContainer>
       </PersistGate>
